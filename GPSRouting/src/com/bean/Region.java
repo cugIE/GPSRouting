@@ -154,17 +154,69 @@ public class Region {
 	 * Get all regions from one branch
 	 * @param brID
 	 * @return
+	 * @throws SQLException 
 	 */
-	public static List<Region> getAllRegion(String brID){
-		return null;
+	public static List<Region> getAllRegion(String brID) throws SQLException{
+		List<Region> rgs = new ArrayList<Region>();
+		String sql = "SELECT region_id, branch_name, region_intro, region_gps, region_qrcode, people_name, region_type, region_range "
+				+ "from "
+				+ "("
+				+ "region "
+				+ "inner join branch "
+				+ "on region.branch_id = branch.branch_id"
+				+ ") "
+				+ "inner join people "
+				+ "on region.gener_id = people.people_id where region.branch_id =" + brID;
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		while(rs.next()){
+			Region rg = new Region();
+			rg.setId(rs.getString(1));
+			rg.setBranch(rs.getString(2));
+			rg.setIntro(rs.getString(3));
+			rg.setGps(rs.getString(4));
+			rg.setQrcode(rs.getString(5));
+			rg.setGener(rs.getString(6));
+			rg.setType(rs.getString(7));
+			rg.setRange(rs.getInt(8));
+			rgs.add(rg);
+		}
+		dbh.DBClose(rs);
+		return rgs;
 	}
 	/**
 	 * Get one data through searching for its id
 	 * @param id
 	 * @return
+	 * @throws SQLException 
 	 */
-	public static Region getOneRegion(String id){
-		return null;
+	public static Region getOneRegion(String id) throws SQLException{
+		String sql = "SELECT region_id, branch_name, region_intro, region_gps, region_qrcode, people_name, region_type, region_range "
+				+ "from "
+				+ "("
+				+ "region "
+				+ "inner join branch "
+				+ "on region.branch_id = branch.branch_id"
+				+ ") "
+				+ "inner join people "
+				+ "on region.gener_id = people.people_id where region_id =" + id;
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		if(rs.next()){
+			Region rg = new Region();
+			rg.setId(rs.getString(1));
+			rg.setBranch(rs.getString(2));
+			rg.setIntro(rs.getString(3));
+			rg.setGps(rs.getString(4));
+			rg.setQrcode(rs.getString(5));
+			rg.setGener(rs.getString(6));
+			rg.setType(rs.getString(7));
+			rg.setRange(rs.getInt(8));
+			return rg;
+		}
+		else{
+			return null;
+		}
 	}
 	
 	/**

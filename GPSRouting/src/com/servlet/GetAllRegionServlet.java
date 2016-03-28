@@ -45,20 +45,30 @@ public class GetAllRegionServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String branchID = request.getParameter("branch_id");
 		JSONArray JA = new JSONArray();
 		try {
-			List<Region> regions = Region.getAllRegion();
-			for (int i = 0; i < regions.size(); i++ ){
-				JSONObject js = new JSONObject();
-				Region rg = regions.get(i);
-				js.put("id", rg.getId());
-				js.put("branch", rg.getBranch());
-				js.put("intro", rg.getIntro());
-				js.put("gps", rg.getGps());
-				js.put("qrcode", rg.getType());
-				js.put("type", rg.getType());
-				js.put("gener", rg.getGener());
-				JA.add(js);
+			List<Region> regions;
+			if (branchID.equals("all")){
+				regions = Region.getAllRegion();
+			}
+			else {
+				regions = Region.getAllRegion(branchID);
+			}
+			if (regions!=null){
+				
+				for (int i = 0; i < regions.size(); i++ ){
+					JSONObject js = new JSONObject();
+					Region rg = regions.get(i);
+					js.put("id", rg.getId());
+					js.put("branch", rg.getBranch());
+					js.put("intro", rg.getIntro());
+					js.put("gps", rg.getGps());
+					js.put("qrcode", rg.getType());
+					js.put("type", rg.getType());
+					js.put("gener", rg.getGener());
+					JA.add(js);
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -84,12 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="main ">
 					<!-- Page Header -->
 					<div class="page-header">
-						<div class="pull-left">
-							<ol class="breadcrumb visible-sm visible-md visible-lg">								
-								<li><a href="index.html"><i class="icon fa fa-home"></i>Home</a></li>
-								<li class="active"><i class="fa fa-laptop"></i>Dashboard</li>
-							</ol>						
-						</div>
+						<jsp:include page="header.jsp"></jsp:include>
 						<div class="pull-right">
 							<h2>Dashboard</h2>
 						</div>					

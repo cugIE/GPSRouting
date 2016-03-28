@@ -13,7 +13,7 @@ public class DB {
 		Connection conn = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/gastube_inspection?characterEncoding=UTF-8");
 		}catch(ClassNotFoundException e){
 			e.printStackTrace();
 		}catch(SQLException e){

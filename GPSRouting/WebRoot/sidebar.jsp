@@ -29,7 +29,7 @@
 							<i class="fa fa-list-alt" aria-hidden="true" id = "data-list"></i><span>数据管理</span>
 						</a>
 						<ul class="nav nav-children">
-							<li><a href="data-people.jsp" id = "data-people"><span class="text"> 人员管理</span></a></li>
+							<li><a href="data-people.jsp"><span class="text"> 人员管理</span></a></li>
 							<li><a href="data-people.jsp"><span class="text">部门管理</span></a></li>
 							<li><a href="data-device.jsp"><span class="text"> 管道区域管理</span></a></li>
 							<li><a href="data-position.jsp"><span class="text"> 位置管理</span></a></li>					

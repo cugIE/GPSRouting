@@ -61,10 +61,10 @@
 		<!-- End Sidebar Menu-->
 	</div>
 	<!-- Sidebar Footer-->
-	<div class="sidebar-footer">	
+<!-- 	<div class="sidebar-footer">	
 		<div class="copyright text-center">
 			<small> <i class="fa fa-coffee"></i> from <a href="http://www.cssmoban.com/" title="CUG" target="_blank">CUG</a></small>
 		</div>					
-	</div>
+	</div> -->
 	<!-- End Sidebar Footer-->
 </div>

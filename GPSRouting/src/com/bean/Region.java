@@ -1,6 +1,14 @@
 package com.bean;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.util.DB;
+import com.util.DBHelper;
 /**
  * Region class to assemble all components
  * @author XinLi
@@ -18,6 +26,7 @@ public class Region {
 	private String gener;
 	private String type;
 	private int range;
+
 	/**
 	 * Constructor
 	 * @param id of Region
@@ -109,11 +118,37 @@ public class Region {
 	}
 	
 	/**
-	 * Get all data of this sheet.
+	 * Get all data of table 'region'.
 	 * @return
+	 * @throws SQLException 
 	 */
-	public static List<Region> getAllRegion(){
-		return null;
+	public static List<Region> getAllRegion() throws SQLException{
+		List<Region> rgs = new ArrayList<Region>();
+		String sql = "SELECT region_id, branch_name, region_intro, region_gps, region_qrcode, people_name, region_type, region_range "
+				+ "from "
+				+ "("
+				+ "region "
+				+ "inner join branch "
+				+ "on region.branch_id = branch.branch_id"
+				+ ") "
+				+ "inner join people "
+				+ "on region.gener_id = people.people_id";
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		while(rs.next()){
+			Region rg = new Region();
+			rg.setId(rs.getString(1));
+			rg.setBranch(rs.getString(2));
+			rg.setIntro(rs.getString(3));
+			rg.setGps(rs.getString(4));
+			rg.setQrcode(rs.getString(5));
+			rg.setGener(rs.getString(6));
+			rg.setType(rs.getString(7));
+			rg.setRange(rs.getInt(8));
+			rgs.add(rg);
+		}
+		dbh.DBClose(rs);
+		return rgs;
 	}
 	/**
 	 * Get all regions from one branch

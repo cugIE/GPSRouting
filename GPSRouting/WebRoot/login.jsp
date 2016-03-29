@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="com.bean.People"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -75,7 +75,7 @@
 								<h2 class="title"><i class="fa fa-user"></i> 登录</h2>
 							</div>
 							<div class="panel-body">
-								<form action="LoginServlet" method="get">
+								<form action="<%=request.getContextPath() %>/LoginServlet" method="post">
 									<div class="form-group">
 									
 										<label>用户名</label>

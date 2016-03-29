@@ -11,7 +11,7 @@ public class DB {
 //获取连接
 	public static final String url = "jdbc:mysql://127.0.0.1/gastube_inspection";  
     public static final String user = "root";  
-    public static final String password = "Cug317317";  
+    public static final String password = "admin";  
     
 	public static Connection getConn(){
 		Connection conn = null;

@@ -86,7 +86,7 @@ public class PtrConnection {
 			result = -1;
 		}
 		else{
-			String sql = "inset into periodtoregion "
+			String sql = "insert into periodtoregion"
 					+ "(period_id, region_id, sort, gener_id)"
 					+ "values('"+ pc.getPeriod_id() + "','"
 					+ pc.getRegion_id() + "','" 

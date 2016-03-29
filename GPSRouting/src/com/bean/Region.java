@@ -63,7 +63,7 @@ public class Region {
 	/**
 	 * Constructor of Region
 	 */
-	 Region(){
+	 public Region(){
 		this.id = null;
 		this.name = null;
 		this.branch = null;
@@ -301,15 +301,16 @@ public class Region {
 			result = -1;
 		}
 		else{
-			String sql = "inset into region "
+			String sql = "insert into region"
 					+ "(region_name, branch_id, region_intro, region_gps, region_qrcode, gener_id, region_type, region_range)"
 					+ "values('"
-					+ rg.getRange() + "','"
+					+ rg.getName() + "','"
 					+ rg.getBranch_id() + "','"
 					+ rg.getIntro()  + "','" 
 					+ rg.getGps()  + "','" 
 					+ rg.getQrcode()  + "','" 
 					+ rg.getGener_id()  + "','" 
+					+ rg.getType() + "','"
 					+ rg.getRange()  + "')";
 			DBHelper dbh = new DBHelper();
 			result = dbh.updateDatabase(sql);

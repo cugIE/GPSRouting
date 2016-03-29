@@ -82,7 +82,7 @@ public class Period {
 			result = -1;
 		}
 		else{
-			String sql = "inset into period "
+			String sql = "insert into period"
 					+ "(period_id, period_shift, period_time, gener_id)"
 					+ "values('"+ pr.getId() + "','"
 					+ pr.getShift() + "','" 

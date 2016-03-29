@@ -118,7 +118,7 @@ public class Question {
 			result = -1;
 		}
 		else{
-			String sql = "inset into question "
+			String sql = "insert into question"
 					+ "(question_title, question_asws, question_r_asws, gener_id, region_id)"
 					+ "values('"+ qs.getTitle() + "','"
 					+ qs.getPossibleAsw() + "','" 

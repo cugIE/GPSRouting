@@ -75,7 +75,7 @@ public class Sheet {
 			result = -1;
 		}
 		else{
-			String sql = "inset into sheet "
+			String sql = "insert into sheet"
 					+ "(sheet_name, sheet_intro, gener_id, branch_id)"
 					+ "values('"+ sht.getName() + "','"
 					+ sht.getIntro() + "','" 

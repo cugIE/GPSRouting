@@ -61,9 +61,6 @@ public class Period {
 	public static boolean changeOnePeriod(Period pr){
 		return false;
 	}
-	public static boolean changeOnePeriod(String prid, String fieldname, String content){
-		return false;
-	}
 	public static List<Period> getAllPeriod(String sheetid){
 		return null;
 	}

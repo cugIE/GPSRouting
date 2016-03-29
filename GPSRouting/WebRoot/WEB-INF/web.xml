@@ -21,6 +21,26 @@
     <servlet-name>AddPeopleServlet</servlet-name>
     <servlet-class>com.servlet.AddPeopleServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>AddRegionServlet</servlet-name>
+    <servlet-class>com.servlet.AddRegionServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AddConnectionServlet</servlet-name>
+    <servlet-class>com.servlet.AddConnectionServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AddQuestionServlet</servlet-name>
+    <servlet-class>com.servlet.AddQuestionServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AddPeriodServlet</servlet-name>
+    <servlet-class>com.servlet.AddPeriodServlet</servlet-class>
+  </servlet>
+
+
+
+
   <servlet-mapping>
     <servlet-name>GetAllRegionServlet</servlet-name>
     <url-pattern>/GetAllRegionServlet</url-pattern>
@@ -40,6 +60,22 @@
   <servlet-mapping>
     <servlet-name>AddPeopleServlet</servlet-name>
     <url-pattern>/AddPeopleServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddRegionServlet</servlet-name>
+    <url-pattern>/AddRegionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddConnectionServlet</servlet-name>
+    <url-pattern>/AddConnectionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddQuestionServlet</servlet-name>
+    <url-pattern>/AddQuestionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddPeriodServlet</servlet-name>
+    <url-pattern>/servlet/AddPeriodServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

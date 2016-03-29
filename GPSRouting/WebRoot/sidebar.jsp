@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <div class="sidebar">
 	<div class="sidebar-collapse">
 		<!-- Sidebar Header Logo-->
@@ -61,10 +60,10 @@
 		<!-- End Sidebar Menu-->
 	</div>
 	<!-- Sidebar Footer-->
-<!-- 	<div class="sidebar-footer">	
+	<div class="sidebar-footer">	
 		<div class="copyright text-center">
-			<small> <i class="fa fa-coffee"></i> from <a href="http://www.cssmoban.com/" title="CUG" target="_blank">CUG</a></small>
+			<small> <i class="fa fa-coffee"></i> from <a href="" title="CUG" target="_blank">CUG</a></small>
 		</div>					
-	</div> -->
+	</div> 
 	<!-- End Sidebar Footer-->
 </div>

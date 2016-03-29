@@ -119,7 +119,7 @@ public class Question {
 		}
 		else{
 			String sql = "inset into question "
-					+ "(question_title, question_asws, question_r_asws, gener_id, åregion_id)"
+					+ "(question_title, question_asws, question_r_asws, gener_id, region_id)"
 					+ "values('"+ qs.getTitle() + "','"
 					+ qs.getPossibleAsw() + "','" 
 					+ qs.getNormalAsw()  + "','" 
@@ -148,8 +148,27 @@ public class Question {
 			int result = dbh.updateDatabase(sql);
 			dbh.DBClose();
 			return result;
-		}	}
-	
+		}	
+	}
+	public static int changeOneQuestion(Question qt) throws SQLException{
+		if (qt == null){
+			return -1;
+		}
+		else{
+			String sql = "update question set "
+					+ "question_title = '" + qt.getTitle() + "', "
+					+ "question_asws= '" + qt.getPossibleAsw() + "', "
+					+ "question_r_asws = '" + qt.getNormalAsw()+ "', "
+					+ "gener_id = '" + qt.getGener_id() + "', " 
+					+ "region_id = '" + qt.getRegion_id() + "' "
+					+ "where question_id = " + qt.getId();
+			DBHelper dbh = new DBHelper();
+			int result = dbh.updateDatabase(sql);
+			dbh.DBClose();
+			return result;
+		}
+				
+	}
 	/**
 	 * Get all questions
 	 * @return

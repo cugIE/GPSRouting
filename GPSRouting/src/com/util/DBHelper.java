@@ -1,6 +1,7 @@
 package com.util;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,6 +14,7 @@ import java.sql.Statement;
 public class DBHelper {
 	private Connection conn;
 	private Statement sttmt;
+	private PreparedStatement psttmt;
 	
 	public DBHelper(){
 		conn = DB.getConn();
@@ -23,6 +25,10 @@ public class DBHelper {
 		sttmt.close();
 		conn.close();
 	}
+	public void DBClose() throws SQLException{
+		sttmt.close();
+		conn.close();
+	}
 	public ResultSet getResultSet(String sql){
 		return DB.getResultSet(sttmt, sql);
 	}
@@ -30,5 +36,15 @@ public class DBHelper {
 		return sttmt.executeUpdate(sql);
 		
 	}
+//	public Statement getPreparedStatement() {
+//		return sttmt;
+//	}
+//	public void setPreparedStatement (String sql) throws SQLException{
+//		psttmt = (PreparedStatement)conn.prepareStatement(sql);
+//	}
+//	public int getPstmtUpdateResult() throws SQLException{
+//		int i = psttmt.executeUpdate();
+//		return i;
+//	}
 
 }

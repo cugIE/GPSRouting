@@ -13,9 +13,14 @@
     <servlet-name>DeleteSingleRegionServlet</servlet-name>
     <servlet-class>com.servlet.DeleteSingleRegionServlet</servlet-class>
   </servlet>
-
-
-
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>com.servlet.LoginServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AddPeopleServlet</servlet-name>
+    <servlet-class>com.servlet.AddPeopleServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>GetAllRegionServlet</servlet-name>
     <url-pattern>/GetAllRegionServlet</url-pattern>
@@ -27,6 +32,14 @@
   <servlet-mapping>
     <servlet-name>DeleteSingleRegionServlet</servlet-name>
     <url-pattern>/DeleteSingleRegionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/LoginServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddPeopleServlet</servlet-name>
+    <url-pattern>/AddPeopleServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

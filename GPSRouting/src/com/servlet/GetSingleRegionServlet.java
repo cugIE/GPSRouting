@@ -3,25 +3,22 @@ package com.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSON;
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.bean.Region;
 
-public class GetAllRegionServlet extends HttpServlet {
+public class GetSingleRegionServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public GetAllRegionServlet() {
+	public GetSingleRegionServlet() {
 		super();
 	}
 
@@ -45,39 +42,26 @@ public class GetAllRegionServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String branchID = request.getParameter("branch_id");
-		JSONArray JA = new JSONArray();
+		String regionID = request.getParameter("region_id");
+		JSONObject js = new JSONObject();
 		try {
-			List<Region> regions;
-			if (branchID.equals("all")){
-				regions = Region.getAllRegion();
-			}
-			else {
-				regions = Region.getAllRegion(branchID);
-			}
-			if (regions!=null){
-				
-				for (int i = 0; i < regions.size(); i++ ){
-					JSONObject js = new JSONObject();
-					Region rg = regions.get(i);
-					js.put("id", rg.getId());
-					js.put("branch", rg.getBranch());
-					js.put("intro", rg.getIntro());
-					js.put("gps", rg.getGps());
-					js.put("qrcode", rg.getType());
-					js.put("type", rg.getType());
-					js.put("gener", rg.getGener());
-					JA.add(js);
-				}
+			Region rg = Region.getOneRegion(regionID);
+			if (rg != null){
+				js.put("id", rg.getId());
+				js.put("branch", rg.getBranch());
+				js.put("intro", rg.getIntro());
+				js.put("gps", rg.getGps());
+				js.put("qrcode", rg.getType());
+				js.put("type", rg.getType());
+				js.put("gener", rg.getGener());
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(JA.toString());
 		response.setContentType("charset=utf-8");
-		response.getOutputStream().write(JA.toString().getBytes("utf-8"));
-
+		response.getOutputStream().write(js.toString().getBytes("utf-8"));
+		
 	}
 
 	/**
@@ -94,6 +78,18 @@ public class GetAllRegionServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+		out.println("<HTML>");
+		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+		out.println("  <BODY>");
+		out.print("    This is ");
+		out.print(this.getClass());
+		out.println(", using the POST method");
+		out.println("  </BODY>");
+		out.println("</HTML>");
+		out.flush();
+		out.close();
 	}
 
 	/**

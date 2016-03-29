@@ -94,40 +94,40 @@ public class PtrConnection {
 			return result;
 		}	
 	}
-	private static List<Region> getAllRegion(String prid){
-		String sql = "SELECT region_id, region.branch_id, branch_name, region_intro, region_gps, region_qrcode, region.gener_id, people_name, region_type, region_range "
-				+ "from "
-				+ "(("
-				+ "periodtoregion "
-				+ "inner join period "
-				+ "on region.branch_id = branch.branch_id"
-				+ ") inner) "
-				+ "inner join people "
-				+ "on region.gener_id = people.people_id where period_id =" + prid;
-		DBHelper dbh = new DBHelper();
-		ResultSet rs = dbh.getResultSet(sql);
-		if(rs.next()){
-			Region rg = new Region();
-			rg.setId(rs.getString(1));
-			rg.setBranch_id(rs.getInt(2));
-			rg.setBranch(rs.getString(3));
-			rg.setIntro(rs.getString(4));
-			rg.setGps(rs.getString(5));
-			rg.setQrcode(rs.getString(6));
-			rg.setGener_id(rs.getInt(7));
-			rg.setGener(rs.getString(8));
-			rg.setType(rs.getString(9));
-			rg.setRange(rs.getInt(10));
-			dbh.DBClose(rs);
-			return rg;
-		}
-		else{
-			return null;
-		}
-		return null;
-	}
-	private static List<Period> getAllPeriod(String rgid){
-		return null;
-	}
-	
+//	private static List<Region> getAllRegion(String prid){
+//		String sql = "SELECT region_id, region.branch_id, branch_name, region_intro, region_gps, region_qrcode, region.gener_id, people_name, region_type, region_range "
+//				+ "from "
+//				+ "(("
+//				+ "periodtoregion "
+//				+ "inner join period "
+//				+ "on region.branch_id = branch.branch_id"
+//				+ ") inner) "
+//				+ "inner join people "
+//				+ "on region.gener_id = people.people_id where period_id =" + prid;
+//		DBHelper dbh = new DBHelper();
+//		ResultSet rs = dbh.getResultSet(sql);
+//		if(rs.next()){
+//			Region rg = new Region();
+//			rg.setId(rs.getString(1));
+//			rg.setBranch_id(rs.getInt(2));
+//			rg.setBranch(rs.getString(3));
+//			rg.setIntro(rs.getString(4));
+//			rg.setGps(rs.getString(5));
+//			rg.setQrcode(rs.getString(6));
+//			rg.setGener_id(rs.getInt(7));
+//			rg.setGener(rs.getString(8));
+//			rg.setType(rs.getString(9));
+//			rg.setRange(rs.getInt(10));
+//			dbh.DBClose(rs);
+//			return null;
+//		}
+//		else{
+//			return null;
+//		}
+//		return null;
+//	}
+//	private static List<Period> getAllPeriod(String rgid){
+//		return null;
+//	}
+//	
 }

@@ -2,6 +2,7 @@ package com.bean;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.util.DBHelper;
@@ -18,7 +19,21 @@ public class PtrConnection {
 	private int sort;
 	private String gener;
 	private int gener_id;
+	private Region region_content;
+	private Period period_content;
 	
+	public Region getRegion_content() {
+		return region_content;
+	}
+	public void setRegion_content(Region region_content) {
+		this.region_content = region_content;
+	}
+	public Period getPeriod_content() {
+		return period_content;
+	}
+	public void setPeriod_content(Period period_content) {
+		this.period_content = period_content;
+	}
 	public PtrConnection(){
 		this.id = null;
 		this.period_id = null;
@@ -26,6 +41,8 @@ public class PtrConnection {
 		this.sort = 0;
 		this.gener = null;
 		this.gener_id = 1;
+		this.region_content = new Region();
+		this.period_content = new Period();
 	}
 	public String getId() {
 		return id;
@@ -94,40 +111,55 @@ public class PtrConnection {
 			return result;
 		}	
 	}
-//	private static List<Region> getAllRegion(String prid){
-//		String sql = "SELECT region_id, region.branch_id, branch_name, region_intro, region_gps, region_qrcode, region.gener_id, people_name, region_type, region_range "
-//				+ "from "
-//				+ "(("
-//				+ "periodtoregion "
-//				+ "inner join period "
-//				+ "on region.branch_id = branch.branch_id"
-//				+ ") inner) "
-//				+ "inner join people "
-//				+ "on region.gener_id = people.people_id where period_id =" + prid;
-//		DBHelper dbh = new DBHelper();
-//		ResultSet rs = dbh.getResultSet(sql);
-//		if(rs.next()){
-//			Region rg = new Region();
-//			rg.setId(rs.getString(1));
-//			rg.setBranch_id(rs.getInt(2));
-//			rg.setBranch(rs.getString(3));
-//			rg.setIntro(rs.getString(4));
-//			rg.setGps(rs.getString(5));
-//			rg.setQrcode(rs.getString(6));
-//			rg.setGener_id(rs.getInt(7));
-//			rg.setGener(rs.getString(8));
-//			rg.setType(rs.getString(9));
-//			rg.setRange(rs.getInt(10));
-//			dbh.DBClose(rs);
-//			return null;
-//		}
-//		else{
-//			return null;
-//		}
-//		return null;
-//	}
-//	private static List<Period> getAllPeriod(String rgid){
-//		return null;
-//	}
-//	
+	private static List<PtrConnection> getAllRegion(String prid) throws SQLException{
+		List<PtrConnection> ptrs = new ArrayList<PtrConnection>();
+		String sql = "SELECT region_id, region_name, region_intro, region_type, sort, periodtoregion.gener_id, people_name"
+				+ "from "
+				+ "(("
+				+ "periodtoregion "
+				+ "inner join period "
+				+ "on periodtoregion.period_id = period.period_id"
+				+ ") "
+				+ "inner join region "
+				+ "on periodtoregion.region_id = region.region_id"
+				+ ") "
+				+ "inner join people "
+				+ "on periodtoregion.gener_id = people.people_id where periodtoregion.period_id =" + prid;
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		while (rs.next()){
+			PtrConnection ptr = new PtrConnection();
+			ptr.getRegion_content().setId(rs.getString(1));
+			ptr.getRegion_content().setName(rs.getString(2));
+			ptr.getRegion_content().setIntro(rs.getString(3));
+			ptr.getRegion_content().setType(rs.getString(4));
+			ptr.setSort(rs.getInt(5));
+			ptr.setGener_id(rs.getInt(6));
+			ptr.setGener(rs.getString(7));
+			ptrs.add(ptr);
+			
+		}
+		dbh.DBClose(rs);
+		return ptrs;
+	}
+	private static List<Period> getAllPeriod(String rgid) throws SQLException{
+		List<Period> prds = new ArrayList<Period>();
+		String sql = "SELECT period_shift, period_time "
+				+ "from periodtoregion "
+				+ "inner join period "
+				+ "on periodtoregion.period_id=period.period_id "
+				+ "where periodtoregion.region_id=" + rgid;
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		while (rs.next()){
+			Period prd = new Period();
+			prd.setShift(rs.getString(1));
+			prd.setTime(rs.getTime(2));
+			prds.add(prd);
+			
+		}
+		dbh.DBClose(rs);
+		return prds;
+	}
+	
 }

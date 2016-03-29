@@ -208,5 +208,32 @@ public class Question {
 		return qts;
 	}
 	
+	public static Question getOneQuestion(String rgid) throws SQLException{
+		String sql = "SELECT question_id, question_title, question_asws, question_r_asws, question.gener_id, people_name"
+				+ "from "
+				+ "question "
+				+ "inner join people "
+				+ "on question.gener_id = people.people_id"
+				+ "where question.region_id =" + rgid;
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		if(rs.next()){
+			Question qt = new Question();
+			qt.setId(rs.getString(1));
+			qt.setTitle(rs.getString(2));
+			qt.setPossibleAsw(rs.getString(3));
+			qt.setNormalAsw(rs.getString(4));
+			qt.setGener_id(rs.getInt(5));
+			qt.setGener(rs.getString(6));
+			qt.setRegion_id(Integer.parseInt(rgid));
+			dbh.DBClose(rs);
+			return qt;
+		}
+		else{
+			dbh.DBClose(rs);
+			return null;
+		}
+	}
+	
 	
 }

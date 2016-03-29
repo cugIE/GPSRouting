@@ -3,7 +3,10 @@
  */
 package com.bean;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.util.DBHelper;
 
@@ -106,13 +109,62 @@ public class Sheet {
 					+ "sheet_intro = '" + sht.getIntro() + "', "
 					+ "gener_id = '" + sht.getGener_id()+ "', "
 					+ "branch_id = '" + sht.getGener_id() + "', " 
-					+ "where question_id = " + sht.getId();
+					+ "where sheet_id = " + sht.getId();
 			DBHelper dbh = new DBHelper();
 			int result = dbh.updateDatabase(sql);
 			dbh.DBClose();
 			return result;
 		}
 				
+	}
+	public static List<Sheet> getAllSheet(String brid) throws SQLException{
+		List<Sheet> sts = new ArrayList<Sheet>();
+		String sql = "SELECT sheet_id, sheet_name, sheet_intro, sheet.gener_id, people_name"
+				+ "from "
+				+ "sheet "
+				+ "inner join people "
+				+ "on sheet.gener_id = people.people_id"
+				+ "where sheet.branch_id =" + brid;
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		while(rs.next()){
+			Sheet st = new Sheet();
+			st.setId(rs.getString(1));
+			st.setName(rs.getString(2));
+			st.setIntro(rs.getString(3));
+			st.setGener_id(rs.getInt(4));
+			st.setGener(rs.getString(5));
+			st.setBranch_id(Integer.parseInt(brid));
+			sts.add(st);
+		}
+		dbh.DBClose(rs);
+		return sts;
+	}
+	
+	public static Sheet getOneQuestion(String shid) throws SQLException{
+		String sql = "SELECT sheet_id, sheet_name, sheet_intro, sheet.gener_id, people_name, branch_id"
+				+ "from "
+				+ "sheet "
+				+ "inner join people "
+				+ "on sheet.gener_id = people.people_id"
+				+ "where sheet.sheet_id =" + shid;
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		if(rs.next()){
+			Sheet st = new Sheet();
+			st.setId(rs.getString(1));
+			st.setName(rs.getString(2));
+			st.setIntro(rs.getString(3));
+			st.setGener_id(rs.getInt(4));
+			st.setGener(rs.getString(5));
+			st.setBranch_id(rs.getInt(6));
+			dbh.DBClose(rs);
+			return st;
+		}
+		else{
+			dbh.DBClose(rs);
+			return null;
+		}
 	}
 
 }

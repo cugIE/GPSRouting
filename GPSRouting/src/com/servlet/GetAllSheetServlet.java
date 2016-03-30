@@ -57,13 +57,18 @@ public class GetAllSheetServlet extends HttpServlet {
 				JSONArray JA = new JSONArray();
 				try {
 					List<Sheet> shts = Sheet.getAllSheet(branch_id);
-					for(int i = 0; i < shts.size(); i++){
-						JSONObject jso = new JSONObject();
-						jso.put("id", shts.get(i).getId());
-						jso.put("name", shts.get(i).getName());
-						jso.put("intro", shts.get(i).getIntro());
-						jso.put("gener", shts.get(i).getGener());
-						JA.add(jso);
+					if (shts == null){
+						OutputHelper.StringOutPut(JA.toString(),response);
+					}
+					else{
+						for(int i = 0; i < shts.size(); i++){
+							JSONObject jso = new JSONObject();
+							jso.put("id", shts.get(i).getId());
+							jso.put("name", shts.get(i).getName());
+							jso.put("intro", shts.get(i).getIntro());
+							jso.put("gener", shts.get(i).getGener());
+							JA.add(jso);
+						}
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -84,14 +89,19 @@ public class GetAllSheetServlet extends HttpServlet {
 				JSONObject jso = new JSONObject();
 				try {
 					sht = Sheet.getOneSheet(sheet_id);
-					
-					jso.put("id", sht.getId());
-					jso.put("name", sht.getName());
-					jso.put("intro", sht.getIntro());
-					jso.put("gener", sht.getGener());
+					if (sht == null){
+						OutputHelper.StringOutPut(jso.toString(),response);
+					}
+					else{
+						jso.put("id", sht.getId());
+						jso.put("name", sht.getName());
+						jso.put("intro", sht.getIntro());
+						jso.put("gener", sht.getGener());
+					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					
 				}
 				
 				OutputHelper.StringOutPut(jso.toString(),response);

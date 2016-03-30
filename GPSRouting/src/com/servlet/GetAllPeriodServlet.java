@@ -16,6 +16,7 @@ import net.sf.json.JSONObject;
 
 import com.bean.Period;
 import com.bean.PtrConnection;
+import com.util.OutputHelper;
 
 public class GetAllPeriodServlet extends HttpServlet {
 
@@ -58,16 +59,21 @@ public class GetAllPeriodServlet extends HttpServlet {
 				
 				try {
 					List<Period> prds = Period.getAllPeriod(sheet_id);
-					for (int i = 0; i < prds.size(); i++){
-						JSONObject jso = new JSONObject();
-						
-						jso.put("id", prds.get(i).getId());
-						jso.put("shift", prds.get(i).getShift());
-						jso.put("time", prds.get(i).getTime().toString());
-						jso.put("gener", prds.get(i).getGener());
-						jso.put("gener_id", prds.get(i).getGener_id());
-						
-						JA.add(jso);
+					if (prds == null){
+						OutputHelper.StringOutPut(JA.toString(),response);
+					}
+					else{
+						for (int i = 0; i < prds.size(); i++){
+							JSONObject jso = new JSONObject();
+							
+							jso.put("id", prds.get(i).getId());
+							jso.put("shift", prds.get(i).getShift());
+							jso.put("time", prds.get(i).getTime().toString());
+							jso.put("gener", prds.get(i).getGener());
+							jso.put("gener_id", prds.get(i).getGener_id());
+							
+							JA.add(jso);
+						}
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -87,11 +93,17 @@ public class GetAllPeriodServlet extends HttpServlet {
 				
 				try {
 					List<Period> prds = PtrConnection.getAllPeriod(region_id);
-					for (int i = 0; i < prds.size(); i++){
-						JSONObject jso = new JSONObject();
-						jso.put("shift", prds.get(i).getShift());
-						jso.put("time", prds.get(i).getTime().toString());
-						JA.add(jso);
+					if (prds == null){
+						OutputHelper.StringOutPut(JA.toString(),response);
+
+					}
+					else{
+						for (int i = 0; i < prds.size(); i++){
+							JSONObject jso = new JSONObject();
+							jso.put("shift", prds.get(i).getShift());
+							jso.put("time", prds.get(i).getTime().toString());
+							JA.add(jso);
+						}
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block

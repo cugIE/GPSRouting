@@ -2,113 +2,86 @@ package com.test.xin;
 
 import static org.junit.Assert.*;
 
+import java.awt.List;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import org.junit.Test;
 
+import com.bean.Question;
+
 public class QuestionTest {
+	Question qst = new Question();
 
-	@Test
-	public void testQuestion() {
-		fail("Not yet implemented");
-	}
 
-	@Test
-	public void testQuestionStringStringStringStringStringStringIntInt() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetRegion_id() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetRegion_id() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetGener_id() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetGener_id() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetId() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetId() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetTitle() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetTitle() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetPossibleAsw() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetPossibleAsw() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetNormalAsw() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetNormalAsw() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetRegion() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetRegion() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetGener() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetGener() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testAddOneQuestion() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	public void testAddOneQuestion() {
+//		qst.setTitle("是否出现了高温现象");
+//		qst.setPossibleAsw("是;否");
+//		qst.setNormalAsw("否");
+//		qst.setRegion_id(1);
+//		qst.setGener_id(1);
+//		try {
+//			assertEquals(1, Question.addOneQuestion(qst));
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 	@Test
 	public void testDeleteOneQuestion() {
-		fail("Not yet implemented");
+		try {
+			assertEquals(1, Question.deleteOneQuestion("4"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	@Test
-	public void testGetAllQuestion() {
-		fail("Not yet implemented");
-	}
-
+//	@Test
+//	public void testGetAllQuestion() {
+//		try {
+//			assertNotEquals(Question.getAllQuestion("1"),new ArrayList<Question>());
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+//	@Test
+//	public void testGetAllQuestion2() {
+//		try {
+//			assertNotEquals(Question.getAllQuestion("1"), new Question());
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+//	
+//	@Test
+//	public void testGetOneQuestion() {
+//		try {
+//			assertNotEquals(Question.getOneQuestion("1"),new Question());
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+//	
+//	@Test
+//	public void testChangeOneQuestion(){
+//		qst.setId("4");
+//		qst.setTitle("是否出现了高温现象?");
+//		qst.setPossibleAsw("是;否");
+//		qst.setNormalAsw("否");
+//		qst.setRegion_id(1);
+//		qst.setGener_id(1);
+//		try {
+//			assertEquals(1, Question.changeOneQuestion(qst));
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+//
 }

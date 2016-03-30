@@ -2,163 +2,59 @@ package com.test.xin;
 
 import static org.junit.Assert.*;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import org.junit.Test;
 
+import com.bean.Period;
+import com.bean.PtrConnection;
+import com.bean.Region;
+
 public class PtrConnectionTest {
+	PtrConnection pc = new PtrConnection();
 
+//	public void testAddOneConnection() {
+//		pc.setPeriod_id("2");
+//		pc.setRegion_id("4");
+//		pc.setGener_id(1);
+//		pc.setSort(0);
+//		
+//		try {
+//			assertEquals(1, PtrConnection.addOneConnection(pc));
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+//
+//	@Test
+//	public void testDeleteOneConnection() {
+//		try {
+//			assertEquals(1, PtrConnection.deleteOneConnection("4"));
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+	
 	@Test
-	public void testGetRegion_content() {
-		fail("Not yet implemented");
+	public void getAllRegion(){
+		try {
+			assertNotEquals(PtrConnection.getAllRegion("1"),new ArrayList<PtrConnection>());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-
 	@Test
-	public void testSetRegion_content() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetPeriod_content() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetPeriod_content() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testPtrConnection() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetId() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetId() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetPeriod_id() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetPeriod_id() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetRegion_id() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetRegion_id() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetSort() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetSort() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetGener() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetGener() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetGener_id() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetGener_id() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testAddOneConnection() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDeleteOneConnection() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testObject() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetClass() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testHashCode() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testEquals() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testClone() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testToString() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testNotify() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testNotifyAll() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testWaitLong() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testWaitLongInt() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testWait() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testFinalize() {
-		fail("Not yet implemented");
+	public void getAllPeriod(){
+		try {
+			assertNotEquals(PtrConnection.getAllPeriod("2"),new ArrayList<Period>());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

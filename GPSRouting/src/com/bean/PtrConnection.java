@@ -111,20 +111,16 @@ public class PtrConnection {
 			return result;
 		}	
 	}
-	private static List<PtrConnection> getAllRegion(String prid) throws SQLException{
+	public static List<PtrConnection> getAllRegion(String prid) throws SQLException{
 		List<PtrConnection> ptrs = new ArrayList<PtrConnection>();
-		String sql = "SELECT region_id, region_name, region_intro, region_type, sort, periodtoregion.gener_id, people_name"
-				+ "from "
-				+ "(("
-				+ "periodtoregion "
+		String sql = "SELECT region.region_id, region_name, region_intro, region_type, sort, periodtoregion.gener_id, people_name "
+				+ "from ((periodtoregion "
 				+ "inner join period "
-				+ "on periodtoregion.period_id = period.period_id"
-				+ ") "
+				+ "on periodtoregion.period_id = period.period_id) "
 				+ "inner join region "
-				+ "on periodtoregion.region_id = region.region_id"
-				+ ") "
-				+ "inner join people "
-				+ "on periodtoregion.gener_id = people.people_id where periodtoregion.period_id =" + prid;
+				+ "on periodtoregion.region_id = region.region_id) "
+				+ "inner join people on periodtoregion.gener_id = people.people_id "
+				+ "where periodtoregion.period_id = "+prid;
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
 		while (rs.next()){
@@ -142,13 +138,13 @@ public class PtrConnection {
 		dbh.DBClose(rs);
 		return ptrs;
 	}
-	private static List<Period> getAllPeriod(String rgid) throws SQLException{
+	public static List<Period> getAllPeriod(String rgid) throws SQLException{
 		List<Period> prds = new ArrayList<Period>();
-		String sql = "SELECT period_shift, period_time "
+		String sql = "select period_shift, period_time "
 				+ "from periodtoregion "
 				+ "inner join period "
-				+ "on periodtoregion.period_id=period.period_id "
-				+ "where periodtoregion.region_id=" + rgid;
+				+ "on periodtoregion.period_id = period.period_id "
+				+ "where periodtoregion.region_id = " + rgid;
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
 		while (rs.next()){

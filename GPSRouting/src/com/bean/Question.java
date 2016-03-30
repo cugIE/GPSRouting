@@ -185,12 +185,17 @@ public class Question {
 	 */
 	public static List<Question> getAllQuestion(String rgid) throws SQLException{
 		List<Question> qts = new ArrayList<Question>();
-		String sql = "SELECT question_id, question_title, question_asws, question_r_asws, question.gener_id, people_name"
-				+ "from "
-				+ "question "
+//		String sql = "SELECT question_id, question_title, question_asws, question_r_asws, question.gener_id, people_name"
+//				+ "from "
+//				+ "question "
+//				+ "inner join people "
+//				+ "on question.gener_id = people.people_id"
+//				+ " where question.region_id = " + rgid;
+		String sql = "SELECT question_id, question_title, question_asws, question_r_asws, question.gener_id, people_name "
+				+ "from question "
 				+ "inner join people "
-				+ "on question.gener_id = people.people_id"
-				+ "where question.region_id =" + rgid;
+				+ "on question.gener_id = people.people_id "
+				+ "where question.region_id=" + rgid;
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
 		while(rs.next()){
@@ -208,13 +213,12 @@ public class Question {
 		return qts;
 	}
 	
-	public static Question getOneQuestion(String rgid) throws SQLException{
-		String sql = "SELECT question_id, question_title, question_asws, question_r_asws, question.gener_id, people_name"
-				+ "from "
-				+ "question "
+	public static Question getOneQuestion(String qstid) throws SQLException{
+		String sql = "SELECT question_id, question_title, question_asws, question_r_asws, question.gener_id, people_name "
+				+ "from question "
 				+ "inner join people "
-				+ "on question.gener_id = people.people_id"
-				+ "where question.region_id =" + rgid;
+				+ "on question.gener_id = people.people_id "
+				+ "where question.question_id = " + qstid;
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
 		if(rs.next()){
@@ -225,7 +229,7 @@ public class Question {
 			qt.setNormalAsw(rs.getString(4));
 			qt.setGener_id(rs.getInt(5));
 			qt.setGener(rs.getString(6));
-			qt.setRegion_id(Integer.parseInt(rgid));
+			qt.setRegion_id(Integer.parseInt(qstid));
 			dbh.DBClose(rs);
 			return qt;
 		}

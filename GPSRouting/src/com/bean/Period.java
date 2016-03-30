@@ -83,8 +83,8 @@ public class Period {
 		}
 		else{
 			String sql = "insert into period"
-					+ "(period_id, period_shift, period_time, gener_id)"
-					+ "values('"+ pr.getId() + "','"
+					+ "(sheet_id, period_shift, period_time, gener_id)"
+					+ " values('" + pr.getSheet_id() + "','" 
 					+ pr.getShift() + "','" 
 					+ pr.getTime()  + "','" 
 					+ pr.getGener_id()  + "')"; 
@@ -99,7 +99,7 @@ public class Period {
 		}
 		else{
 			String sql = "delete from period "
-					+ "where question_id=" + prid;
+					+ "where period_id =" + prid;
 			DBHelper dbh = new DBHelper();
 			int result = dbh.updateDatabase(sql);
 			dbh.DBClose();
@@ -111,12 +111,11 @@ public class Period {
 //	}
 	public static List<Period> getAllPeriod(String sheetid) throws SQLException{
 		List<Period> prs = new ArrayList<Period>();
-		String sql = "SELECT period_id, period_shift, period_time, period.gener_id, people_name"
-				+ "from "
-				+ "question "
+		String sql = "SELECT period_id, period_shift, period_time, period.gener_id, people_name "
+				+ "from period "
 				+ "inner join people "
-				+ "on period.gener_id = people.people_id"
-				+ "where period.sheet_id =" + sheetid;
+				+ "on period.gener_id = people.people_id "
+				+ "where period.sheet_id = " + sheetid;
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
 		while(rs.next()){

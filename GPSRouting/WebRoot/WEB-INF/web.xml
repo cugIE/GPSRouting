@@ -37,6 +37,31 @@
     <servlet-name>AddPeriodServlet</servlet-name>
     <servlet-class>com.servlet.AddPeriodServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>GetAllQuestionServlet</servlet-name>
+    <servlet-class>com.servlet.GetAllQuestionServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DeleteSingleQuestionServlet</servlet-name>
+    <servlet-class>com.servlet.DeleteSingleQuestionServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetSingleQuestionServlet</servlet-name>
+    <servlet-class>com.servlet.GetSingleQuestionServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ChangeQuestionServlet</servlet-name>
+    <servlet-class>com.servlet.ChangeQuestionServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ChangeRegionServlet</servlet-name>
+    <servlet-class>com.servlet.ChangeRegionServlet</servlet-class>
+  </servlet>
+
+
+
+
+
 
 
 
@@ -76,6 +101,26 @@
   <servlet-mapping>
     <servlet-name>AddPeriodServlet</servlet-name>
     <url-pattern>/AddPeriodServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetAllQuestionServlet</servlet-name>
+    <url-pattern>/servlet/GetAllQuestionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteSingleQuestionServlet</servlet-name>
+    <url-pattern>/servlet/DeleteSingleQuestionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetSingleQuestionServlet</servlet-name>
+    <url-pattern>/servlet/GetSingleQuestionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ChangeQuestionServlet</servlet-name>
+    <url-pattern>/servlet/ChangeQuestionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ChangeRegionServlet</servlet-name>
+    <url-pattern>/servlet/ChangeRegionServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

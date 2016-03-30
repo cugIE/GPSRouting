@@ -57,6 +57,16 @@
     <servlet-name>ChangeRegionServlet</servlet-name>
     <servlet-class>com.servlet.ChangeRegionServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>GetAllPeriodServlet</servlet-name>
+    <servlet-class>com.servlet.GetAllPeriodServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GetAllSheetServlet</servlet-name>
+    <servlet-class>com.servlet.GetAllSheetServlet</servlet-class>
+  </servlet>
+
+
 
 
 
@@ -104,7 +114,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>GetAllQuestionServlet</servlet-name>
-    <url-pattern>/servlet/GetAllQuestionServlet</url-pattern>
+    <url-pattern>/GetAllQuestionServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>DeleteSingleQuestionServlet</servlet-name>
@@ -121,6 +131,14 @@
   <servlet-mapping>
     <servlet-name>ChangeRegionServlet</servlet-name>
     <url-pattern>/servlet/ChangeRegionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetAllPeriodServlet</servlet-name>
+    <url-pattern>/GetAllPeriodServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetAllSheetServlet</servlet-name>
+    <url-pattern>/GetAllSheetServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

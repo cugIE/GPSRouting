@@ -11,19 +11,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bean.PtrConnection;
-import com.bean.Question;
-import com.bean.Region;
-
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-public class GetAllQuestionServlet extends HttpServlet {
+import com.bean.Period;
+import com.bean.PtrConnection;
+
+public class GetAllPeriodServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public GetAllQuestionServlet() {
+	public GetAllPeriodServlet() {
 		super();
 	}
 
@@ -48,28 +47,33 @@ public class GetAllQuestionServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String index = request.getParameter("index");
-		if (index.equals("question")){
-			String question_id = request.getParameter("question_id");
-			if (question_id == null){
-				this.StringOutPut("error_question", response);
+		if (index.equals("sheet")){
+			String sheet_id = request.getParameter("sheet_id");
+			if (sheet_id == null){
+				this.StringOutPut("error_sheet", response);
 			}
+			
 			else{
-				JSONObject jso = new JSONObject();
+				JSONArray JA = new JSONArray();
 				
 				try {
-					Question qst = Question.getOneQuestion(question_id);
-					jso.put("id", question_id);
-					jso.put("title", qst.getTitle());
-					jso.put("possasws", qst.getPossibleAsw());
-					jso.put("normalasws", qst.getNormalAsw());
-					jso.put("gener", qst.getGener());
-					jso.put("gener_id", qst.getGener_id());
+					List<Period> prds = Period.getAllPeriod(sheet_id);
+					for (int i = 0; i < prds.size(); i++){
+						JSONObject jso = new JSONObject();
+						
+						jso.put("id", prds.get(i).getId());
+						jso.put("shift", prds.get(i).getShift());
+						jso.put("time", prds.get(i).getTime().toString());
+						jso.put("gener", prds.get(i).getGener());
+						jso.put("gener_id", prds.get(i).getGener_id());
+						
+						JA.add(jso);
+					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				this.StringOutPut(jso.toString(), response);
-				
+				this.StringOutPut(JA.toString(), response);
 			}
 		}
 		else if(index.equals("region")){
@@ -82,18 +86,11 @@ public class GetAllQuestionServlet extends HttpServlet {
 				JSONArray JA = new JSONArray();
 				
 				try {
-					List<Question> qsts = Question.getAllQuestion(region_id);
-					for (int i = 0; i < qsts.size(); i++){
+					List<Period> prds = PtrConnection.getAllPeriod(region_id);
+					for (int i = 0; i < prds.size(); i++){
 						JSONObject jso = new JSONObject();
-						
-						jso.put("id", qsts.get(i).getId());
-						jso.put("title", qsts.get(i).getTitle());
-						jso.put("possasws", qsts.get(i).getPossibleAsw());
-						jso.put("normalasws", qsts.get(i).getNormalAsw());
-						jso.put("gener", qsts.get(i).getGener());
-						jso.put("gener_id", qsts.get(i).getGener_id());
-						jso.put("region_id", qsts.get(i).getRegion_id());
-						
+						jso.put("shift", prds.get(i).getShift());
+						jso.put("time", prds.get(i).getTime().toString());
 						JA.add(jso);
 					}
 				} catch (SQLException e) {
@@ -102,46 +99,10 @@ public class GetAllQuestionServlet extends HttpServlet {
 				}
 				this.StringOutPut(JA.toString(), response);
 			}
-
 		}
-		else if(index.equals("period")){
-			String period_id = request.getParameter("period_id");
-			if (period_id == null){
-				this.StringOutPut("error_period", response);
-			}
-			else {
-				JSONArray JA = new JSONArray();
-			
-				try {
-					List<PtrConnection> ptrs = PtrConnection.getAllRegion(period_id);
-					for (int i = 0; i < ptrs.size(); i++){
-						List<Question> qsts = Question.getAllQuestion(ptrs.get(i).getRegion_content().getId());
-						for(int j = 0; j <qsts.size(); j++){
-							JSONObject jso = new JSONObject();
-							jso.put("region", ptrs.get(i).getRegion_content().getName());
-							jso.put("id", qsts.get(j).getId());
-							jso.put("title", qsts.get(j).getTitle());
-							jso.put("possasws", qsts.get(j).getPossibleAsw());
-							jso.put("normalasws", qsts.get(j).getNormalAsw());
-							jso.put("gener", qsts.get(j).getGener());
-							jso.put("gener_id", qsts.get(j).getGener_id());
-							jso.put("region_id", qsts.get(j).getRegion_id());
-							
-							JA.add(jso);
-						}
-					}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				this.StringOutPut(JA.toString(), response);
-			}
+		else {
+			this.StringOutPut("error_index".toString(), response);
 		}
-		else{
-			this.StringOutPut("error_index", response);
-		}
-		
-		
 	}
 
 	/**

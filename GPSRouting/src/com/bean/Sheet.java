@@ -79,7 +79,8 @@ public class Sheet {
 					+ "(sheet_name, sheet_intro, gener_id, branch_id)"
 					+ "values('"+ sht.getName() + "','"
 					+ sht.getIntro() + "','" 
-					+ sht.getGener_id()  + "','" ;
+					+ sht.getGener_id()  + "','"
+					+ sht.getBranch_id() + "')";
 			DBHelper dbh = new DBHelper();
 			result = dbh.updateDatabase(sql);
 			dbh.DBClose();
@@ -108,7 +109,7 @@ public class Sheet {
 					+ "sheet_name = '" + sht.getName() + "', "
 					+ "sheet_intro = '" + sht.getIntro() + "', "
 					+ "gener_id = '" + sht.getGener_id()+ "', "
-					+ "branch_id = '" + sht.getGener_id() + "', " 
+					+ "branch_id = '" + sht.getBranch_id() + "' " 
 					+ "where sheet_id = " + sht.getId();
 			DBHelper dbh = new DBHelper();
 			int result = dbh.updateDatabase(sql);
@@ -119,12 +120,12 @@ public class Sheet {
 	}
 	public static List<Sheet> getAllSheet(String brid) throws SQLException{
 		List<Sheet> sts = new ArrayList<Sheet>();
-		String sql = "SELECT sheet_id, sheet_name, sheet_intro, sheet.gener_id, people_name"
+		String sql = "SELECT sheet_id, sheet_name, sheet_intro, sheet.gener_id, people_name "
 				+ "from "
 				+ "sheet "
 				+ "inner join people "
-				+ "on sheet.gener_id = people.people_id"
-				+ "where sheet.branch_id =" + brid;
+				+ "on sheet.gener_id = people.people_id "
+				+ "where sheet.branch_id = " + brid;
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
 		while(rs.next()){
@@ -141,12 +142,12 @@ public class Sheet {
 		return sts;
 	}
 	
-	public static Sheet getOneQuestion(String shid) throws SQLException{
-		String sql = "SELECT sheet_id, sheet_name, sheet_intro, sheet.gener_id, people_name, branch_id"
+	public static Sheet getOneSheet(String shid) throws SQLException{
+		String sql = "SELECT sheet_id, sheet_name, sheet_intro, sheet.gener_id, people_name, sheet.branch_id "
 				+ "from "
 				+ "sheet "
 				+ "inner join people "
-				+ "on sheet.gener_id = people.people_id"
+				+ "on sheet.gener_id = people.people_id "
 				+ "where sheet.sheet_id =" + shid;
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);

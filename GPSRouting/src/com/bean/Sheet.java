@@ -143,6 +143,7 @@ public class Sheet {
 	}
 	
 	public static Sheet getOneSheet(String shid) throws SQLException{
+		Sheet st = new Sheet();
 		String sql = "SELECT sheet_id, sheet_name, sheet_intro, sheet.gener_id, people_name, sheet.branch_id "
 				+ "from "
 				+ "sheet "
@@ -152,7 +153,6 @@ public class Sheet {
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
 		if(rs.next()){
-			Sheet st = new Sheet();
 			st.setId(rs.getString(1));
 			st.setName(rs.getString(2));
 			st.setIntro(rs.getString(3));

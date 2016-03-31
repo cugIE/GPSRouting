@@ -57,8 +57,9 @@ public class GetAllSheetServlet extends HttpServlet {
 				JSONArray JA = new JSONArray();
 				try {
 					List<Sheet> shts = Sheet.getAllSheet(branch_id);
-					if (shts == null){
-						OutputHelper.StringOutPut(JA.toString(),response);
+					if (shts.size() == 0){
+						OutputHelper.StringOutPut("no result",response);
+						return;
 					}
 					else{
 						for(int i = 0; i < shts.size(); i++){
@@ -90,7 +91,8 @@ public class GetAllSheetServlet extends HttpServlet {
 				try {
 					sht = Sheet.getOneSheet(sheet_id);
 					if (sht == null){
-						OutputHelper.StringOutPut(jso.toString(),response);
+						OutputHelper.StringOutPut("no result",response);
+						return;
 					}
 					else{
 						jso.put("id", sht.getId());

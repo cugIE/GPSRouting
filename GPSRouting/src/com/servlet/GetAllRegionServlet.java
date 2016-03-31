@@ -17,6 +17,7 @@ import net.sf.json.JSONObject;
 
 import com.bean.PtrConnection;
 import com.bean.Region;
+import com.util.OutputHelper;
 
 public class GetAllRegionServlet extends HttpServlet {
 
@@ -59,7 +60,7 @@ public class GetAllRegionServlet extends HttpServlet {
 				try {
 					List<Region> regions;
 					regions = Region.getAllRegion(branchID);
-					if (regions!=null){
+					if (regions.size()!=0){
 						
 						for (int i = 0; i < regions.size(); i++ ){
 							JSONObject js = new JSONObject();
@@ -75,6 +76,10 @@ public class GetAllRegionServlet extends HttpServlet {
 							JA.add(js);
 						}
 					}
+					else{
+						OutputHelper.StringOutPut("no result",response);
+						return;
+					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -87,7 +92,7 @@ public class GetAllRegionServlet extends HttpServlet {
 			try {
 				List<Region> regions;
 				regions = Region.getAllRegion();
-				if (regions!=null){
+				if (regions.size()!=0){
 					
 					for (int i = 0; i < regions.size(); i++ ){
 						JSONObject js = new JSONObject();
@@ -102,6 +107,10 @@ public class GetAllRegionServlet extends HttpServlet {
 						js.put("gener", rg.getGener());
 						JA.add(js);
 					}
+				}
+				else{
+					OutputHelper.StringOutPut("no result",response);
+					return;
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -119,7 +128,7 @@ public class GetAllRegionServlet extends HttpServlet {
 				try {
 					List<PtrConnection> ptrs;
 					ptrs = PtrConnection.getAllRegion(periodID);
-					if (ptrs!=null){
+					if (ptrs.size()!=0){
 						
 						for (int i = 0; i < ptrs.size(); i++ ){
 							JSONObject js = new JSONObject();
@@ -133,6 +142,10 @@ public class GetAllRegionServlet extends HttpServlet {
 							js.put("gener_id", ptr.getGener_id());
 							JA.add(js);
 						}
+					}
+					else{
+						OutputHelper.StringOutPut("no result",response);
+						return;
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -152,7 +165,11 @@ public class GetAllRegionServlet extends HttpServlet {
 
 				try {
 					Region rg = Region.getOneRegion(regionID);
-					if (rg != null){
+					if (rg == null){
+						OutputHelper.StringOutPut("no result",response);
+						return;
+					}
+					else{
 						js.put("id", rg.getId());
 						js.put("name", rg.getName());
 						js.put("branch", rg.getBranch());

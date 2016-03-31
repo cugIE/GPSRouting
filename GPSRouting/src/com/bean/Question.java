@@ -214,6 +214,7 @@ public class Question {
 	}
 	
 	public static Question getOneQuestion(String qstid) throws SQLException{
+		Question qt = new Question();
 		String sql = "SELECT question_id, question_title, question_asws, question_r_asws, question.gener_id, people_name "
 				+ "from question "
 				+ "inner join people "
@@ -222,7 +223,6 @@ public class Question {
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
 		if(rs.next()){
-			Question qt = new Question();
 			qt.setId(rs.getString(1));
 			qt.setTitle(rs.getString(2));
 			qt.setPossibleAsw(rs.getString(3));

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.bean.PtrConnection;
 import com.bean.Question;
 import com.bean.Region;
+import com.util.OutputHelper;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -58,6 +59,10 @@ public class GetAllQuestionServlet extends HttpServlet {
 				
 				try {
 					Question qst = Question.getOneQuestion(question_id);
+					if (qst == null){
+						OutputHelper.StringOutPut("no result",response);
+						return;
+					}
 					jso.put("id", question_id);
 					jso.put("title", qst.getTitle());
 					jso.put("possasws", qst.getPossibleAsw());
@@ -83,6 +88,10 @@ public class GetAllQuestionServlet extends HttpServlet {
 				
 				try {
 					List<Question> qsts = Question.getAllQuestion(region_id);
+					if (qsts.size() == 0){
+						OutputHelper.StringOutPut("no result",response);
+						return;
+					}
 					for (int i = 0; i < qsts.size(); i++){
 						JSONObject jso = new JSONObject();
 						
@@ -114,6 +123,10 @@ public class GetAllQuestionServlet extends HttpServlet {
 			
 				try {
 					List<PtrConnection> ptrs = PtrConnection.getAllRegion(period_id);
+					if (ptrs.size()==0){
+						OutputHelper.StringOutPut("no result",response);
+						return;
+					}
 					for (int i = 0; i < ptrs.size(); i++){
 						List<Question> qsts = Question.getAllQuestion(ptrs.get(i).getRegion_content().getId());
 						for(int j = 0; j <qsts.size(); j++){

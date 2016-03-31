@@ -59,8 +59,9 @@ public class GetAllPeriodServlet extends HttpServlet {
 				
 				try {
 					List<Period> prds = Period.getAllPeriod(sheet_id);
-					if (prds == null){
-						OutputHelper.StringOutPut(JA.toString(),response);
+					if (prds.size() == 0){
+						OutputHelper.StringOutPut("no result",response);
+						return;
 					}
 					else{
 						for (int i = 0; i < prds.size(); i++){
@@ -93,9 +94,9 @@ public class GetAllPeriodServlet extends HttpServlet {
 				
 				try {
 					List<Period> prds = PtrConnection.getAllPeriod(region_id);
-					if (prds == null){
-						OutputHelper.StringOutPut(JA.toString(),response);
-
+					if (prds.size() == 0){
+						OutputHelper.StringOutPut("no result",response);
+						return;
 					}
 					else{
 						for (int i = 0; i < prds.size(); i++){

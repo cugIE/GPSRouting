@@ -235,6 +235,7 @@ public class Region {
 	 * @throws SQLException 
 	 */
 	public static Region getOneRegion(String id) throws SQLException{
+
 		String sql = "SELECT region_id, region_name, region.branch_id, branch_name, region_intro, region_gps, region_qrcode, region.gener_id, people_name, region_type, region_range "
 				+ "from "
 				+ "("
@@ -248,6 +249,7 @@ public class Region {
 		ResultSet rs = dbh.getResultSet(sql);
 		if(rs.next()){
 			Region rg = new Region();
+
 			rg.setId(rs.getString(1));
 			rg.setName(rs.getString(2));
 			rg.setBranch_id(rs.getInt(3));

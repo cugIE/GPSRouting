@@ -69,6 +69,7 @@ public class ChangeRecordServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		String record_id = request.getParameter("record_id");
 		if (record_id!=null){
 			try {

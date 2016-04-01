@@ -59,6 +59,7 @@ public class AddRecordServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		String RecordStr = request.getParameter("record");
 		JSONObject jso = JSONObject.fromObject(RecordStr);
 		Record rcd = new Record();

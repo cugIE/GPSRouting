@@ -30,7 +30,7 @@
 						<ul class="nav nav-children">
 							<li><a href="data-people.jsp"><span class="text"> 人员管理</span></a></li>
 							<li><a href="data-branch.jsp"><span class="text">部门管理</span></a></li>
-							<li><a href="data-device.jsp"><span class="text"> 管道区域管理</span></a></li>
+							<li><a href="data-region.jsp"><span class="text"> 管道区域管理</span></a></li>
 							<li><a href="data-position.jsp"><span class="text"> 位置管理</span></a></li>					
 						</ul>
 					</li>

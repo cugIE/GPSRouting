@@ -91,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					<div class="row">		
 						<div class="col-lg-12">	
-						<%=path%>12
+						
 						</div>
 					</div>   
 				</div>

@@ -113,7 +113,7 @@ public class PtrConnection {
 	}
 	public static List<PtrConnection> getAllRegion(String prid) throws SQLException{
 		List<PtrConnection> ptrs = new ArrayList<PtrConnection>();
-		String sql = "SELECT region.region_id, region_name, region_intro, region_type, sort, periodtoregion.gener_id, people_name "
+		String sql = "SELECT region.region_id, region_name, region_intro, region_type, sort, periodtoregion.gener_id, people_name,ptr_id "
 				+ "from ((periodtoregion "
 				+ "inner join period "
 				+ "on periodtoregion.period_id = period.period_id) "
@@ -132,6 +132,7 @@ public class PtrConnection {
 			ptr.setSort(rs.getInt(5));
 			ptr.setGener_id(rs.getInt(6));
 			ptr.setGener(rs.getString(7));
+			ptr.setId(rs.getString(8));
 			ptrs.add(ptr);
 			
 		}

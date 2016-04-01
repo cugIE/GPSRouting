@@ -140,6 +140,7 @@ public class GetAllRegionServlet extends HttpServlet {
 							js.put("sort", ptr.getSort());
 							js.put("gener", ptr.getGener());
 							js.put("gener_id", ptr.getGener_id());
+							js.put("ptr_id",Integer.parseInt(ptr.getId()));
 							JA.add(js);
 						}
 					}
@@ -178,6 +179,7 @@ public class GetAllRegionServlet extends HttpServlet {
 						js.put("qrcode", rg.getQrcode());
 						js.put("type", rg.getType());
 						js.put("gener", rg.getGener());
+						
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block

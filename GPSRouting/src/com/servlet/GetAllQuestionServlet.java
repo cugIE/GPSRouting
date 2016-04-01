@@ -195,7 +195,8 @@ public class GetAllQuestionServlet extends HttpServlet {
 	}
 	public void StringOutPut (String str, HttpServletResponse response){
 		System.out.println(str);
-		response.setContentType("charset=utf-8");
+		response.setHeader("content-type","text/html;charset=UTF-8");
+		//response.setCharacterEncoding("UTF8");
 		try {
 			response.getOutputStream().write(str.getBytes("utf-8"));
 		} catch (UnsupportedEncodingException e) {

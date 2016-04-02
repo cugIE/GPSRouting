@@ -138,7 +138,6 @@ public class GetAllRecordServlet extends HttpServlet {
 		else {
 			OutputHelper.StringOutPut("error_index", response);
 		}
-
 	}
 
 	/**

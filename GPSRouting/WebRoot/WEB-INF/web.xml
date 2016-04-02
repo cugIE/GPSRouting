@@ -65,6 +65,11 @@
     <servlet-name>ChangeRecordServlet</servlet-name>
     <servlet-class>com.servlet.ChangeRecordServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>GetAllRecordServlet</servlet-name>
+    <servlet-class>com.servlet.GetAllRecordServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -137,11 +142,15 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AddRecordServlet</servlet-name>
-    <url-pattern>/servlet/AddRecordServlet</url-pattern>
+    <url-pattern>/AddRecordServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>ChangeRecordServlet</servlet-name>
     <url-pattern>/ChangeRecordServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetAllRecordServlet</servlet-name>
+    <url-pattern>/GetAllRecordServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

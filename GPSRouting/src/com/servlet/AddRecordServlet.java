@@ -81,12 +81,12 @@ public class AddRecordServlet extends HttpServlet {
 			rcd.setAsws(jso.getString("asws"));
 			rcd.setError(jso.getString("error"));
 			rcd.setPicture(jso.getString("picture"));
-			rcd.setStart(Timestamp.valueOf(jso.getString("gps")));
-			rcd.setEnd(Timestamp.valueOf(jso.getString("gps")));
+			rcd.setStart(Timestamp.valueOf(jso.getString("start")));
+			rcd.setEnd(Timestamp.valueOf(jso.getString("end")));
 			rcd.setPtr_id(jso.getInt("ptr_id"));
 			rcd.setGener_id(jso.getInt("gener_id"));
 			rcd.setNote(jso.getString("note"));
-			int result = Record.addOneRecord(new Record());
+			int result = Record.addOneRecord(rcd);
 			OutputHelper.StringOutPut(""+result, response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

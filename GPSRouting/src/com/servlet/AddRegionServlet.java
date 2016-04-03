@@ -80,14 +80,21 @@ public class AddRegionServlet extends HttpServlet {
 		rg.setName(name);
 		rg.setType(type);
 		rg.setIntro(intro);
-		rg.setBranch_id(Integer.parseInt(branch_id));
-		rg.setRange(Integer.parseInt(range));
-		rg.setGener_id(Integer.parseInt(gener_id));
+		if(branch_id!=null&&range!=null&&gener_id!=null){
+			rg.setBranch_id(Integer.parseInt(branch_id));
+			rg.setRange(Integer.parseInt(range));
+			rg.setGener_id(Integer.parseInt(gener_id));
+		}
+		else{
+			OutputHelper.StringOutPut("error", response);
+
+		}
 		try {
 			int result = Region.addOneRegion(rg);
 			OutputHelper.StringOutPut(result+"", response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			OutputHelper.StringOutPut("error", response);
 			e.printStackTrace();
 		}
 		

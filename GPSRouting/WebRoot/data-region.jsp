@@ -155,7 +155,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 															<i class="fa fa-search "></i>                                            
 														</a>
 														
-														<a class="btn btn-danger" href="table.html#">
+														<a class="btn btn-danger region-delete" value="<%=rg.getId() %>">
 															<i class="fa fa-trash-o "></i> 
 
 														</a>
@@ -218,24 +218,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<div class="modal-body">
 						<div class = "row">
-						<form action="" method="post" enctype="multipart/form-data" class="form-horizontal col-md-8 col-md-offset-2">
+						<form id = "addregion" action="<%=basePath %>AddRegionServlet" method="post" class="form-horizontal col-md-8 col-md-offset-2">
+							<div class="form-group" hidden="hidden">>
+								<label class="col-md-3 control-label text-vertical-center" for="text-input">创建者编号</label>
+								<div class="col-md-9">
+									<input type="text" value="0001" id="region_gener" name="gener_id" class="form-control" >
+								</div>
+							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label text-vertical-center" for="text-input">设备名称</label>
 								<div class="col-md-9">
-									<input type="text" id="text-input" name="text-input" class="form-control" placeholder="是否有漏油?">
+									<input type="text" id="region_name" name="name" class="form-control" >
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label" for="textarea-input">设备介绍</label>
 								<div class="col-md-9">
-									<textarea id="textarea-input" name="textarea-input" rows="4" class="form-control" placeholder="Content.."></textarea>
+									<textarea id="region_intro" name="intro" rows="4" class="form-control" placeholder="Content.."></textarea>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label" for="select">所在部门</label>
 								<div class="col-md-9">
-									<select id="select" name="select" class="form-control" size="1">
-										<option value="0">请选择</option>
+									<select id="region_branch" name="branch_id" class="form-control" size="1">
 										<option value="1">部门1</option>
 										<option value="2">部门2</option>
 										<option value="3">部门3</option>
@@ -245,14 +250,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="form-group">
 								<label class="col-md-3 control-label" for="select">区域种类</label>
 								<div class="col-md-9">
-									<select id="select" name="select" class="form-control" size="1">
-										<option value="0">请选择</option>
+									<select id="region_type" name="type" class="form-control" size="1">
 										<option value="site">训站点</option>
 										<option value="route">巡线点</option>
 									</select>
 								</div>
 							</div>
-							<button class="btn btn-success col-md-12">提交</button>
+							<div class="form-group" id="range_group">
+								<label class="col-md-3 control-label text-vertical-center" for="text-input">范围（m）</label>
+								<div class="col-md-9">
+									<input type="text" id="region_range" name="range" class="form-control" value="0">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-success col-md-12">提交</button>
 						</form>
 						</div>
 					</div>
@@ -275,10 +285,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 		<script src="assets/vendor/skycons/js/skycons.js"></script>	
 		
+		
 		<!-- Plugins JS-->
 		<script src="assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
 		<script src="assets/plugins/moment/js/moment.min.js"></script>	
-		<script src="assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>			
+		<script src="assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>		
+		<script src="assets/vendor/js/jquery.form.js"></script>
 		
 		<!-- Theme JS -->		
 		<script src="assets/js/jquery.mmenu.min.js"></script>
@@ -287,6 +299,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- Pages JS -->
 		<script src="assets/js/pages/table.js"></script>
 		<script type="text/javascript" src="assets/js/pages/device-map.js"></script>
+		<script type="text/javascript" src="assets/js/pages/data-region.js"></script>
 
 		<!-- end: JavaScript-->
 		

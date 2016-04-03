@@ -2,11 +2,15 @@ package com.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.bean.Region;
+import com.util.OutputHelper;
 
 public class AddRegionServlet extends HttpServlet {
 
@@ -65,20 +69,30 @@ public class AddRegionServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		String name = request.getParameter("name");
+		String intro = request.getParameter("intro");
+		String branch_id = request.getParameter("branch_id");
+		String type = request.getParameter("type");
+		String range = request.getParameter("range");
+		String gener_id = request.getParameter("gener_id");
+		Region rg = new Region();
+		rg.setName(name);
+		rg.setType(type);
+		rg.setIntro(intro);
+		rg.setBranch_id(Integer.parseInt(branch_id));
+		rg.setRange(Integer.parseInt(range));
+		rg.setGener_id(Integer.parseInt(gener_id));
+		try {
+			int result = Region.addOneRegion(rg);
+			OutputHelper.StringOutPut(result+"", response);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		out.print("    This is ");
-		out.print(this.getClass());
-		out.println(", using the POST method");
-		out.println("  </BODY>");
-		out.println("</HTML>");
-		out.flush();
-		out.close();
+		
 	}
 
 	/**

@@ -68,8 +68,8 @@ public class Region {
 		this.name = null;
 		this.branch = null;
 		this.intro = null;
-		this.gps = null;
-		this.qrcode = null;
+		this.gps = "{}";
+		this.qrcode = "http://";
 		this.gener = null;
 		this.type = null;
 		this.range = 0;
@@ -316,6 +316,12 @@ public class Region {
 					+ rg.getRange()  + "')";
 			DBHelper dbh = new DBHelper();
 			result = dbh.updateDatabase(sql);
+			ResultSet rs = dbh.getResultSet("SELECT LAST_INSERT_ID()");
+			if (rs.next()) {  
+		        result = rs.getInt(1);  
+		    }  else {  
+		        // throw an exception from here  
+		    } 
 			dbh.DBClose();
 		}
 		return result;

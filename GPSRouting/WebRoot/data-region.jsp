@@ -236,18 +236,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="col-md-9">
 									<select id="select" name="select" class="form-control" size="1">
 										<option value="0">请选择</option>
-										<option value="1">Option #1</option>
-										<option value="2">Option #2</option>
-										<option value="3">Option #3</option>
+										<option value="1">部门1</option>
+										<option value="2">部门2</option>
+										<option value="3">部门3</option>
 									</select>
 								</div>
 							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="select">区域种类</label>
+								<div class="col-md-9">
+									<select id="select" name="select" class="form-control" size="1">
+										<option value="0">请选择</option>
+										<option value="site">训站点</option>
+										<option value="route">巡线点</option>
+									</select>
+								</div>
+							</div>
+							<button class="btn btn-success col-md-12">提交</button>
 						</form>
 						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary">保存</button>
 					</div>
 				</div>
 			</div>

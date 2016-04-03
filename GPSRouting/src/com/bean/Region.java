@@ -321,6 +321,7 @@ public class Region {
 		        result = rs.getInt(1);  
 		    }  else {  
 		        // throw an exception from here  
+		    	result=-1;
 		    } 
 			dbh.DBClose();
 		}

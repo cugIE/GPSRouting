@@ -87,7 +87,7 @@ public class AddRecordServlet extends HttpServlet {
 			rcd.setGener_id(jso.getInt("gener_id"));
 			rcd.setNote(jso.getString("note"));
 			int result = Record.addOneRecord(rcd);
-			OutputHelper.StringOutPut(""+result, response);
+			OutputHelper.StringOutPut(String.format("%04d", result), response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

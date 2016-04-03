@@ -85,13 +85,18 @@ public class AddRegionServlet extends HttpServlet {
 			rg.setRange(Integer.parseInt(range));
 			rg.setGener_id(Integer.parseInt(gener_id));
 		}
-		else{
+		else {
 			OutputHelper.StringOutPut("error", response);
-
+			return;
 		}
 		try {
 			int result = Region.addOneRegion(rg);
-			OutputHelper.StringOutPut(result+"", response);
+			if(result==-1){
+				OutputHelper.StringOutPut("error", response);
+				return;
+			}
+			
+			OutputHelper.StringOutPut(String.format("%04d", result), response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			OutputHelper.StringOutPut("error", response);

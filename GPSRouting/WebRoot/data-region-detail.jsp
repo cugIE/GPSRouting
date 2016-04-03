@@ -109,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 																	<h4 class="bk-margin-off">主要信息</h4>
 																</div>
 																<div class="col-md-2">
-																	<a class="btn btn-default " data-toggle="modal" data-target="#regionEdit" href="#">
+																	<a class="btn btn-default " id = "region-edit-button" data-toggle="modal" data-target="#region-edit-modal" href="#">
 																		<i class="fa fa-edit "></i>                                            
 																	</a>            
 																</div>
@@ -122,21 +122,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											</div>
 											<div class="bk-ltr bk-padding-bottom-20 bk-padding-left-20">
 												<div class="row">
-													<div class=" col-md-3 bk-bg-white bk-padding-top-10">
+													<div class=" col-md-4 bk-bg-white bk-padding-top-10">
 														<i class="fa fa-asterisk bk-padding-right-10"></i>区域编号：
-														<i class="bk-padding-right-15"><%=rg.getId() %></i>
+														<i class="bk-padding-right-15" id="region-id"><%=rg.getId() %></i>
 													</div>
-													<div class="col-md-3 bk-bg-white bk-padding-top-10">
+													<div class="col-md-4 bk-bg-white bk-padding-top-10">
 														<i class="fa fa-database bk-padding-right-10"></i>区域名称：
-														<i class="bk-padding-right-15"><%=rg.getName() %></i>
+														<i class="bk-padding-right-15" id="region-name"><%=rg.getName() %></i>
 													</div>
-													<div class="col-md-3  bk-bg-white bk-padding-top-10">
+													<div class="col-md-4  bk-bg-white bk-padding-top-10" >
 														<i class="fa fa-group bk-padding-right-10"></i>所属部门：
 														<i class="bk-padding-right-15"><%=rg.getBranch() %></i>
 													</div>
-													<div class="col-md-3 bk-bg-white bk-padding-top-10">
+													<div class="col-md-4 bk-bg-white bk-padding-top-10">
 														<i class="fa fa-user bk-padding-right-10"></i>添加者：
-														<i class="bk-padding-right-15"><%=rg.getGener() %></i>
+														<i class="bk-padding-right-15" ><%=rg.getGener() %></i>
+													</div>
+													<div class="col-md-4 bk-bg-white bk-padding-top-10">
+														<i class="fa fa-archive bk-padding-right-10" id="region-type" value="<%=rg.getType() %>")></i>类型：
+														<i class="bk-padding-right-15">
+														<%
+															if(rg.getType().equals("site")){
+																out.print("巡站点");
+															} 
+															else {
+																out.print("巡路点");
+															} %></i>
+													</div>
+													<div class="col-md-4 bk-bg-white bk-padding-top-10">
+														<i class="fa fa-circle-o bk-padding-right-10"></i>范围：
+														<i class="bk-padding-right-15" id="region-range"><%=rg.getRange() %></i>
 													</div>
 													
 												</div>
@@ -154,7 +169,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									
 															</div>
 														</div> 
-														<p class = "bk-padding-left-20 bk-padding-right-20"><%=rg.getIntro() %></p>
+														<p class = "bk-padding-left-20 bk-padding-right-20" id = "region-intro"><%=rg.getIntro() %></p>
 													</div>															
 												</div>
 											</div>
@@ -171,7 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														</div> 
 													</div>
 													<div class="col-md-9 col-md-offset-1">
-														<table class = "table table-bordered">
+														<table  class = "table table-bordered">
 															<thead>
 															<tr>
 														      <th>问题标题</th>
@@ -180,12 +195,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														    </tr>
 															
 															</thead>
-															<tbody>
+															<tbody id="questions-table">
 																<% 
 																if (qsts.size()!=0){
 																	for(int i = 0; i < qsts.size(); i++){
 																%>
-																<tr>
+																<tr id= "<%=qsts.get(i).getId() %>">
 															      <td><%=qsts.get(i).getTitle() %></td>
 															      <td><%=qsts.get(i).getPossibleAsw() %></td>
 															      <td><%=qsts.get(i).getNormalAsw() %>
@@ -210,23 +225,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 															</div>
 															<div id="collapsePrimaryTwo" class="accordion-body collapse">
 																<div class="panel-body">
-																	<form action="" method="post" class="form-inline">
+																	<form action="AddQuestionServlet" id="addquestion" method="post" class="form-inline">
 																		<div class="form-group">
 																			<div class = "col-md-4">
-																			<input type="text" id="text-input" name="text-input" class="form-control " placeholder="问题内容">
+																			<input type="text" id="question-title" name="title" class="form-control " placeholder="问题内容">
 																			</div>
 																			<div class = "col-md-4">
-																			<input type="text" id="text-input" name="text-input" class="form-control " placeholder="问题可选答案">
+																			<input type="text" id="question-possasws" name="possasws" class="form-control " placeholder="问题可选答案">
 																			</div>
 																			<div class = "col-md-2">
-																			<input type="text" id="text-input" name="text-input" class="form-control " placeholder="正常答案">
+																			<input type="text" id="question-normalasws" name="normalasws" class="form-control " placeholder="正常答案">
 																			</div>
-																			<a class="btn btn-default pull-right" ><i class = "fa fa-plus "></i></a>
-																			<span class="help-block col-md-4 col-md-offset-4">每一个答案用英文";"隔开</span>
-																			<span class="help-block col-md-4">选择上一个问题中的一个</span>
 																			
+																			<button type="submit" class = "btn btn-default pull-right" ><i class = "fa fa-plus "></i></button>
+																			<span class="help-block col-md-4 col-md-offset-4">每一个答案用英文";"隔开</span>
+																			<span class="help-block col-md-4">选择上可能的答案中的一个</span>
 																		</div>
-																		
+																		<div class = "col-md-6"  hidden="hidden">
+																			<input type="text" id="gener_id" name="gener_id" value="0002" class="form-control ">
+																			</div>
+																			<div class = "col-md-6"  hidden="hidden">
+																			<input type="text" id="region_id" name="region_id" value="<%=region_id %>" class="form-control ">
+																			</div>
 																	</form>
 																</div>
 															</div>
@@ -251,45 +271,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div><!--/container-->
 		
-		<div class="modal fade" id="regionEdit">
+		<div class="modal fade" id="region-edit-modal">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title bk-fg-primary">添加设备</h4>
+						<h4 class="modal-title bk-fg-primary">修改区域</h4>
 					</div>
 					<div class="modal-body">
 						<div class = "row">
-						<form action="" method="post" enctype="multipart/form-data" class="form-horizontal col-md-8 col-md-offset-2">
+						<form action="ChangeRegionServlet" method="post" id="changeregion"  class="form-horizontal col-md-8 col-md-offset-2">
 							<div class="form-group">
-								<label class="col-md-3 control-label text-vertical-center" for="text-input">设备名称</label>
+								<label class="col-md-3 control-label">编号</label>
 								<div class="col-md-9">
-									<input type="text" id="text-input" name="text-input" class="form-control" placeholder="是否有漏油?">
+									<p class="form-control-static" id="region-edit-static">0000</p>
+								</div>
+							</div>
+							<div class="form-group" hidden = "hidden">
+								<div class="col-md-9">
+									<input type="text" id="region-edit-id" name="id" class="form-control">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-3 control-label" for="textarea-input">设备介绍</label>
+								<label class="col-md-3 control-label text-vertical-center" for="text-input">区域名称</label>
 								<div class="col-md-9">
-									<textarea id="textarea-input" name="textarea-input" rows="4" class="form-control" placeholder="Content.."></textarea>
+									<input type="text" id="region-edit-name" name="name" class="form-control">
 								</div>
 							</div>
+							
 							<div class="form-group">
-								<label class="col-md-3 control-label" for="select">所在部门</label>
+								<label class="col-md-3 control-label" for="textarea-input">区域介绍</label>
 								<div class="col-md-9">
-									<select id="select" name="select" class="form-control" size="1">
-										<option value="0">请选择</option>
-										<option value="1">Option #1</option>
-										<option value="2">Option #2</option>
-										<option value="3">Option #3</option>
-									</select>
+									<textarea id="region-edit-intro" name="intro" rows="4" class="form-control" placeholder="输入内容"></textarea>
 								</div>
 							</div>
+							
+							<div class="form-group" id="region-edit-range-group">
+								<label class="col-md-3 control-label text-vertical-center" for="text-input">范围（m）</label>
+								<div class="col-md-9">
+									<input type="text" id="region-edit-range" name="range" class="form-control" value="0">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-success col-md-12">保存</button>
 						</form>
+						
 						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary">保存</button>
 					</div>
 				</div>
 			</div>
@@ -304,7 +333,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<div class="modal-body">
 						<div class = "row">
-						<form action="" method="post" enctype="multipart/form-data" class="form-horizontal col-md-8 col-md-offset-2">
+						<form action="" id="" method="post" enctype="multipart/form-data" class="form-horizontal col-md-8 col-md-offset-2">
 							<div class="form-group">
 								<label class="col-md-3 control-label text-vertical-center" for="text-input">问题内容</label>
 								<div class="col-md-9">
@@ -349,6 +378,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="<%=path%>/assets/vendor/skycons/js/skycons.js"></script>	
 		
 		<!-- Plugins JS-->
+		<script src="<%=path%>/assets/vendor/js/jquery.form.js"></script>
 		<script src="<%=path%>/assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
 		<script src="<%=path%>/assets/plugins/moment/js/moment.min.js"></script>	
 		<script src="<%=path%>/assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>	

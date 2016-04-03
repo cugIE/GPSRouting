@@ -69,15 +69,42 @@ public class ChangeRegionServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		String intro = request.getParameter("intro");
 		String gps = request.getParameter("gps");
+		String type = request.getParameter("type");
+		String qrcode = request.getParameter("qrcode");
+		String range = request.getParameter("range");
+		
+		System.out.println(id+";"+name+";"+intro+";"+gps+";"+type+range);
+
 		try {
 			Region rg = Region.getOneRegion(id);
-			rg.setGps(gps);
+			if(gps!=null){
+				rg.setGps(gps);
+			}
+			if(name!=null){
+				rg.setName(name);
+			}
+			if(qrcode!=null){
+				rg.setQrcode(qrcode);
+			}
+			if(type!=null){
+				rg.setType(type);
+			}
+			if(range!=null){
+				rg.setRange(Integer.parseInt(range));
+			}
+			if(intro!=null){
+				rg.setIntro(intro);
+			}
 			int result = Region.changeOneRegion(rg);
 			OutputHelper.StringOutPut(""+result, response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			OutputHelper.StringOutPut("error", response);
 			e.printStackTrace();
 		}
 		

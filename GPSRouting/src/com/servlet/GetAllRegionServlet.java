@@ -134,7 +134,8 @@ public class GetAllRegionServlet extends HttpServlet {
 							JSONObject js = new JSONObject();
 							PtrConnection ptr = ptrs.get(i);
 							js.put("id", ptr.getRegion_content().getId());
-							js.put("branch", ptr.getRegion_content().getName());
+							js.put("name", ptr.getRegion_content().getName());
+							js.put("branch", ptr.getRegion_content().getBranch());
 							js.put("intro", ptr.getRegion_content().getIntro());
 							js.put("type", ptr.getRegion_content().getType());
 							js.put("sort", ptr.getSort());

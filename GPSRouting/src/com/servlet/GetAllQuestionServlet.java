@@ -101,7 +101,6 @@ public class GetAllQuestionServlet extends HttpServlet {
 						jso.put("normalasws", qsts.get(i).getNormalAsw());
 						jso.put("gener", qsts.get(i).getGener());
 						jso.put("gener_id", qsts.get(i).getGener_id());
-						jso.put("region_id", qsts.get(i).getRegion_id());
 						
 						JA.add(jso);
 					}

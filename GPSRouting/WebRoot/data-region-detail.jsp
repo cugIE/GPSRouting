@@ -105,9 +105,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 														<div class="bk-bg-white text-center bk-padding-top-20 bk-padding-bottom-10">
 															<div class="row">
-																<div class="text-left bk-padding-left-10">
+																<div class="text-left bk-padding-left-10 col-md-10">
 																	<h4 class="bk-margin-off">主要信息</h4>
-																</div>                            
+																</div>
+																<div class="col-md-2">
+																	<a class="btn btn-default " data-toggle="modal" data-target="#regionEdit" href="#">
+																		<i class="fa fa-edit "></i>                                            
+																	</a>            
+																</div>
+																、                                        
 															</div>
 														</div> 
 														
@@ -138,12 +144,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<hr class="bk-margin-off" />
 											<div class="bk-ltr bk-bg-white">
 												<div class="row">
-													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+													<div class="col-md-12">
 														<div class="bk-bg-white text-center bk-padding-top-20 bk-padding-bottom-10">
 															<div class="row">
-																<div class="text-left bk-padding-left-10">
+																<div class="text-left bk-padding-left-10 ">
 																	<h4 class="bk-margin-off">介绍</h4>
-																</div>                            
+																	            
+																</div>
+									
 															</div>
 														</div> 
 														<p class = "bk-padding-left-20 bk-padding-right-20"><%=rg.getIntro() %></p>
@@ -181,7 +189,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 															      <td><%=qsts.get(i).getTitle() %></td>
 															      <td><%=qsts.get(i).getPossibleAsw() %></td>
 															      <td><%=qsts.get(i).getNormalAsw() %>
-															      	<a class = "edit pull-right bk-margin-left-10" data-toggle="modal" data-target="#myModal" id="<%=qsts.get(i).getId() %>"><i class="fa fa-pencil fa-2x"></i></a>
+															      	<a class = "edit pull-right bk-margin-left-10" data-toggle="modal" data-target="#myModal" href = "#" id="<%=qsts.get(i).getId() %>"><i class="fa fa-pencil fa-2x"></i></a>
 															      	<a class = "delete pull-right" id="<%=qsts.get(i).getId() %>" href = "data-region-detail.jsp"><i class="fa fa-trash-o fa-2x"></i></a>
 															      </td>
 															    </tr>
@@ -191,19 +199,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 															
 														</table>
 													</div>
-													<div class="col-md-12">
-													<form action="" method="post" class="form-inline">
-														<div class="form-group">
-															<input type="text" id="text-input" name="text-input" class="form-control col-md-4 col-md-offset-1" placeholder="问题内容">
-															<input type="text" id="text-input" name="text-input" class="form-control col-md-4 bk-margin-left-15" placeholder="问题可选答案">
-															<input type="text" id="text-input" name="text-input" class="form-control col-md-4 bk-margin-left-15" placeholder="正常答案">
-															<a class="btn btn-default bk-margin-left-10" ><i class = "fa fa-plus "></i></a>
-															<span class="help-block col-md-3 col-md-offset-4">每一个答案用英文";"隔开</span>
-															<span class="help-block col-md-3">选择上一个问题中的一个</span>
-															
+													<div class="col-md-9 col-md-offset-1">
+														<div class="panel panel-accordion">
+															<div class="panel-heading bk-bg-success text-center">
+																<h4 class="panel-title">
+																	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionPrimary" href="#collapsePrimaryTwo">
+																		添加新问题
+																	</a>
+																</h4>
+															</div>
+															<div id="collapsePrimaryTwo" class="accordion-body collapse">
+																<div class="panel-body">
+																	<form action="" method="post" class="form-inline">
+																		<div class="form-group">
+																			<div class = "col-md-4">
+																			<input type="text" id="text-input" name="text-input" class="form-control " placeholder="问题内容">
+																			</div>
+																			<div class = "col-md-4">
+																			<input type="text" id="text-input" name="text-input" class="form-control " placeholder="问题可选答案">
+																			</div>
+																			<div class = "col-md-2">
+																			<input type="text" id="text-input" name="text-input" class="form-control " placeholder="正常答案">
+																			</div>
+																			<a class="btn btn-default pull-right" ><i class = "fa fa-plus "></i></a>
+																			<span class="help-block col-md-4 col-md-offset-4">每一个答案用英文";"隔开</span>
+																			<span class="help-block col-md-4">选择上一个问题中的一个</span>
+																			
+																		</div>
+																		
+																	</form>
+																</div>
+															</div>
 														</div>
 														
-													</form>
 													</div>												
 												</div>
 											</div>
@@ -223,7 +251,49 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div><!--/container-->
 		
-		
+		<div class="modal fade" id="regionEdit">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title bk-fg-primary">添加设备</h4>
+					</div>
+					<div class="modal-body">
+						<div class = "row">
+						<form action="" method="post" enctype="multipart/form-data" class="form-horizontal col-md-8 col-md-offset-2">
+							<div class="form-group">
+								<label class="col-md-3 control-label text-vertical-center" for="text-input">设备名称</label>
+								<div class="col-md-9">
+									<input type="text" id="text-input" name="text-input" class="form-control" placeholder="是否有漏油?">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="textarea-input">设备介绍</label>
+								<div class="col-md-9">
+									<textarea id="textarea-input" name="textarea-input" rows="4" class="form-control" placeholder="Content.."></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="select">所在部门</label>
+								<div class="col-md-9">
+									<select id="select" name="select" class="form-control" size="1">
+										<option value="0">请选择</option>
+										<option value="1">Option #1</option>
+										<option value="2">Option #2</option>
+										<option value="3">Option #3</option>
+									</select>
+								</div>
+							</div>
+						</form>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary">保存</button>
+					</div>
+				</div>
+			</div>
+		</div><!-- End Modal Dialog -->		
 		<!-- Modal Dialog -->
 		<div class="modal fade" id="myModal">
 			<div class="modal-dialog">
@@ -252,14 +322,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<label class="col-md-3 control-label" for="text-input">正常答案</label>
 								<div class="col-md-9">
 									<input type="text" id="text-input" name="text-input" class="form-control" placeholder="否">
-									<span class="help-block">在这里天上设备正常时应该有的答案</span>
+									<span class="help-block">在这里填上设备正常时应该有的答案</span>
 								</div>
 							</div>
 						</form>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 						<button type="button" class="btn btn-primary">保存设置</button>
 					</div>
 				</div>

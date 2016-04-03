@@ -9,7 +9,7 @@ import java.sql.Statement;
 //连接数据库类
 public class DB {
 //获取连接
-	public static final String url = "jdbc:mysql://127.0.0.1/gastube_inspection?characterEncoding=UTF-8";  
+	public static final String url = "jdbc:mysql://192.168.1.104/gastube_inspection?characterEncoding=UTF-8";  
     public static final String user = "root";  
     public static final String password = "Cug317317";  
     

@@ -103,12 +103,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<h6><i class="fa fa-table red"></i><span class="break"></span>设备详细列表</h6>
 									<div class="panel-actions">
 										<a href="table.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
-										<a href="data-device-form.html#" class="btn-plus"><i class="fa fa-plus"></i></a>
+										<a data-toggle="modal" data-target="#myModal" class="btn-plus"><i class="fa fa-plus"></i></a>
 										<a href="table.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
 
 									</div>
 								</div>
 								<div class="panel-body">
+									<div class="form-group">
+										<div class="col-md-3">
+											<select id="select" name="select" class="form-control" size="1">
+												<option value="0">选择部门</option>
+												<option value="1">Option #1</option>
+												<option value="2">Option #2</option>
+												<option value="3">Option #3</option>
+											</select>
+										</div>
+										<button class = "btn btn-success">确认</button>
+									</div>
 									<div class="table-data-show">	
 										<table class="table table-striped table-bordered bootstrap-datatable datatable">
 											<thead>
@@ -143,9 +154,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														<a class="btn btn-info" href="<%= basePath %>data-region-detail.jsp?region_id=<%=rg.getId() %>">
 															<i class="fa fa-search "></i>                                            
 														</a>
-														<a class="btn btn-success" href="data-device-addques.html#">
-															<i class="fa fa-edit "></i>                                            
-														</a>
+														
 														<a class="btn btn-danger" href="table.html#">
 															<i class="fa fa-trash-o "></i> 
 
@@ -170,8 +179,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</div>
 								<div class="panel-body">
 								<!-- put baidu map here-->
-									<button type="button" class="btn btn-info btn-sm col-md-1 bk-margin-5 pull-right" onclick = "getSelRoute()"><i class="fa fa-search"></i></button>  
-										<div class="col-md-3 bk-margin-5 center-block pull-right">
+									<div class="form-group">
+										<div class="col-md-3">
 											<select id="selectRoute" class="form-control" size="1"> 
 												<option value="0">选择巡线路线</option>   
 										        <option value="1">1号线</option>   
@@ -181,6 +190,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									        	<option value="5">5号线</option>             
 									     	</select>  
 										</div>
+										<button class = "btn btn-success" onclick = "getSelRoute()">确认</button>
+									</div>
+										
 									<div id="allmap"></div>	
 								</div>
 							</div>
@@ -202,14 +214,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title bk-fg-primary">Modal title</h4>
+						<h4 class="modal-title bk-fg-primary">添加设备</h4>
 					</div>
 					<div class="modal-body">
-						<p class="bk-fg-danger">Here settings can be configured...</p>
+						<div class = "row">
+						<form action="" method="post" enctype="multipart/form-data" class="form-horizontal col-md-8 col-md-offset-2">
+							<div class="form-group">
+								<label class="col-md-3 control-label text-vertical-center" for="text-input">设备名称</label>
+								<div class="col-md-9">
+									<input type="text" id="text-input" name="text-input" class="form-control" placeholder="是否有漏油?">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="textarea-input">设备介绍</label>
+								<div class="col-md-9">
+									<textarea id="textarea-input" name="textarea-input" rows="4" class="form-control" placeholder="Content.."></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="select">所在部门</label>
+								<div class="col-md-9">
+									<select id="select" name="select" class="form-control" size="1">
+										<option value="0">请选择</option>
+										<option value="1">Option #1</option>
+										<option value="2">Option #2</option>
+										<option value="3">Option #3</option>
+									</select>
+								</div>
+							</div>
+						</form>
+						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save changes</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary">保存</button>
 					</div>
 				</div>
 			</div>

@@ -25,7 +25,6 @@ $(document).ready(function(){
 				  else{
 					  alert("删除失败");
 				  }
-				  
 			  }
 			  else{
 				  alert("链接超时");

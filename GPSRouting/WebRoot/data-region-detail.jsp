@@ -200,12 +200,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 																if (qsts.size()!=0){
 																	for(int i = 0; i < qsts.size(); i++){
 																%>
-																<tr id= "<%=qsts.get(i).getId() %>">
+																<tr value= "<%=qsts.get(i).getId() %>">
 															      <td><%=qsts.get(i).getTitle() %></td>
 															      <td><%=qsts.get(i).getPossibleAsw() %></td>
 															      <td><%=qsts.get(i).getNormalAsw() %>
-															      	<a class = "edit pull-right bk-margin-left-10" data-toggle="modal" data-target="#myModal" href = "#" id="<%=qsts.get(i).getId() %>"><i class="fa fa-pencil fa-2x"></i></a>
-															      	<a class = "delete pull-right" id="<%=qsts.get(i).getId() %>" href = "data-region-detail.jsp"><i class="fa fa-trash-o fa-2x"></i></a>
+															      	<a class = "question-edit pull-right bk-margin-left-10" data-toggle="modal" data-target="#myModal" href = "#" id="<%=qsts.get(i).getId() %>"><i class="fa fa-pencil fa-2x"></i></a>
+															      	<a class = "pull-right question-delete" value="<%=qsts.get(i).getId() %>" href = "#"><i class="fa fa-trash-o fa-2x"></i></a>
 															      </td>
 															    </tr>
 															    <%}} %>
@@ -333,33 +333,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<div class="modal-body">
 						<div class = "row">
-						<form action="" id="" method="post" enctype="multipart/form-data" class="form-horizontal col-md-8 col-md-offset-2">
+						<form action="ChangeQuestionServlet" id="changequestion" method="post" class="form-horizontal col-md-8 col-md-offset-2">
+							<div class="form-group" hidden="hidden">
+								<div class="col-md-9">
+									<input type="text" id="question-edit-id" name="question_id" class="form-control" >
+								</div>
+							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label text-vertical-center" for="text-input">问题内容</label>
 								<div class="col-md-9">
-									<input type="text" id="text-input" name="text-input" class="form-control" placeholder="是否有漏油?">
+									<input type="text" id="question-edit-title" name="title" class="form-control" >
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label" for="text-input">可选答案</label>
 								<div class="col-md-9">
-									<input type="text" id="text-input" name="text-input" class="form-control" placeholder="是;否">
+									<input type="text" id="question-edit-possasws" name="possasws" class="form-control">
 									<span class="help-block">每一个答案用英文";"隔开</span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label" for="text-input">正常答案</label>
 								<div class="col-md-9">
-									<input type="text" id="text-input" name="text-input" class="form-control" placeholder="否">
+									<input type="text" id="question-edit-normalasws" name="normalasws" class="form-control" placeholder="否">
 									<span class="help-block">在这里填上设备正常时应该有的答案</span>
 								</div>
 							</div>
+							<button type="submit" class="btn btn-success col-md-12">保存设置</button>
 						</form>
 						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary">保存设置</button>
 					</div>
 				</div>
 			</div>

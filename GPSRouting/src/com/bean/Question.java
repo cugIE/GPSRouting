@@ -165,9 +165,7 @@ public class Question {
 			String sql = "update question set "
 					+ "question_title = '" + qt.getTitle() + "', "
 					+ "question_asws= '" + qt.getPossibleAsw() + "', "
-					+ "question_r_asws = '" + qt.getNormalAsw()+ "', "
-					+ "gener_id = '" + qt.getGener_id() + "', " 
-					+ "region_id = '" + qt.getRegion_id() + "' "
+					+ "question_r_asws = '" + qt.getNormalAsw()+ "' "
 					+ "where question_id = " + qt.getId();
 			DBHelper dbh = new DBHelper();
 			int result = dbh.updateDatabase(sql);

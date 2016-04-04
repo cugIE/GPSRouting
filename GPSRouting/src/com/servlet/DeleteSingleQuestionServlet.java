@@ -2,11 +2,16 @@ package com.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.bean.Question;
+import com.bean.Region;
+import com.util.OutputHelper;
 
 public class DeleteSingleQuestionServlet extends HttpServlet {
 
@@ -66,19 +71,17 @@ public class DeleteSingleQuestionServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		out.print("    This is ");
-		out.print(this.getClass());
-		out.println(", using the POST method");
-		out.println("  </BODY>");
-		out.println("</HTML>");
-		out.flush();
-		out.close();
+		String question_id = request.getParameter("question_id");
+		int result = 0;
+		System.out.println(question_id);
+		try {
+			result = Question.deleteOneQuestion(question_id);
+				OutputHelper.StringOutPut(result+"", response);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			OutputHelper.StringOutPut("error", response);
+			e.printStackTrace();
+		}
 	}
 
 	/**

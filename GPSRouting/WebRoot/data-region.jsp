@@ -148,7 +148,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 																<i class="fa fa-qrcode"></i>
 															</button>
 														    <ul class="dropdown-menu">
-															    <li><a href="pic/qrcode.png"><img class="img-thumbnail" src="pic/qrcode.png"></a></li>
+															    <li><a class = "btn btn-default" href="<%= basePath %>GenerateQRCode?region_id=<%=rg.getId() %>&size=200">200*200</a></li>
+															    <li><a class = "btn btn-default" href="<%= basePath %>GenerateQRCode?region_id=<%=rg.getId() %>&size=400">400*400</a></li>
+															    <li><a class = "btn btn-default" href="<%= basePath %>GenerateQRCode?region_id=<%=rg.getId() %>&size=1000">1000*1000</a></li>
 														    </ul>
 													    </div>
 														<a class="btn btn-info" href="<%= basePath %>data-region-detail.jsp?region_id=<%=rg.getId() %>">

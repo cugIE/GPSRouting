@@ -14,6 +14,7 @@ import net.glxn.qrgen.javase.QRCode;
 import net.sf.json.JSONObject;
 
 import com.bean.Region;
+import com.util.OutputHelper;
 
 /**
  * Servlet implementation class GenerateQRCode

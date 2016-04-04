@@ -12,7 +12,9 @@ public class DB {
 	public static final String url = "jdbc:mysql://192.168.1.104/gastube_inspection?characterEncoding=UTF-8";  
     public static final String user = "root";  
     public static final String password = "Cug317317";  
-    
+//	public static final String url ="jdbc:mysql://w.rdc.sae.sina.com.cn:3307/app_gpsrouting";
+//	public static final String user ="k3l2253ykj";
+//	public static final String password ="335hjkmimxhxix1510mh2hk233424wjlj5j0lmix";
 	public static Connection getConn(){
 		Connection conn = null;
 		try{

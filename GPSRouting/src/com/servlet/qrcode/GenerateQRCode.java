@@ -54,6 +54,8 @@ public class GenerateQRCode extends HttpServlet {
 				else{
 					qrc = QRCode.from(text).withSize(Integer.parseInt(size), Integer.parseInt(size));
 				}
+				response.getOutputStream().write("123".getBytes());
+				response.flushBuffer();
 				response.getOutputStream().write(qrc.to(ImageType.JPG).stream().toByteArray());
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

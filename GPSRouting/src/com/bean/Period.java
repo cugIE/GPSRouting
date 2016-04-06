@@ -131,4 +131,17 @@ public class Period {
 		dbh.DBClose(rs);
 		return prs;
 	}
+	public static String getShift(String shid) throws SQLException{
+		String value ="";
+		String sql = "select distinct sheet_shift from sheet "
+				+ "where sheet.sheet_id =" + shid;
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		while(rs.next()){
+			value += rs.getString(1) +",";
+		}
+		dbh.DBClose(rs);
+		return value;
+		
+	}
 }

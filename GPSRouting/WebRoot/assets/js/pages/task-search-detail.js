@@ -1,28 +1,33 @@
-function isEmail(email) {
-  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-  return regex.test(email);
-}
+
 
 $(document).ready(function(){
-	
-	$('#ccnumber-w1').mask("9999 9999 9999 9999");
+	$('#sheet-edit-form').submit(function() {
+	    // submit the form
+	    $(this).ajaxSubmit(function(message){
+	    	
+	    	if(message == '1'){
+	    		alert("修改成功");
+	    		$('#sheet-edit-form').resetForm();
+	    		window.location.reload();
+	    	}
+	    	else {
+	    		alert("修改失败")
+	    	}
+	    });
+	    return false;
+	});
+	  $("#sheet-edit-button").on("click",function(){
+		    $("#sheet-edit-id").val($("#sheet-id").text());
+			$("#sheet-edit-name").val($("#sheet-name").text());
+			$("#sheet-edit-intro").val($("#sheet-intro").text());
+	  
+	  });
+	  	
+	/*---shift ---*/
 	
 	/* ---------- Wizard ---------- */
-	$('#email-w1').keyup(function(){
-		
-		if(isEmail($(this).val())) {
-			$(this).parent().parent().removeClass('has-error');
-		}
-		
-	});
-	
-	$('#password-w1, #name-w1').keyup(function(){
-		
-		if($(this).val()) {
-			$(this).parent().parent().removeClass('has-error');
-		}
-		
-	});
+
+
 	
 	$('#ccnumber-w1').keyup(function(){
 		

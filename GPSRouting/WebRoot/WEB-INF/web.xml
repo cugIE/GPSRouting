@@ -73,6 +73,16 @@
     <servlet-name>AddSheetServlet</servlet-name>
     <servlet-class>com.servlet.AddSheetServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>DeleteSingleSheetServlet</servlet-name>
+    <servlet-class>com.servlet.DeleteSingleSheetServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ChangeSheetServlet</servlet-name>
+    <servlet-class>com.servlet.ChangeSheetServlet</servlet-class>
+  </servlet>
+
+
 
 
   <servlet-mapping>
@@ -146,6 +156,14 @@
   <servlet-mapping>
     <servlet-name>AddSheetServlet</servlet-name>
     <url-pattern>/AddSheetServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteSingleSheetServlet</servlet-name>
+    <url-pattern>/DeleteSingleSheetServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ChangeSheetServlet</servlet-name>
+    <url-pattern>/ChangeSheetServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

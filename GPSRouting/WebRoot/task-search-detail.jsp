@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" import = "com.bean.Sheet" import="java.util.List"
+<%@ page language="java" contentType="text/html; charset=UTF-8" import = "com.bean.*" import="java.util.List"
     pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
@@ -109,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 																	<h4 class="bk-margin-off"><%=sht.getName() %></h4>
 																</div>
 																<div class="col-md-2">
-																	<a class="btn btn-default " id = "region-edit-button" data-toggle="modal" data-target="#editSheet" href="#">
+																	<a class="btn btn-default " id = "sheet-edit-button" data-toggle="modal" data-target="#sheet-edit-modal" href="#">
 																		<i class="fa fa-edit "></i>                                            
 																	</a>            
 																</div>                                   
@@ -120,10 +120,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											</div>
 											<div class="bk-ltr bk-padding-bottom-20 bk-padding-left-20">
 												<div class="row">
-													<h5 class="bk-margin-off"><%=sht.getBranch() %>(<%=sht.getGener() %>)</h5>
-													<p><%=sht.getIntro() %></p>
+													<div class=" col-md-4 bk-bg-white bk-padding-top-10">
+														<i class="fa fa-asterisk bk-padding-right-10"></i>表编号：
+														<i class="bk-padding-right-15" id="sheet-id"><%=sht.getId() %></i>
+													</div>
+													<div class="col-md-4 bk-bg-white bk-padding-top-10">
+														<i class="fa fa-database bk-padding-right-10"></i>表名称：
+														<i class="bk-padding-right-15" id="sheet-name"><%=sht.getName() %></i>
+													</div>
+													<div class="col-md-4 bk-bg-white bk-padding-top-10">
+														<i class="fa fa-user bk-padding-right-10"></i>所属部门：
+														<i class="bk-padding-right-15" ><%=sht.getBranch() %></i>
+													</div>
+													<div class="col-md-4 bk-bg-white bk-padding-top-10">
+														<i class="fa fa-circle-o bk-padding-right-10"></i>添加者：
+														<i class="bk-padding-right-15"><%=sht.getGener() %></i>
+													</div>
 													
-													
+												</div>
+											</div>
+											<hr class="bk-margin-off" />
+											<div class="bk-ltr bk-bg-white">
+												<div class="row">
+													<div class="col-md-12">
+														<div class="bk-bg-white text-center bk-padding-top-20 bk-padding-bottom-10">
+															<div class="row">
+																<div class="text-left bk-padding-left-10 ">
+																	<h4 class="bk-margin-off">介绍</h4>
+																	            
+																</div>
+									
+															</div>
+														</div> 
+														<p class = "bk-padding-left-20 bk-padding-right-20" id = "sheet-intro"><%=sht.getIntro() %></p>
+													</div>															
 												</div>
 											</div>
 										</div>
@@ -165,15 +195,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													<div class="row">
 														<div class="form-group col-md-5 has-feedback">
 															
-															<input type="text" class="form-control" id="name-w1" placeholder="Enter your name" />
+															<input type="text" class="form-control" id="sheet-add-shift-text" placeholder="输入班次名" />
 
 														</div>
-														<button class ="col-md-1 btn btn-primary btn-sm" type = "button">添加</button>
+														<button class ="col-md-1 btn btn-primary btn-sm" id="sheet-add-shift-button" type = "button">添加</button>
 														<div class="col-md-6">
 															
 															<div class="form-group">
 																<div class="col-md-12">
-																	<input name="tags" id="tags-input" data-role="tagsinput" data-tag-class="label label-primary" class="form-control" value="Amsterdam,Washington,Sydney,Beijing,Cairo" />
+																	<input name="" id="sheet-shifts" data-role="tagsinput" data-tag-class="label label-primary" class="form-control" value="<%=Period.getShift(shid) %>" />
 																	
 																</div>
 															</div>
@@ -454,27 +484,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		
 		<!-- Modal Dialog -->
-		<div class="modal fade" id="editSheet">
+		<div class="modal fade" id="sheet-edit-modal">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title bk-fg-primary">Modal title</h4>
+						<h4 class="modal-title bk-fg-primary">修改</h4>
 					</div>
 					<div class="modal-body">
 						<div class = "row">
-							<form class="form-horizontal col-md-offset-2 col-md-8" action = "AddSheetServlet" role="form">
+							<form method="post" id="sheet-edit-form" class="form-horizontal col-md-offset-2 col-md-8" action = "ChangeSheetServlet" role="form">
+								<div class="form-group">
+									<label class="col-md-3 control-label">编号</label>
+									<div class="col-md-9">
+										<input type="text" name="sheet_id" id = "sheet-edit-id" class="form-control" />
+									</div>
+								</div>
 								<div class="form-group">
 									<label class="col-md-3 control-label">表名</label>
 									<div class="col-md-9">
-										<input type="text" class="form-control" />
+										<input type="text" name="name" id = "sheet-edit-name" class="form-control" />
 									</div>
 								</div>
 								
 								<div class="form-group">
 									<label class="col-md-3 control-label">表介绍</label>
 									<div class="col-md-9">
-									<textarea id="region-edit-intro" name="intro" rows="4" class="form-control" placeholder="输入内容"></textarea>									</div>
+									<textarea id="sheet-edit-intro" name="intro" rows="4" class="form-control"></textarea>									</div>
 								</div>
 								<button type = "submit" class = "btn btn-success col-md-12">确认</button>											
 	
@@ -510,6 +546,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="assets/plugins/wizard/js/jquery.bootstrap.wizard.min.js"></script>
 		<script src="assets/plugins/maskedinput/js/jquery.maskedinput.js"></script>
 		<script src="assets/plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.js"></script>
+		<script src="assets/vendor/js/jquery.form.js"></script>
 
 		
 		<!-- Theme JS -->		

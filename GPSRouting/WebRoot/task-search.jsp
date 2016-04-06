@@ -65,8 +65,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</head>
 	
 	<body>
+	
 	<%
-	 	List<Sheet> shts = Sheet.getAllSheet();
+	List<Sheet> shts = Sheet.getAllSheet();
+	
 	%>
 		<!-- Start: Header -->
 		<!-- Start: Header -->
@@ -99,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<h6><i class="fa fa-table red"></i><span class="break"></span>任务表列表</h6>
 									<div class="panel-actions">
 										<a href="table.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
-										<a data-toggle="modal" data-target="#add-sheet-modal" class="btn-plus"><i class="fa fa-plus"></i></a>
+										<a data-toggle="modal" data-target="#addsheetmodal" class="btn-plus"><i class="fa fa-plus"></i></a>
 										<a href="table.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
 
 									</div>
@@ -127,12 +129,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											</thead>   
 											<tbody>
 											<% for(int i= 0; i < shts.size(); i ++){ %>
-												<tr style=cursor:pointer; onclick=location.href="task-search-detail.jsp?sheet_id=<%=shts.get(i).getId() %>">
+												<tr>
 												
 													<td><%=shts.get(i).getName() %></td>
 													<td><%=shts.get(i).getBranch() %></td>
 													<td><%=shts.get(i).getGener() %>
-														<a class="btn btn-danger sheet-delete pull-right" value="0">
+														<a class="btn btn-success pull-right" href="task-search-detail.jsp?sheet_id=<%=shts.get(i).getId() %>">
+															<i class="fa fa-search "></i> 
+
+														</a>
+														<a class="btn btn-danger sheet-delete pull-right" value="<%=shts.get(i).getId() %>">
 															<i class="fa fa-trash-o "></i> 
 
 														</a>
@@ -158,7 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		
 		<!-- Modal Dialog -->
-		<div class="modal fade" id="add-sheet-modal">
+		<div class="modal fade" id="addsheetmodal">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -167,7 +173,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<div class="modal-body">
 						<div class = "row">
-							<form id="add-sheet-form" method="post" class="form-horizontal col-md-8 col-md-offset-2" action = "AddSheetServlet" role="form">
+							<form id="addsheetform" method="post" class="form-horizontal col-md-8 col-md-offset-2" action = "AddSheetServlet">
 								<div class="form-group">
 									<label class="col-md-3 control-label">表名</label>
 									<div class="col-md-9">
@@ -217,27 +223,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="assets/vendor/js/jquery-2.1.1.min.js"></script>
 		<script src="assets/vendor/js/jquery-migrate-1.2.1.min.js"></script>
 		<script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-		<script src="assets/vendor/skycons/js/skycons.js"></script>		
+		<script src="assets/vendor/skycons/js/skycons.js"></script>	
+		
 		
 		<!-- Plugins JS-->
 		<script src="assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
-		<script src="assets/vendor/js/jquery.form.js"></script>
 		<script src="assets/plugins/moment/js/moment.min.js"></script>	
-		<script src="assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>
-		<script src="assets/plugins/chosen/js/chosen.jquery.min.js"></script>
-		<script src="assets/plugins/autosize/jquery.autosize.min.js"></script>
-		<script src="assets/plugins/placeholder/js/jquery.placeholder.min.js"></script>
-		<script src="assets/plugins/wizard/js/jquery.bootstrap.wizard.min.js"></script>
-		<script src="assets/plugins/maskedinput/js/jquery.maskedinput.js"></script>
-		<script src="assets/plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.js"></script>
-
+		<script src="assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>		
+		<script src="assets/vendor/js/jquery.form.js"></script>
 		
 		<!-- Theme JS -->		
 		<script src="assets/js/jquery.mmenu.min.js"></script>
 		<script src="assets/js/core.min.js"></script>
+	
 		
 		<!-- Pages JS -->
-		<script src="assets/js/pages/task-search.js"></script>
+		<script type="text/javascript" src="<%=path%>/assets/js/pages/task-search.js"></script>
 
 		<!-- end: JavaScript-->
 		

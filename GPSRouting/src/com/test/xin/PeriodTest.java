@@ -17,8 +17,7 @@ public class PeriodTest {
 	public void testAddOnePeriod() {
 		prd.setSheet_id(1);
 		prd.setShift("晚班");
-		Time time = Time.valueOf("12:00:0");
-		prd.setTime(time);
+		prd.setTime("02:00");
 		prd.setGener_id(1);
 		try {
 			assertEquals(1,Period.addOnePeriod(prd));

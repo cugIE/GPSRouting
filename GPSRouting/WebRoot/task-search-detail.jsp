@@ -68,6 +68,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<% 
 	String shid = request.getParameter("sheet_id");
 	Sheet sht = Sheet.getOneSheet(shid);
+	String shiftString = Period.getShift(shid);
+	String[] shifts = shiftString.split(",");
 	%>
 		<!-- Start: Header -->
 		<!-- Start: Header -->
@@ -106,7 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														<div class="bk-bg-white text-center bk-padding-top-20 bk-padding-bottom-10">
 															<div class="row">
 																<div class="text-left bk-padding-left-10 col-md-10">
-																	<h4 class="bk-margin-off"><%=sht.getName() %></h4>
+																	<h4 class="bk-margin-off">简介</h4>
 																</div>
 																<div class="col-md-2">
 																	<a class="btn btn-default " id = "sheet-edit-button" data-toggle="modal" data-target="#sheet-edit-modal" href="#">
@@ -156,317 +158,62 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													</div>															
 												</div>
 											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-						</div>
-						
-
-					</div>					
-					<div class="row">						
-						<div class="col-lg-12">
-							<div class="panel bk-bg-white">
-								<div class="panel-heading bk-bg-primary">
-									<h6><i class="fa fa-tags red"></i>任务</h6>
-									<div class="panel-actions">
-										<a href="form-wizard.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
-										<a href="form-wizard.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
-										<a href="form-wizard.html#" class="btn-close"><i class="fa fa-times"></i></a>
-									</div>
-								</div>
-								<div class="panel-body">
-									<div id="wizard1" class="wizard-type1">
-										<ul class="steps">
-											<li><a href="form-wizard.html#tab11" data-toggle="tab"><span class="badge badge-info"><i class="fa fa-calendar-o"></i></span> 班次</a></li>
-											<li><a href="form-wizard.html#tab12" data-toggle="tab"><span class="badge badge-info"><i class="fa fa-clock-o"></i></span> 选择时间点</a></li>
-											<li><a href="form-wizard.html#tab13" data-toggle="tab"><span class="badge badge-info"><i class="fa fa-building"></i></span> 安排区域</a></li>
-											<li><a href="form-wizard.html#tab14" data-toggle="tab"><span class="badge badge-info"><i class="fa fa-bars"></i></span> 任务详情</a></li>
-										</ul>
-										<div class="progress thin progress-striped active">
-											<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-											</div>
-										</div>
-										<div class="tab-content">
-											<div class="tab-pane" id="tab11">
-												<form class="form-horizontal" role="form">
-													<label for="name-w1">班次名</label>
-													<div class="row">
-														<div class="form-group col-md-5 has-feedback">
-															
-															<input type="text" class="form-control" id="sheet-add-shift-text" placeholder="输入班次名" />
-
+											<hr class="bk-margin-off" />
+											<div class="bk-ltr bk-bg-white">
+												<div class="row">
+													<div class="col-md-12">
+														<div class="bk-bg-white text-center bk-padding-top-20 bk-padding-bottom-10">
+															<div class="row">
+																<div class="text-left bk-padding-left-10 col-md-10">
+																	<h4 class="bk-margin-off">班次及时间点</h4>
+																</div>
+																<div class="col-md-2">
+																	<a class="btn btn-default " id = "sheet-add-shift-button" data-toggle="modal" data-target="#sheet-add-shift-modal" href="#">
+																		<i class="fa fa-plus "></i>                                            
+																	</a>            
+																</div>
+									
+															</div>
 														</div>
-														<button class ="col-md-1 btn btn-primary btn-sm" id="sheet-add-shift-button" type = "button">添加</button>
-														<div class="col-md-6">
-															
-															<div class="form-group">
-																<div class="col-md-12">
-																	<input name="" id="sheet-shifts" data-role="tagsinput" data-tag-class="label label-primary" class="form-control" value="<%=Period.getShift(shid) %>" />
-																	
+														<div class="panel-group col-md-6" id="accordionPrimary">
+														<% for (int i = 0; i< shifts.length; i++) {%>
+															<div class="panel panel-accordion">
+																<div class="panel-heading bk-bg-primary">
+																	<h4 class="panel-title">
+																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionPrimary" href="#collapsePrimary<%=i%>">
+																		<%=shifts[i] %>
+																		</a>
+																	</h4>
+																</div>
+																<div id="collapsePrimary<%=i%>" class="accordion-body collapse">
+																	<div class="panel-body">
+																	<% 
+																	List<Period> prs =Period.getPeriod(shid, shifts[i]);
+																	for (int j = 0; j<prs.size(); j++){
+																		Period tempP = prs.get(j);
+																	%>
+																	<div class="btn-group col-md-3">
+																		<button value = "<%=tempP.getId() %>" class = "btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+																		<%=tempP.getTime() %>
+																		</button>
+																		<ul class="dropdown-menu">
+																		    <li><a href="#" class = "sheet-view-period" data-toggle="modal" data-target="#sheet-view-period-modal" value = "<%=tempP.getId() %>">查看检查区域</a></li>
+																		    <li><a href="#" class = "sheet-change-period" data-toggle="modal" data-target="#sheet-edit-period-modal" value = "<%=tempP.getId() %>">修改</a></li>
+																		    <li><a href="#" class = "sheet-delete-period" value = "<%=tempP.getId() %>">删除</a></li>
+																		</ul>
+																	</div>
+																	<%
+																	}
+																	%>
+																	</div>
 																</div>
 															</div>
-									
 															
+														<%} %>
 														</div>
-													</div>
-													
-												</form>	
-											</div>
-											<div class="tab-pane" id="tab12">
-												
-												<div class="row">
-													<form>
-													<div class="form-group col-md-4">
-														<label for="ccmonth-w1">班次</label>
-														<select class="form-control" id="ccmonth-w1">
-															<option>白班</option>
-															<option>夜班</option>
-																											
-														</select>
-													</div>
-													<div class="form-group col-md-8">
-														<label class="col-md-3 control-label">选择时间点</label>
-														<div class="col-md-3">
-															<div class="checkbox-custom">
-																<input type="checkbox" id="checkbox1" name="checkbox1" value="option1"> 
-																<label for="checkbox1"> 00:00</label>
-															</div>
-															<div class="checkbox-custom">
-																	<input type="checkbox" id="checkbox2" name="checkbox2" value="option2"> 
-																<label for="checkbox2"> 02:00</label>
-															</div>
-															<div class="checkbox-custom">
-																	<input type="checkbox" id="checkbox3" name="checkbox3" value="option3"> 
-																<label for="checkbox3"> 04:00</label>
-															</div>
-															<div class="checkbox-custom">
-																	<input type="checkbox" id="checkbox4" name="checkbox4" value="option4"> 
-																<label for="checkbox4"> 06:00</label>
-															</div>
-															<div class="checkbox-custom">
-																	<input type="checkbox" id="checkbox5" name="checkbox5" value="option5"> 
-																<label for="checkbox5"> 08:00</label>
-															</div>
-															<div class="checkbox-custom">
-																	<input type="checkbox" id="checkbox5" name="checkbox5" value="option5"> 
-																<label for="checkbox5"> 10:00</label>
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="checkbox-custom">
-																<input type="checkbox" id="checkbox1" name="checkbox1" value="option1"> 
-																<label for="checkbox1"> 12:00</label>
-															</div>
-															<div class="checkbox-custom">
-																	<input type="checkbox" id="checkbox2" name="checkbox2" value="option2"> 
-																<label for="checkbox2"> 14:00</label>
-															</div>
-															<div class="checkbox-custom">
-																	<input type="checkbox" id="checkbox3" name="checkbox3" value="option3"> 
-																<label for="checkbox3"> 16:00</label>
-															</div>
-															<div class="checkbox-custom">
-																	<input type="checkbox" id="checkbox4" name="checkbox4" value="option4"> 
-																<label for="checkbox4"> 18:00</label>
-															</div>
-															<div class="checkbox-custom">
-																	<input type="checkbox" id="checkbox5" name="checkbox5" value="option5"> 
-																<label for="checkbox5"> 20:00</label>
-															</div>
-															<div class="checkbox-custom">
-																	<input type="checkbox" id="checkbox5" name="checkbox5" value="option5"> 
-																<label for="checkbox5"> 22:00</label>
-															</div>
-														</div>
-														<button class="btn btn-info btn-sm col-md-2" type = "submit" >确认</button>
-													</div>
-													</form>
+													</div>															
 												</div>
 											</div>
-											<div class="tab-pane" id="tab13">
-												<div class="row">
-													<form>
-													<div class="form-group col-md-4">
-														<label for="ccmonth-w1">时间点</label>
-														<select class="form-control" id="ccmonth-w1">
-															<option>白班 00:00</option>
-															<option>夜班 21:00</option>
-																											
-														</select>
-													</div>
-													<div class="col-md-6">
-														<div class="table-responsive" >
-															<table id="region-table" class="table table-bordered" >
-																  <thead>
-																	  <tr>
-																		  <th>区域</th>				
-																	  </tr>
-																  </thead>   
-																  <tbody>
-																	<tr>
-																		<td>
-																			<div class="checkbox-custom">
-																				<input type="checkbox" id="checkbox1" name="checkbox1" value="option1"> 
-																				<label for="checkbox1"> 区域1</label>
-																			</div>
-																		</td>
-
-																	</tr>
-																	<tr>
-																		<td>
-																			<div class="checkbox-custom">
-																				<input type="checkbox" id="checkbox1" name="checkbox1" value="option1"> 
-																				<label for="checkbox1"> 区域2</label>
-																			</div>
-																		</td>
-
-																	</tr>
-																	<tr>
-																		<td>
-																			<div class="checkbox-custom">
-																				<input type="checkbox" id="checkbox1" name="checkbox1" value="option1"> 
-																				<label for="checkbox1"> 区域3</label>
-																			</div>
-																		</td>
-
-																	</tr>							
-																	<tr>
-																		<td>
-																			<div class="checkbox-custom">
-																				<input type="checkbox" id="checkbox1" name="checkbox1" value="option1"> 
-																				<label for="checkbox1"> 区域2</label>
-																			</div>
-																		</td>
-
-																	</tr>
-																	<tr>
-																		<td>
-																			<div class="checkbox-custom">
-																				<input type="checkbox" id="checkbox1" name="checkbox1" value="option1"> 
-																				<label for="checkbox1"> 区域2</label>
-																			</div>
-																		</td>
-
-																	</tr>
-																	<tr>
-																		<td>
-																			<div class="checkbox-custom">
-																				<input type="checkbox" id="checkbox1" name="checkbox1" value="option1"> 
-																				<label for="checkbox1"> 区域2</label>
-																			</div>
-																		</td>
-
-																	</tr>                                  
-																  </tbody>
-															</table>
-														</div>
-														<button class="bk-margin-top-15 btn btn-success btn-sm pull-right" type="submit">确认</button>
-													</div>
-													
-													</form>
-												</div>
-											</div>
-											<div class="tab-pane" id="tab14">
-												<div class="table-responsive">	
-													<table class="table table-striped table-bordered bootstrap-datatable datatable">
-														<thead>
-															<tr>
-																<th>Employe</th>
-																<th>Position</th>
-																<th>Salary</th>
-																<th>Status</th>
-																<th>Actions</th>
-															</tr>
-														</thead>   
-														<tbody>								
-															<tr>
-																<td>Willson</td>
-																<td>Developer</td>
-																<td>2563$</td>
-																<td>
-																	<span class="label label-warning">Pending</span>
-																</td>
-																<td>
-																	<a class="btn btn-success" href="table.html#">
-																		<i class="fa fa-search-plus "></i>                                            
-																	</a>
-																	<a class="btn btn-info" href="table.html#">
-																		<i class="fa fa-edit "></i>                                            
-																	</a>
-																	<a class="btn btn-danger" href="table.html#">
-																		<i class="fa fa-trash-o "></i> 
-
-																	</a>
-																</td>
-															</tr>
-															<tr>
-																<td>James</td>
-																<td>SEO</td>
-																<td>5000$</td>
-																<td>
-																	<span class="label label-warning">Pending</span>
-																</td>
-																<td>
-																	<a class="btn btn-success" href="table.html#">
-																		<i class="fa fa-search-plus "></i>                                            
-																	</a>
-																	<a class="btn btn-info" href="table.html#">
-																		<i class="fa fa-edit "></i>                                            
-																	</a>
-																	<a class="btn btn-danger" href="table.html#">
-																		<i class="fa fa-trash-o "></i> 
-																	</a>
-																</td>
-															</tr>
-															<tr>
-																<td>Steven</td>
-																<td>Photographer</td>
-																<td>1269$</td>
-																<td>
-																	<span class="label label-warning">Pending</span>
-																</td>
-																<td>
-																	<a class="btn btn-success" href="table.html#">
-																		<i class="fa fa-search-plus "></i>                                            
-																	</a>
-																	<a class="btn btn-info" href="table.html#">
-																		<i class="fa fa-edit "></i>                                            
-																	</a>
-																	<a class="btn btn-danger" href="table.html#">
-																		<i class="fa fa-trash-o "></i> 
-																	</a>
-																</td>
-															</tr>
-															<tr>
-																<td>Aselay</td>
-																<td>Project manger</td>
-																<td>6253$</td>
-																<td>
-																	<span class="label label-warning">Pending</span>
-																</td>
-																<td>
-																	<a class="btn btn-success" href="table.html#">
-																		<i class="fa fa-search-plus "></i>                                            
-																	</a>
-																	<a class="btn btn-info" href="table.html#">
-																		<i class="fa fa-edit "></i>                                            
-																	</a>
-																	<a class="btn btn-danger" href="table.html#">
-																		<i class="fa fa-trash-o "></i> 
-																	</a>
-																</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-										<div class="actions">								
-											<input type="button" class="btn btn-info button-previous" name="previous" value="Previous" />
-											<input type="button" class="btn btn-primary button-next pull-right" name="next" value="Next" />
-											
 										</div>
 									</div>
 								</div>
@@ -475,10 +222,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>   
 				</div>
 				<!-- End Main Page -->	
-		
-				<!-- Usage -->
-				
-			
 			</div>
 		</div><!--/container-->
 		
@@ -523,7 +266,187 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 			</div>
 		</div><!-- End Modal Dialog -->		
-		
+		<div class="modal fade" id="sheet-edit-period-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title bk-fg-primary">修改</h4>
+					</div>
+					<div class="modal-body">
+						<div class = "row">
+						<form id = "changeperiod" action="<%=basePath %>ChangePeriodServlet" method="post" class="form-horizontal col-md-8 col-md-offset-2">
+							<div class="form-group" hidden = "hidden">
+								<label class="col-md-3 control-label">编号</label>
+								<div class="col-md-9">
+									<input type="text" name="sheet_id" id = "period-edit-id" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="select">时间点</label>
+								<div class="col-md-9">
+									<select id="period-edit-time" name="time" class="form-control" size="1">
+										<option value="00:00">00:00</option>
+										<option value="02:00">02:00</option>
+										<option value="04:00">04:00</option>
+										<option value="06:00">06:00</option>
+										<option value="08:00">08:00</option>
+										<option value="10:00">10:00</option>
+										<option value="12:00">12:00</option>
+										<option value="14:00">14:00</option>
+										<option value="16:00">16:00</option>
+										<option value="18:00">18:00</option>
+										<option value="20:00">20:00</option>
+										<option value="22:00">22:00</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="select">班次</label>
+								<div class="col-md-9">
+									<select id="period-edit-shift" name="shift" class="form-control" size="1">
+										<%for(int k = 0; k< shifts.length; k++){ %>
+										<option value="<%=shifts[k] %>"><%=shifts[k] %></option>
+										<%} %>
+									</select>
+								</div>
+							</div>
+							<button type = "submit" class = "btn btn-success col-md-12">确认</button>
+						</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="sheet-view-period-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title bk-fg-primary">添加</h4>
+					</div>
+					<div class="modal-body">
+						<div class = "row">
+							<div class="col-md-offset-1 col-md-10">
+								<div class="col-md-5" >
+								已选择
+								<table class = "col-md-12 table table-hover table-bordered">
+								<tbody>
+									<tr><td>123</td></tr>
+									<tr><td>123</td></tr>
+									<tr><td>123</td></tr>
+									<tr><td>123</td></tr>
+								</tbody>
+								</table>
+								</div> 
+								<div class ="col-md-1 bk-margin-top-15" ><i class ="fa fa-arrows-h fa-2x"></i></div>
+								<div class="col-md-5 col-md-offset-1" >
+								未选择
+								<table class = "col-md-12 table table-hover table-bordered">
+								<tbody>
+									<tr><td>123</td></tr>
+									<tr><td>123</td></tr>
+									<tr><td>123</td></tr>
+									<tr><td>123</td></tr>
+								</tbody>
+								</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="sheet-add-shift-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title bk-fg-primary">添加</h4>
+					</div>
+					<div class="modal-body">
+						<div class = "row">
+							<form method="post" class="form-horizontal col-md-offset-2 col-md-8" action = "ChangeSheetServlet" role="form">
+								<div class="form-group">
+									<label class="col-md-3 control-label">班次名</label>
+									<div class="col-md-9">
+										<input type="text" name="sheet_id" id = "sheet-edit-id" class="form-control" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label">时间点(至少1个)</label>
+									<div class="col-md-9">
+										<div class="col-md-3">
+											<div class="checkbox-custom">
+												<input type="checkbox" id="checkbox1" name="checkbox1" value="option1"> 
+												<label for="checkbox1"> 00:00</label>
+											</div>
+											<div class="checkbox-custom">
+												<input type="checkbox" id="checkbox2" name="checkbox2" value="option2"> 
+												<label for="checkbox2"> 02:00</label>
+											</div>
+											<div class="checkbox-custom">
+												<input type="checkbox" id="checkbox3" name="checkbox3" value="option3"> 
+												<label for="checkbox3"> 04:00</label>
+											</div>
+											<div class="checkbox-custom">
+												<input type="checkbox" id="checkbox4" name="checkbox4" value="option4"> 
+												<label for="checkbox4"> 06:00</label>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="checkbox-custom">
+												<input type="checkbox" id="checkbox5" name="checkbox5" value="option5"> 
+												<label for="checkbox5"> 08:00</label>
+											</div>
+											<div class="checkbox-custom">
+												<input type="checkbox" id="checkbox5" name="checkbox5" value="option5"> 
+												<label for="checkbox5"> 10:00</label>
+											</div>
+											<div class="checkbox-custom">
+												<input type="checkbox" id="checkbox1" name="checkbox1" value="option1"> 
+												<label for="checkbox1"> 12:00</label>
+											</div>
+											<div class="checkbox-custom">
+													<input type="checkbox" id="checkbox2" name="checkbox2" value="option2"> 
+												<label for="checkbox2"> 14:00</label>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="checkbox-custom">
+													<input type="checkbox" id="checkbox3" name="checkbox3" value="option3"> 
+												<label for="checkbox3"> 16:00</label>
+											</div>
+											<div class="checkbox-custom">
+													<input type="checkbox" id="checkbox4" name="checkbox4" value="option4"> 
+												<label for="checkbox4"> 18:00</label>
+											</div>
+											<div class="checkbox-custom">
+													<input type="checkbox" id="checkbox5" name="checkbox5" value="option5"> 
+												<label for="checkbox5"> 20:00</label>
+											</div>
+											<div class="checkbox-custom">
+													<input type="checkbox" id="checkbox5" name="checkbox5" value="option5"> 
+												<label for="checkbox5"> 22:00</label>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<button type = "submit" class = "btn btn-success col-md-12">确认</button>											
+	
+							</form>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="clearfix"></div>		
 		
 		

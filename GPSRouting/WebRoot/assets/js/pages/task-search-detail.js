@@ -22,6 +22,7 @@ $(document).ready(function(){
 			$("#sheet-edit-intro").val($("#sheet-intro").text());
 	  
 	  });
+	  
 	  	
 	/*---shift ---*/
 	

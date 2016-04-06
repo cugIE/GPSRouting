@@ -18,7 +18,7 @@ import com.util.DBHelper;
 public class Period {
 	private String id;
 	private String shift;
-	private Time time;
+	private String time;
 	private String gener;
 	private int gener_id;
 	private int sheet_id;
@@ -35,7 +35,7 @@ public class Period {
 	public void setGener_id(int gener_id) {
 		this.gener_id = gener_id;
 	}
-	public Period(String id, String shift, Time time, String gener, int gener_id, int sheet_id) {
+	public Period(String id, String shift, String time, String gener, int gener_id, int sheet_id) {
 		super();
 		this.id = id;
 		this.shift = shift;
@@ -64,10 +64,10 @@ public class Period {
 	public void setShift(String shift) {
 		this.shift = shift;
 	}
-	public Time getTime() {
+	public String getTime() {
 		return time;
 	}
-	public void setTime(Time time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 	public String getGener() {
@@ -122,7 +122,7 @@ public class Period {
 			Period pr = new Period();
 			pr.setId(rs.getString(1));
 			pr.setShift(rs.getString(2));
-			pr.setTime(rs.getTime(3));
+			pr.setTime(rs.getString(3));
 			pr.setGener_id(rs.getInt(4));
 			pr.setGener(rs.getString(5));
 			
@@ -133,8 +133,8 @@ public class Period {
 	}
 	public static String getShift(String shid) throws SQLException{
 		String value ="";
-		String sql = "select distinct sheet_shift from sheet "
-				+ "where sheet.sheet_id =" + shid;
+		String sql = "select distinct period_shift from period "
+				+ "where sheet_id =" + shid;
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
 		while(rs.next()){
@@ -142,6 +142,23 @@ public class Period {
 		}
 		dbh.DBClose(rs);
 		return value;
+		
+	}
+	public static List<Period> getPeriod(String shid, String shift) throws SQLException{
+		String sql = "select period_id, period_time from period "
+				+ "where sheet_id =" + shid
+				+ " and period_shift= '" + shift + "'";
+		List<Period> prs = new ArrayList<Period>();
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		while(rs.next()){
+			Period pr = new Period();
+			pr.setId(rs.getString(1));
+			pr.setTime(rs.getString(2));
+			prs.add(pr);
+		}
+		dbh.DBClose(rs);
+		return prs;
 		
 	}
 }

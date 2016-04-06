@@ -151,7 +151,7 @@ public class PtrConnection {
 		while (rs.next()){
 			Period prd = new Period();
 			prd.setShift(rs.getString(1));
-			prd.setTime(rs.getTime(2));
+			prd.setTime(rs.getString(2));
 			prds.add(prd);
 			
 		}

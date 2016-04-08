@@ -59,7 +59,18 @@
 	    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=M7TQ1t1WsazHr9whomCjQ8rP"></script>
 		<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
 <!-- 		<script type="text/javascript" src="assets/js/pages/device-map.js"></script>
- -->		
+ -->	
+ 		<!-- <script type="text/javascript">
+ 			function dosubmit(){
+ 				var th = document.getElementsByName(addPeople);
+ 				if(th.username ==""){
+ 					alert("用户名不能为空！！");
+ 					return;
+ 				}
+ 				
+ 				th.submit();
+ 			}
+ 		</script> -->	
 	</head>
 	
 	<body>
@@ -89,45 +100,35 @@
 					<!-- End Page Header -->
 
 					<div class="row">		
-						<div class="col-lg-12">
-						<div class="row">
 						<div class="col-md-12">
 							<div class="panel">
 								<div class="panel-heading bk-bg-primary">
 									<h6><i class="fa fa-indent red"></i>修改或添加</h6>							
 								</div>
 								<div class="panel-body">
-									<div class="text-left bk-bg-white bk-padding-top-40 bk-padding-bottom-10">
-										<div class="row">
-											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bk-vcenter text-center">                                
-												<div class="bk-avatar">
-													<img src="assets/img/avatar.jpg" alt="" class="img-circle bk-img-120 bk-border-light-gray bk-border-3x" />
-												</div>
-											</div>
-										</div>
-									</div>
-									<form action="AddPeopleServlet" method="post" enctype="multipart/form-data" class="form-horizontal ">
+									
+									<form  class="form-horizontal " action="<%=request.getContextPath() %>/AddPeopleServlet" method="post">
 										<div class="form-group">
-											<label class="col-md-3 control-label">用户名</label>
-											<div class="col-md-6">
-												<input type="text" id="username" name="username" class="form-control" placeholder="用户名">
+											<label class=" col-md-4 control-label">用户名</label>
+											<div class="col-md-5">
+												<input type="text" name="username" class="form-control" placeholder="用户名">
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-md-3 control-label" for="password-input">密码</label>
-											<div class="col-md-6">
-												<input type="password" id="password" name="password" class="form-control" placeholder="密码">
+											<label class=" col-md-4 control-label" for="password-input">密码</label>
+											<div class="col-md-5">
+												<input type="password" name="password" class="form-control" placeholder="密码">
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-md-3 control-label" for="text-input">姓名</label>
-											<div class="col-md-6">
-												<input type="text" id="name" name="name" class="form-control" placeholder="姓名">
+											<label class="  col-md-4 control-label" for="text-input">姓名</label>
+											<div class="col-md-5">
+												<input type="text" name="name" class="form-control" placeholder="姓名">
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-md-3 control-label">性别</label>
-											<div class="col-md-9">
+											<label class="  col-md-4 control-label">性别</label>
+											<div class="col-md-5">
 												<div class="radio-custom radio-inline">
 													<input type="radio" id="inline-radio1" name="sex" value="option1"> 
 													<label for="inline-radio1"> 男</label>
@@ -139,14 +140,14 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-md-3 control-label" for="text-input">编码</label>
-											<div class="col-md-6">
+											<label class="  col-md-4 control-label" for="text-input">编码</label>
+											<div class="col-md-5">
 												<input type="text" id="peopleid" name="peopleid" class="form-control" placeholder="编码格式：AABBCC">
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-md-3 control-label" for="text-input">部门</label>
-											<div class="col-md-6">
+											<label class="  col-md-4 control-label" for="text-input">部门</label>
+											<div class="col-md-5">
 												<select name="branchname" id="branchid" class="form-control">
 												<option value="1">111</option>
 												<option value="2">222</option>
@@ -157,32 +158,32 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-md-3 control-label" for="text-input">组类型</label>
-											<div class="col-md-6">
+											<label class="  col-md-4 control-label" for="text-input">组类型</label>
+											<div class="col-md-5">
 												<input type="text" id="email-input" name="email-input" class="form-control" placeholder="值班员、值班干部、工程师等"><input type="text"name="teamtext" class="form-control" value="组说明"disabled="true">
 											</div>
 										</div>
 							
 										<div class="form-group">
-											<label class="col-md-3 control-label" for="text-input">备注</label>
-											<div class="col-md-6">
+											<label class="  col-md-4 control-label" for="text-input">备注</label>
+											<div class="col-md-5">
 												<input type="text" id="peopRemark" name="peopRemark" class="form-control" placeholder="备注信息">
 											</div>
 										</div>
 										
 										<div class="form-group">
-											<label class="col-md-3 control-label" for="file-input">更换照片</label>
-											<div class="col-md-9">
+											<label  class="  col-md-4 control-label" for="file-input">更换照片</label>
+											<div class="col-md-5">
 												<input type="file" id="file-input" name="file-input">
 											</div>
 										</div>
-										
+										<div class="form-group">	
+											<input type="submit" class="bk-margin-5 btn btn-primary"value= "提交">
+										</div>
 										<br>
 									</form>
 									<hr class="bk-margin-off" />
-									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bk-ltr bk-bg-white text-right">	
-										<button type="submit" class="bk-margin-5 btn btn-primary"><i class="fa fa-send"></i> 确认</button>
-									</div>
+							
 								</div>	
 							</div>
 						</div>

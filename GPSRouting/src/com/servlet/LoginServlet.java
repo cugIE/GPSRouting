@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bean.People;
+import com.service.PeopleService;
 
 public class LoginServlet extends HttpServlet {
 	
@@ -22,11 +23,14 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		System.out.println(username);
 		System.out.println(password);
+		People p = new People();
+		p.setUsername(username);
+		p.setPassword(password);
 		try {
-			People peop = new People();
-			if (peop.check(username,password)) {
-				
+			PeopleService ps = new PeopleService();
+			if (ps.check(p)) {
 				System.out.println("登录成功");
+				out.println("登录成功！");
 				out.println(username);
 				out.println(password);		
 			} else {

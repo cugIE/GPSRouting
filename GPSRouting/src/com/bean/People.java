@@ -65,41 +65,6 @@ public class People {
 	public void setGenerId(int generId) {
 		this.generId = generId;
 	}
-	public boolean check(String username,String password) 
-		throws Exception{
-		boolean i = false;
-		People p = null;
-		Connection conn = DB.getConn();
-		String sql = "select * from people where people_username = '"+ username +"'";
-		Statement stmt = DB.getStatement(conn);
-		//根据sql语句获取查询结果
-		ResultSet rs = DB.getResultSet(stmt, sql);
-		try {
-			if (!rs.next()) {
-				throw new Exception("用户不存在：" + username);	
-			} else {
-				if (!password.equals(rs.getString("people_password"))) {
-					throw new Exception("密码不正确！");
-				}
-				i = true;
-				p = new People();
-				p.setId(rs.getInt("id"));
-				p.setName(rs.getString("name"));
-				p.setUsername(rs.getString("username"));
-				p.setPassword(rs.getString("password"));	
-				
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			
-		}finally{
-			DB.close(rs);
-			DB.close(stmt);
-			DB.close(conn);
-		}
-		return i;
-	}
 	
 	public boolean checkIs(String username)
 			throws Exception {
@@ -126,21 +91,5 @@ public class People {
 		return b;
 	}
 	
-	public boolean insertPeop(String username,String name,String password)
-			throws Exception{	
-		boolean ok = true;
-		Connection conn = DB.getConn();
-		String sql = "insert into people(people_username,people_name,people_password) values ('"+ username +"','"+ name +"','"+ password +"')";
-		Statement stmt = DB.getStatement(conn);
-		ResultSet rs = DB.getResultSet(stmt, sql);
-		try {
-			rs.insertRow();
-		} catch (Exception e) {
-			// TODO: handle exception
-			ok = false;
-		}
-		
-		return ok;
-		
-	}
+	
 }

@@ -2,6 +2,7 @@ package com.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bean.People;
+import com.service.PeopleService;
 
 public class AddPeopleServlet extends HttpServlet {
 	
@@ -21,20 +23,23 @@ public class AddPeopleServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		
+		System.out.println(username);
+		System.out.println(name);
+		System.out.println(password);
+		
+		People people = new People();
+		people.setUsername(username);
+		people.setName(name);
+		people.setPassword(password);	
+		PeopleService peopleService = new PeopleService();
+	
 		try {
-			People peo = new People();
-			if (peo.checkIs(username)) {
-				out.println("该用户名已存在");
-			} else {
-				if (peo.insertPeop(username, name, password)) {
-					out.println("注册成功");
-				}
-				out.println("注册失败");
-			}
-		} catch (Exception e) {
+			peopleService.add(people);
+			out.println("注册成功");
+		} catch (SQLException e) {
 			// TODO: handle exception
-			out.println("</B></font></center>");
-			out.close();
+			out.println("注册失败");
+			e.printStackTrace();
 		}
 		
 	}

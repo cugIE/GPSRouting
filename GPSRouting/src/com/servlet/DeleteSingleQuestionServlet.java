@@ -9,15 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bean.Question;
 import com.bean.Region;
 import com.util.OutputHelper;
 
-public class DeleteSingleRegionServlet extends HttpServlet {
+public class DeleteSingleQuestionServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public DeleteSingleRegionServlet() {
+	public DeleteSingleQuestionServlet() {
 		super();
 	}
 
@@ -42,7 +43,19 @@ public class DeleteSingleRegionServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+		out.println("<HTML>");
+		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+		out.println("  <BODY>");
+		out.print("    This is ");
+		out.print(this.getClass());
+		out.println(", using the GET method");
+		out.println("  </BODY>");
+		out.println("</HTML>");
+		out.flush();
+		out.close();
 	}
 
 	/**
@@ -58,11 +71,11 @@ public class DeleteSingleRegionServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String region_id = request.getParameter("region_id");
+		String question_id = request.getParameter("question_id");
 		int result = 0;
-		System.out.println(region_id);
+		System.out.println(question_id);
 		try {
-			result = Region.deleteOneRegion(region_id);
+			result = Question.deleteOneQuestion(question_id);
 				OutputHelper.StringOutPut(result+"", response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

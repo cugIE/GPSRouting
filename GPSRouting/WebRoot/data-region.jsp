@@ -1,5 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" import = "com.bean.Region" import = "java.util.*"
     pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -63,6 +67,9 @@
 	</head>
 	
 	<body>
+	<% 
+	List<Region> rgs= Region.getAllRegion();
+	%>
 	
 		<!-- Start: Header -->
 		<!-- Start: Header -->
@@ -96,29 +103,44 @@
 									<h6><i class="fa fa-table red"></i><span class="break"></span>设备详细列表</h6>
 									<div class="panel-actions">
 										<a href="table.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
-										<a href="data-device-form.html#" class="btn-plus"><i class="fa fa-plus"></i></a>
+										<a data-toggle="modal" data-target="#myModal" class="btn-plus"><i class="fa fa-plus"></i></a>
 										<a href="table.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
 
 									</div>
 								</div>
 								<div class="panel-body">
-									<div class="table-responsive">	
+									<div class="form-group">
+										<div class="col-md-3">
+											<select id="select" name="select" class="form-control" size="1">
+												<option value="0">选择部门</option>
+												<option value="1">Option #1</option>
+												<option value="2">Option #2</option>
+												<option value="3">Option #3</option>
+											</select>
+										</div>
+										<button class = "btn btn-success">确认</button>
+									</div>
+									<div class="table-data-show">	
 										<table class="table table-striped table-bordered bootstrap-datatable datatable">
 											<thead>
 												<tr>
-													<th>设备编号</th>
-													<th>设备名</th>
-													<th>设备所在地</th>
-													<th>问题</th>
+													<th>区域编号</th>
+													<th>区域名</th>
+													<th>所属部门</th>
 													<th>操作</th>
 												</tr>
 											</thead>   
 											<tbody>								
-												<tr>												
-												<td>2563</td>
-													<td>气缸</td>
-													<td>中国地质大学</td>
-													<td>22:10 09/01/2015</td>
+																								
+												<%
+												for(int i = 0; i < rgs.size(); i++){
+													Region rg = rgs.get(i);
+													
+												%>
+												<tr>
+													<td><%=rg.getId() %></td>
+													<td><%=rg.getName() %></td>
+													<td><%=rg.getBranch() %></td>
 													<td>
 														<div class="btn-group">
 
@@ -126,76 +148,23 @@
 																<i class="fa fa-qrcode"></i>
 															</button>
 														    <ul class="dropdown-menu">
-															    <li><a href="pic/qrcode.png"><img class="img-thumbnail" src="pic/qrcode.png"></a></li>
+															    <li><a class = "btn btn-default" href="<%= basePath %>GenerateQRCode?region_id=<%=rg.getId() %>&size=200">200*200</a></li>
+															    <li><a class = "btn btn-default" href="<%= basePath %>GenerateQRCode?region_id=<%=rg.getId() %>&size=400">400*400</a></li>
+															    <li><a class = "btn btn-default" href="<%= basePath %>GenerateQRCode?region_id=<%=rg.getId() %>&size=1000">1000*1000</a></li>
 														    </ul>
 													    </div>
-														<a class="btn btn-info" href="data-device-form.html#">
-															<i class="fa fa-edit "></i>                                            
+														<a class="btn btn-info" href="<%= basePath %>data-region-detail.jsp?region_id=<%=rg.getId() %>">
+															<i class="fa fa-search "></i>                                            
 														</a>
-														<a class="btn btn-success" href="data-device-addques.html#">
-															<i class="fa fa-plus "></i>                                            
-														</a>
-														<a class="btn btn-danger" href="table.html#">
+														
+														<a class="btn btn-danger region-delete" value="<%=rg.getId() %>">
 															<i class="fa fa-trash-o "></i> 
 
 														</a>
 													</td>
+													
 												</tr>
-												<tr>												
-													<td>2563</td>
-													<td>气缸</td>
-													<td>中国地质大学</td>
-													<td>22:10 09/01/2015</td>
-													<td>
-														<div class="btn-group">
-
-															<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-																<i class="fa fa-qrcode"></i>
-															</button>
-														    <ul class="dropdown-menu">
-															    <li><a href="pic/qrcode.png"><img class="img-thumbnail" src="pic/qrcode.png"></a></li>
-														    </ul>
-													    </div>
-														<a class="btn btn-info" href="data-device-form.html#">
-															<i class="fa fa-edit "></i>                                            
-														</a>
-														<a class="btn btn-success" href="data-device-addques.html#">
-															<i class="fa fa-plus "></i>                                            
-														</a>
-
-														<a class="btn btn-danger" href="table.html#">
-															<i class="fa fa-trash-o "></i> 
-
-														</a>
-													</td>
-												</tr>
-												<tr>												
-													<td>2563</td>
-													<td>气缸</td>
-													<td>中国地质大学</td>
-													<td>22:10 09/01/2015</td>
-													<td>
-														<div class="btn-group">
-
-															<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-																<i class="fa fa-qrcode"></i>
-															</button>
-														    <ul class="dropdown-menu">
-															    <li><a href="pic/qrcode.png"><img class="img-thumbnail" src="pic/qrcode.png"></a></li>
-														    </ul>
-													    </div>
-														<a class="btn btn-info" href="data-device-form.html#">
-															<i class="fa fa-edit "></i>                                            
-														</a>
-														<a class="btn btn-success" href="data-device-addques.html#">
-															<i class="fa fa-plus "></i>                                            
-														</a>
-														<a class="btn btn-danger" href="table.html#">
-															<i class="fa fa-trash-o "></i> 
-
-														</a>
-													</td>
-												</tr>
+												<% } %>
 											</tbody>
 										</table>
 									</div>
@@ -212,8 +181,8 @@
 								</div>
 								<div class="panel-body">
 								<!-- put baidu map here-->
-									<button type="button" class="btn btn-info btn-sm col-md-1 bk-margin-5 pull-right" onclick = "getSelRoute()"><i class="fa fa-search"></i></button>  
-										<div class="col-md-3 bk-margin-5 center-block pull-right">
+									<div class="form-group">
+										<div class="col-md-3">
 											<select id="selectRoute" class="form-control" size="1"> 
 												<option value="0">选择巡线路线</option>   
 										        <option value="1">1号线</option>   
@@ -223,6 +192,9 @@
 									        	<option value="5">5号线</option>             
 									     	</select>  
 										</div>
+										<button class = "btn btn-success" onclick = "getSelRoute()">确认</button>
+									</div>
+										
 									<div id="allmap"></div>	
 								</div>
 							</div>
@@ -244,14 +216,60 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title bk-fg-primary">Modal title</h4>
+						<h4 class="modal-title bk-fg-primary">添加设备</h4>
 					</div>
 					<div class="modal-body">
-						<p class="bk-fg-danger">Here settings can be configured...</p>
+						<div class = "row">
+						<form id = "addregion" action="<%=basePath %>AddRegionServlet" method="post" class="form-horizontal col-md-8 col-md-offset-2">
+							<div class="form-group" hidden="hidden">>
+								<label class="col-md-3 control-label text-vertical-center" for="text-input">创建者编号</label>
+								<div class="col-md-9">
+									<input type="text" value="0001" id="region_gener" name="gener_id" class="form-control" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label text-vertical-center" for="text-input">设备名称</label>
+								<div class="col-md-9">
+									<input type="text" id="region_name" name="name" class="form-control" >
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="textarea-input">设备介绍</label>
+								<div class="col-md-9">
+									<textarea id="region_intro" name="intro" rows="4" class="form-control" placeholder="Content.."></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="select">所在部门</label>
+								<div class="col-md-9">
+									<select id="region_branch" name="branch_id" class="form-control" size="1">
+										<option value="1">部门1</option>
+										<option value="2">部门2</option>
+										<option value="3">部门3</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="select">区域种类</label>
+								<div class="col-md-9">
+									<select id="region_type" name="type" class="form-control" size="1">
+										<option value="site">训站点</option>
+										<option value="route">巡线点</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group" id="range_group">
+								<label class="col-md-3 control-label text-vertical-center" for="text-input">范围（m）</label>
+								<div class="col-md-9">
+									<input type="text" id="region_range" name="range" class="form-control" value="0">
+								</div>
+							</div>
+							<button type="submit" class="btn btn-success col-md-12">提交</button>
+						</form>
+						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save changes</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 					</div>
 				</div>
 			</div>
@@ -269,10 +287,12 @@
 		<script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 		<script src="assets/vendor/skycons/js/skycons.js"></script>	
 		
+		
 		<!-- Plugins JS-->
 		<script src="assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
 		<script src="assets/plugins/moment/js/moment.min.js"></script>	
-		<script src="assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>			
+		<script src="assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>		
+		<script src="assets/vendor/js/jquery.form.js"></script>
 		
 		<!-- Theme JS -->		
 		<script src="assets/js/jquery.mmenu.min.js"></script>
@@ -281,6 +301,7 @@
 		<!-- Pages JS -->
 		<script src="assets/js/pages/table.js"></script>
 		<script type="text/javascript" src="assets/js/pages/device-map.js"></script>
+		<script type="text/javascript" src="assets/js/pages/data-region.js"></script>
 
 		<!-- end: JavaScript-->
 		

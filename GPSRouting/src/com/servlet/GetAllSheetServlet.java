@@ -3,22 +3,25 @@ package com.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import com.bean.Region;
+import com.bean.Sheet;
+import com.util.OutputHelper;
 
-public class GetSingleRegionServlet extends HttpServlet {
+public class GetAllSheetServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public GetSingleRegionServlet() {
+	public GetAllSheetServlet() {
 		super();
 	}
 
@@ -42,26 +45,74 @@ public class GetSingleRegionServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String regionID = request.getParameter("region_id");
-		JSONObject js = new JSONObject();
-		try {
-			Region rg = Region.getOneRegion(regionID);
-			if (rg != null){
-				js.put("id", rg.getId());
-				js.put("branch", rg.getBranch());
-				js.put("intro", rg.getIntro());
-				js.put("gps", rg.getGps());
-				js.put("qrcode", rg.getType());
-				js.put("type", rg.getType());
-				js.put("gener", rg.getGener());
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		response.setContentType("charset=utf-8");
-		response.getOutputStream().write(js.toString().getBytes("utf-8"));
+		String index = request.getParameter("index");
 		
+		if(index.equals("branch")){
+			String branch_id = request.getParameter("branch_id");
+			if (branch_id==null){
+				OutputHelper.StringOutPut("error_branch", response);
+				
+			}
+			else {
+				JSONArray JA = new JSONArray();
+				try {
+					List<Sheet> shts = Sheet.getAllSheet(branch_id);
+					if (shts.size() == 0){
+						OutputHelper.StringOutPut("no result",response);
+						return;
+					}
+					else{
+						for(int i = 0; i < shts.size(); i++){
+							JSONObject jso = new JSONObject();
+							jso.put("id", shts.get(i).getId());
+							jso.put("name", shts.get(i).getName());
+							jso.put("intro", shts.get(i).getIntro());
+							jso.put("gener", shts.get(i).getGener());
+							JA.add(jso);
+						}
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				OutputHelper.StringOutPut(JA.toString(), response);
+			}
+			
+		}
+		else if(index.equals("sheet")){
+			String sheet_id = request.getParameter("sheet_id");
+			if (sheet_id==null){
+				OutputHelper.StringOutPut("error_sheet", response);
+				
+			}
+			else {
+				Sheet sht;
+				JSONObject jso = new JSONObject();
+				try {
+					sht = Sheet.getOneSheet(sheet_id);
+					if (sht == null){
+						OutputHelper.StringOutPut("no result",response);
+						return;
+					}
+					else{
+						jso.put("id", sht.getId());
+						jso.put("name", sht.getName());
+						jso.put("intro", sht.getIntro());
+						jso.put("gener", sht.getGener());
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					
+				}
+				
+				OutputHelper.StringOutPut(jso.toString(),response);
+			}
+			
+		}
+		else {
+			OutputHelper.StringOutPut("error_index", response);
+		}
 	}
 
 	/**

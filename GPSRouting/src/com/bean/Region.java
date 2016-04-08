@@ -20,6 +20,7 @@ public class Region {
 	 * The variables of Regions
 	 */
 	private String id;
+	private String name;
 	private String branch;
 	private int branch_id;
 	private String intro;
@@ -42,11 +43,12 @@ public class Region {
 	 * @param type
 	 * @param range
 	 */
-	public Region(String id, String branch, int branch_id, String intro,
+	public Region(String id, String name, String branch, int branch_id, String intro,
 			String gps, String qrcode, String gener, int gener_id, String type,
 			int range) {
 		super();
 		this.id = id;
+		this.name = name;
 		this.branch = branch;
 		this.branch_id = branch_id;
 		this.intro = intro;
@@ -61,12 +63,13 @@ public class Region {
 	/**
 	 * Constructor of Region
 	 */
-	 Region(){
+	 public Region(){
 		this.id = null;
+		this.name = null;
 		this.branch = null;
 		this.intro = null;
-		this.gps = null;
-		this.qrcode = null;
+		this.gps = "{}";
+		this.qrcode = "http://";
 		this.gener = null;
 		this.type = null;
 		this.range = 0;
@@ -85,6 +88,14 @@ public class Region {
 		this.id = id;
 	}
 	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public int getBranch_id() {
 		return branch_id;
 	}
@@ -151,7 +162,7 @@ public class Region {
 	 */
 	public static List<Region> getAllRegion() throws SQLException{
 		List<Region> rgs = new ArrayList<Region>();
-		String sql = "SELECT region_id, region.branch_id ,branch_name, region_intro, region_gps, region_qrcode, region.gener_id ,people_name, region_type, region_range "
+		String sql = "SELECT region_id, region_name, region.branch_id ,branch_name, region_intro, region_gps, region_qrcode, region.gener_id ,people_name, region_type, region_range "
 				+ "from "
 				+ "("
 				+ "region "
@@ -165,15 +176,16 @@ public class Region {
 		while(rs.next()){
 			Region rg = new Region();
 			rg.setId(rs.getString(1));
-			rg.setBranch_id(rs.getInt(2));
-			rg.setBranch(rs.getString(3));
-			rg.setIntro(rs.getString(4));
-			rg.setGps(rs.getString(5));
-			rg.setQrcode(rs.getString(6));
-			rg.setGener_id(rs.getInt(7));
-			rg.setGener(rs.getString(8));
-			rg.setType(rs.getString(9));
-			rg.setRange(rs.getInt(10));
+			rg.setName(rs.getString(2));
+			rg.setBranch_id(rs.getInt(3));
+			rg.setBranch(rs.getString(4));
+			rg.setIntro(rs.getString(5));
+			rg.setGps(rs.getString(6));
+			rg.setQrcode(rs.getString(7));
+			rg.setGener_id(rs.getInt(8));
+			rg.setGener(rs.getString(9));
+			rg.setType(rs.getString(10));
+			rg.setRange(rs.getInt(11));
 			rgs.add(rg);
 		}
 		dbh.DBClose(rs);
@@ -187,7 +199,7 @@ public class Region {
 	 */
 	public static List<Region> getAllRegion(String brID) throws SQLException{
 		List<Region> rgs = new ArrayList<Region>();
-		String sql = "SELECT region_id, region.branch_id, branch_name, region_intro, region_gps, region_qrcode, region.gener_id, people_name, region_type, region_range "
+		String sql = "SELECT region_id, region_name, region.branch_id, branch_name, region_intro, region_gps, region_qrcode, region.gener_id, people_name, region_type, region_range "
 				+ "from "
 				+ "("
 				+ "region "
@@ -201,15 +213,16 @@ public class Region {
 		while(rs.next()){
 			Region rg = new Region();
 			rg.setId(rs.getString(1));
-			rg.setBranch_id(rs.getInt(2));
-			rg.setBranch(rs.getString(3));
-			rg.setIntro(rs.getString(4));
-			rg.setGps(rs.getString(5));
-			rg.setQrcode(rs.getString(6));
-			rg.setGener_id(rs.getInt(7));
-			rg.setGener(rs.getString(8));
-			rg.setType(rs.getString(9));
-			rg.setRange(rs.getInt(10));
+			rg.setName(rs.getString(2));
+			rg.setBranch_id(rs.getInt(3));
+			rg.setBranch(rs.getString(4));
+			rg.setIntro(rs.getString(5));
+			rg.setGps(rs.getString(6));
+			rg.setQrcode(rs.getString(7));
+			rg.setGener_id(rs.getInt(8));
+			rg.setGener(rs.getString(9));
+			rg.setType(rs.getString(10));
+			rg.setRange(rs.getInt(11));
 			rgs.add(rg);
 		}
 		dbh.DBClose(rs);
@@ -222,7 +235,8 @@ public class Region {
 	 * @throws SQLException 
 	 */
 	public static Region getOneRegion(String id) throws SQLException{
-		String sql = "SELECT region_id, region.branch_id, branch_name, region_intro, region_gps, region_qrcode, region.gener_id, people_name, region_type, region_range "
+
+		String sql = "SELECT region_id, region_name, region.branch_id, branch_name, region_intro, region_gps, region_qrcode, region.gener_id, people_name, region_type, region_range "
 				+ "from "
 				+ "("
 				+ "region "
@@ -235,20 +249,23 @@ public class Region {
 		ResultSet rs = dbh.getResultSet(sql);
 		if(rs.next()){
 			Region rg = new Region();
+
 			rg.setId(rs.getString(1));
-			rg.setBranch_id(rs.getInt(2));
-			rg.setBranch(rs.getString(3));
-			rg.setIntro(rs.getString(4));
-			rg.setGps(rs.getString(5));
-			rg.setQrcode(rs.getString(6));
-			rg.setGener_id(rs.getInt(7));
-			rg.setGener(rs.getString(8));
-			rg.setType(rs.getString(9));
-			rg.setRange(rs.getInt(10));
+			rg.setName(rs.getString(2));
+			rg.setBranch_id(rs.getInt(3));
+			rg.setBranch(rs.getString(4));
+			rg.setIntro(rs.getString(5));
+			rg.setGps(rs.getString(6));
+			rg.setQrcode(rs.getString(7));
+			rg.setGener_id(rs.getInt(8));
+			rg.setGener(rs.getString(9));
+			rg.setType(rs.getString(10));
+			rg.setRange(rs.getInt(11));
 			dbh.DBClose(rs);
 			return rg;
 		}
 		else{
+			dbh.DBClose(rs);
 			return null;
 		}
 	}
@@ -286,16 +303,26 @@ public class Region {
 			result = -1;
 		}
 		else{
-			String sql = "inset into region "
-					+ "(branch_id, region_intro, region_gps, region_qrcode, gener_id, region_type, region_range)"
-					+ "values('"+ rg.getBranch_id() + "','"
+			String sql = "insert into region"
+					+ "(region_name, branch_id, region_intro, region_gps, region_qrcode, gener_id, region_type, region_range)"
+					+ "values('"
+					+ rg.getName() + "','"
+					+ rg.getBranch_id() + "','"
 					+ rg.getIntro()  + "','" 
 					+ rg.getGps()  + "','" 
 					+ rg.getQrcode()  + "','" 
 					+ rg.getGener_id()  + "','" 
+					+ rg.getType() + "','"
 					+ rg.getRange()  + "')";
 			DBHelper dbh = new DBHelper();
 			result = dbh.updateDatabase(sql);
+			ResultSet rs = dbh.getResultSet("SELECT LAST_INSERT_ID()");
+			if (rs.next()) {  
+		        result = rs.getInt(1);  
+		    }  else {  
+		        // throw an exception from here  
+		    	result=-1;
+		    } 
 			dbh.DBClose();
 		}
 		return result;
@@ -314,6 +341,7 @@ public class Region {
 		}
 		else{
 			String sql = "update region set "
+					+ "region_name = '" + rg.getName() + "', "
 					+ "branch_id = '" + rg.getBranch_id() + "', "
 					+ "region_intro = '" + rg.getIntro() + "', "
 					+ "region_gps = '" + rg.getGps() + "', "

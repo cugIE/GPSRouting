@@ -2,6 +2,7 @@ package com.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,7 +15,9 @@ import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import com.bean.PtrConnection;
 import com.bean.Region;
+import com.util.OutputHelper;
 
 public class GetAllRegionServlet extends HttpServlet {
 
@@ -45,38 +48,150 @@ public class GetAllRegionServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String branchID = request.getParameter("branch_id");
-		JSONArray JA = new JSONArray();
-		try {
-			List<Region> regions;
-			if (branchID.equals("all")){
-				regions = Region.getAllRegion();
+		String index = request.getParameter("index");
+		//System.out.print(index+"1");
+		if (index.equals("branch")){
+			String branchID = request.getParameter("branch_id");
+			JSONArray JA = new JSONArray();
+			if (branchID == null) {
+				this.StringOutPut("error_branch", response);
 			}
 			else {
-				regions = Region.getAllRegion(branchID);
-			}
-			if (regions!=null){
-				
-				for (int i = 0; i < regions.size(); i++ ){
-					JSONObject js = new JSONObject();
-					Region rg = regions.get(i);
-					js.put("id", rg.getId());
-					js.put("branch", rg.getBranch());
-					js.put("intro", rg.getIntro());
-					js.put("gps", rg.getGps());
-					js.put("qrcode", rg.getType());
-					js.put("type", rg.getType());
-					js.put("gener", rg.getGener());
-					JA.add(js);
+				try {
+					List<Region> regions;
+					regions = Region.getAllRegion(branchID);
+					if (regions.size()!=0){
+						
+						for (int i = 0; i < regions.size(); i++ ){
+							JSONObject js = new JSONObject();
+							Region rg = regions.get(i);
+							js.put("id", rg.getId());
+							js.put("name", rg.getName());
+							js.put("branch", rg.getBranch());
+							js.put("intro", rg.getIntro());
+							js.put("gps", rg.getGps());
+							js.put("qrcode", rg.getQrcode());
+							js.put("type", rg.getType());
+							js.put("gener", rg.getGener());
+							JA.add(js);
+						}
+					}
+					else{
+						OutputHelper.StringOutPut("no result",response);
+						return;
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
+				this.StringOutPut(JA.toString(), response);
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		System.out.println(JA.toString());
-		response.setContentType("charset=utf-8");
-		response.getOutputStream().write(JA.toString().getBytes("utf-8"));
+		else if (index.equals("all")){
+			JSONArray JA = new JSONArray();
+			try {
+				List<Region> regions;
+				regions = Region.getAllRegion();
+				if (regions.size()!=0){
+					
+					for (int i = 0; i < regions.size(); i++ ){
+						JSONObject js = new JSONObject();
+						Region rg = regions.get(i);
+						js.put("id", rg.getId());
+						js.put("name", rg.getName());
+						js.put("branch", rg.getBranch());
+						js.put("intro", rg.getIntro());
+						js.put("gps", rg.getGps());
+						js.put("qrcode", rg.getQrcode());
+						js.put("type", rg.getType());
+						js.put("gener", rg.getGener());
+						JA.add(js);
+					}
+				}
+				else{
+					OutputHelper.StringOutPut("no result",response);
+					return;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			this.StringOutPut(JA.toString(), response);
+		}
+		else if (index.equals("period")){
+			String periodID = request.getParameter("period_id");
+			JSONArray JA = new JSONArray();
+			if (periodID == null) {
+				this.StringOutPut("error_period", response);
+			}
+			else {
+				try {
+					List<PtrConnection> ptrs;
+					ptrs = PtrConnection.getAllRegion(periodID);
+					if (ptrs.size()!=0){
+						
+						for (int i = 0; i < ptrs.size(); i++ ){
+							JSONObject js = new JSONObject();
+							PtrConnection ptr = ptrs.get(i);
+							js.put("id", ptr.getRegion_content().getId());
+							js.put("name", ptr.getRegion_content().getName());
+							js.put("branch", ptr.getRegion_content().getBranch());
+							js.put("intro", ptr.getRegion_content().getIntro());
+							js.put("type", ptr.getRegion_content().getType());
+							js.put("sort", ptr.getSort());
+							js.put("gener", ptr.getGener());
+							js.put("gener_id", ptr.getGener_id());
+							js.put("ptr_id",Integer.parseInt(ptr.getId()));
+							JA.add(js);
+						}
+					}
+					else{
+						OutputHelper.StringOutPut("no result",response);
+						return;
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				this.StringOutPut(JA.toString(), response);
+			}
+		}
+		else if(index.equals("region")){
+
+			String regionID = request.getParameter("region_id");
+			JSONObject js = new JSONObject();
+			if (regionID == null) {
+				this.StringOutPut("error_region", response);
+			}
+			else {
+
+				try {
+					Region rg = Region.getOneRegion(regionID);
+					if (rg == null){
+						OutputHelper.StringOutPut("no result",response);
+						return;
+					}
+					else{
+						js.put("id", rg.getId());
+						js.put("name", rg.getName());
+						js.put("branch", rg.getBranch());
+						js.put("intro", rg.getIntro());
+						js.put("gps", rg.getGps());
+						js.put("qrcode", rg.getQrcode());
+						js.put("type", rg.getType());
+						js.put("gener", rg.getGener());
+						
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				this.StringOutPut(js.toString(), response);
+			}
+		}
+		else {
+			this.StringOutPut("error_index", response);
+		}
 
 	}
 
@@ -103,6 +218,19 @@ public class GetAllRegionServlet extends HttpServlet {
 	 */
 	public void init() throws ServletException {
 		// Put your code here
+	}
+	public void StringOutPut (String str, HttpServletResponse response){
+		System.out.println(str);
+		response.setContentType("charset=utf-8");
+		try {
+			response.getOutputStream().write(str.getBytes("utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

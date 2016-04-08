@@ -2,68 +2,50 @@ package com.test.xin;
 
 import static org.junit.Assert.*;
 
+import java.sql.SQLException;
+import java.sql.Time;
+import java.util.ArrayList;
+
 import org.junit.Test;
 
+import com.bean.Period;
+
 public class PeriodTest {
-
-	@Test
-	public void testGetId() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetId() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetShift() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetShift() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetTime() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetTime() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetGener() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetGener() {
-		fail("Not yet implemented");
-	}
+	Period prd = new Period();
 
 	@Test
 	public void testAddOnePeriod() {
-		fail("Not yet implemented");
+		prd.setSheet_id(1);
+		prd.setShift("晚班");
+		prd.setTime("02:00");
+		prd.setGener_id(1);
+		try {
+			assertEquals(1,Period.addOnePeriod(prd));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	@Test
-	public void testDeleteOnePeriod() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testChangeOnePeriod() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	public void testDeleteOnePeriod() {
+//		
+//		try {
+//			assertEquals(1,Period.deleteOnePeriod("4"));
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 	@Test
 	public void testGetAllPeriod() {
-		fail("Not yet implemented");
+		try {
+			assertNotEquals(Period.getAllPeriod("1"), new ArrayList<Period>());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -84,8 +84,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="main ">
 					<!-- Page Header -->
 					<div class="page-header">
-						<jsp:include page="header.jsp"></jsp:include>
-						<div class="pull-right">
+ 						<jsp:include page="header.jsp"></jsp:include>
+ 						<div class="pull-right">
 							<h2>主界面</h2>
 						</div>					
 					</div>

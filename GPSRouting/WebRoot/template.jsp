@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -27,21 +31,21 @@
 	    <!-- start: CSS file-->
 		
 		<!-- Vendor CSS-->
-		<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-		<link href="assets/vendor/skycons/css/skycons.css" rel="stylesheet" />
-		<link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="<%=path%>/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="<%=path%>/assets/vendor/skycons/css/skycons.css" rel="stylesheet" />
+		<link href="<%=path%>/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 		
 		<!-- Plugins CSS-->
-		<link href="assets/plugins/bootkit/css/bootkit.css" rel="stylesheet" />
-		<link href="assets/plugins/fullcalendar/css/fullcalendar.css" rel="stylesheet" />
-		<link href="assets/plugins/jquery-ui/css/jquery-ui-1.10.4.min.css" rel="stylesheet" />					
+		<link href="<%=path%>/assets/plugins/bootkit/css/bootkit.css" rel="stylesheet" />
+		<link href="<%=path%>/assets/plugins/fullcalendar/css/fullcalendar.css" rel="stylesheet" />
+		<link href="<%=path%>/assets/plugins/jquery-ui/css/jquery-ui-1.10.4.min.css" rel="stylesheet" />					
 		
 		<!-- Theme CSS -->
-		<link href="assets/css/jquery.mmenu.css" rel="stylesheet" />
+		<link href="<%=path%>/assets/css/jquery.mmenu.css" rel="stylesheet" />
 		
 		<!-- Page CSS -->		
-		<link href="assets/css/style.css" rel="stylesheet" />
-		<link href="assets/css/add-ons.min.css" rel="stylesheet" />
+		<link href="<%=path%>/assets/css/style.css" rel="stylesheet" />
+		<link href="<%=path%>/assets/css/add-ons.min.css" rel="stylesheet" />
 		
 		<!-- end: CSS file-->	
 	    
@@ -54,12 +58,9 @@
 			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->		
-		<script src="assets/plugins/modernizr/js/modernizr.js"></script>
+		<script src="<%=path%>/assets/plugins/modernizr/js/modernizr.js"></script>
 	    <!-- Baidu Map -->
-	    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=M7TQ1t1WsazHr9whomCjQ8rP"></script>
-		<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
-<!-- 		<script type="text/javascript" src="assets/js/pages/device-map.js"></script>
- -->		
+
 	</head>
 	
 	<body>
@@ -89,8 +90,8 @@
 					<!-- End Page Header -->
 
 					<div class="row">		
-						<div class="col-lg-12">
-						在这里加入内容
+						<div class="col-lg-12">	
+						
 						</div>
 					</div>   
 				</div>
@@ -128,24 +129,24 @@
 		<!-- start: JavaScript-->
 		
 		<!-- Vendor JS-->				
-		<script src="assets/vendor/js/jquery.min.js"></script>
-		<script src="assets/vendor/js/jquery-2.1.1.min.js"></script>
-		<script src="assets/vendor/js/jquery-migrate-1.2.1.min.js"></script>
-		<script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-		<script src="assets/vendor/skycons/js/skycons.js"></script>	
+		<script src="<%=path%>/assets/vendor/js/jquery.min.js"></script>
+		<script src="<%=path%>/assets/vendor/js/jquery-2.1.1.min.js"></script>
+		<script src="<%=path%>/assets/vendor/js/jquery-migrate-1.2.1.min.js"></script>
+		<script src="<%=path%>/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+		<script src="<%=path%>/assets/vendor/skycons/js/skycons.js"></script>	
 		
 		<!-- Plugins JS-->
-		<script src="assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
-		<script src="assets/plugins/moment/js/moment.min.js"></script>	
-		<script src="assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>			
+		<script src="<%=path%>/assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
+		<script src="<%=path%>/assets/plugins/moment/js/moment.min.js"></script>	
+		<script src="<%=path%>/assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>			
 		
 		<!-- Theme JS -->		
-		<script src="assets/js/jquery.mmenu.min.js"></script>
-		<script src="assets/js/core.min.js"></script>
+		<script src="<%=path%>/assets/js/jquery.mmenu.min.js"></script>
+		<script src="<%=path%>/assets/js/core.min.js"></script>
 		
 		<!-- Pages JS -->
-		<script src="assets/js/pages/table.js"></script>
-		<script type="text/javascript" src="assets/js/pages/device-map.js"></script>
+		<script src="<%=path%>/assets/js/pages/table.js"></script>
+		<script type="text/javascript" src="<%=path%>/assets/js/pages/device-map.js"></script>
 
 		<!-- end: JavaScript-->
 		

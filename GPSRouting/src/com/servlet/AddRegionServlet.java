@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.bean.Region;
 import com.util.OutputHelper;
 
-public class DeleteSingleRegionServlet extends HttpServlet {
+public class AddRegionServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public DeleteSingleRegionServlet() {
+	public AddRegionServlet() {
 		super();
 	}
 
@@ -42,7 +42,19 @@ public class DeleteSingleRegionServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+		out.println("<HTML>");
+		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+		out.println("  <BODY>");
+		out.print("    This is ");
+		out.print(this.getClass());
+		out.println(", using the GET method");
+		out.println("  </BODY>");
+		out.println("</HTML>");
+		out.flush();
+		out.close();
 	}
 
 	/**
@@ -57,18 +69,42 @@ public class DeleteSingleRegionServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		String region_id = request.getParameter("region_id");
-		int result = 0;
-		System.out.println(region_id);
+		request.setCharacterEncoding("UTF-8");
+		String name = request.getParameter("name");
+		String intro = request.getParameter("intro");
+		String branch_id = request.getParameter("branch_id");
+		String type = request.getParameter("type");
+		String range = request.getParameter("range");
+		String gener_id = request.getParameter("gener_id");
+		Region rg = new Region();
+		rg.setName(name);
+		rg.setType(type);
+		rg.setIntro(intro);
+		if(branch_id!=null&&range!=null&&gener_id!=null){
+			rg.setBranch_id(Integer.parseInt(branch_id));
+			rg.setRange(Integer.parseInt(range));
+			rg.setGener_id(Integer.parseInt(gener_id));
+		}
+		else {
+			OutputHelper.StringOutPut("error", response);
+			return;
+		}
 		try {
-			result = Region.deleteOneRegion(region_id);
-				OutputHelper.StringOutPut(result+"", response);
+			int result = Region.addOneRegion(rg);
+			if(result==-1){
+				OutputHelper.StringOutPut("error", response);
+				return;
+			}
+			
+			OutputHelper.StringOutPut(String.format("%04d", result), response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			OutputHelper.StringOutPut("error", response);
 			e.printStackTrace();
 		}
+		
+
+		
 	}
 
 	/**

@@ -118,8 +118,8 @@ public class Question {
 			result = -1;
 		}
 		else{
-			String sql = "inset into question "
-					+ "(question_title, question_asws, question_r_asws, gener_id, åregion_id)"
+			String sql = "insert into question"
+					+ "(question_title, question_asws, question_r_asws, gener_id, region_id)"
 					+ "values('"+ qs.getTitle() + "','"
 					+ qs.getPossibleAsw() + "','" 
 					+ qs.getNormalAsw()  + "','" 
@@ -127,6 +127,13 @@ public class Question {
 					+ qs.getRegion_id()  + "')"; 
 			DBHelper dbh = new DBHelper();
 			result = dbh.updateDatabase(sql);
+			ResultSet rs = dbh.getResultSet("SELECT LAST_INSERT_ID()");
+			if (rs.next()) {  
+		        result = rs.getInt(1);  
+		    }  else {  
+		        // throw an exception from here  
+		    	result=-1;
+		    } 
 			dbh.DBClose();
 		}
 		return result;
@@ -148,8 +155,25 @@ public class Question {
 			int result = dbh.updateDatabase(sql);
 			dbh.DBClose();
 			return result;
-		}	}
-	
+		}	
+	}
+	public static int changeOneQuestion(Question qt) throws SQLException{
+		if (qt == null){
+			return -1;
+		}
+		else{
+			String sql = "update question set "
+					+ "question_title = '" + qt.getTitle() + "', "
+					+ "question_asws= '" + qt.getPossibleAsw() + "', "
+					+ "question_r_asws = '" + qt.getNormalAsw()+ "' "
+					+ "where question_id = " + qt.getId();
+			DBHelper dbh = new DBHelper();
+			int result = dbh.updateDatabase(sql);
+			dbh.DBClose();
+			return result;
+		}
+				
+	}
 	/**
 	 * Get all questions
 	 * @return
@@ -166,12 +190,17 @@ public class Question {
 	 */
 	public static List<Question> getAllQuestion(String rgid) throws SQLException{
 		List<Question> qts = new ArrayList<Question>();
-		String sql = "SELECT question_id, question_title, question_asws, question_r_asws, question.gener_id, people_name"
-				+ "from "
-				+ "question "
+//		String sql = "SELECT question_id, question_title, question_asws, question_r_asws, question.gener_id, people_name"
+//				+ "from "
+//				+ "question "
+//				+ "inner join people "
+//				+ "on question.gener_id = people.people_id"
+//				+ " where question.region_id = " + rgid;
+		String sql = "SELECT question_id, question_title, question_asws, question_r_asws, question.gener_id, people_name "
+				+ "from question "
 				+ "inner join people "
-				+ "on question.gener_id = people.people_id"
-				+ "where question.region_id =" + rgid;
+				+ "on question.gener_id = people.people_id "
+				+ "where question.region_id=" + rgid;
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
 		while(rs.next()){
@@ -187,6 +216,32 @@ public class Question {
 		}
 		dbh.DBClose(rs);
 		return qts;
+	}
+	
+	public static Question getOneQuestion(String qstid) throws SQLException{
+		Question qt = new Question();
+		String sql = "SELECT question_id, question_title, question_asws, question_r_asws, question.gener_id, people_name "
+				+ "from question "
+				+ "inner join people "
+				+ "on question.gener_id = people.people_id "
+				+ "where question.question_id = " + qstid;
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		if(rs.next()){
+			qt.setId(rs.getString(1));
+			qt.setTitle(rs.getString(2));
+			qt.setPossibleAsw(rs.getString(3));
+			qt.setNormalAsw(rs.getString(4));
+			qt.setGener_id(rs.getInt(5));
+			qt.setGener(rs.getString(6));
+			qt.setRegion_id(Integer.parseInt(qstid));
+			dbh.DBClose(rs);
+			return qt;
+		}
+		else{
+			dbh.DBClose(rs);
+			return null;
+		}
 	}
 	
 	

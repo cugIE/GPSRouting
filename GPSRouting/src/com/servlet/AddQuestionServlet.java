@@ -9,15 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bean.Question;
 import com.bean.Region;
 import com.util.OutputHelper;
 
-public class DeleteSingleRegionServlet extends HttpServlet {
+public class AddQuestionServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public DeleteSingleRegionServlet() {
+	public AddQuestionServlet() {
 		super();
 	}
 
@@ -42,7 +43,19 @@ public class DeleteSingleRegionServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+		out.println("<HTML>");
+		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+		out.println("  <BODY>");
+		out.print("    This is ");
+		out.print(this.getClass());
+		out.println(", using the GET method");
+		out.println("  </BODY>");
+		out.println("</HTML>");
+		out.flush();
+		out.close();
 	}
 
 	/**
@@ -58,12 +71,31 @@ public class DeleteSingleRegionServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		request.setCharacterEncoding("UTF-8");
+		String title = request.getParameter("title");
+		String possasws = request.getParameter("possasws");
+		String normalasws = request.getParameter("normalasws");
+		String gener_id = request.getParameter("gener_id");
 		String region_id = request.getParameter("region_id");
-		int result = 0;
-		System.out.println(region_id);
+		Question qst = new Question();
+		qst.setTitle(title);
+		qst.setPossibleAsw(possasws);
+		qst.setNormalAsw(normalasws);
+		if(gener_id==null || region_id==null){
+			OutputHelper.StringOutPut("error", response);
+			return;
+		}
+		else{
+			qst.setGener_id(Integer.parseInt(gener_id));
+			qst.setRegion_id(Integer.parseInt(region_id));
+		}
 		try {
-			result = Region.deleteOneRegion(region_id);
-				OutputHelper.StringOutPut(result+"", response);
+			int result = Question.addOneQuestion(qst);
+			if(result==-1){
+				OutputHelper.StringOutPut("error", response);
+				return;
+			}
+			OutputHelper.StringOutPut(String.format("%04d", result), response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			OutputHelper.StringOutPut("error", response);

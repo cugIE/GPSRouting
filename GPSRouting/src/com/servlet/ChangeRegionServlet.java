@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.bean.Region;
 import com.util.OutputHelper;
 
-public class DeleteSingleRegionServlet extends HttpServlet {
+public class ChangeRegionServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public DeleteSingleRegionServlet() {
+	public ChangeRegionServlet() {
 		super();
 	}
 
@@ -42,7 +42,19 @@ public class DeleteSingleRegionServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+		out.println("<HTML>");
+		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+		out.println("  <BODY>");
+		out.print("    This is ");
+		out.print(this.getClass());
+		out.println(", using the GET method");
+		out.println("  </BODY>");
+		out.println("</HTML>");
+		out.flush();
+		out.close();
 	}
 
 	/**
@@ -57,18 +69,45 @@ public class DeleteSingleRegionServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		String intro = request.getParameter("intro");
+		String gps = request.getParameter("gps");
+		String type = request.getParameter("type");
+		String qrcode = request.getParameter("qrcode");
+		String range = request.getParameter("range");
+		
+		System.out.println(id+";"+name+";"+intro+";"+gps+";"+type+range);
 
-		String region_id = request.getParameter("region_id");
-		int result = 0;
-		System.out.println(region_id);
 		try {
-			result = Region.deleteOneRegion(region_id);
-				OutputHelper.StringOutPut(result+"", response);
+			Region rg = Region.getOneRegion(id);
+			if(gps!=null){
+				rg.setGps(gps);
+			}
+			if(name!=null){
+				rg.setName(name);
+			}
+			if(qrcode!=null){
+				rg.setQrcode(qrcode);
+			}
+			if(type!=null){
+				rg.setType(type);
+			}
+			if(range!=null){
+				rg.setRange(Integer.parseInt(range));
+			}
+			if(intro!=null){
+				rg.setIntro(intro);
+			}
+			int result = Region.changeOneRegion(rg);
+			OutputHelper.StringOutPut(""+result, response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			OutputHelper.StringOutPut("error", response);
 			e.printStackTrace();
 		}
+		
 	}
 
 	/**

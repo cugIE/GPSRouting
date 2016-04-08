@@ -9,10 +9,12 @@ import java.sql.Statement;
 //连接数据库类
 public class DB {
 //获取连接
-	public static final String url = "jdbc:mysql://127.0.0.1/gastube_inspection";  
+	public static final String url = "jdbc:mysql://127.0.0.1/gastube_inspection?characterEncoding=UTF-8";  
     public static final String user = "root";  
-    public static final String password = "admin";  
-    
+    public static final String password = "Cug317317";  
+//	public static final String url ="jdbc:mysql://w.rdc.sae.sina.com.cn:3307/app_gpsrouting";
+//	public static final String user ="k3l2253ykj";
+//	public static final String password ="335hjkmimxhxix1510mh2hk233424wjlj5j0lmix";
 	public static Connection getConn(){
 		Connection conn = null;
 		try{

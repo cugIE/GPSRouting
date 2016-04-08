@@ -3,21 +3,24 @@ package com.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bean.Region;
+import com.bean.Record;
 import com.util.OutputHelper;
 
-public class DeleteSingleRegionServlet extends HttpServlet {
+import net.sf.json.JSONObject;
+
+public class AddRecordServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public DeleteSingleRegionServlet() {
+	public AddRecordServlet() {
 		super();
 	}
 
@@ -41,7 +44,6 @@ public class DeleteSingleRegionServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		
 	}
 
@@ -57,18 +59,40 @@ public class DeleteSingleRegionServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		String region_id = request.getParameter("region_id");
-		int result = 0;
-		System.out.println(region_id);
+		request.setCharacterEncoding("utf-8");
+		String RecordStr = request.getParameter("record");
+		JSONObject jso = JSONObject.fromObject(RecordStr);
+		Record rcd = new Record();
 		try {
-			result = Region.deleteOneRegion(region_id);
-				OutputHelper.StringOutPut(result+"", response);
+//			String sql = "insert into record"
+//					+ "(record_gps, record_asws, record_error, record_picture, "
+//					+ "record_start, record_end, ptr_id, "
+//					+ "gener_id, record_note)"
+//					+ "values('"+ rcd.getGps() + "','"
+//					+ rcd.getAsws() + "','" 
+//					+ rcd.getError()  + "','" 
+//					+ rcd.getPicture()  + "','" 
+//					+ rcd.getStart().toString()  + "','" 
+//					+ rcd.getEnd().toString()  + "','" 
+//					+ rcd.getPtr_id()  + "','" 
+//					+ rcd.getGener_id()  + "','" 
+//					+ rcd.getNote()  + "')"; 
+			rcd.setGps(jso.getString("gps"));
+			rcd.setAsws(jso.getString("asws"));
+			rcd.setError(jso.getString("error"));
+			rcd.setPicture(jso.getString("picture"));
+			rcd.setStart(Timestamp.valueOf(jso.getString("start")));
+			rcd.setEnd(Timestamp.valueOf(jso.getString("end")));
+			rcd.setPtr_id(jso.getInt("ptr_id"));
+			rcd.setGener_id(jso.getInt("gener_id"));
+			rcd.setNote(jso.getString("note"));
+			int result = Record.addOneRecord(rcd);
+			OutputHelper.StringOutPut(String.format("%04d", result), response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			OutputHelper.StringOutPut("error", response);
 			e.printStackTrace();
 		}
+		
 	}
 
 	/**

@@ -179,32 +179,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														<% for (int i = 0; i< shifts.length; i++) {%>
 															<div class="panel panel-accordion">
 																<div class="panel-heading bk-bg-primary">
-																	<h4 class="panel-title">
-																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionPrimary" href="#collapsePrimary<%=i%>">
-																		<%=shifts[i] %>
-																		</a>
-																	</h4>
+																		<h4 class="panel-title">
+																			<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionPrimary" href="#collapsePrimary<%=i%>">
+																			<%=shifts[i] %>
+																			</a>
+																		</h4>
 																</div>
 																<div id="collapsePrimary<%=i%>" class="accordion-body collapse">
-																	<div class="panel-body">
+																	<div class="panel-body sheet-times">
+																	
 																	<% 
 																	List<Period> prs =Period.getPeriod(shid, shifts[i]);
 																	for (int j = 0; j<prs.size(); j++){
 																		Period tempP = prs.get(j);
 																	%>
-																	<div class="btn-group col-md-3">
-																		<button value = "<%=tempP.getId() %>" class = "btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+																	<div class="btn-group col-md-3 single-time" value = "<%=tempP.getTime() %>">
+																		<button class = "btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 																		<%=tempP.getTime() %>
 																		</button>
-																		<ul class="dropdown-menu">
-																		    <li><a href="#" class = "sheet-view-period" data-toggle="modal" data-target="#sheet-view-period-modal" value = "<%=tempP.getId() %>">查看检查区域</a></li>
-																		    <li><a href="#" class = "sheet-change-period" data-toggle="modal" data-target="#sheet-edit-period-modal" value = "<%=tempP.getId() %>">修改</a></li>
-																		    <li><a href="#" class = "sheet-delete-period" value = "<%=tempP.getId() %>">删除</a></li>
+																		<ul class="dropdown-menu" >
+																		    <li><a href="#" class = "sheet-view-period-button" data-toggle="modal" data-target="#sheet-view-period-modal" >查看检查区域</a></li>
+																		    <li><a href="#"  value = "<%=tempP.getId() %>,<%=shifts[i]%>,<%=tempP.getTime() %>"class = "sheet-edit-period-button" data-toggle="modal" data-target="#sheet-edit-period-modal">修改</a></li>
+																		    <li><a href="#" value = "<%=tempP.getId() %>"class = "sheet-delete-period-time">删除</a></li>
 																		</ul>
 																	</div>
 																	<%
 																	}
 																	%>
+																	<div class="btn-group col-md-6" value = "" >
+																
+																		<button class = "btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+																		操作
+																		</button>
+																		<ul class="dropdown-menu">
+																		    <li><a href="#" class = "sheet-add-period" data-toggle="modal" data-target="#sheet-add-period-modal" value = "<%=shifts[i] %>">添加时间点</a></li>
+																		    <li><a href="#" class = "sheet-delete-shift"  value = "<%=shifts[i] %>">删除班次</a></li>
+																		</ul>
+																	</div>
 																	</div>
 																</div>
 															</div>
@@ -253,7 +264,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="form-group">
 									<label class="col-md-3 control-label">表介绍</label>
 									<div class="col-md-9">
-									<textarea id="sheet-edit-intro" name="intro" rows="4" class="form-control"></textarea>									</div>
+									<textarea id="sheet-edit-intro" name="intro" rows="4" class="form-control"></textarea>									
+									</div>
 								</div>
 								<button type = "submit" class = "btn btn-success col-md-12">确认</button>											
 	
@@ -266,51 +278,79 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 			</div>
 		</div><!-- End Modal Dialog -->		
-		<div class="modal fade" id="sheet-edit-period-modal">
+		
+		<div class="modal fade" id="sheet-add-period-modal">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title bk-fg-primary">修改</h4>
+						<h4 class="modal-title bk-fg-primary">添加时间点</h4>
 					</div>
 					<div class="modal-body">
 						<div class = "row">
-						<form id = "changeperiod" action="<%=basePath %>ChangePeriodServlet" method="post" class="form-horizontal col-md-8 col-md-offset-2">
+						<form id = "addperiodtime" action="AddPeriodServlet" method="post" class="form-horizontal col-md-8 col-md-offset-2">
 							<div class="form-group" hidden = "hidden">
-								<label class="col-md-3 control-label">编号</label>
+							<input type="text" name="index" class="form-control" value="one" />
+							<input type="text" name="gener_id" id = "period-add-time-gener" class="form-control" />
+							<input type="text" name="sheet_id" id = "period-add-time-sheet" class="form-control" />
+							</div>
+							<div class="form-group" hidden = "hidden">
+								<label class="col-md-3 control-label">班次</label>
 								<div class="col-md-9">
-									<input type="text" name="sheet_id" id = "period-edit-id" class="form-control" />
+									<input type="text" name="shift" id = "period-add-time-shift" class="form-control" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label" for="select">时间点</label>
 								<div class="col-md-9">
-									<select id="period-edit-time" name="time" class="form-control" size="1">
-										<option value="00:00">00:00</option>
-										<option value="02:00">02:00</option>
-										<option value="04:00">04:00</option>
-										<option value="06:00">06:00</option>
-										<option value="08:00">08:00</option>
-										<option value="10:00">10:00</option>
-										<option value="12:00">12:00</option>
-										<option value="14:00">14:00</option>
-										<option value="16:00">16:00</option>
-										<option value="18:00">18:00</option>
-										<option value="20:00">20:00</option>
-										<option value="22:00">22:00</option>
+									<select id="period-add-time-options" name="time" class="form-control" size="1">
+										
+									</select>
+								</div>
+							</div>
+							
+							<button type = "submit" class = "btn btn-success col-md-12">确认</button>
+						</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="sheet-edit-period-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title bk-fg-primary">修改时间点</h4>
+					</div>
+					<div class="modal-body">
+						<div class = "row">
+						<form id = "changeperiodtime" action="ChangePeriodServlet" method="post" class="form-horizontal col-md-8 col-md-offset-2">
+							<div class="form-group" hidden="hidden">
+							<input type="text" name="period_id" id = "period-edit-time-id" class="form-control" />
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">班次</label>
+								<div class="col-md-9">
+									<select id="period-edit-shift-options" name="shift" class="form-control" size="1">
+						
+										<%
+										for(int k=0; k< shifts.length; k++){
+										%>
+										<option value = "<%=shifts[k] %>"><%=shifts[k] %></option>
+										<%
+										}%>
 									</select>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-3 control-label" for="select">班次</label>
+								<label class="col-md-3 control-label" for="select">时间点</label>
 								<div class="col-md-9">
-									<select id="period-edit-shift" name="shift" class="form-control" size="1">
-										<%for(int k = 0; k< shifts.length; k++){ %>
-										<option value="<%=shifts[k] %>"><%=shifts[k] %></option>
-										<%} %>
+									<select id="period-edit-time-options" name="time" class="form-control" size="1">
 									</select>
 								</div>
 							</div>
+							
 							<button type = "submit" class = "btn btn-success col-md-12">确认</button>
 						</form>
 						</div>
@@ -323,7 +363,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title bk-fg-primary">添加</h4>
+						<h4 class="modal-title bk-fg-primary">添加链接</h4>
 					</div>
 					<div class="modal-body">
 						<div class = "row">
@@ -365,80 +405,81 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title bk-fg-primary">添加</h4>
+						<h4 class="modal-title bk-fg-primary">添加班次</h4>
 					</div>
 					<div class="modal-body">
 						<div class = "row">
-							<form method="post" class="form-horizontal col-md-offset-2 col-md-8" action = "ChangeSheetServlet" role="form">
+							<form class="form-horizontal col-md-offset-2 col-md-8" role="form">
 								<div class="form-group">
 									<label class="col-md-3 control-label">班次名</label>
 									<div class="col-md-9">
-										<input type="text" name="sheet_id" id = "sheet-edit-id" class="form-control" />
+										<input type="text" name="shift-add-name" id = "shift-add-name" class="form-control" />
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-3 control-label">时间点(至少1个)</label>
 									<div class="col-md-9">
-										<div class="col-md-3">
+										<div class="col-md-4">
 											<div class="checkbox-custom">
-												<input type="checkbox" id="checkbox1" name="checkbox1" value="option1"> 
+												<input type="checkbox" id="checkbox1" name="times" value="00:00"> 
 												<label for="checkbox1"> 00:00</label>
 											</div>
 											<div class="checkbox-custom">
-												<input type="checkbox" id="checkbox2" name="checkbox2" value="option2"> 
+												<input type="checkbox" id="checkbox2" name="times" value="02:00"> 
 												<label for="checkbox2"> 02:00</label>
 											</div>
 											<div class="checkbox-custom">
-												<input type="checkbox" id="checkbox3" name="checkbox3" value="option3"> 
+												<input type="checkbox" id="checkbox3" name="times" value="04:00"> 
 												<label for="checkbox3"> 04:00</label>
 											</div>
 											<div class="checkbox-custom">
-												<input type="checkbox" id="checkbox4" name="checkbox4" value="option4"> 
+												<input type="checkbox" id="checkbox4" name="times" value="06:00"> 
 												<label for="checkbox4"> 06:00</label>
 											</div>
 										</div>
-										<div class="col-md-3">
+										<div class="col-md-4">
 											<div class="checkbox-custom">
-												<input type="checkbox" id="checkbox5" name="checkbox5" value="option5"> 
+												<input type="checkbox" id="checkbox5" name="times" value="08:00"> 
 												<label for="checkbox5"> 08:00</label>
 											</div>
 											<div class="checkbox-custom">
-												<input type="checkbox" id="checkbox5" name="checkbox5" value="option5"> 
-												<label for="checkbox5"> 10:00</label>
+												<input type="checkbox" id="checkbox6" name="times" value="10:00"> 
+												<label for="checkbox6"> 10:00</label>
 											</div>
 											<div class="checkbox-custom">
-												<input type="checkbox" id="checkbox1" name="checkbox1" value="option1"> 
-												<label for="checkbox1"> 12:00</label>
+												<input type="checkbox" id="checkbox7" name="times" value="12:00"> 
+												<label for="checkbox7"> 12:00</label>
 											</div>
 											<div class="checkbox-custom">
-													<input type="checkbox" id="checkbox2" name="checkbox2" value="option2"> 
-												<label for="checkbox2"> 14:00</label>
+												<input type="checkbox" id="checkbox8" name="times" value="14:00"> 
+												<label for="checkbox8"> 14:00</label>
 											</div>
 										</div>
-										<div class="col-md-3">
+										<div class="col-md-4">
 											<div class="checkbox-custom">
-													<input type="checkbox" id="checkbox3" name="checkbox3" value="option3"> 
-												<label for="checkbox3"> 16:00</label>
+												<input type="checkbox" id="checkbox9" name="times" value="16:00"> 
+												<label for="checkbox9"> 16:00</label>
 											</div>
 											<div class="checkbox-custom">
-													<input type="checkbox" id="checkbox4" name="checkbox4" value="option4"> 
-												<label for="checkbox4"> 18:00</label>
+												<input type="checkbox" id="checkbox10" name="times" value="18:00"> 
+												<label for="checkbox10"> 18:00</label>
 											</div>
 											<div class="checkbox-custom">
-													<input type="checkbox" id="checkbox5" name="checkbox5" value="option5"> 
-												<label for="checkbox5"> 20:00</label>
+												<input type="checkbox" id="checkbox11" name="times" value="20:00"> 
+												<label for="checkbox11"> 20:00</label>
 											</div>
 											<div class="checkbox-custom">
-													<input type="checkbox" id="checkbox5" name="checkbox5" value="option5"> 
-												<label for="checkbox5"> 22:00</label>
+												<input type="checkbox" id="checkbox12" name="times" value="22:00"> 
+												<label for="checkbox12"> 22:00</label>
 											</div>
 										</div>
 									</div>
 								</div>
 								
-								<button type = "submit" class = "btn btn-success col-md-12">确认</button>											
+																			
 	
 							</form>
+							<button id = "shift-add-submit-button" class = "btn btn-success col-md-8 col-md-offset-2">确认</button>
 						</div>
 					</div>
 					<div class="modal-footer">

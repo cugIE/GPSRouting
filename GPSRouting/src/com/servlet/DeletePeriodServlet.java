@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.bean.Period;
 import com.util.OutputHelper;
 
-public class AddPeriodServlet extends HttpServlet {
+public class DeletePeriodServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public AddPeriodServlet() {
+	public DeletePeriodServlet() {
 		super();
 	}
 
@@ -70,68 +70,38 @@ public class AddPeriodServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		request.setCharacterEncoding("UTF-8");
 		String index = request.getParameter("index");
-	//	System.out.println(index);
-		if (index == null){
+		if(index == null){
 			OutputHelper.StringOutPut("error_index", response);
-			
-			return;
 		}
-		if (index.equals("several")){
+		if (index.equals("shift")){
 			String shift = request.getParameter("shift");
-			String periods = request.getParameter("periods");
-			String gener_id = request.getParameter("gener_id");
-			String sheet_id = request.getParameter("sheet_id");
-			String[] periodStrs = periods.split(",");
-			Period pr = new Period();
-			if(Period.isShift(shift)){
-				OutputHelper.StringOutPut("error_existed", response);
-				return;
-			}
-			else{
-				pr.setGener_id(Integer.parseInt(gener_id));
-				pr.setShift(shift);
-				pr.setSheet_id(Integer.parseInt(sheet_id));
-				for (int i = 0; i<periodStrs.length;i++){
-					
-					pr.setTime(periodStrs[i]);
-					
-					try {
-						Period.addOnePeriod(pr);
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						OutputHelper.StringOutPut("error", response);
-						e.printStackTrace();
-					}
-				}
-				OutputHelper.StringOutPut("1", response);
-			}
-		}
-		else if(index.equals("one")){
-			String shift = request.getParameter("shift");
-			String time = request.getParameter("time");
-			String gener_id = request.getParameter("gener_id");
-			String sheet_id = request.getParameter("sheet_id");
-			Period pr = new Period();
-		//	System.out.println(shift+","+time+","+gener_id+","+sheet_id);
-			pr.setGener_id(Integer.parseInt(gener_id));
-			pr.setShift(shift);
-			pr.setSheet_id(Integer.parseInt(sheet_id));
-				
-			pr.setTime(time);
-			int result = 0;	
+			String shid = request.getParameter("sheet_id");
+			int result = 0;
 			try {
-				result = Period.addOnePeriod(pr);
+				result = Period.deleteOneShift(shid, shift);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				OutputHelper.StringOutPut("error", response);
 				e.printStackTrace();
 			}
 			OutputHelper.StringOutPut(""+result, response);
 		}
+		else if (index.equals("period")){
+			String period_id = request.getParameter("period_id");
+			int result = 0;
+			try {
+				result = Period.deleteOnePeriod(period_id);
+			} catch (SQLException e) {
+				OutputHelper.StringOutPut("error", response);
+				e.printStackTrace();
+			}
+			OutputHelper.StringOutPut(""+result, response);
+			
+		}
+		else {
+			OutputHelper.StringOutPut("error_index", response);
+		}
 	}
-	
 
 	/**
 	 * Initialization of the servlet. <br>

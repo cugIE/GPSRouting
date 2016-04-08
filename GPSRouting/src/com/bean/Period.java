@@ -92,7 +92,30 @@ public class Period {
 			result = dbh.updateDatabase(sql);
 			dbh.DBClose();
 		}
-		return result;	}
+		return result;	
+	}
+	public static boolean isShift(String shift){
+		String sql = "select period_id from period where period_shift = '"+shift+"' limit 1;";
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		try {
+			if(rs.next()){
+				dbh.DBClose(rs);
+				return true;
+			}
+			else{
+				dbh.DBClose(rs);
+				return false;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			
+			e.printStackTrace();
+			
+			return false;
+
+		}
+	}
 	public static int deleteOnePeriod(String prid) throws SQLException{
 		if (prid == null){
 			return -1;
@@ -100,6 +123,20 @@ public class Period {
 		else{
 			String sql = "delete from period "
 					+ "where period_id =" + prid;
+			DBHelper dbh = new DBHelper();
+			int result = dbh.updateDatabase(sql);
+			dbh.DBClose();
+			return result;
+		}	
+	}
+	public static int deleteOneShift(String shid, String shift) throws SQLException{
+		if (shid == null||shift == null){
+			return -1;
+		}
+		else{
+			String sql = "delete from period "
+					+ "where sheet_id =" + shid + " "
+					+ "and period_shift = '"+shift+"'";
 			DBHelper dbh = new DBHelper();
 			int result = dbh.updateDatabase(sql);
 			dbh.DBClose();
@@ -131,6 +168,27 @@ public class Period {
 		dbh.DBClose(rs);
 		return prs;
 	}
+	public static Period getOnePeriod(String periodid) throws SQLException{
+		String sql = "SELECT period_id, period_shift, period_time, period.gener_id, people_name "
+				+ "from period "
+				+ "inner join people "
+				+ "on period.gener_id = people.people_id "
+				+ "where period.period_id = " + periodid;
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		Period pr = null;
+		if(rs.next()){
+			pr = new Period();
+			pr.setId(rs.getString(1));
+			pr.setShift(rs.getString(2));
+			pr.setTime(rs.getString(3));
+			pr.setGener_id(rs.getInt(4));
+			pr.setGener(rs.getString(5));
+			
+		}
+		dbh.DBClose(rs);
+		return pr;
+	}
 	public static String getShift(String shid) throws SQLException{
 		String value ="";
 		String sql = "select distinct period_shift from period "
@@ -160,5 +218,21 @@ public class Period {
 		dbh.DBClose(rs);
 		return prs;
 		
+	}
+	public static int changeOnePeriod(Period prd) throws SQLException{
+		if (prd == null){
+			return -1;
+		}
+		else{
+			String sql = "update period set "
+					+ "period_shift = '" + prd.getShift() + "', "
+					+ "period_time= '" + prd.getTime() + "' "
+					+ "where period_id = " + prd.getId();
+			DBHelper dbh = new DBHelper();
+			int result = dbh.updateDatabase(sql);
+			dbh.DBClose();
+			return result;
+		}
+				
 	}
 }

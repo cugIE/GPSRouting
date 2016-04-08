@@ -81,6 +81,16 @@
     <servlet-name>ChangeSheetServlet</servlet-name>
     <servlet-class>com.servlet.ChangeSheetServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>DeletePeriodServlet</servlet-name>
+    <servlet-class>com.servlet.DeletePeriodServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ChangePeriodServlet</servlet-name>
+    <servlet-class>com.servlet.ChangePeriodServlet</servlet-class>
+  </servlet>
+
+
 
 
 
@@ -164,6 +174,14 @@
   <servlet-mapping>
     <servlet-name>ChangeSheetServlet</servlet-name>
     <url-pattern>/ChangeSheetServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeletePeriodServlet</servlet-name>
+    <url-pattern>/DeletePeriodServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ChangePeriodServlet</servlet-name>
+    <url-pattern>/ChangePeriodServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

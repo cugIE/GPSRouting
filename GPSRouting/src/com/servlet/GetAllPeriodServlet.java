@@ -69,7 +69,7 @@ public class GetAllPeriodServlet extends HttpServlet {
 							
 							jso.put("id", prds.get(i).getId());
 							jso.put("shift", prds.get(i).getShift());
-							jso.put("time", prds.get(i).getTime().toString());
+							jso.put("time", prds.get(i).getTime());
 							jso.put("gener", prds.get(i).getGener());
 							jso.put("gener_id", prds.get(i).getGener_id());
 							
@@ -102,7 +102,7 @@ public class GetAllPeriodServlet extends HttpServlet {
 						for (int i = 0; i < prds.size(); i++){
 							JSONObject jso = new JSONObject();
 							jso.put("shift", prds.get(i).getShift());
-							jso.put("time", prds.get(i).getTime().toString());
+							jso.put("time", prds.get(i).getTime());
 							JA.add(jso);
 						}
 					}

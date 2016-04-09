@@ -132,7 +132,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													</div>
 													<div class="col-md-4 bk-bg-white bk-padding-top-10">
 														<i class="fa fa-user bk-padding-right-10"></i>所属部门：
-														<i class="bk-padding-right-15" ><%=sht.getBranch() %></i>
+														<i class="bk-padding-right-15" id="sheet-branch-id" value="<%=sht.getBranch_id() %>"><%=sht.getBranch() %></i>
 													</div>
 													<div class="col-md-4 bk-bg-white bk-padding-top-10">
 														<i class="fa fa-circle-o bk-padding-right-10"></i>添加者：
@@ -198,7 +198,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 																		<%=tempP.getTime() %>
 																		</button>
 																		<ul class="dropdown-menu" >
-																		    <li><a href="#" class = "sheet-view-period-button" data-toggle="modal" data-target="#sheet-view-period-modal" >查看检查区域</a></li>
+																		    <li><a href="#" value = "<%=tempP.getId() %>" class = "sheet-view-period-button" data-toggle="modal" data-target="#sheet-view-period-modal" >查看检查区域</a></li>
 																		    <li><a href="#"  value = "<%=tempP.getId() %>,<%=shifts[i]%>,<%=tempP.getTime() %>"class = "sheet-edit-period-button" data-toggle="modal" data-target="#sheet-edit-period-modal">修改</a></li>
 																		    <li><a href="#" value = "<%=tempP.getId() %>"class = "sheet-delete-period-time">删除</a></li>
 																		</ul>
@@ -206,7 +206,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 																	<%
 																	}
 																	%>
-																	<div class="btn-group col-md-6" value = "" >
+																	<div class="btn-group col-md-6"  >
 																
 																		<button class = "btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 																		操作
@@ -370,12 +370,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="col-md-offset-1 col-md-10">
 								<div class="col-md-5" >
 								已选择
-								<table class = "col-md-12 table table-hover table-bordered">
-								<tbody>
-									<tr><td>123</td></tr>
-									<tr><td>123</td></tr>
-									<tr><td>123</td></tr>
-									<tr><td>123</td></tr>
+								<table class = "col-md-12 table table-hover table-bordered" >
+								<tbody id="SelectedRegions">
 								</tbody>
 								</table>
 								</div> 
@@ -383,11 +379,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="col-md-5 col-md-offset-1" >
 								未选择
 								<table class = "col-md-12 table table-hover table-bordered">
-								<tbody>
-									<tr><td>123</td></tr>
-									<tr><td>123</td></tr>
-									<tr><td>123</td></tr>
-									<tr><td>123</td></tr>
+								<tbody id="RestRegions">
 								</tbody>
 								</table>
 								</div>

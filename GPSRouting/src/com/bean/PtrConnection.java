@@ -94,6 +94,13 @@ public class PtrConnection {
 					+ pc.getGener_id() + "')";
 			DBHelper dbh = new DBHelper();
 			result = dbh.updateDatabase(sql);
+			ResultSet rs = dbh.getResultSet("SELECT LAST_INSERT_ID()");
+			if (rs.next()) {  
+		        result = rs.getInt(1);  
+		    }  else {  
+		        // throw an exception from here  
+		    	result=-1;
+		    } 
 			dbh.DBClose();
 		}
 		return result;

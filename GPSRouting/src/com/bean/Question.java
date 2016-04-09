@@ -157,6 +157,19 @@ public class Question {
 			return result;
 		}	
 	}
+	public static int deleteQuestionfromRegion(String rgid) throws SQLException{
+		if (rgid == null){
+			return -1;
+		}
+		else{
+			String sql = "delete from question "
+					+ "where region_id=" + rgid;
+			DBHelper dbh = new DBHelper();
+			int result = dbh.updateDatabase(sql);
+			dbh.DBClose();
+			return result;
+		}	
+	}
 	public static int changeOneQuestion(Question qt) throws SQLException{
 		if (qt == null){
 			return -1;

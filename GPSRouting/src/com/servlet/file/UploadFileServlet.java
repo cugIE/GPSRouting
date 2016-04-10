@@ -17,6 +17,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.sina.sae.storage.SaeStorage;
+import com.sina.sae.util.SaeUserInfo;
 
 /**
  * Servlet implementation class UploadFileServlet
@@ -47,7 +48,8 @@ public class UploadFileServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 		if(isMultipart){
-			String realPath = "saestor://recordpic";
+//			String finalPath = "saestor://recordpic";
+			String realPath = SaeUserInfo.getSaeTmpPath();
 			System.out.println(realPath);
 			File dir = new File(realPath);
 			if(!dir.exists())
@@ -66,8 +68,9 @@ public class UploadFileServlet extends HttpServlet {
 						String filename = System.currentTimeMillis()
 								+item.getName().substring(item.getName().lastIndexOf("."));
 						item.write(new File(dir,filename));
-						SaeStorage seaStorage = new SaeStorage();
-						response.getOutputStream().write(seaStorage.getUrl("recordpic",filename).getBytes());
+						SaeStorage saeStorage = new SaeStorage();
+						saeStorage.upload("recordpic", realPath+"/"+filename, filename);
+						response.getOutputStream().write(saeStorage.getUrl("recordpic",filename).getBytes());
 						
 					}
 				}

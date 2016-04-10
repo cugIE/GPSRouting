@@ -8,6 +8,7 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +20,7 @@ import net.glxn.qrgen.javase.QRCode;
 import net.sf.json.JSONObject;
 
 import com.bean.Region;
+import com.sina.sae.storage.SaeStorage;
 import com.util.OutputHelper;
 
 /**
@@ -42,7 +44,7 @@ public class GenerateQRCode extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String region_id = request.getParameter("region_id");
-		String size = request.getParameter("size");
+		//String size = request.getParameter("size");
 		if(region_id!=null){
 			try {
 				Region rg = Region.getOneRegion(region_id);
@@ -54,27 +56,36 @@ public class GenerateQRCode extends HttpServlet {
 					jso.put("secureKey", "8080");
 					String text = jso.toString();
 					QRCode qrc;
-					if (size == null){
-						qrc = QRCode.from(text);
-					}
-					else{
-						qrc = QRCode.from(text).withSize(Integer.parseInt(size), Integer.parseInt(size));
-					}
+					
+					qrc = QRCode.from(text).withSize(1000, 1000);
+					
 					File file = qrc.to(ImageType.JPG).file();
+					
 					String filename = region_id+"_"+System.currentTimeMillis()+".jpg";
 				//	FileOutputStream outputStream = new FileOutputStream("saestor://qrcode/"+filename);
-					FileOutputStream outputStream = new FileOutputStream("D:\\"+filename);
-					Files.copy(file.toPath(), outputStream);
-					//SaeStorage seaStorage = new SaeStorage();
+				//	FileOutputStream outputStream = new FileOutputStream("D:\\"+filename);
+				//	Files.copy(file.toPath(), outputStream);
+					SaeStorage seaStorage = new SaeStorage();
+					seaStorage.upload("qrcode", file.getAbsolutePath(), filename);
 					file.delete();
-					outputStream.close();
-					//response.getOutputStream().write(seaStorage.getUrl("qrcode",filename).getBytes());
+					int result = Region.addQRCode(region_id, seaStorage.getUrl("qrcode",filename));
+					if(result==-1){
+						OutputHelper.StringOutPut("error", response);
+						return;
+					}
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
+				OutputHelper.StringOutPut("error", response);
 				e.printStackTrace();
+				return;
 			}
+			 RequestDispatcher rd = request.getRequestDispatcher("qrcode.jsp");
+	         rd.forward(request,response);
 			
+		}
+		else{
+			OutputHelper.StringOutPut("error", response);
 		}
 	}
 

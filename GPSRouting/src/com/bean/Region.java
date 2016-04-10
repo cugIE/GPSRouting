@@ -358,6 +358,21 @@ public class Region {
 		}
 				
 	}
+	public static int addQRCode(String region_id, String qrcode) throws SQLException{
+		if (region_id == null||qrcode==null){
+			return -1;
+		}
+		else{
+			String sql = "update region set "
+					+ "region_qrcode = '" + qrcode + "' " 
+					+ "where region_id = " + region_id;
+			DBHelper dbh = new DBHelper();
+			int result = dbh.updateDatabase(sql);
+			dbh.DBClose();
+			return result;
+		}
+				
+	}
 	/**
 	 * Change one data
 	 *  This method will change only one field.

@@ -6,9 +6,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>QRCode</title>
 </head>
+<%
+String region_id = request.getParameter("region_id");
+String size = request.getParameter("size");
+Region rg = Region.getOneRegion(region_id);
+ %>
 <body>
-<h4>设备名：</h4>
-<img alt="" src="http://gpsrouting-qrcode.stor.sinaapp.com/0001_1460253172478.jpg">
+<h4>---区域名：<%=rg.getName() %>---所在部门：<%=rg.getBranch() %>---</h4>
+<img alt="大小为<%=size %>x<%=size %>"  height="<%=size %>" width="<%=size %>" src="<%=rg.getQrcode() %>">
 
 </body>
 </html>

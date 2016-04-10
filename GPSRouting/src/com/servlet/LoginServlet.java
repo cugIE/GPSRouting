@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.bean.People;
 import com.service.PeopleService;
@@ -23,16 +24,27 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		System.out.println(username);
 		System.out.println(password);
+		//登录信息保存于bean中
 		People p = new People();
 		p.setUsername(username);
 		p.setPassword(password);
+		//创建session，将登录信息保存于session中
+		HttpSession session = request.getSession();
+		String sessionId = session.getId();
+		if (session.isNew()) {
+			response.getWriter().print("session创建成功，session的id是："+sessionId);
+		} else {
+			response.getWriter().print("服务器已经存在该session了，session的id是："+sessionId);
+		}
 		try {
 			PeopleService ps = new PeopleService();
 			if (ps.check(p)) {
 				System.out.println("登录成功");
 				out.println("登录成功！");
 				out.println(username);
-				out.println(password);		
+				out.println(password);	
+				session.setAttribute("SesUser", username);
+				session.setAttribute("SesPwd", password);
 			} else {
 				out.println("登录失败");
 			}
@@ -40,9 +52,7 @@ public class LoginServlet extends HttpServlet {
 			// TODO: handle exception
 			out.println("</B></font></center>");
 			out.close();
-		}
-		
-		
+		}	
 	}
 
 	/**

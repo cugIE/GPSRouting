@@ -121,6 +121,7 @@ public class Period {
 			return -1;
 		}
 		else{
+			PtrConnection.deleteConnectionfromPeriod(prid);
 			String sql = "delete from period "
 					+ "where period_id =" + prid;
 			DBHelper dbh = new DBHelper();
@@ -134,11 +135,15 @@ public class Period {
 			return -1;
 		}
 		else{
-			String sql = "delete from period "
+			String sql = "select period_id from period "
 					+ "where sheet_id =" + shid + " "
 					+ "and period_shift = '"+shift+"'";
 			DBHelper dbh = new DBHelper();
-			int result = dbh.updateDatabase(sql);
+			ResultSet rs = dbh.getResultSet(sql);
+			int result = 0;
+			while(rs.next()){
+				deleteOnePeriod(rs.getString(1));
+			}
 			dbh.DBClose();
 			return result;
 		}	
@@ -202,7 +207,7 @@ public class Period {
 		return value;
 		
 	}
-	public static List<Period> getPeriod(String shid, String shift) throws SQLException{
+	public static List<Period> getPeriodfromShift(String shid, String shift) throws SQLException{
 		String sql = "select period_id, period_time from period "
 				+ "where sheet_id =" + shid
 				+ " and period_shift= '" + shift + "'";

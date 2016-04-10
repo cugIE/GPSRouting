@@ -189,7 +189,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 																	<div class="panel-body sheet-times">
 																	
 																	<% 
-																	List<Period> prs =Period.getPeriod(shid, shifts[i]);
+																	List<Period> prs =Period.getPeriodfromShift(shid, shifts[i]);
 																	for (int j = 0; j<prs.size(); j++){
 																		Period tempP = prs.get(j);
 																	%>

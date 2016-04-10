@@ -189,6 +189,9 @@ public class GetAllRegionServlet extends HttpServlet {
 				this.StringOutPut(js.toString(), response);
 			}
 		}
+		else if(index.equals("rest")){
+			
+		}
 		else {
 			this.StringOutPut("error_index", response);
 		}

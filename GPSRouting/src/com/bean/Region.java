@@ -281,6 +281,8 @@ public class Region {
 			return -1;
 		}
 		else{
+			Question.deleteQuestionfromRegion(id);
+			PtrConnection.deleteConnectionfromRegion(id);
 			String sql = "delete from region "
 					+ "where region_id=" + id;
 			DBHelper dbh = new DBHelper();

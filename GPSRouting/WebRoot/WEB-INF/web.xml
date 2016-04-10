@@ -89,6 +89,11 @@
     <servlet-name>ChangePeriodServlet</servlet-name>
     <servlet-class>com.servlet.ChangePeriodServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>DeleteConnectionServlet</servlet-name>
+    <servlet-class>com.servlet.DeleteConnectionServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -182,6 +187,10 @@
   <servlet-mapping>
     <servlet-name>ChangePeriodServlet</servlet-name>
     <url-pattern>/ChangePeriodServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteConnectionServlet</servlet-name>
+    <url-pattern>/DeleteConnectionServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

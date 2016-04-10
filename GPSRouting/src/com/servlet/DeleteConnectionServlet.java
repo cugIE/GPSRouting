@@ -13,12 +13,12 @@ import com.bean.PtrConnection;
 import com.bean.Question;
 import com.util.OutputHelper;
 
-public class AddConnectionServlet extends HttpServlet {
+public class DeleteConnectionServlet extends HttpServlet {
 
 	/**
 	 * Constructor of the object.
 	 */
-	public AddConnectionServlet() {
+	public DeleteConnectionServlet() {
 		super();
 	}
 
@@ -42,7 +42,18 @@ public class AddConnectionServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
+		String ptr_id = request.getParameter("ptr_id");
+		int result = 0;
+		System.out.println(ptr_id);
+		try {
+			result = PtrConnection.deleteOneConnection(ptr_id);
+				OutputHelper.StringOutPut(result+"", response);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			OutputHelper.StringOutPut("error", response);
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -57,34 +68,20 @@ public class AddConnectionServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		String period_id = request.getParameter("period_id");
-		String gener_id = request.getParameter("gener_id");
-		String sort = request.getParameter("sort");
-		String region_id = request.getParameter("region_id");
-		PtrConnection connect = new PtrConnection();
-		if(gener_id==null || region_id==null || period_id==null || sort==null){
-			OutputHelper.StringOutPut("error", response);
-			return;
-		}
-		else{
-			connect.setGener_id(Integer.parseInt(gener_id));
-			connect.setRegion_id(region_id);
-			connect.setPeriod_id(period_id);
-			connect.setSort(Integer.parseInt(sort));
-		}
-		try {
-			int result = PtrConnection.addOneConnection(connect);
-			if(result==-1){
-				OutputHelper.StringOutPut("error", response);
-				return;
-			}
-			OutputHelper.StringOutPut(String.format("%04d", result), response);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			OutputHelper.StringOutPut("error", response);
-			e.printStackTrace();
-		}
+
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
+		out.println("<HTML>");
+		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
+		out.println("  <BODY>");
+		out.print("    This is ");
+		out.print(this.getClass());
+		out.println(", using the POST method");
+		out.println("  </BODY>");
+		out.println("</HTML>");
+		out.flush();
+		out.close();
 	}
 
 	/**

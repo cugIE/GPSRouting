@@ -111,6 +111,32 @@ public class PtrConnection {
 			return result;
 		}	
 	}
+	public static int deleteConnectionfromPeriod(String prid) throws SQLException{
+		if (prid == null){
+			return -1;
+		}
+		else{
+			String sql = "delete from periodtoregion "
+					+ "where period_id=" + prid;
+			DBHelper dbh = new DBHelper();
+			int result = dbh.updateDatabase(sql);
+			dbh.DBClose();
+			return result;
+		}	
+	}
+	public static int deleteConnectionfromRegion(String rgid) throws SQLException{
+		if (rgid == null){
+			return -1;
+		}
+		else{
+			String sql = "delete from periodtoregion "
+					+ "where region_id=" + rgid;
+			DBHelper dbh = new DBHelper();
+			int result = dbh.updateDatabase(sql);
+			dbh.DBClose();
+			return result;
+		}	
+	}
 	public static List<PtrConnection> getAllRegion(String prid) throws SQLException{
 		List<PtrConnection> ptrs = new ArrayList<PtrConnection>();
 		String sql = "SELECT region.region_id, region_name, region_intro, region_type, sort, periodtoregion.gener_id, people_name,ptr_id "

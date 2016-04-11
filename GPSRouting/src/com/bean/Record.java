@@ -205,7 +205,7 @@ public class Record {
 		this.check = check;
 	}
 	//SELECT record_id, record_gps, record_asws, record_error, record_picture, record_start, record_end, record_submit, record.ptr_id, region.region_name, period.period_shift, period.period_time, record.gener_id, people_name, checker_name, record_note, record_check_time from (((gastube_inspection.record inner join people on record.gener_id = people.people_id) inner join periodtoregion on periodtoregion.ptr_id = record.ptr_id) inner join period on period.period_id = periodtoregion.period_id) inner join region on region.region_id = periodtoregion.region_id;
-	public static List<Record> getAllRecord(Timestamp start, Timestamp end) throws SQLException{
+	public static List<Record> getAllRecord(String start, String end) throws SQLException{
 		List<Record> rcrds = new ArrayList<Record>();
 		String sql = "SELECT record_id, record_error, record_start, record_end, record_submit, record.ptr_id, region.region_name, period.period_shift, period.period_time, record.gener_id, people_name, record_status, checker_name, record_check_time "
 				+ "from (((gastube_inspection.record "
@@ -217,8 +217,8 @@ public class Record {
 				+ "on period.period_id = periodtoregion.period_id) "
 				+ "inner join region "
 				+ "on region.region_id = periodtoregion.region_id "
-				+ "where record_submit > '" + start.toString() + "' "
-				+ "and record_submit < '" + end.toString() + "';";
+				+ "where record_submit > '" + start + "' "
+				+ "and record_submit < '" + end + "';";
 		
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
@@ -403,6 +403,6 @@ public class Record {
 		}
 	}
 	
-	
+	//[{"title":"是否漏油","possasws":"是,否","normalasws":"否","choosedasws":"否","error":"0"},{"title":"是否数值正常","possasws":"是,否","normalasws":"是","choosedasws":"否","error":"1"},{"title":"表的读书在什么数字附近","possasws":"60,70,80,90","normalasws":"60","choosedasws":"70","error":"1"}]
 	
 }

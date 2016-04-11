@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"  
+import="com.bean.Record" 
+import="net.sf.json.*"
+pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -58,13 +60,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->		
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=M7TQ1t1WsazHr9whomCjQ8rP"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
 		<script src="<%=path%>/assets/plugins/modernizr/js/modernizr.js"></script>
 	    <!-- Baidu Map -->
 
 	</head>
 	
 	<body>
-	
+	<% 
+	String record_id = request.getParameter("record_id");
+	Record rcd= new Record();
+	if (record_id!=null){
+	 rcd = Record.getOneRecord(record_id);
+	}
+	%>	
 		<!-- Start: Header -->
 		<!-- Start: Header -->
 		<jsp:include page="navbar.jsp"></jsp:include>
@@ -91,7 +101,194 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					<div class="row">		
 						<div class="col-lg-12">	
-						
+							<div class="row profile">
+								<div class="col-md-12">
+									<div class="panel">
+										<div class="panel-body bk-padding-left-30">
+											<div class="bk-ltr bk-bg-white">
+												<div class="row">
+													<div class="col-md-12">
+														<div class="bk-bg-white text-center bk-padding-top-20 bk-padding-bottom-10">
+															<div class="row">
+																<div class="text-left bk-padding-left-10 col-md-10">
+																	<h4 class="bk-margin-off">简介</h4>
+																</div>
+																                                  
+															</div>
+														</div>
+													</div>																	
+												</div>
+											</div>
+											<div class="bk-ltr bk-padding-bottom-20 bk-padding-left-20">
+												<div class="row">
+													<div class=" col-md-4 bk-bg-white bk-padding-top-10">
+														<i class="fa fa-asterisk bk-padding-right-10"></i>记录编号：
+														<i class="bk-padding-right-15" id = "eva-record-id"><%=rcd.getId() %></i>
+													</div>
+													<div class="col-md-4 bk-bg-white bk-padding-top-10">
+														<i class="fa fa-database bk-padding-right-10"></i>记录区域：
+														<i class="bk-padding-right-15" ><%=rcd.getRegion() %></i>
+													</div>
+													<div class="col-md-4 bk-bg-white bk-padding-top-10">
+														<i class="fa fa-user bk-padding-right-10"></i>记录人员：
+														<i class="bk-padding-right-15" ><%=rcd.getGener() %></i>
+													</div>
+													
+													<div class="col-md-4 bk-bg-white bk-padding-top-10">
+														<i class="fa fa-archive bk-padding-right-10"></i>班次及时间段：
+														<i class="bk-padding-right-15" ><%=rcd.getPeriod_shift()+"/"+rcd.getPeriod_time() %></i>
+													</div>
+													<div class="col-md-4 bk-bg-white bk-padding-top-10">
+														<i class="fa fa-clock-o bk-padding-right-10"></i>开始时间：
+														<%if(rcd.getStart()!=null) {%>
+														<i class="bk-padding-right-15"><%=rcd.getStart().toString() %></i><%}else{ %>
+														<i class="bk-padding-right-15"></i><%} %>
+													</div>
+													<div class="col-md-4 bk-bg-white bk-padding-top-10">
+														<i class="fa fa-clock-o bk-padding-right-10"></i>结束时间：
+														<%if(rcd.getEnd()!=null) {%>
+														<i class="bk-padding-right-15"><%=rcd.getEnd().toString() %></i><%}else{ %>
+														<i class="bk-padding-right-15"></i><%} %>
+													</div>
+													<div class="col-md-4 bk-bg-white bk-padding-top-10">
+														<i class="fa fa-clock-o bk-padding-right-10"></i>提交时间：
+														<%if(rcd.getSubmit()!=null) {%>
+														<i class="bk-padding-right-15"><%=rcd.getSubmit().toString() %></i><%}else{ %>
+														<i class="bk-padding-right-15"></i><%} %>
+													</div>
+													<div class="col-md-4 bk-bg-white bk-padding-top-10">
+														<i class="fa fa-clock-o bk-padding-right-10"></i>审核时间：
+														<%if(rcd.getCheck()!=null) {%>
+														<i class="bk-padding-right-15"><%=rcd.getCheck().toString() %></i><%}else{ %>
+														<i class="bk-padding-right-15"></i><%} %>
+													</div>
+													<div class="col-md-4 bk-bg-white bk-padding-top-10">
+														<i class="fa fa-user bk-padding-right-10"></i>审核人：
+														<%if(rcd.getCheck()!=null) {%>
+														<i class="bk-padding-right-15" id="record-checker"><%=rcd.getChecker() %></i><%}else{ %>
+														<i class="bk-padding-right-15" id="record-checker" ></i><%} %>
+													</div>
+													
+												</div>
+											</div>
+											<hr class="bk-margin-off" />
+											<div class="bk-ltr bk-bg-white">
+												<div class="row">
+													<div class="col-md-12">
+														<div class="bk-bg-white text-center bk-padding-top-20 bk-padding-bottom-10">
+															<div class="row">
+																<div class="text-left bk-padding-left-10 ">
+																	<h4 class="bk-margin-off">文字记录</h4>
+																	            
+																</div>
+									
+															</div>
+														</div> 
+														<p class = "bk-padding-left-20 bk-padding-right-20" id = "sheet-intro"><%=rcd.getNote() %></p>
+													</div>															
+												</div>
+											</div>
+											<hr class="bk-margin-off" />
+											<div class="bk-ltr bk-bg-white">
+												<div class="row">
+													<div class="col-md-12">
+														<div class="bk-bg-white text-center bk-padding-top-20 bk-padding-bottom-10">
+															<div class="row">
+																<div class="text-left bk-padding-left-10 ">
+																	<h4 class="bk-margin-off">图片记录</h4>
+																	            
+																</div>
+									
+															</div>
+														</div>
+															<div class="col-xs-6 col-md-3">
+															<a href="<%=rcd.getPicture() %>" class="thumbnail">
+														      <img src="<%=rcd.getPicture() %>" alt="点击查看原图">
+														    </a>
+														    </div>
+													</div>															
+												</div>
+											</div>
+											<hr class="bk-margin-off" />
+											<div class="bk-ltr bk-bg-white">
+												<div class="row">
+													<div class="col-md-12">
+														<div class="bk-bg-white text-center bk-padding-top-20 bk-padding-bottom-10">
+															<div class="row">
+																<div class="text-left bk-padding-left-10 ">
+																	<h4 class="bk-margin-off">地址记录</h4>
+																	            
+																</div>
+									
+															</div>
+														</div> 
+														<div class="col-md-8 bk-padding-bottom-20">
+														<div id="bdmap-record-position" gps = "<%=rcd.getGps() %>"></div>
+														</div>
+														
+													</div>															
+												</div>
+											</div>
+											<hr class="bk-margin-off" />
+											<div class="bk-ltr bk-bg-white">
+												<div class="row">
+													<div class="col-md-12">
+														<div class="bk-bg-white text-center bk-padding-top-20 bk-padding-bottom-10">
+															<div class="row">
+																<div class="text-left bk-padding-left-10 col-md-10">
+																	<h4 class="bk-margin-off">记录详细内容</h4>
+																</div>
+																
+															</div>
+														</div>
+													</div>
+													<%
+													JSONArray JA = JSONArray.fromObject(rcd.getAsws());
+													 %>
+													 
+													<div class="col-md-10 col-md-offset-1">
+														<div class=" table-responsive ">
+															<table class="table table-bordered">
+																<thead>
+																	<tr>
+																		<th>标题</th>
+																		<th>可选回答</th>
+																		<th>正常回答</th>
+																		<th>实际回答</th>
+																	</tr>
+																</thead>
+															
+																<tbody>
+																<% for(int i = 0; i<JA.size(); i++){
+																	JSONObject jso = JA.getJSONObject(i);
+																	String trcolor = "success";
+																	if (jso.get("error").equals("1")){
+																		trcolor = "danger";
+																	}
+																 %>
+																	<tr class="<%=trcolor %>">
+																		<td><%=jso.get("title") %></td>
+																		<td><%=jso.get("possasws") %></td>
+																		<td><%=jso.get("normalasws") %></td>
+																		<td><%=jso.get("choosedasws") %></td>
+																	</tr>
+																	<%} %>
+																</tbody>
+															</table>
+														</div>
+													</div>												
+												</div>
+											</div>
+											<div class="col-md-12">
+												<h6 class="text-danger text-center">共<%=rcd.getError() %>个问题不符合正常情况</h6>
+												<a class="col-md-6 col-md-offset-3 btn btn-success " id = "check-button" href="#">
+													<i class="fa fa-check"></i>                                            
+												</a>            
+											</div> 
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>   
 				</div>
@@ -145,8 +342,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="<%=path%>/assets/js/core.min.js"></script>
 		
 		<!-- Pages JS -->
-		<script src="<%=path%>/assets/js/pages/table.js"></script>
-		<script type="text/javascript" src="<%=path%>/assets/js/pages/device-map.js"></script>
+		<script src="<%=path%>/assets/js/pages/task-evaluation-detail.js"></script>
+		<script src="<%=path%>/assets/js/pages/record-postion-map.js"></script>
 
 		<!-- end: JavaScript-->
 		

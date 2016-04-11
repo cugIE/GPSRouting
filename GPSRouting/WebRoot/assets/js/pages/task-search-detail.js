@@ -249,7 +249,7 @@ $(document).ready(function(){
  		var region_id = $(this).attr("id");
  		var period_id = $(this).attr("period_id");
  		var name = $(this).text();
- 		var sort = $("#RestRegions").children(".rest-regions-tr").length;
+ 		var sort = 0
  		$.post("AddConnectionServlet",{
 			 period_id: period_id,
 			 gener_id: "0001",

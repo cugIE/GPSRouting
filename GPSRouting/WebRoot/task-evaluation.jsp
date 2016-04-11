@@ -167,10 +167,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<tr>
 											<td><%=rcd.getId() %></td>
 											<td><%=rcd.getRegion() %></td>
-											<td><%=rcd.getPeriod_shift()+"/"+rcd.getPeriod_time()%></td>
+											<td><%=rcd.getPeriod_shift()+"/"+rcd.getPeriod_time() %></td>
+											<%if(rcd.getStart()!=null) {%>
 											<td><%=rcd.getStart().toString() %></td>
+											<%}else{ %><td></td><%} %>
+											<%if(rcd.getEnd()!=null) {%>
 											<td><%=rcd.getEnd().toString() %></td>
-											<td><%=rcd.getSubmit().toString() %></td>
+											<%}else{ %><td></td><%} %>
+											<%if(rcd.getSubmit()!=null) {%>
+											<td><%=rcd.getStart().toString() %></td>
+											<%}else{ %><td></td><%} %>
 											<td><%=rcd.getGener() %></td>
 											<td>
 												<span class="label label-<%=statusColor %>"><%=status %></span>

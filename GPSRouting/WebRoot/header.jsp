@@ -6,16 +6,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <div class="pull-left">
-	<dir class = "row">
+	<div class = "row">
 		<div class="btn-group" role="group">
-		    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		      选择部门
-		    	<span class="caret"></span>
-		    </button>
-		    <ul class="dropdown-menu">
-		    	<li><a href="#">部门1</a></li>
-		    	<li><a href="#">部门2</a></li>
-		    </ul>
+		   <button type = "button" class="btn btn-primary bk-margin-10" name="back" value="返回" onclick="javascript:history.back(-1);"><i class = "fa fa-arrow-left"></i></button>
 		</div>
-	</dir>					
+	</div>					
 </div>

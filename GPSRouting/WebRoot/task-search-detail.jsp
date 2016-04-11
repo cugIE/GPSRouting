@@ -367,16 +367,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<div class="modal-body">
 						<div class = "row">
-							<div class="col-md-offset-1 col-md-10">
-								<div class="col-md-5" >
+							<div class="col-md-12">
+								<div class="col-md-6" >
 								已选择
-								<table class = "col-md-12 table table-hover table-bordered" >
+								<table class ="col-md-12 table table-hover table-bordered" >
 								<tbody id="SelectedRegions">
 								</tbody>
 								</table>
 								</div> 
-								<div class ="col-md-1 bk-margin-top-15" ><i class ="fa fa-arrows-h fa-2x"></i></div>
-								<div class="col-md-5 col-md-offset-1" >
+								<div class="col-md-6" >
 								未选择
 								<table class = "col-md-12 table table-hover table-bordered">
 								<tbody id="RestRegions">

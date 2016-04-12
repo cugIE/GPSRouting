@@ -37,24 +37,42 @@ public class PtrConnectionTest {
 //			e.printStackTrace();
 //		}
 //	}
-	
-	@Test
-	public void getAllRegion(){
+	@Test 
+	public void SwitchSort(){
+			try {
+				assertEquals(PtrConnection.switchSort("0032", "0033"),true);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	}
+	@Test 
+	public void max(){
 		try {
-			assertNotEquals(PtrConnection.getAllRegion("1"),new ArrayList<PtrConnection>());
+			assertEquals(PtrConnection.getMaxSort("0001"),2);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	@Test
-	public void getAllPeriod(){
-		try {
-			assertNotEquals(PtrConnection.getAllPeriod("2"),new ArrayList<Period>());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	@Test
+//	public void getAllRegion(){
+//		try {
+//			assertNotEquals(PtrConnection.getAllRegion("1"),new ArrayList<PtrConnection>());
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
+//	@Test
+//	public void getAllPeriod(){
+//		try {
+//			assertNotEquals(PtrConnection.getAllPeriod("2"),new ArrayList<Period>());
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 }

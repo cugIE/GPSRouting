@@ -1,17 +1,18 @@
 package com.bean;
 //部门信息
 public class Branch {
-	private int id;
+	private String id;
+	private String branchCode;
 	private String branchName;
 	private String branchType;
 	private String comName;
-	private int comId;
+	private String comId;
 	private int generId;
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setId(String branch_id) {
+		this.id = branch_id;
 	}
 	public String getBranchName() {
 		return branchName;
@@ -31,16 +32,22 @@ public class Branch {
 	public void setComName(String comName) {
 		this.comName = comName;
 	}
-	public int getComId() {
+	public String getComId() {
 		return comId;
 	}
-	public void setComId(int comId) {
-		this.comId = comId;
+	public void setComId(String com_id) {
+		this.comId = com_id;
 	}
 	public int getGenerId() {
 		return generId;
 	}
 	public void setGenerId(int generId) {
 		this.generId = generId;
+	}
+	public String getBranchCode() {
+		return branchCode;
+	}
+	public void setBranchCode(String branchCode) {
+		this.branchCode = branchCode;
 	}
 }

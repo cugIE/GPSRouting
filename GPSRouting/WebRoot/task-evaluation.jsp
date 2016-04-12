@@ -18,7 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<!-- Mobile Metas -->
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		
+        
 		<!-- Import google fonts -->
         
         
@@ -78,8 +78,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	String end = request.getParameter("end");
 	String branch_id = request.getParameter("branch_id");
 	String gener_id = request.getParameter("gener_id");
+	if (branch_id==null){
+		branch_id="";
+	}
+	if (gener_id==null){
+		gener_id="";
+	}
 	List<Record> rcds = null;
-	if(branch_id!=null){
+	if(!branch_id.equals("")){
 		if (start==null||end==null){
 		//Timestamp ts = new Timestamp(System.currentTimeMillis());
 		
@@ -99,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	 		rcds = Record.getAllRecord(Integer.parseInt(branch_id),start, end);
 	}
-	else if (gener_id!=null){
+	else if (!gener_id.equals("")){
 		if (start==null||end==null){
 		//Timestamp ts = new Timestamp(System.currentTimeMillis());
 		
@@ -167,9 +173,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					<div class="row">		
 						<form class="form-horizontal form-bordered" action="task-evaluation.jsp" mehod="get">
-							<div class="form-group">
-								<label class="col-md-3 control-label">提交时间范围</label>
-								<div class="col-md-6">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-label">提交时间范围</label>
+								<div class="col-md-5">
 									<div class="input-daterange input-group" data-plugin-datepicker>
 										<span class="input-group-addon">
 											<i class="fa fa-calendar"></i>
@@ -179,9 +185,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<input type="text" class="form-control" name="end" value="<%=end %>" />
 									</div>
 								</div>
-								<button type="submit" class = "col-md-1 btn btn-success">确认</button>
+								<div class="col-md-3" id="record_gener_id" hidden="hidden">
+									<label class="col-md-5 control-label" for="部门">巡检员</label>
+									<div class="col-md-7">
+										<input type="text" class="form-control" name="gener_id" value="" />
+									</div>
+								</div>
+								<div class="col-md-3" id="record_branch_id" hidden="hidden">
+									<label class="col-md-4 control-label" for="部门">部门</label>
+									<div class="col-md-8">
+										<select name="branch_id" class="form-control" size="1">
+										<option value = "" >所有</option>
+										<option value = "1" >部门1</option>
+										<option value = "2">部门2</option>
+										</select>
+									</div>
+								</div>
+								<div class="btn-group col-md-3" id ="record_choose_button" >
+								  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								    选择搜索条件 <span class="caret"></span>
+								  </button>
+								  <ul class="dropdown-menu">
+								    <li><a href="#" onclick="$('#record_choose_button').hide(); $('#record_gener_id').fadeIn();  ">巡检员</a></li>
+								    <li role="separator" class="divider"></li>
+								    <li><a href="#" onclick="$('#record_choose_button').hide(); $('#record_branch_id').fadeIn();  ">部门</a></li>
+								  </ul>
+								</div>
+								<button type="submit"  class="btn btn-success ">搜索</button>
+								
 							</div>
+							
 						</form>
+						
 						<div class="col-md-10 col-md-offset-1">
 							<div class="table-responsive table-data-show">
 								<table class="table table-hover record-table">

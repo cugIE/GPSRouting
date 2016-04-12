@@ -69,7 +69,7 @@ public class Region {
 		this.branch = null;
 		this.intro = null;
 		this.gps = "{}";
-		this.qrcode = "http://";
+		this.qrcode = "http";
 		this.gener = null;
 		this.type = null;
 		this.range = 0;
@@ -351,6 +351,21 @@ public class Region {
 					+ "region_type = '" + rg.getType() + "', "
 					+ "region_range = '" + rg.getRange() + "' "
 					+ "where region_id = " + rg.getId();
+			DBHelper dbh = new DBHelper();
+			int result = dbh.updateDatabase(sql);
+			dbh.DBClose();
+			return result;
+		}
+				
+	}
+	public static int addQRCode(String region_id, String qrcode) throws SQLException{
+		if (region_id == null||qrcode==null){
+			return -1;
+		}
+		else{
+			String sql = "update region set "
+					+ "region_qrcode = '" + qrcode + "' " 
+					+ "where region_id = " + region_id;
 			DBHelper dbh = new DBHelper();
 			int result = dbh.updateDatabase(sql);
 			dbh.DBClose();

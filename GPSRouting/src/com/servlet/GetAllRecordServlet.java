@@ -74,6 +74,8 @@ public class GetAllRecordServlet extends HttpServlet {
 				jso.put("status", rcd.getStatus());
 				jso.put("checker", rcd.getChecker());
 				jso.put("note", rcd.getNote());
+				jso.put("type", rcd.getType());
+				jso.put("branch", rcd.getBranch());
 				if(rcd.getCheck() == null){
 					jso.put("check_time", "");
 				}
@@ -89,14 +91,16 @@ public class GetAllRecordServlet extends HttpServlet {
 		}
 		else if(index.equals("gener")){
 			String gener_id = request.getParameter("gener_id");
-			if (gener_id == null){
+			String start = request.getParameter("start");
+			String end = request.getParameter("end");
+			if (gener_id == null||start == null||end == null){
 				OutputHelper.StringOutPut("error_record", response);
 				return;
 			}
 			JSONArray JA = new JSONArray();
 			List<Record> rcds;
 			try {
-				rcds = Record.getAllRecord(gener_id);
+				rcds = Record.getAllRecord(gener_id,start,end);
 				if (rcds.size() == 0){
 					OutputHelper.StringOutPut("no result", response);
 					return;
@@ -116,6 +120,8 @@ public class GetAllRecordServlet extends HttpServlet {
 					jso.put("gener", rcd.getGener());
 					jso.put("status", rcd.getStatus());
 					jso.put("checker", rcd.getChecker());
+					jso.put("type", rcd.getType());
+					jso.put("branch", rcd.getType());
 					if(rcd.getCheck()!=null)
 					{
 						jso.put("check_time", rcd.getCheck().toString());

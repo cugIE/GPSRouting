@@ -79,6 +79,7 @@ public class ChangeQuestionServlet extends HttpServlet {
 				String title = request.getParameter("title");
 				String possasws = request.getParameter("possasws");
 				String normalasws = request.getParameter("normalasws");
+				System.out.println(question_id+";"+title+";"+possasws+";"+normalasws);
 				Question qst = Question.getOneQuestion(question_id);
 				if (title!=null){
 					qst.setTitle(title);

@@ -22,6 +22,7 @@ public class Record {
 	private String period_shift;
 	private Time period_time;
 	private String region;
+	private String type;
 	private int gener_id;
 	private String gener;
 	private String status;
@@ -29,6 +30,8 @@ public class Record {
 	private String checker;
 	private String note;
 	private Timestamp check;
+	private String branch;
+	private int branch_id;
 	
 	public Record() {
 		super();
@@ -41,6 +44,7 @@ public class Record {
 		this.end = null;
 		this.submit = null;
 		this.ptr_id = 0;
+		this.branch_id = 0;
 		this.period_shift = null;
 		this.period_time = null;
 		this.region = null;
@@ -51,6 +55,32 @@ public class Record {
 		this.checker = null;
 		this.note = null;
 		this.check = null;
+		this.type = null;
+		this.branch = null;
+	}
+
+	public int getBranch_id() {
+		return branch_id;
+	}
+
+	public void setBranch_id(int branch_id) {
+		this.branch_id = branch_id;
+	}
+
+	public String getBranch() {
+		return branch;
+	}
+
+	public void setBranch(String branch) {
+		this.branch = branch;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getId() {
@@ -205,10 +235,10 @@ public class Record {
 		this.check = check;
 	}
 	//SELECT record_id, record_gps, record_asws, record_error, record_picture, record_start, record_end, record_submit, record.ptr_id, region.region_name, period.period_shift, period.period_time, record.gener_id, people_name, checker_name, record_note, record_check_time from (((gastube_inspection.record inner join people on record.gener_id = people.people_id) inner join periodtoregion on periodtoregion.ptr_id = record.ptr_id) inner join period on period.period_id = periodtoregion.period_id) inner join region on region.region_id = periodtoregion.region_id;
-	public static List<Record> getAllRecord(Timestamp start, Timestamp end) throws SQLException{
+	public static List<Record> getAllRecord(String start, String end) throws SQLException{
 		List<Record> rcrds = new ArrayList<Record>();
-		String sql = "SELECT record_id, record_error, record_start, record_end, record_submit, record.ptr_id, region.region_name, period.period_shift, period.period_time, record.gener_id, people_name, record_status, checker_name, record_check_time "
-				+ "from (((gastube_inspection.record "
+		String sql = "SELECT record_id, record_error, record_start, record_end, record_submit, record.ptr_id, region.region_name, period.period_shift, period.period_time, record.gener_id, people_name, record_status, checker_name, record_check_time, region.region_type, branch.branch_name "
+				+ "from ((((gastube_inspection.record "
 				+ "inner join people "
 				+ "on record.gener_id = people.people_id) "
 				+ "inner join periodtoregion "
@@ -216,9 +246,11 @@ public class Record {
 				+ "inner join period "
 				+ "on period.period_id = periodtoregion.period_id) "
 				+ "inner join region "
-				+ "on region.region_id = periodtoregion.region_id "
-				+ "where record_submit > '" + start.toString() + "' "
-				+ "and record_submit < '" + end.toString() + "';";
+				+ "on region.region_id = periodtoregion.region_id) "
+				+ "inner join branch "
+				+ "on branch.branch_id = region.branch_id "
+				+ "where record_submit > '" + start + "' "
+				+ "and record_submit < '" + end + "';";
 		
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
@@ -238,6 +270,8 @@ public class Record {
 			rcrd.setStatus(rs.getString(12));
 			rcrd.setChecker(rs.getString(13));
 			rcrd.setCheck(rs.getTimestamp(14));
+			rcrd.setType(rs.getString(15));
+			rcrd.setBranch(rs.getString(16));
 			rcrds.add(rcrd);
 		}
 		dbh.DBClose(rs);
@@ -245,10 +279,10 @@ public class Record {
 		return rcrds;
 	}
 	
-	public static List<Record> getAllRecord(String gid) throws SQLException{
+	public static List<Record> getAllRecord(String gid, String start, String end) throws SQLException{
 		List<Record> rcrds = new ArrayList<Record>();
-		String sql = "SELECT record_id, record_error, record_start, record_end, record_submit, record.ptr_id, region.region_name, period.period_shift, period.period_time, record.gener_id, people_name, record_status, checker_name, record_check_time "
-				+ "from (((gastube_inspection.record "
+		String sql = "SELECT record_id, record_error, record_start, record_end, record_submit, record.ptr_id, region.region_name, period.period_shift, period.period_time, record.gener_id, people_name, record_status, checker_name, record_check_time, region.region_type, branch.branch_name "
+				+ "from ((((gastube_inspection.record "
 				+ "inner join people "
 				+ "on record.gener_id = people.people_id) "
 				+ "inner join periodtoregion "
@@ -256,8 +290,11 @@ public class Record {
 				+ "inner join period "
 				+ "on period.period_id = periodtoregion.period_id) "
 				+ "inner join region "
-				+ "on region.region_id = periodtoregion.region_id "
-				+ "where record.gener_id = " + gid;
+				+ "on region.region_id = periodtoregion.region_id) "
+				+ "inner join branch "
+				+ "on region.branch_id = branch.branch_id "
+				+ "where record.gener_id = " + gid + " and record_submit > '" + start + "' "
+						+ "and record_submit < '" + end + "';";
 		
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
@@ -277,6 +314,51 @@ public class Record {
 			rcrd.setStatus(rs.getString(12));
 			rcrd.setChecker(rs.getString(13));
 			rcrd.setCheck(rs.getTimestamp(14));
+			rcrd.setType(rs.getString(15));
+			rcrd.setBranch(rs.getString(16));
+			rcrds.add(rcrd);
+		}
+		dbh.DBClose(rs);
+		
+		return rcrds;
+	}
+	public static List<Record> getAllRecord(int branchid, String start, String end) throws SQLException{
+		List<Record> rcrds = new ArrayList<Record>();
+		String sql = "SELECT record_id, record_error, record_start, record_end, record_submit, record.ptr_id, region.region_name, period.period_shift, period.period_time, record.gener_id, people_name, record_status, checker_name, record_check_time, region.region_type, branch.branch_name "
+				+ "from ((((gastube_inspection.record "
+				+ "inner join people "
+				+ "on record.gener_id = people.people_id) "
+				+ "inner join periodtoregion "
+				+ "on periodtoregion.ptr_id = record.ptr_id) "
+				+ "inner join period "
+				+ "on period.period_id = periodtoregion.period_id) "
+				+ "inner join region "
+				+ "on region.region_id = periodtoregion.region_id) "
+				+ "inner join branch "
+				+ "on region.branch_id = branch.branch_id "
+				+ "where branch.branch_id = " + branchid + " and record_submit > '" + start + "' "
+						+ "and record_submit < '" + end + "';";
+		
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		while(rs.next()){
+			Record rcrd = new Record();
+			rcrd.setId(rs.getString(1));
+			rcrd.setError(rs.getString(2));
+			rcrd.setStart(rs.getTimestamp(3));
+			rcrd.setEnd(rs.getTimestamp(4));
+			rcrd.setSubmit(rs.getTimestamp(5));
+			rcrd.setPtr_id(rs.getInt(6));
+			rcrd.setRegion(rs.getString(7));
+			rcrd.setPeriod_shift(rs.getString(8));
+			rcrd.setPeriod_time(rs.getTime(9));
+			rcrd.setGener_id(rs.getInt(10));
+			rcrd.setGener(rs.getString(11));
+			rcrd.setStatus(rs.getString(12));
+			rcrd.setChecker(rs.getString(13));
+			rcrd.setCheck(rs.getTimestamp(14));
+			rcrd.setType(rs.getString(15));
+			rcrd.setBranch(rs.getString(16));
 			rcrds.add(rcrd);
 		}
 		dbh.DBClose(rs);
@@ -362,8 +444,8 @@ public class Record {
 		}
 	}
 	public static Record getOneRecord(String rcdid) throws SQLException{
-		String sql = "SELECT record_id, record_gps, record_asws, record_error, record_picture, record_start, record_end, record_submit, record.ptr_id, region.region_name, period.period_shift, period.period_time, record.gener_id, people_name, record_status, checker_name, record_note, record_check_time "
-				+ "from (((gastube_inspection.record "
+		String sql = "SELECT record_id, record_gps, record_asws, record_error, record_picture, record_start, record_end, record_submit, record.ptr_id, region.region_name, period.period_shift, period.period_time, record.gener_id, people_name, record_status, checker_name, record_note, record_check_time, region.region_type, branch.branch_name "
+				+ "from ((((gastube_inspection.record "
 				+ "inner join people "
 				+ "on record.gener_id = people.people_id) "
 				+ "inner join periodtoregion "
@@ -371,7 +453,9 @@ public class Record {
 				+ "inner join period "
 				+ "on period.period_id = periodtoregion.period_id) "
 				+ "inner join region "
-				+ "on region.region_id = periodtoregion.region_id "
+				+ "on region.region_id = periodtoregion.region_id) "
+				+ "inner join branch "
+				+ "on region.branch_id = branch.branch_id "
 				+ "where record_id = " + rcdid;
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
@@ -395,6 +479,8 @@ public class Record {
 			rcrd.setChecker(rs.getString(16));
 			rcrd.setNote(rs.getString(17));
 			rcrd.setCheck(rs.getTimestamp(18));
+			rcrd.setType(rs.getString(19));
+			rcrd.setBranch(rs.getString(20));
 			dbh.DBClose();
 			return rcrd;
 		}
@@ -403,6 +489,6 @@ public class Record {
 		}
 	}
 	
-	
+	//[{"title":"是否漏油","possasws":"是,否","normalasws":"否","choosedasws":"否","error":"0"},{"title":"是否数值正常","possasws":"是,否","normalasws":"是","choosedasws":"否","error":"1"},{"title":"表的读书在什么数字附近","possasws":"60,70,80,90","normalasws":"60","choosedasws":"70","error":"1"}]
 	
 }

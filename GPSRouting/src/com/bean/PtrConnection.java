@@ -94,6 +94,13 @@ public class PtrConnection {
 					+ pc.getGener_id() + "')";
 			DBHelper dbh = new DBHelper();
 			result = dbh.updateDatabase(sql);
+			ResultSet rs = dbh.getResultSet("SELECT LAST_INSERT_ID()");
+			if (rs.next()) {  
+		        result = rs.getInt(1);  
+		    }  else {  
+		        // throw an exception from here  
+		    	result=-1;
+		    } 
 			dbh.DBClose();
 		}
 		return result;
@@ -164,6 +171,63 @@ public class PtrConnection {
 		}
 		dbh.DBClose(rs);
 		return ptrs;
+	}
+	public static int getMaxSort(String prid) throws SQLException {
+		if(prid==null){
+			return -1;
+		}
+		int result = -1;
+		String sql = "select max(sort) from periodtoregion where period_id="+prid;
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		while (rs.next()){
+			result = rs.getInt(1);
+		}
+		dbh.DBClose(rs);
+		return result;
+	}
+	public static boolean switchSort(String ptr_id_bef, String ptr_id_aft) throws SQLException {
+		DBHelper dbh = new DBHelper();
+		String sql_fst = "select sort from periodtoregion where ptr_id = "+ptr_id_bef + ";";
+		ResultSet rs_fst = dbh.getResultSet(sql_fst);
+		int sort_fst =-1;
+		while (rs_fst.next()){
+			sort_fst = rs_fst.getInt(1);
+		}
+		rs_fst.close();
+		String sql_snd = "select sort from periodtoregion where ptr_id = "+ptr_id_aft + ";";
+		ResultSet rs_snd = dbh.getResultSet(sql_snd);
+		int sort_snd =-1;
+
+		while (rs_snd.next()){
+			sort_snd = rs_snd.getInt(1);
+		}
+
+		if(sort_fst==-1||sort_snd==-1){
+			return false;
+		}
+		String update_fst = "update periodtoregion set sort = "+sort_snd +" where ptr_id = "+ptr_id_bef+ ";";
+		String update_snd = "update periodtoregion set sort = "+sort_fst +" where ptr_id = "+ptr_id_aft+ ";";
+		int result_fst=-1;
+		try {
+			result_fst = dbh.updateDatabase(update_fst);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int result_snd=-1;
+		try {
+			result_snd = dbh.updateDatabase(update_snd);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(result_fst==1&&result_snd==1){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	public static List<Period> getAllPeriod(String rgid) throws SQLException{
 		List<Period> prds = new ArrayList<Period>();

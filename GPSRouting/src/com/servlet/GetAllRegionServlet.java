@@ -1,7 +1,6 @@
 package com.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.List;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -146,7 +144,7 @@ public class GetAllRegionServlet extends HttpServlet {
 						}
 					}
 					else{
-						OutputHelper.StringOutPut("no result",response);
+						OutputHelper.StringOutPut(JA.toString(),response);
 						return;
 					}
 				} catch (SQLException e) {
@@ -190,7 +188,65 @@ public class GetAllRegionServlet extends HttpServlet {
 			}
 		}
 		else if(index.equals("rest")){
-			
+			String branchID = request.getParameter("branch_id");
+			String periodID = request.getParameter("period_id");
+			JSONArray JA = new JSONArray();
+			if (branchID == null) {
+				this.StringOutPut("error_branch", response);
+			}
+			else{
+				
+				try {
+					List<Region> AllRegion = Region.getAllRegion(branchID);
+					List<PtrConnection> SelectedRegion = PtrConnection.getAllRegion(periodID);
+					if(AllRegion.size()==SelectedRegion.size()){
+						OutputHelper.StringOutPut(JA.toString(),response);
+						return;
+					}
+					else if (SelectedRegion.size()==0){							
+						for (int i = 0; i < AllRegion.size(); i++ ){
+							JSONObject js = new JSONObject();
+							Region rg = AllRegion.get(i);
+							js.put("id", rg.getId());
+							js.put("name", rg.getName());
+							js.put("type", rg.getType());
+							JA.add(js);
+						}
+				
+						OutputHelper.StringOutPut(JA.toString(),response);
+						return;
+					}
+					else{
+						int number = AllRegion.size()-SelectedRegion.size();
+						for (int i = 0; i < SelectedRegion.size(); i ++){
+							
+							for (int j = 0; j < AllRegion.size(); j ++){
+								if(SelectedRegion.get(i).getRegion_content().getId().equals(AllRegion.get(j).getId())){
+									AllRegion.remove(j);
+									break;
+								}
+							}
+							if(AllRegion.size()==number){
+								break;
+							}
+						}
+						for (int i = 0; i < AllRegion.size(); i++ ){
+							JSONObject js = new JSONObject();
+							Region rg = AllRegion.get(i);
+							js.put("id", rg.getId());
+							js.put("name", rg.getName());
+							js.put("type", rg.getType());
+							JA.add(js);
+						}
+				
+						OutputHelper.StringOutPut(JA.toString(),response);
+						return;
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 		else {
 			this.StringOutPut("error_index", response);

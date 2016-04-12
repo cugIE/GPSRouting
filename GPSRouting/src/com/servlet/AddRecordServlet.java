@@ -90,6 +90,7 @@ public class AddRecordServlet extends HttpServlet {
 			OutputHelper.StringOutPut(String.format("%04d", result), response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			OutputHelper.StringOutPut("error", response);
 			e.printStackTrace();
 		}
 		

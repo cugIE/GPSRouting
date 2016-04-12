@@ -11,12 +11,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>Insert title here</title>
 </head>
 <body>
-<form action="<%=basePath %>AddRecordServlet" method="post">
-<input type="text" name="record" >
-<input type="text" name="asws" >
-<input type="text" name="error" >
-<input type="text" name="note" >
-<input type="text" name="picture" >
+<form action="UploadFileServlet" method="post" enctype="multipart/form-data">
+<input type="file" name="filename" >
 <button type="submit"> 提交</button>
 </form>
 </body>

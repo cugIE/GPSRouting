@@ -299,7 +299,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="assets/js/core.min.js"></script>
 		
 		<!-- Pages JS -->
-		<script src="assets/js/pages/table.js"></script>
 		<script type="text/javascript" src="assets/js/pages/device-map.js"></script>
 		<script type="text/javascript" src="assets/js/pages/data-region.js"></script>
 

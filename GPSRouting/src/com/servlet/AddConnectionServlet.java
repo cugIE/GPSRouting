@@ -62,6 +62,7 @@ public class AddConnectionServlet extends HttpServlet {
 		String gener_id = request.getParameter("gener_id");
 		String sort = request.getParameter("sort");
 		String region_id = request.getParameter("region_id");
+		System.out.println(period_id+":"+gener_id+":"+sort+":"+region_id+":");
 		PtrConnection connect = new PtrConnection();
 		if(gener_id==null || region_id==null || period_id==null || sort==null){
 			OutputHelper.StringOutPut("error", response);

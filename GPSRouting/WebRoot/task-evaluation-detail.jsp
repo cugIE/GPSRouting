@@ -130,13 +130,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														<i class="bk-padding-right-15" ><%=rcd.getRegion() %></i>
 													</div>
 													<div class="col-md-4 bk-bg-white bk-padding-top-10">
+														<i class="fa fa-database bk-padding-right-10"></i>所属部门：
+														<i class="bk-padding-right-15" ><%=rcd.getBranch() %></i>
+													</div>
+													<div class="col-md-4 bk-bg-white bk-padding-top-10">
+														<i class="fa fa-database bk-padding-right-10"></i>区域类型：
+														<% 
+														String Region_type = "巡线点";
+														if(rcd.getType().equals("site")){
+															Region_type = "巡站点";
+														} %>
+														<i class="bk-padding-right-15" ><%=Region_type %></i>
+													</div>
+													<div class="col-md-4 bk-bg-white bk-padding-top-10">
 														<i class="fa fa-user bk-padding-right-10"></i>记录人员：
 														<i class="bk-padding-right-15" ><%=rcd.getGener() %></i>
 													</div>
 													
 													<div class="col-md-4 bk-bg-white bk-padding-top-10">
-														<i class="fa fa-archive bk-padding-right-10"></i>班次及时间段：
-														<i class="bk-padding-right-15" ><%=rcd.getPeriod_shift()+"/"+rcd.getPeriod_time() %></i>
+														<i class="fa fa-archive bk-padding-right-10"></i>班次：
+														<i class="bk-padding-right-15" ><%=rcd.getPeriod_shift() %></i>
+													</div>
+													<div class="col-md-4 bk-bg-white bk-padding-top-10">
+														<i class="fa fa-archive bk-padding-right-10"></i>时间段：
+														<i class="bk-padding-right-15" ><%=rcd.getPeriod_time() %></i>
 													</div>
 													<div class="col-md-4 bk-bg-white bk-padding-top-10">
 														<i class="fa fa-clock-o bk-padding-right-10"></i>开始时间：

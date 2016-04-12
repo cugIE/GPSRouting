@@ -146,8 +146,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											  <th>编号</th>
 											  <th>巡检区域</th>
 											  <th>班次/时间点</th>
-											  <th>开始时间</th>
-											  <th>结束时间</th>
+											  <th>所在部门</th>
+											  <th>区域类型</th>
 											  <th>提交时间</th>
 											  <th>巡检员</th> 
 											  <th>审核状态</th>                                      
@@ -168,12 +168,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<td><%=rcd.getId() %></td>
 											<td><%=rcd.getRegion() %></td>
 											<td><%=rcd.getPeriod_shift()+"/"+rcd.getPeriod_time() %></td>
-											<%if(rcd.getStart()!=null) {%>
-											<td><%=rcd.getStart().toString() %></td>
-											<%}else{ %><td></td><%} %>
-											<%if(rcd.getEnd()!=null) {%>
-											<td><%=rcd.getEnd().toString() %></td>
-											<%}else{ %><td></td><%} %>
+											<td><%=rcd.getBranch() %></td>
+											<%
+											String Region_type = "巡线点";
+											if(rcd.getRegion().equals("site")) {
+											Region_type = "巡站点";} %>
+											<td><%=Region_type %></td>
 											<%if(rcd.getSubmit()!=null) {%>
 											<td><%=rcd.getStart().toString() %></td>
 											<%}else{ %><td></td><%} %>

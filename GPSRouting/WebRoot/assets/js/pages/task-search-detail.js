@@ -209,6 +209,7 @@ $(document).ready(function(){
  		$.get(urlall,function(data,status){
  			var srarrays = stringToJson(data);
 			$("#SelectedRegions").children().remove();
+			var buttons = "<td><a></td>"
  			for (var i = 0; i<srarrays.length; i++){
  				var currsr = srarrays[i];
 	 			$("#SelectedRegions").append("<tr><td period_id = '"+ period_id + "' region_id = '" + currsr.id + "' id = '" + currsr.ptr_id + "' >" + currsr.name +"</td><tr>");

@@ -202,17 +202,20 @@ $(document).ready(function(){
 	     eval("var theJsonValue = "+stringValue); 
 	     return theJsonValue; 
      } 
+    var button_up = "<a class = 'search-regions-actions-delete pull-right'><i class = 'fa fa-trash-o'></i></a><a class = 'search-regions-actions pull-right'><i class = ' fa fa-angle-up'></i></a>"
+  	var button_left = "<a class ='search-regions-actions pull-left bk-margin-right-10'><i class = 'fa fa-angle-left'></i></a>"
  	$(".sheet-view-period-button").on("click", function(){
  		period_id = $(this).attr("value");
  		var urlall = "GetAllRegionServlet?index=period&period_id="+ $(this).attr("value");
  		var urlrest = "GetAllRegionServlet?index=rest&period_id="+$(this).attr("value")+"&branch_id="+$("#sheet-branch-id").attr("value");
+ 		
  		$.get(urlall,function(data,status){
  			var srarrays = stringToJson(data);
 			$("#SelectedRegions").children().remove();
-			var buttons = "<td><a></td>"
+			
  			for (var i = 0; i<srarrays.length; i++){
  				var currsr = srarrays[i];
-	 			$("#SelectedRegions").append("<tr><td period_id = '"+ period_id + "' region_id = '" + currsr.id + "' id = '" + currsr.ptr_id + "' >" + currsr.name +"</td><tr>");
+	 			$("#SelectedRegions").append("<tr><td period_id = '"+ period_id + "' region_id = '" + currsr.id + "' id = '" + currsr.ptr_id + "' >"+ currsr.name +button_up+"</td><tr>");
 	 		}
  		});
  		$.get(urlrest,function(data,status){
@@ -220,23 +223,24 @@ $(document).ready(function(){
 			$("#RestRegions").children().remove();
  			for (var i = 0; i<rarrays.length; i++){
  				var currr = rarrays[i];
-	 			$("#RestRegions").append("<tr  class= 'rest-regions-tr'><td period_id = '"+ period_id +"' id = '" + currr.id + "' >" + currr.name +"</td><tr>");
+	 			$("#RestRegions").append("<tr  class= 'rest-regions-tr'><td period_id = '"+ period_id +"' id = '" + currr.id + "' >" + button_left + currr.name +"</td><tr>");
 	 		}
  		});
  		
  	});
- 	$(document).on("click",'#SelectedRegions tr td',function(){
+ 	$(document).on("click",'#SelectedRegions tr td .search-regions-actions-delete',function(){
  		var th = $(this).parents("tr");
- 		var ptr_id = $(this).attr("id");
- 		var region_id = $(this).attr("region_id");
- 		var period_id = $(this).attr("period_id");
- 		var name = $(this).text();
+ 		var td = $(this).parents("td");
+ 		var ptr_id = td.attr("id");
+ 		var region_id = td.attr("region_id");
+ 		var period_id = td.attr("period_id");
+ 		var name = td.text();
  		$.post("DeleteConnectionServlet",{
 			 ptr_id: ptr_id
 		 },function(data,status){
 			 if(data=="1"){
 				 alert("删除成功");
-				 $("#RestRegions").append("<tr class= 'rest-regions-tr'><td  period_id = '"+ period_id +"' id = '" + region_id + "' >" + name +"</td><tr>");
+				 $("#RestRegions").append("<tr class= 'rest-regions-tr'><td  period_id = '"+ period_id +"' id = '" + region_id + "' >" +  button_left+ name +"</td><tr>");
 				 th.remove();
 			 }
 			 else{
@@ -245,28 +249,41 @@ $(document).ready(function(){
 			 
 		 });
  	});
- 	$(document).on("click",'#RestRegions tr td',function(){
+ 	$(document).on("click",'#RestRegions tr td a',function(){
  		var th = $(this).parents("tr");
- 		var region_id = $(this).attr("id");
- 		var period_id = $(this).attr("period_id");
- 		var name = $(this).text();
+ 		var td = $(this).parents("td");
+ 		var region_id = td.attr("id");
+ 		var period_id = td.attr("period_id");
+ 		var name = td.text();
  		var sort = 0
- 		$.post("AddConnectionServlet",{
-			 period_id: period_id,
-			 gener_id: "0001",
-			 sort: sort,
-			 region_id: region_id
-		 },function(data,status){
-			 if(data!="error"&&status=="success"){
-				 alert("添加成功");
-		 		$("#SelectedRegions").append("<tr><td period_id = '"+ period_id + "' region_id = '" + region_id + "' id = '" + data + "' >" + name +"</td><tr>");
-				 th.remove();
-			 }
-			 else{
-				 alert("添加失败")
-			 }
-			 
-		 });
+ 		$.post("GetMaxSortServlet",{
+ 			period_id : period_id 
+ 		},function(data, status){
+ 			if(data!="error"){
+//	 			alert(data);
+	 			sort = parseInt(data);
+	 			$.post("AddConnectionServlet",{
+	 				 period_id: period_id,
+	 				 gener_id: "0001",
+	 				 sort: sort+1,
+	 				 region_id: region_id
+	 			 },function(data,status){
+	 				 if(data!="error"&&status=="success"){
+	 					 alert("添加成功");
+	 			 		$("#SelectedRegions").append("<tr><td period_id = '"+ period_id + "' region_id = '" + region_id + "' id = '" + data + "' >" + name + button_up+ "</td><tr>");
+	 					 th.remove();
+	 				 }
+	 				 else{
+	 					 alert("添加失败")
+	 				 }
+	 				 
+	 			 });
+ 			}
+ 			else{
+ 				alert("失败，无法返回现在最大sort")
+ 			}
+ 		});
+ 		
  	});
 	
 });

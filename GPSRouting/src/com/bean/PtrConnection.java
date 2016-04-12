@@ -180,8 +180,11 @@ public class PtrConnection {
 		String sql = "select max(sort) from periodtoregion where period_id="+prid;
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
-		while (rs.next()){
+		if (rs.next()){
 			result = rs.getInt(1);
+		}
+		else {
+			result = 0;
 		}
 		dbh.DBClose(rs);
 		return result;

@@ -202,7 +202,7 @@ $(document).ready(function(){
 	     eval("var theJsonValue = "+stringValue); 
 	     return theJsonValue; 
      } 
-    var button_up = "<a class = 'search-regions-actions-delete pull-right'><i class = 'fa fa-trash-o'></i></a><a class = 'search-regions-actions pull-right'><i class = ' fa fa-angle-up'></i></a>"
+    var button_up = "<a class = 'search-regions-actions-delete pull-right'><i class = 'fa fa-trash-o'></i></a><a class = 'search-regions-actions-up pull-right'><i class = ' fa fa-angle-up'></i></a>"
   	var button_left = "<a class ='search-regions-actions pull-left bk-margin-right-10'><i class = 'fa fa-angle-left'></i></a>"
  	$(".sheet-view-period-button").on("click", function(){
  		period_id = $(this).attr("value");
@@ -215,7 +215,7 @@ $(document).ready(function(){
 			
  			for (var i = 0; i<srarrays.length; i++){
  				var currsr = srarrays[i];
-	 			$("#SelectedRegions").append("<tr><td period_id = '"+ period_id + "' region_id = '" + currsr.id + "' id = '" + currsr.ptr_id + "' >"+ currsr.name +button_up+"</td><tr>");
+	 			$("#SelectedRegions").append("<tr class='selected-region-tr'><td period_id = '"+ period_id + "' region_id = '" + currsr.id + "' id = '" + currsr.ptr_id + "' >"+ currsr.name +button_up+"</td><tr>");
 	 		}
  		});
  		$.get(urlrest,function(data,status){
@@ -249,6 +249,36 @@ $(document).ready(function(){
 			 
 		 });
  	});
+ 	
+ 	$(document).on("click",'#SelectedRegions tr td .search-regions-actions-up',function(){
+ 		var th = $(this).parents("tr");
+ 		var td = $(this).parents("td");
+ 		var prev = th.prev();
+ 		var len = th.prevAll().length;
+ 		while (len!=0&&prev.attr("class")===undefined){
+ 			prev = prev.prev();
+ 			len=len-1;
+ 		}
+ 		if(prev.attr("class")!==undefined){
+ 		var prevtd = prev.children("td");
+ 		var previd = prevtd.attr("id");
+ 		var tdid = td.attr("id");
+ 		$.post("SwitchSortServlet",{
+ 			ptr_id_bef : previd,
+ 			ptr_id_aft : tdid
+ 		},function(data, status){
+ 			if(data=="success"){
+ 				th.insertBefore(prev);
+ 			}
+ 			else{
+ 				alert("error");
+ 			}
+ 		});}
+ //		ptr_id_bef
+ //     ptr_id_aft
+ //		th.insertBefore(prev);
+ //		var prevtd = prev.children("td");
+ 	});
  	$(document).on("click",'#RestRegions tr td a',function(){
  		var th = $(this).parents("tr");
  		var td = $(this).parents("td");
@@ -270,7 +300,7 @@ $(document).ready(function(){
 	 			 },function(data,status){
 	 				 if(data!="error"&&status=="success"){
 	 					 alert("添加成功");
-	 			 		$("#SelectedRegions").append("<tr><td period_id = '"+ period_id + "' region_id = '" + region_id + "' id = '" + data + "' >" + name + button_up+ "</td><tr>");
+	 			 		$("#SelectedRegions").append("<tr class='selected-region-tr'><td period_id = '"+ period_id + "' region_id = '" + region_id + "' id = '" + data + "' >" + name + button_up+ "</td><tr>");
 	 					 th.remove();
 	 				 }
 	 				 else{

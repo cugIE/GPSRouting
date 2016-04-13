@@ -33,7 +33,7 @@
 			<div class="userbox">
 				<a href="people-profile.html" class="dropdown-toggle" data-toggle="dropdown">
 					<div class="profile-info">
-						<span class="name"><%=request.getSession().getAttribute("username")%></span>
+						<span class="name"><%=request.getSession().getAttribute("SesUser")%></span>
 						<span class="role">管理员</span>
 					</div>			
 					<i class="fa custom-caret"></i>

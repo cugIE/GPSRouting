@@ -127,7 +127,9 @@ public class PeopleDao {
 				people.setName(rs.getString("people_name"));
 				people.setUsername(rs.getString("people_username"));
 				people.setPassword(rs.getString("people_password"));
-
+				people.setBranchId(rs.getInt("branch_id"));
+				people.setPeopRemark(rs.getString("people_remark"));
+				people.setTeamId(rs.getInt("team_id"));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

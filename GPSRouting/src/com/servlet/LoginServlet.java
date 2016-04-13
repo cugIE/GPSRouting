@@ -28,6 +28,7 @@ public class LoginServlet extends HttpServlet {
 		People p = new People();
 		p.setUsername(username);
 		p.setPassword(password);
+		
 		//创建session，将登录信息保存于session中
 		HttpSession session = request.getSession();
 		String sessionId = session.getId();
@@ -40,11 +41,18 @@ public class LoginServlet extends HttpServlet {
 			PeopleService ps = new PeopleService();
 			if (ps.check(p)) {
 				System.out.println("登录成功");
+				System.out.println("人员姓名："+p.getName());
+				System.out.println("人员所属部门："+p.getBranchId());
+				System.out.println("人员备注信息："+p.getPeopRemark());
 				out.println("登录成功！");
 				out.println(username);
 				out.println(password);	
-				session.setAttribute("SesUser", username);
-				session.setAttribute("SesPwd", password);
+				session.setAttribute("SesUser", p.getUsername());
+				session.setAttribute("SesPwd", p.getPassword());
+				session.setAttribute("SesId", p.getId());
+				session.setAttribute("SesName", p.getName());
+				session.setAttribute("SesBranchId", p.getBranchId());
+				session.setAttribute("SesTeamId", p.getTeamId());
 			} else {
 				out.println("登录失败");
 			}

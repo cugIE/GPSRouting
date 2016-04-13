@@ -8,8 +8,56 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class WorkerLoginServlet extends HttpServlet {
+import net.sf.json.JSONObject;
 
+import com.bean.People;
+import com.service.PeopleService;
+
+public class WorkerLoginServlet extends HttpServlet {
+	
+	static final long serialVersionUID = 1L;
+	private static final int LOGIN_SUCCESS = 1; //  
+    private static final int LOGIN_FAIL = 0;
+	 
+    public WorkerLoginServlet() {
+        super();
+    }
+
+	protected void login(HttpServletRequest request,HttpServletResponse response)
+			throws ServletException,IOException{
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		People p = new People();
+		p.setUsername(username);
+		p.setPassword(password);
+		
+		JSONObject pJsonObject = new JSONObject();
+		
+		try {
+			PeopleService ps = new PeopleService();
+			//登录成功，返回状态码和json数据
+			if (ps.check(p)) {
+				System.out.println("登录成功！");
+				pJsonObject.put("username", p.getUsername());
+				pJsonObject.put("password", p.getPassword());
+				pJsonObject.put("name", p.getName());
+				pJsonObject.put("branch_id", p.getBranchId());
+				pJsonObject.put("team_id", p.getTeamId());
+				out.print(LOGIN_SUCCESS);
+				out.print(pJsonObject.toString());
+			} else {
+				System.out.println("登录失败！");
+				out.print(LOGIN_FAIL);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			out.println("</B></font></center>");
+			out.close();
+		}	
+	}
 	/**
 	 * The doGet method of the servlet. <br>
 	 *
@@ -22,20 +70,7 @@ public class WorkerLoginServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		out.print("    This is ");
-		out.print(this.getClass());
-		out.println(", using the GET method");
-		out.println("  </BODY>");
-		out.println("</HTML>");
-		out.flush();
-		out.close();
+		login(request, response);
 	}
 
 	/**
@@ -50,20 +85,7 @@ public class WorkerLoginServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		out.print("    This is ");
-		out.print(this.getClass());
-		out.println(", using the POST method");
-		out.println("  </BODY>");
-		out.println("</HTML>");
-		out.flush();
-		out.close();
+		login(request, response);	
 	}
 
 	/**

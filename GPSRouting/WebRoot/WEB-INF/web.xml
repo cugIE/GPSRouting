@@ -226,4 +226,12 @@
   <session-config>
     <session-timeout>15</session-timeout>
   </session-config>
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>com.filter.general.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>

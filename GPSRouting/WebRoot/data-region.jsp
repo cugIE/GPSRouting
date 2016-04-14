@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" import = "com.bean.Region" import = "java.util.*"
+<%@ page language="java" contentType="text/html; charset=UTF-8" import = "com.bean.Region" import = "com.bean.Branch" import = "java.util.*"  import = "com.service.*"
     pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
@@ -68,7 +68,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<body>
 	<% 
-	List<Region> rgs= Region.getAllRegion();
+		
+		String brch_id = request.getParameter("branch_id");
+		List<Region> rgs= null;
+		
+		HttpSession tempSession = request.getSession();
+		int branch_id = (int)session.getAttribute("SesBranchId");
+		int team_id = (int)session.getAttribute("SesTeamId");
+		BranchService bs = new BranchService();
+		Branch brch = bs.fill(branch_id+"");
+		String branchType = brch.getBranchType();
+		if(branchType.equals("管理")){
+			if(brch_id==null){
+				rgs=Region.getAllRegion();
+			}
+			else{
+				rgs=Region.getAllRegion(brch_id);
+			}
+		}
+		else{
+			rgs=Region.getAllRegion(branch_id+"");
+		}
 	%>
 	
 		<!-- Start: Header -->
@@ -90,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="page-header">
 						<jsp:include page="header.jsp"></jsp:include>
 						<div class="pull-right">
-							<h2>Tables</h2>
+							<h2><%=brch.getBranchName() %></h2>
 						</div>					
 					</div>
 					<!-- End Page Header -->
@@ -102,24 +122,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="panel-heading bk-bg-primary">
 									<h6><i class="fa fa-table red"></i><span class="break"></span>设备详细列表</h6>
 									<div class="panel-actions">
-										<a href="table.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
 										<a data-toggle="modal" data-target="#myModal" class="btn-plus"><i class="fa fa-plus"></i></a>
 										<a href="table.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
 
 									</div>
 								</div>
 								<div class="panel-body">
+								<% if (brch.getBranchType().equals("管理")){ 
+									List<Branch> brchs = bs.fill();
+								%>
+								<form action="data-region.jsp"  method="get">
 									<div class="form-group">
 										<div class="col-md-3">
-											<select id="select" name="select" class="form-control" size="1">
-												<option value="0">选择部门</option>
-												<option value="1">Option #1</option>
-												<option value="2">Option #2</option>
-												<option value="3">Option #3</option>
+											<select id="select" name="branch_id" class="form-control" size="1">
+												<%for (int i = 0; i<brchs.size();i++){ %>
+												<option value="<%=brchs.get(i).getId() %>"><%=brchs.get(i).getBranchName() %></option>
+												<%} %>
 											</select>
 										</div>
 										<button class = "btn btn-success">确认</button>
 									</div>
+								</form>
+								<%} %>
 									<div class="table-data-show">	
 										<table class="table table-striped table-bordered bootstrap-datatable datatable">
 											<thead>
@@ -239,16 +263,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<textarea id="region_intro" name="intro" rows="4" class="form-control" placeholder="Content.."></textarea>
 								</div>
 							</div>
+							<% 
+							if(branchType.equals("管理")){
+								List<Branch> brchs = bs.fill();
+							
+							%>
 							<div class="form-group">
 								<label class="col-md-3 control-label" for="select">所在部门</label>
 								<div class="col-md-9">
 									<select id="region_branch" name="branch_id" class="form-control" size="1">
-										<option value="1">部门1</option>
-										<option value="2">部门2</option>
-										<option value="3">部门3</option>
+									<%for(int i = 0;i<brchs.size();i++){ %>
+										<option value="<%=brchs.get(i).getId() %>"><%=brchs.get(i).getBranchName() %></option>
+									<%} %>
 									</select>
 								</div>
 							</div>
+							<%}else{ %>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="select">所在部门</label>
+								<div class="col-md-9">
+									<select id="region_branch" name="branch_id" class="form-control" size="1">
+										<option value="<%=brch.getId() %>"><%=brch.getBranchName() %></option>
+									</select>
+								</div>
+							</div>
+							<%} %>
 							<div class="form-group">
 								<label class="col-md-3 control-label" for="select">区域种类</label>
 								<div class="col-md-9">

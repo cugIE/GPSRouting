@@ -365,6 +365,49 @@ public class Record {
 		
 		return rcrds;
 	}
+	public static List<Record> getAllRecord(String gid, int branchid, String start, String end) throws SQLException{
+		List<Record> rcrds = new ArrayList<Record>();
+		String sql = "SELECT record_id, record_error, record_start, record_end, record_submit, record.ptr_id, region.region_name, period.period_shift, period.period_time, record.gener_id, people_name, record_status, checker_name, record_check_time, region.region_type, branch.branch_name "
+				+ "from ((((gastube_inspection.record "
+				+ "inner join people "
+				+ "on record.gener_id = people.people_id) "
+				+ "inner join periodtoregion "
+				+ "on periodtoregion.ptr_id = record.ptr_id) "
+				+ "inner join period "
+				+ "on period.period_id = periodtoregion.period_id) "
+				+ "inner join region "
+				+ "on region.region_id = periodtoregion.region_id) "
+				+ "inner join branch "
+				+ "on region.branch_id = branch.branch_id "
+				+ "where record.gener_id = " + gid + " and branch.branch_id = " + branchid + " and record_submit > '" + start + "' "
+						+ "and record_submit < '" + end + "';";
+		
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		while(rs.next()){
+			Record rcrd = new Record();
+			rcrd.setId(rs.getString(1));
+			rcrd.setError(rs.getString(2));
+			rcrd.setStart(rs.getTimestamp(3));
+			rcrd.setEnd(rs.getTimestamp(4));
+			rcrd.setSubmit(rs.getTimestamp(5));
+			rcrd.setPtr_id(rs.getInt(6));
+			rcrd.setRegion(rs.getString(7));
+			rcrd.setPeriod_shift(rs.getString(8));
+			rcrd.setPeriod_time(rs.getTime(9));
+			rcrd.setGener_id(rs.getInt(10));
+			rcrd.setGener(rs.getString(11));
+			rcrd.setStatus(rs.getString(12));
+			rcrd.setChecker(rs.getString(13));
+			rcrd.setCheck(rs.getTimestamp(14));
+			rcrd.setType(rs.getString(15));
+			rcrd.setBranch(rs.getString(16));
+			rcrds.add(rcrd);
+		}
+		dbh.DBClose(rs);
+		
+		return rcrds;
+	}
 	public static int addOneRecord(Record rcd) throws SQLException{
 		int result = 0;
 		if (rcd == null){
@@ -406,6 +449,7 @@ public class Record {
 					+ "record_asws = '" + rcd.getAsws() + "', "
 					+ "record_error = '" + rcd.getError() + "', "
 					+ "record_picture = '" + rcd.getPicture() + "', "
+					+ "record_submit = '" + rcd.getSubmit().toString() + "', "
 					+ "record_note = '" + rcd.getNote() +  "' "
 					+ "where record_id = " + rcd.getId();
 			DBHelper dbh = new DBHelper();

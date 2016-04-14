@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" 
 import="com.bean.*" 
-
+import="com.util.*" 
+import = "com.bean.Branch"
+import = "com.service.*"
 import="java.util.*" 
 import="java.text.SimpleDateFormat"
 import="java.sql.Timestamp"
@@ -42,9 +44,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<!-- Plugins CSS-->
 		<!-- Plugins CSS-->
-		<link href="assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
-		<link href="assets/plugins/bootstrap-datepicker/css/datepicker-theme.css" rel="stylesheet" />
-		<link href="assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.css" rel="stylesheet" />
+		<link href="<%=path%>assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+		<link href="<%=path%>assets/plugins/bootstrap-datepicker/css/datepicker-theme.css" rel="stylesheet" />
+		<link href="<%=path%>assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.css" rel="stylesheet" />
 		<link href="<%=path%>/assets/plugins/bootkit/css/bootkit.css" rel="stylesheet" />
 		<link href="<%=path%>/assets/plugins/fullcalendar/css/fullcalendar.css" rel="stylesheet" />
 		<link href="<%=path%>/assets/plugins/jquery-ui/css/jquery-ui-1.10.4.min.css" rel="stylesheet" />					
@@ -74,79 +76,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<body>
 	<%
-	String start = request.getParameter("start");
-	String end = request.getParameter("end");
-	String branch_id = request.getParameter("branch_id");
-	String gener_id = request.getParameter("gener_id");
-	if (branch_id==null){
-		branch_id="";
-	}
-	if (gener_id==null){
-		gener_id="";
-	}
-	List<Record> rcds = null;
-	if(!branch_id.equals("")){
-		if (start==null||end==null){
-		//Timestamp ts = new Timestamp(System.currentTimeMillis());
-		
-			Date endDate = new Date(); 
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//可以方便地修改日期格式 
-			Date startDate = new Date();
-			Calendar calendar = Calendar.getInstance(); //得到日历
-			calendar.setTime(endDate);//把当前时间赋给日历
-			calendar.add(calendar.MONTH, -1); //设置为前3月
-			startDate = calendar.getTime(); //得到前3月的时间
-			
-		
-			end = dateFormat.format(endDate); 
-			start = dateFormat.format(startDate); 
-			System.out.println(end+";"+start); 
-			
+		String start = request.getParameter("start");
+		String end = request.getParameter("end");
+		String branch_id = request.getParameter("branch_id");
+		String gener_id = request.getParameter("gener_id");
+
+		HttpSession tempSession = request.getSession();
+		int brch_id = (int) session.getAttribute("SesBranchId");
+		int team_id = (int) session.getAttribute("SesTeamId");
+		BranchService bs = new BranchService();
+		Branch brch = bs.fill(brch_id + "");
+		String branchType = brch.getBranchType();
+		System.out.println(branchType);
+		if (branch_id == null) {
+			branch_id = "";
 		}
-	 		rcds = Record.getAllRecord(Integer.parseInt(branch_id),start, end);
-	}
-	else if (!gener_id.equals("")){
-		if (start==null||end==null){
-		//Timestamp ts = new Timestamp(System.currentTimeMillis());
-		
-			Date endDate = new Date(); 
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//可以方便地修改日期格式 
-			Date startDate = new Date();
-			Calendar calendar = Calendar.getInstance(); //得到日历
-			calendar.setTime(endDate);//把当前时间赋给日历
-			calendar.add(calendar.MONTH, -1); //设置为前3月
-			startDate = calendar.getTime(); //得到前3月的时间
-			
-		
-			end = dateFormat.format(endDate); 
-			start = dateFormat.format(startDate); 
-			System.out.println(end+";"+start); 
-			
+		if (gener_id == null) {
+			gener_id = "";
 		}
-		rcds = Record.getAllRecord(gener_id,start, end);
-	}
-	 
-	 else {
-	 if (start==null||end==null){
-		//Timestamp ts = new Timestamp(System.currentTimeMillis());
-		
-			Date endDate = new Date(); 
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//可以方便地修改日期格式 
-			Date startDate = new Date();
-			Calendar calendar = Calendar.getInstance(); //得到日历
-			calendar.setTime(endDate);//把当前时间赋给日历
-			calendar.add(calendar.MONTH, -1); //设置为前3月
-			startDate = calendar.getTime(); //得到前3月的时间
-			
-		
-			end = dateFormat.format(endDate); 
-			start = dateFormat.format(startDate); 
-			System.out.println(end+";"+start); 
-			
+		List<Record> rcds = null;
+		if (start == null || end == null) {
+			//Timestamp ts = new Timestamp(System.currentTimeMillis());
+
+			String result[] = DateHelper.getInitDate();
+			start = result[0];
+			end = result[0];
+
 		}
-	 	rcds = Record.getAllRecord(start, end);
-	 }
-	 %>
+		if (branchType.equals("管理")) {
+			if (!branch_id.equals("")) {
+				rcds = Record.getAllRecord(Integer.parseInt(branch_id),
+						start, end);
+			} else if (!gener_id.equals("")) {
+				rcds = Record.getAllRecord(gener_id, start, end);
+			} else {
+				rcds = Record.getAllRecord(start, end);
+			}
+		} else {
+			if (!gener_id.equals("")) {
+				rcds = Record.getAllRecord(gener_id, brch_id, start, end);
+			} else {
+				rcds = Record.getAllRecord(brch_id, start, end);
+			}
+		}
+	%>
 		<!-- Start: Header -->
 		<!-- Start: Header -->
 		<jsp:include page="navbar.jsp"></jsp:include>
@@ -166,7 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="page-header">
 						<jsp:include page="header.jsp"></jsp:include>
 						<div class="pull-right">
-							<h2>Tables</h2>
+							<h2><%=brch.getBranchName() %></h2>
 						</div>					
 					</div>
 					<!-- End Page Header -->
@@ -191,24 +164,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<input type="text" class="form-control" name="gener_id" value="" />
 									</div>
 								</div>
+								<% 
+								if(branchType.equals("管理")){
+								List<Branch> brchs = bs.fill();
+								%>
 								<div class="col-md-3" id="record_branch_id" hidden="hidden">
 									<label class="col-md-4 control-label" for="部门">部门</label>
 									<div class="col-md-8">
 										<select name="branch_id" class="form-control" size="1">
-										<option value = "" >所有</option>
-										<option value = "1" >部门1</option>
-										<option value = "2">部门2</option>
+										<%for (int i = 0; i<brchs.size();i++){ %>
+										<option value="<%=brchs.get(i).getId() %>"><%=brchs.get(i).getBranchName() %></option>
+										<%} %>
 										</select>
 									</div>
 								</div>
+								<%} %>
 								<div class="btn-group col-md-3" id ="record_choose_button" >
 								  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								    选择搜索条件 <span class="caret"></span>
 								  </button>
 								  <ul class="dropdown-menu">
 								    <li><a href="#" onclick="$('#record_choose_button').hide(); $('#record_gener_id').fadeIn();  ">巡检员</a></li>
+								    
+								    <%if(branchType.equals("管理")){ %>
 								    <li role="separator" class="divider"></li>
 								    <li><a href="#" onclick="$('#record_choose_button').hide(); $('#record_branch_id').fadeIn();  ">部门</a></li>
+								  	<%} %>
 								  </ul>
 								</div>
 								<button type="submit"  class="btn btn-success ">搜索</button>

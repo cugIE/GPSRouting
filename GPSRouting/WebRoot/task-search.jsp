@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" import = "com.bean.Sheet" import="java.util.List"
+<%@ page language="java" contentType="text/html; charset=UTF-8" import = "com.bean.Sheet" import = "com.bean.Branch" import="java.util.List"  import = "com.service.*"
     pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
@@ -67,7 +67,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<body>
 	
 	<%
-	List<Sheet> shts = Sheet.getAllSheet();
+		String brch_id = request.getParameter("branch_id");
+		List<Sheet> shts= null;
+		
+		HttpSession tempSession = request.getSession();
+		int branch_id = (int)session.getAttribute("SesBranchId");
+		int team_id = (int)session.getAttribute("SesTeamId");
+		BranchService bs = new BranchService();
+		Branch brch = bs.fill(branch_id+"");
+		String branchType = brch.getBranchType();
+		if(branchType.equals("管理")){
+			if(brch_id==null){
+				shts=Sheet.getAllSheet();
+			}
+			else{
+				shts=Sheet.getAllSheet(brch_id);
+			}
+		}
+		else{
+			shts=Sheet.getAllSheet(branch_id+"");
+		}
 	
 	%>
 		<!-- Start: Header -->
@@ -107,17 +126,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</div>
 								</div>
 								<div class="panel-body">
+								<% if (brch.getBranchType().equals("管理")){ 
+									List<Branch> brchs = bs.fill();
+								%>
+									<form action="task-search.jsp"  method="get">
 									<div class="form-group">
 										<div class="col-md-3">
-											<select id="select" name="select" class="form-control" size="1">
-												<option value="0">选择部门</option>
-												<option value="1">Option #1</option>
-												<option value="2">Option #2</option>
-												<option value="3">Option #3</option>
+											<select id="select" name="branch_id" class="form-control" size="1">
+												<%for (int i = 0; i<brchs.size();i++){ %>
+												<option value="<%=brchs.get(i).getId() %>"><%=brchs.get(i).getBranchName() %></option>
+												<%} %>
 											</select>
 										</div>
 										<button class = "btn btn-success">确认</button>
 									</div>
+									</form>
+								<%} %>
 									<div class="table-data-show">	
 										<table class="table table-hover table-bordered bootstrap-datatable datatable">
 											<thead>
@@ -186,15 +210,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<input type="text" name="gener_id" class="form-control" value="0001" />
 									</div>
 								</div>
+								<% 
+								if(branchType.equals("管理")){
+									List<Branch> brchs = bs.fill();
+								
+								%>
 								<div class="form-group">
 									<label class="col-md-3 control-label" for="select">所属部门</label>
 									<div class="col-md-9">
 										<select id="sheet-add-branhc" name="branch_id" class="form-control" size="1">
-											<option value="1">部门1</option>
-											<option value="2">部门2</option>
+											<%for(int i = 0;i<brchs.size();i++){ %>
+											<option value="<%=brchs.get(i).getId() %>"><%=brchs.get(i).getBranchName() %></option>
+											<%} %>
 										</select>
 									</div>
 								</div>
+								<%}else{ %>
+								<div class="form-group">
+									<label class="col-md-3 control-label" for="select">所属部门</label>
+									<div class="col-md-9">
+										<select id="sheet-add-branhc" name="branch_id" class="form-control" size="1">
+											<option value="<%=brch.getId() %>"><%=brch.getBranchName() %></option>
+										</select>
+									</div>
+								</div>
+								<%} %>
 								<div class="form-group ">
 									<label class="col-md-3 control-label">表介绍</label>
 									<div class="col-md-9">

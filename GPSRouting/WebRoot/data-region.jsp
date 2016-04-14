@@ -122,7 +122,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="panel-heading bk-bg-primary">
 									<h6><i class="fa fa-table red"></i><span class="break"></span>设备详细列表</h6>
 									<div class="panel-actions">
-										<a href="table.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
 										<a data-toggle="modal" data-target="#myModal" class="btn-plus"><i class="fa fa-plus"></i></a>
 										<a href="table.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
 
@@ -264,16 +263,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<textarea id="region_intro" name="intro" rows="4" class="form-control" placeholder="Content.."></textarea>
 								</div>
 							</div>
+							<% 
+							if(branchType.equals("管理")){
+								List<Branch> brchs = bs.fill();
+							
+							%>
 							<div class="form-group">
 								<label class="col-md-3 control-label" for="select">所在部门</label>
 								<div class="col-md-9">
 									<select id="region_branch" name="branch_id" class="form-control" size="1">
-										<option value="1">部门1</option>
-										<option value="2">部门2</option>
-										<option value="3">部门3</option>
+									<%for(int i = 0;i<brchs.size();i++){ %>
+										<option value="<%=brchs.get(i).getId() %>"><%=brchs.get(i).getBranchName() %></option>
+									<%} %>
 									</select>
 								</div>
 							</div>
+							<%}else{ %>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="select">所在部门</label>
+								<div class="col-md-9">
+									<select id="region_branch" name="branch_id" class="form-control" size="1">
+										<option value="<%=brch.getId() %>"><%=brch.getBranchName() %></option>
+									</select>
+								</div>
+							</div>
+							<%} %>
 							<div class="form-group">
 								<label class="col-md-3 control-label" for="select">区域种类</label>
 								<div class="col-md-9">

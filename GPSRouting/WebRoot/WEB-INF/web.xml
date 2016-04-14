@@ -102,6 +102,11 @@
     <servlet-name>WorkerLoginServlet</servlet-name>
     <servlet-class>com.servlet.WorkerLoginServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ManagePeopleServlet</servlet-name>
+    <servlet-class>com.servlet.ManagePeopleServlet</servlet-class>
+  </servlet>
+
 
  
 
@@ -213,6 +218,10 @@
   <servlet-mapping>
     <servlet-name>WorkerLoginServlet</servlet-name>
     <url-pattern>/WorkerLoginServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ManagePeopleServlet</servlet-name>
+    <url-pattern>/ManagePeopleServlet</url-pattern>
   </servlet-mapping>
 
   <welcome-file-list>

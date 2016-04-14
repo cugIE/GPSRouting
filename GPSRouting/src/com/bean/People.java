@@ -8,19 +8,20 @@ import com.util.DB;
 
 //人员信息
 public class People {
-	private int id;
+	private String id;
 	private String username;
 	private String name;
 	private String password;
+	private String code;
 	private String peopRemark;
 	private int branchId;
 	private int teamId;
 	private int generId;
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getUsername() {
@@ -66,6 +67,12 @@ public class People {
 		this.generId = generId;
 	}
 	
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
 	public boolean checkIs(String username)
 			throws Exception {
 		boolean b = true;

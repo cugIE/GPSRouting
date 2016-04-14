@@ -103,7 +103,7 @@
 						<div class="col-md-12">
 							<div class="panel">
 								<div class="panel-heading bk-bg-primary">
-									<h6><i class="fa fa-indent red"></i>修改或添加</h6>							
+									<h6><i class="fa fa-indent red"></i>添加人员信息</h6>							
 								</div>
 								<div class="panel-body">
 									
@@ -111,19 +111,19 @@
 										<div class="form-group">
 											<label class=" col-md-4 control-label">用户名</label>
 											<div class="col-md-5">
-												<input type="text" name="username" class="form-control" placeholder="用户名">
+												<input type="text" id="username" name="username" class="form-control" placeholder="用户名">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class=" col-md-4 control-label" for="password-input">密码</label>
 											<div class="col-md-5">
-												<input type="password" name="password" class="form-control" placeholder="密码">
+												<input type="password" id="password" name="password" class="form-control" placeholder="密码">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="  col-md-4 control-label" for="text-input">姓名</label>
 											<div class="col-md-5">
-												<input type="text" name="name" class="form-control" placeholder="姓名">
+												<input type="text" id="name" name="name" class="form-control" placeholder="姓名">
 											</div>
 										</div>
 										<div class="form-group">
@@ -142,7 +142,7 @@
 										<div class="form-group">
 											<label class="  col-md-4 control-label" for="text-input">编码</label>
 											<div class="col-md-5">
-												<input type="text" id="peopleid" name="peopleid" class="form-control" placeholder="编码格式：AABBCC">
+												<input type="text" id="peoplecode" name="peoplecode" class="form-control" placeholder="编码格式：AABBCC">
 											</div>
 										</div>
 										<div class="form-group">

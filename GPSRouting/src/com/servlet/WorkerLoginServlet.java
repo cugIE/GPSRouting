@@ -46,7 +46,7 @@ public class WorkerLoginServlet extends HttpServlet {
 				pJsonObject.put("name", p.getName());
 				pJsonObject.put("branch_id", p.getBranchId());
 				pJsonObject.put("team_id", p.getTeamId());
-				out.print(LOGIN_SUCCESS);
+			//	out.print(LOGIN_SUCCESS);
 				out.print(pJsonObject.toString());
 			} else {
 				System.out.println("登录失败！");

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import com.bean.People;
 import com.dao.PeopleDao;
+
 import java.util.List;
 
 //人员信息管理服务类
@@ -27,5 +28,30 @@ public class PeopleService {
     public  People  fill(String  Id) throws SQLException{
         PeopleDao dao=new PeopleDao();    
         return dao.fill(Id);
+    }
+    
+    /**
+     * 修改
+     * @param people
+     * @return
+     * @throws SQLException
+     */
+    public int update(People people) throws SQLException{
+        PeopleDao dao=new PeopleDao();
+        return dao.update(people);       
+    }
+    /**
+     *  删除
+     * @param Id
+     * @throws SQLException
+     */
+    public void delete(String Id) throws SQLException{
+        PeopleDao dao=new PeopleDao();
+         dao.delete(Id);;  
+    }
+     
+    public void delete(String[] Id) throws SQLException {
+        PeopleDao dao=new PeopleDao();
+        dao.delete(Id);
     }
 }

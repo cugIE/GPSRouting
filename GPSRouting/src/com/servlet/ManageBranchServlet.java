@@ -114,7 +114,7 @@ public class ManageBranchServlet extends javax.servlet.http.HttpServlet implemen
                     try {
                             List<Branch> branchList = service.fill();
                             request.setAttribute("BranchList", branchList);
-                            request.getRequestDispatcher("BranchList.jsp").forward(
+                            request.getRequestDispatcher("data-newbranch.jsp").forward(
                                     request, response);
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
@@ -201,7 +201,7 @@ public class ManageBranchServlet extends javax.servlet.http.HttpServlet implemen
                           String id1=request.getParameter("id");
                           try {                          
                             service.delete(id1);
-                              response.sendRedirect("ManageBranchServlet?action=delete");
+                              response.sendRedirect("ManageBranchServlet?action=list");
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();

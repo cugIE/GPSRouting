@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import javax.swing.text.DefaultEditorKit.InsertBreakAction;
 
+import com.bean.Branch;
 import com.bean.People;
 import com.util.DB;
 
@@ -27,18 +28,21 @@ public class PeopleDao {
 	 */
 	public List<People> fill() throws SQLException {
 		List<People> list = new ArrayList<People>();
-		String sql = "select * from T_building";
+		String sql = "select * from people";
 		conn = DB.getConn();
 		stmt = conn.createStatement();
 		rs = stmt.executeQuery(sql);
 		People p = null;
 		while (rs.next()) {
 			p = new People();
-			p.setId(rs.getInt("people_id"));
+			p.setId(rs.getString("people_id"));
 			p.setUsername(rs.getString("people_username"));
 			p.setName(rs.getString("people_name"));
 			p.setPassword(rs.getString("people_password"));
+			p.setCode(rs.getString("people_code"));
 			p.setBranchId(rs.getInt("branch_id"));
+			p.setPeopRemark(rs.getString("people_remark"));
+			p.setTeamId(rs.getInt("team_id"));
 			list.add(p);
 		}
 		rs.close();
@@ -55,12 +59,14 @@ public class PeopleDao {
 	 * @throws SQLException
 	 */
 	public int add(People people) throws SQLException {
-		String sql = "insert into people(people_username,people_name,people_password) values ('"
+		String sql = "insert into people(people_username,people_name,people_password,people_code) values ('"
 				+ people.getUsername()
 				+ "','"
 				+ people.getName()
 				+ "','"
-				+ people.getPassword() + "')";
+				+ people.getPassword() 
+				+ "','" 
+				+ people.getCode() + "')";
 		conn = DB.getConn();
 		stmt = DB.getStatement(conn);
 		int result = stmt.executeUpdate(sql);
@@ -78,18 +84,21 @@ public class PeopleDao {
 	 */
 	public People fill(String Id) throws SQLException{
         conn = DB.getConn();
-        String sql="select * from people where people_id = '"+Id+"'";
+        String sql="select * from people where people_id=?";
         pre = conn.prepareStatement(sql);
         pre.setString(1, Id);
         rs=pre.executeQuery();
         People p = null;
         if(rs.next()){
         	p = new People();
-			p.setId(rs.getInt("people_id"));
+			p.setId(rs.getString("people_id"));
 			p.setUsername(rs.getString("people_username"));
 			p.setName(rs.getString("people_name"));
 			p.setPassword(rs.getString("people_password"));
+			p.setCode(rs.getString("people_code"));
 			p.setBranchId(rs.getInt("branch_id"));
+			p.setPeopRemark(rs.getString("people_remark"));
+			p.setTeamId(rs.getInt("team_id"));
         }
         rs.close();
         pre.close();
@@ -123,7 +132,7 @@ public class PeopleDao {
 					throw new Exception("密码不正确！");
 				}
 				i = true;
-				people.setId(rs.getInt("people_id"));
+				people.setId(rs.getString("people_id"));
 				people.setName(rs.getString("people_name"));
 				people.setUsername(rs.getString("people_username"));
 				people.setPassword(rs.getString("people_password"));
@@ -150,7 +159,7 @@ public class PeopleDao {
 	 * @throws SQLException
 	 */
 	public void delete(String Id) throws SQLException {
-		String sql = "delete from people where people_id= '" + Id + "'";
+		String sql = "delete from people where people_id=?";
 		conn = DB.getConn();
 		pre = conn.prepareStatement(sql);
 		pre.setString(1, Id);
@@ -177,5 +186,21 @@ public class PeopleDao {
 		pre.close();
 		conn.close();
 	}
+	public int  update(People people) throws SQLException {
+        String sql="UPDATE people SET people_username=?,people_name=?,people_password=?,people_code=? WHERE people_id=?";
+        conn=DB.getConn();
+        pre = conn.prepareStatement(sql);
+        pre.setString(1,  people.getUsername());
+        pre.setString(2,  people.getName());
+        pre.setString(3,  people.getPassword());
+        pre.setString(4,  people.getCode());
+        pre.setString(5,  people.getId());
+        int count=pre.executeUpdate();
+        pre.close();
+        conn.close();
+        return count;      
+        // TODO Auto-generated method stub
+         
+    }
 
 }

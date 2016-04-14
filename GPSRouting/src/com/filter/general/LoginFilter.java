@@ -59,17 +59,10 @@ public class LoginFilter implements Filter {
 		//使用endsWith()判断url结尾的字符串
 
 
-		if( url.endsWith(".css") || url.endsWith(".js")|| url.endsWith(".gif")|| 
+		if(session.getAttribute("SesId")!=null||url.endsWith("login.jsp")|| url.endsWith(".css") || url.endsWith(".js")|| url.endsWith(".gif")|| 
 				url.endsWith(".png")|| url.endsWith(".jpg")|| url.endsWith("#")){
 		
-		
-
-		//满足条件就继续执行
-
-		chain.doFilter(request, response);
-
-		}else if (session.getAttribute("SesId")!=null){
-			if(url.endsWith("login.jsp")){
+			if(url.endsWith("login.jsp")&&session.getAttribute("SesId")!=null){
 				ServletContext sc = request.getServletContext();
 		        RequestDispatcher rd = null;
 		        rd = sc.getRequestDispatcher("/index.jsp");

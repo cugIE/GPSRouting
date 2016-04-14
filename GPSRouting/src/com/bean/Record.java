@@ -406,6 +406,7 @@ public class Record {
 					+ "record_asws = '" + rcd.getAsws() + "', "
 					+ "record_error = '" + rcd.getError() + "', "
 					+ "record_picture = '" + rcd.getPicture() + "', "
+					+ "record_submit = '" + rcd.getSubmit().toString() + "', "
 					+ "record_note = '" + rcd.getNote() +  "' "
 					+ "where record_id = " + rcd.getId();
 			DBHelper dbh = new DBHelper();

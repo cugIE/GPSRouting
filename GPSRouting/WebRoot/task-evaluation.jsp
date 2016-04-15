@@ -100,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			String result[] = DateHelper.getInitDate();
 			start = result[0];
-			end = result[0];
+			end = result[1];
 
 		}
 		if (branchType.equals("管理")) {

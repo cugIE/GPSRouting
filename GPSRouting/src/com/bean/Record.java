@@ -238,7 +238,7 @@ public class Record {
 	public static List<Record> getAllRecord(String start, String end) throws SQLException{
 		List<Record> rcrds = new ArrayList<Record>();
 		String sql = "SELECT record_id, record_error, record_start, record_end, record_submit, record.ptr_id, region.region_name, period.period_shift, period.period_time, record.gener_id, people_name, record_status, checker_name, record_check_time, region.region_type, branch.branch_name "
-				+ "from ((((gastube_inspection.record "
+				+ "from ((((record "
 				+ "inner join people "
 				+ "on record.gener_id = people.people_id) "
 				+ "inner join periodtoregion "
@@ -282,7 +282,7 @@ public class Record {
 	public static List<Record> getAllRecord(String gid, String start, String end) throws SQLException{
 		List<Record> rcrds = new ArrayList<Record>();
 		String sql = "SELECT record_id, record_error, record_start, record_end, record_submit, record.ptr_id, region.region_name, period.period_shift, period.period_time, record.gener_id, people_name, record_status, checker_name, record_check_time, region.region_type, branch.branch_name "
-				+ "from ((((gastube_inspection.record "
+				+ "from ((((record "
 				+ "inner join people "
 				+ "on record.gener_id = people.people_id) "
 				+ "inner join periodtoregion "
@@ -325,7 +325,7 @@ public class Record {
 	public static List<Record> getAllRecord(int branchid, String start, String end) throws SQLException{
 		List<Record> rcrds = new ArrayList<Record>();
 		String sql = "SELECT record_id, record_error, record_start, record_end, record_submit, record.ptr_id, region.region_name, period.period_shift, period.period_time, record.gener_id, people_name, record_status, checker_name, record_check_time, region.region_type, branch.branch_name "
-				+ "from ((((gastube_inspection.record "
+				+ "from ((((record "
 				+ "inner join people "
 				+ "on record.gener_id = people.people_id) "
 				+ "inner join periodtoregion "
@@ -368,7 +368,7 @@ public class Record {
 	public static List<Record> getAllRecord(String gid, int branchid, String start, String end) throws SQLException{
 		List<Record> rcrds = new ArrayList<Record>();
 		String sql = "SELECT record_id, record_error, record_start, record_end, record_submit, record.ptr_id, region.region_name, period.period_shift, period.period_time, record.gener_id, people_name, record_status, checker_name, record_check_time, region.region_type, branch.branch_name "
-				+ "from ((((gastube_inspection.record "
+				+ "from ((((record "
 				+ "inner join people "
 				+ "on record.gener_id = people.people_id) "
 				+ "inner join periodtoregion "

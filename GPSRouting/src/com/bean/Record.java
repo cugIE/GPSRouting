@@ -489,9 +489,9 @@ public class Record {
 	}
 	public static Record getOneRecord(String rcdid) throws SQLException{
 		String sql = "SELECT record_id, record_gps, record_asws, record_error, record_picture, record_start, record_end, record_submit, record.ptr_id, region.region_name, period.period_shift, period.period_time, record.gener_id, people_name, record_status, checker_name, record_note, record_check_time, region.region_type, branch.branch_name "
-				+ "from ((((gastube_inspection.record "
+				+ "FROM ( ( ( (`record`  "
 				+ "inner join people "
-				+ "on record.gener_id = people.people_id) "
+				+ "on record.gener_id = people.people_id ) "
 				+ "inner join periodtoregion "
 				+ "on periodtoregion.ptr_id = record.ptr_id) "
 				+ "inner join period "
@@ -499,8 +499,8 @@ public class Record {
 				+ "inner join region "
 				+ "on region.region_id = periodtoregion.region_id) "
 				+ "inner join branch "
-				+ "on region.branch_id = branch.branch_id "
-				+ "where record_id = " + rcdid;
+				+ "on branch.branch_id = region.branch_id "
+				+ "WHERE record_id="+rcdid;
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
 		Record rcrd = new Record();

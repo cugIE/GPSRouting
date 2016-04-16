@@ -33,6 +33,15 @@ public class Route {
 		this.time = time;
 		this.rtr_id = rtr_id;
 	}
+	public Route() {
+		super();
+		this.gener_id = 0;
+		this.longitude = 0;
+		this.latitude = 0;
+		this.islogin = 0;
+		this.time = null;
+		this.rtr_id = 0;
+	}
 	public int getGener_id() {
 		return gener_id;
 	}
@@ -121,12 +130,11 @@ public class Route {
 		}
 		else{
 			String sql = "insert into route"
-					+ "(gener_id, route_longitude, route_latitude, route_islogin, route_time, rtr_id)"
+					+ "(gener_id, route_longitude, route_latitude, route_islogin, rtr_id)"
 					+ " values('"+rt.getGener_id()+ "','" 
 					+ rt.getLongitude() + "','" 
 					+ rt.getLatitude() + "','" 
 					+ rt.getIslogin() + "','"
-					+ rt.getTime()  + "','" 
 					+ rt.getRtr_id()  + "')"; 
 			DBHelper dbh = new DBHelper();
 			result = dbh.updateDatabase(sql);

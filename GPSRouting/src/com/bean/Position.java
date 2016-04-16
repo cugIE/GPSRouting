@@ -25,6 +25,14 @@ public class Position {
 		this.iscurrent = iscurrent;
 		this.time = time;
 	}
+	public Position() {
+		super();
+		this.gener_id = 0;
+		this.longitude = 0;
+		this.latitude = 0;
+		this.iscurrent = 1;
+		this.time = null;
+	}
 	public int getGener_id() {
 		return gener_id;
 	}

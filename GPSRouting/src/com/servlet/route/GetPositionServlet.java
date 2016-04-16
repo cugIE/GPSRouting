@@ -2,7 +2,6 @@ package com.servlet.route;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,16 +15,16 @@ import com.bean.Position;
 import com.util.OutputHelper;
 
 /**
- * Servlet implementation class GetPostionServlet
+ * Servlet implementation class GetPositionServlet
  */
-@WebServlet("/GetPostionServlet")
-public class GetPostionServlet extends HttpServlet {
+@WebServlet("/GetPositionServlet")
+public class GetPositionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetPostionServlet() {
+    public GetPositionServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,6 +35,7 @@ public class GetPostionServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String index = request.getParameter("index");
+
 		if(index.equals("all")){
 			try {
 				OutputHelper.StringOutPut(Position.GetAllPosition().toString(), response);
@@ -88,7 +88,6 @@ public class GetPostionServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -18,12 +18,12 @@ import com.util.DBHelper;
 public class Route {
 	private int gener_id;
 	//private String gener;
-	private float longitude;
-	private float latitude;
+	private double longitude;
+	private double latitude;
 	private int islogin;
 	private String time;
 	private int rtr_id;
-	public Route(int gener_id, float longitude, float latitude, int islogin,
+	public Route(int gener_id, double longitude, double latitude, int islogin,
 			String time, int rtr_id) {
 		super();
 		this.gener_id = gener_id;
@@ -48,16 +48,16 @@ public class Route {
 	public void setGener_id(int gener_id) {
 		this.gener_id = gener_id;
 	}
-	public float getLongitude() {
+	public double getLongitude() {
 		return longitude;
 	}
-	public void setLongitude(float longitude) {
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
-	public float getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
-	public void setLatitude(float latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 	public int getIslogin() {
@@ -79,20 +79,20 @@ public class Route {
 		this.rtr_id = rtr_id;
 	}
 	
-	public static JSONArray GetAllRoute(String gener_id, Timestamp start, Timestamp end) throws SQLException{
+	public static JSONArray GetAllRoute(String gener_id, String start, String end) throws SQLException{
 		JSONArray positions= new JSONArray();
 		String sql = "select people_name, route_longitude, route_latitude, route_time, route_islogin "
 				+ "from route inner join people "
 				+ "on people_id = route.gener_id "
 				+ "where route.gener_id = " + gener_id +" and "
-				+ "route_time < " + end + " and route_time > " + start + " order by route_time";
+				+ "route_time < '" + end + "' and route_time > '" + start + "' order by route_time";
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
 		while(rs.next()){
 			JSONObject pos = new JSONObject();
 			pos.put("gener", rs.getString(1));
-			pos.put("longitude", rs.getString(2));
-			pos.put("latitude", rs.getString(3));
+			pos.put("longitude", rs.getDouble(2));
+			pos.put("latitude", rs.getDouble(3));
 			pos.put("time", rs.getString(4));
 			pos.put("islogin", rs.getString(5));
 			positions.add(pos);

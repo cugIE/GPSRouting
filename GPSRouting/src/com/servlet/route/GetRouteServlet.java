@@ -42,7 +42,7 @@ public class GetRouteServlet extends HttpServlet {
 			return;
 		}
 		try {
-			OutputHelper.StringOutPut(Route.GetAllRoute(gener_id,Timestamp.valueOf(start),Timestamp.valueOf(end)).toString(), response);
+			OutputHelper.StringOutPut(Route.GetAllRoute(gener_id,start,end).toString(), response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

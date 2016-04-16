@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+
 import com.bean.Position;
 import com.util.OutputHelper;
 
@@ -33,13 +35,6 @@ public class GetPostionServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String index = request.getParameter("index");
 		if(index.equals("all")){
 			try {
@@ -57,8 +52,13 @@ public class GetPostionServlet extends HttpServlet {
 			}
 			
 			try {
-				
-				OutputHelper.StringOutPut(Position.GetAllPosition(gener_id).toString(), response);
+				JSONObject jsonObject = Position.GetAllPosition(gener_id);
+				if (jsonObject==null) {
+					OutputHelper.StringOutPut("no result", response);
+				}
+				else{
+					OutputHelper.StringOutPut(Position.GetAllPosition(gener_id).toString(), response);
+				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -72,7 +72,7 @@ public class GetPostionServlet extends HttpServlet {
 				return;
 			}
 			try {
-				OutputHelper.StringOutPut(Position.GetAllPosition(gener_id,Timestamp.valueOf(start),Timestamp.valueOf(end)).toString(), response);
+				OutputHelper.StringOutPut(Position.GetAllPosition(gener_id,start,end).toString(), response);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -81,6 +81,14 @@ public class GetPostionServlet extends HttpServlet {
 		else {
 			OutputHelper.StringOutPut("error_index", response);
 		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -52,8 +52,8 @@ public class PostRouteServlet extends HttpServlet {
 			return;
 		}
 		tempP.setGener_id(Integer.parseInt(gener_id));
-		tempP.setLongitude(Float.parseFloat(longitude));
-		tempP.setLatitude(Float.parseFloat(latitude));
+		tempP.setLongitude(Double.parseDouble(longitude));
+		tempP.setLatitude(Double.parseDouble(latitude));
 		if(islogin!=null)
 		{ tempP.setIslogin(Integer.parseInt(islogin));}
 		if(rtr_id!=null)

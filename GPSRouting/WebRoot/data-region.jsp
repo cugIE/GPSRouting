@@ -79,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		Branch brch = bs.fill(branch_id+"");
 		String branchType = brch.getBranchType();
 		if(branchType.equals("管理")){
-			if(brch_id==null){
+			if(brch_id==null||brch_id.equals("all")){
 				rgs=Region.getAllRegion();
 			}
 			else{
@@ -120,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							
 							<div class="panel">
 								<div class="panel-heading bk-bg-primary">
-									<h6><i class="fa fa-table red"></i><span class="break"></span>设备详细列表</h6>
+									<h6><i class="fa fa-table red"></i><span class="break"></span>区域详细列表</h6>
 									<div class="panel-actions">
 										<a data-toggle="modal" data-target="#myModal" class="btn-plus"><i class="fa fa-plus"></i></a>
 										<a href="table.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
@@ -135,6 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div class="form-group">
 										<div class="col-md-3">
 											<select id="select" name="branch_id" class="form-control" size="1">
+												<option value = "all">所有</option>
 												<%for (int i = 0; i<brchs.size();i++){ %>
 												<option value="<%=brchs.get(i).getId() %>"><%=brchs.get(i).getBranchName() %></option>
 												<%} %>
@@ -196,7 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 							<div class="panel">
 								<div class="panel-heading bk-bg-primary">
-									<h6><i class="fa fa-table red"></i><span class="break"></span>设备位置</h6>
+									<h6><i class="fa fa-table red"></i><span class="break"></span>区域位置</h6>
 									<div class="panel-actions">
 										<a href="table.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>
 										<a href="table.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
@@ -205,19 +206,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</div>
 								<div class="panel-body">
 								<!-- put baidu map here-->
-									<div class="form-group">
-										<div class="col-md-3">
-											<select id="selectRoute" class="form-control" size="1"> 
-												<option value="0">选择巡线路线</option>   
-										        <option value="1">1号线</option>   
-										        <option value="2">2号线</option>   
-										        <option value="3">3号线</option>   
-										        <option value="4">4号线</option>   
-									        	<option value="5">5号线</option>             
-									     	</select>  
-										</div>
-										<button class = "btn btn-success" onclick = "getSelRoute()">确认</button>
-									</div>
+									
 										
 									<div id="allmap"></div>	
 								</div>
@@ -240,7 +229,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title bk-fg-primary">添加设备</h4>
+						<h4 class="modal-title bk-fg-primary">添加区域</h4>
 					</div>
 					<div class="modal-body">
 						<div class = "row">
@@ -252,13 +241,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-3 control-label text-vertical-center" for="text-input">设备名称</label>
+								<label class="col-md-3 control-label text-vertical-center" for="text-input">区域名称</label>
 								<div class="col-md-9">
 									<input type="text" id="region_name" name="name" class="form-control" >
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-3 control-label" for="textarea-input">设备介绍</label>
+								<label class="col-md-3 control-label" for="textarea-input">区域介绍</label>
 								<div class="col-md-9">
 									<textarea id="region_intro" name="intro" rows="4" class="form-control" placeholder="Content.."></textarea>
 								</div>

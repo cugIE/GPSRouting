@@ -73,7 +73,7 @@ public class Position {
 	public static JSONArray GetAllPosition() throws SQLException{
 		JSONArray positions= new JSONArray();
 		//Map<String, String> position = new HashMap<String, String>();
-		String sql = "select people_name, pos_longitude, pos_latitude "
+		String sql = "select people_name, pos_longitude, pos_latitude, people_id "
 				+ "from `position` inner join people "
 				+ "on people_id = position.gener_id ";
 		DBHelper dbh = new DBHelper();
@@ -83,6 +83,7 @@ public class Position {
 			pos.put("gener", rs.getString(1));
 			pos.put("longitude", rs.getDouble(2));
 			pos.put("latitude", rs.getDouble(3));
+			pos.put("id", rs.getString(4));
 			positions.add(pos);
 		}
 		dbh.DBClose(rs);
@@ -90,7 +91,7 @@ public class Position {
 	}
 	public static JSONObject GetAllPosition(String gener_id) throws SQLException{
 		//Map<String, String> position = new HashMap<String, String>();
-		String sql = "select people_name, pos_longitude, pos_latitude "
+		String sql = "select people_name, pos_longitude, pos_latitude, people_id "
 				+ "from `position` inner join people "
 				+ "on people_id = position.gener_id "
 				+ "where position.gener_id = " + gener_id;
@@ -102,6 +103,7 @@ public class Position {
 			pos.put("gener", rs.getString(1));
 			pos.put("longitude", rs.getDouble(2));
 			pos.put("latitude", rs.getDouble(3));
+			pos.put("id", rs.getString(4));
 		}else{
 			return null;
 		}
@@ -111,7 +113,7 @@ public class Position {
 	public static JSONArray GetAllPositionFromBranch(String branch_id) throws SQLException{
 		//Map<String, String> position = new HashMap<String, String>();
 		JSONArray positions= new JSONArray();
-		String sql = "select people_name, pos_longitude, pos_latitude "
+		String sql = "select people_name, pos_longitude, pos_latitude, people_id "
 				+ "from `position` inner join people "
 				+ "on people_id = position.gener_id "
 				+ "where people.branch_id = " + branch_id;
@@ -123,6 +125,7 @@ public class Position {
 			pos.put("gener", rs.getString(1));
 			pos.put("longitude", rs.getDouble(2));
 			pos.put("latitude", rs.getDouble(3));
+			pos.put("id", rs.getString(4));
 			positions.add(pos);
 		}
 		dbh.DBClose(rs);

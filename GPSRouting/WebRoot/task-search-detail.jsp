@@ -248,7 +248,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="modal-body">
 						<div class = "row">
 							<form method="post" id="sheet-edit-form" class="form-horizontal col-md-offset-2 col-md-8" action = "ChangeSheetServlet" role="form">
-								<div class="form-group">
+								<div class="form-group" hidden="hidden">
 									<label class="col-md-3 control-label">编号</label>
 									<div class="col-md-9">
 										<input type="text" name="sheet_id" id = "sheet-edit-id" class="form-control" />

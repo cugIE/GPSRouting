@@ -108,6 +108,26 @@ public class Position {
 		dbh.DBClose(rs);
 		return pos;
 	}
+	public static JSONArray GetAllPositionFromBranch(String branch_id) throws SQLException{
+		//Map<String, String> position = new HashMap<String, String>();
+		JSONArray positions= new JSONArray();
+		String sql = "select people_name, pos_longitude, pos_latitude "
+				+ "from `position` inner join people "
+				+ "on people_id = position.gener_id "
+				+ "where people.branch_id = " + branch_id;
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+
+		while(rs.next()){
+			JSONObject pos = new JSONObject();
+			pos.put("gener", rs.getString(1));
+			pos.put("longitude", rs.getDouble(2));
+			pos.put("latitude", rs.getDouble(3));
+			positions.add(pos);
+		}
+		dbh.DBClose(rs);
+		return positions;
+	}
 	public static int addOnePosition(Position pst) throws SQLException{
 		int result = 0;
 		if (pst == null){

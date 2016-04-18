@@ -70,6 +70,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	Sheet sht = Sheet.getOneSheet(shid);
 	String shiftString = Period.getShift(shid);
 	String[] shifts = shiftString.split(",");
+	List<Period> prds = Period.getAllPeriod(shid);
+	String period_id = request.getParameter("period_id");
+	if (period_id ==null){
+		period_id=prds.get(1).getId();
+	}
 	%>
 		<!-- Start: Header -->
 		<!-- Start: Header -->
@@ -221,6 +226,73 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 															</div>
 															
 														<%} %>
+														</div>
+													</div>															
+												</div>
+											</div>
+											<hr class="bk-margin-off" />
+											<div class="bk-ltr bk-bg-white">
+												<div class="row">
+													<div class="col-md-12">
+														<div class="bk-bg-white text-center bk-padding-top-20 bk-padding-bottom-10">
+															<div class="row">
+																<div class="text-left bk-padding-left-10 ">
+																	<h4 class="bk-margin-off">内容列表</h4>
+																	            
+																</div>
+									
+															</div>
+														</div> 
+														<form action="task-search-detail.jsp"  method="get">
+															<div class="form-group">
+																<div class="col-md-3">
+																	<input name="sheet_id" value="<%=shid %>" hidden="hidden">
+																	<select id="select" name="period_id" class="form-control" size="1">
+																		<%for (int i = 0; i<prds.size();i++){
+																		%>
+																		<option <%if(prds.get(i).getId().equals(period_id)){out.print("selected='selected'");} %> value="<%=prds.get(i).getId() %>"><%=prds.get(i).getShift()+" "+prds.get(i).getTime() %></option>
+																		<%} %>
+																	</select>
+																</div>
+																<button class = "btn btn-success">确认</button>
+															</div>
+														</form>
+														<div class="col-md-10 col-md-offset-1">
+															<div class="table-responsive table-data-show">
+																<table class="table table-hover record-table">
+																	  <thead>
+																		  <tr>
+																			  <th>区域名</th>
+																			  <th>内容</th>
+																			  <th>所有可能答案</th>
+																			  <th>正常答案</th>
+																			  <th>创建者</th>                                
+																		  </tr>
+																	  </thead>   
+																	  <tbody>
+																	 	<%
+																	 	List<PtrConnection> ptrs = PtrConnection.getAllRegion(period_id);
+																	 	for (int i = 0; i < ptrs.size(); i++){
+																			List<Question> qsts = Question.getAllQuestion(ptrs.get(i).getRegion_content().getId());
+																			System.out.println(qsts.size());
+																			for(int j = 0; j <qsts.size(); j++){
+																		 	%>
+																			<tr>
+																				<td><%= ptrs.get(i).getRegion_content().getName() %></td>
+																				<td><%= qsts.get(j).getTitle() %></td>
+																				<td><%= qsts.get(j).getPossibleAsw() %></td>
+																				<td><%= qsts.get(j).getNormalAsw() %></td>
+																				<td><%= qsts.get(j).getGener() %></td>
+																			</tr>
+																			<%
+																			}
+																		} 
+																		%>
+
+																									                                  
+																	  </tbody>
+																</table>
+															</div>
 														</div>
 													</div>															
 												</div>

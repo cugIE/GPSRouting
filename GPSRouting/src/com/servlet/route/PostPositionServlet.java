@@ -53,7 +53,12 @@ public class PostPositionServlet extends HttpServlet {
 		tempP.setLatitude(Double.parseDouble(latitude));
 		
 		try {
-			result = Position.addOnePosition(tempP);
+			if(Position.isPosition(gener_id)){
+				result = Position.changePosition(tempP);
+			}
+			else{
+				result = Position.addOnePosition(tempP);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -63,20 +63,6 @@ public class GetPositionServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else if (index.equals("history")) {
-			String gener_id = request.getParameter("gener_id");
-			String start = request.getParameter("start");
-			String end = request.getParameter("end");
-			if (gener_id == null||start==null||end ==null) {				
-				OutputHelper.StringOutPut("error_history", response);
-				return;
-			}
-			try {
-				OutputHelper.StringOutPut(Position.GetAllPosition(gener_id,start,end).toString(), response);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 		else {
 			OutputHelper.StringOutPut("error_index", response);

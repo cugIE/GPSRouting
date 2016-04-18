@@ -32,6 +32,18 @@ public class LogoutPosition extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String gener_id = request.getParameter("gener_id");
+		if(gener_id==null){
+			OutputHelper.StringOutPut("error", response);
+			return;
+		}
+		try {
+			int result = Position.deletePosition(gener_id);
+			OutputHelper.StringOutPut("" + result, response);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -45,7 +57,7 @@ public class LogoutPosition extends HttpServlet {
 			return;
 		}
 		try {
-			int result = Position.logoutPosition(gener_id);
+			int result = Position.deletePosition(gener_id);
 			OutputHelper.StringOutPut("" + result, response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

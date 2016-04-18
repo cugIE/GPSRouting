@@ -80,6 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		String branchType = brch.getBranchType();
 		if(branchType.equals("管理")){
 			if(brch_id==null||brch_id.equals("all")){
+				brch_id="all";
 				rgs=Region.getAllRegion();
 			}
 			else{
@@ -137,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<select id="select" name="branch_id" class="form-control" size="1">
 												<option value = "all">所有</option>
 												<%for (int i = 0; i<brchs.size();i++){ %>
-												<option value="<%=brchs.get(i).getId() %>"><%=brchs.get(i).getBranchName() %></option>
+												<option <% if(brchs.get(i).getId().equals(brch_id)){out.print("selected='selected'");} %> value="<%=brchs.get(i).getId() %>"><%=brchs.get(i).getBranchName() %></option>
 												<%} %>
 											</select>
 										</div>

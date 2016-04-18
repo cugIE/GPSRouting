@@ -152,6 +152,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													<th>区域编号</th>
 													<th>区域名</th>
 													<th>所属部门</th>
+													<th>类型</th>
 													<th>操作</th>
 												</tr>
 											</thead>   
@@ -166,6 +167,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													<td><%=rg.getId() %></td>
 													<td><%=rg.getName() %></td>
 													<td><%=rg.getBranch() %></td>
+													<td><%if(rg.getType().equals("site")){
+														out.print("巡站点");
+													}else if(rg.getType().equals("route")){
+														out.print("巡线点");
+													}else{
+														out.print("临时");
+													}
+													
+													%></td>
 													<td>
 														<div class="btn-group">
 

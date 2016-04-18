@@ -94,8 +94,8 @@ public class Period {
 		}
 		return result;	
 	}
-	public static boolean isShift(String shift){
-		String sql = "select period_id from period where period_shift = '"+shift+"' limit 1;";
+	public static boolean isShift(String shift, String sheet_id){
+		String sql = "select period_id from period where period_shift = '"+shift+"' and sheet_id = "+sheet_id+" limit 1;";
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
 		try {

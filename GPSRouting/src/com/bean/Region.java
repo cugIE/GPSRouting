@@ -191,6 +191,7 @@ public class Region {
 		dbh.DBClose(rs);
 		return rgs;
 	}
+	
 	/**
 	 * Get all regions from one branch
 	 * @param brID
@@ -208,6 +209,37 @@ public class Region {
 				+ ") "
 				+ "inner join people "
 				+ "on region.gener_id = people.people_id where region.branch_id =" + brID;
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		while(rs.next()){
+			Region rg = new Region();
+			rg.setId(rs.getString(1));
+			rg.setName(rs.getString(2));
+			rg.setBranch_id(rs.getInt(3));
+			rg.setBranch(rs.getString(4));
+			rg.setIntro(rs.getString(5));
+			rg.setGps(rs.getString(6));
+			rg.setQrcode(rs.getString(7));
+			rg.setGener_id(rs.getInt(8));
+			rg.setGener(rs.getString(9));
+			rg.setType(rs.getString(10));
+			rg.setRange(rs.getInt(11));
+			rgs.add(rg);
+		}
+		dbh.DBClose(rs);
+		return rgs;
+	}
+	public static List<Region> getAllRegionWithoutTemp(String brID) throws SQLException{
+		List<Region> rgs = new ArrayList<Region>();
+		String sql = "SELECT region_id, region_name, region.branch_id, branch_name, region_intro, region_gps, region_qrcode, region.gener_id, people_name, region_type, region_range "
+				+ "from "
+				+ "("
+				+ "region "
+				+ "inner join branch "
+				+ "on region.branch_id = branch.branch_id"
+				+ ") "
+				+ "inner join people "
+				+ "on region.gener_id = people.people_id where region.branch_id =" + brID + " and region.region_type<>'temp'";
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
 		while(rs.next()){

@@ -3,7 +3,7 @@
  */
 $(document).ready(function(){
 	$("#region-edit-button").on("click", function(){
-		if($("#region-type").attr("value") == "site"){
+		if($("#region-type").attr("value") != "route"){
 			$("#region-edit-range-group").hide();
 		}
 		$("#region-edit-id").val($("#region-id").text());
@@ -141,5 +141,13 @@ $(document).ready(function(){
 				
 			}
 		});
-	 
+	 $("#region-edit-type").change(function(){
+			var type=$("#region-edit-type").val();
+			if (type == 'site'){
+				$("#region-edit-range-group").fadeOut();
+			}
+			else{
+				$("#region-edit-range-group").fadeIn();
+			}
+		});
 });

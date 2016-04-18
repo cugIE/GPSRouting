@@ -14,24 +14,18 @@ public class Position {
 	//private String gener;
 	private double longitude;
 	private double latitude;
-	private int iscurrent;
-	private String time;
-	public Position(int gener_id, double longitude, double latitude, int iscurrent,
-			String time) {
+	public Position(int gener_id, double longitude, double latitude) {
 		super();
 		this.gener_id = gener_id;
 		this.longitude = longitude;
 		this.latitude = latitude;
-		this.iscurrent = iscurrent;
-		this.time = time;
+
 	}
 	public Position() {
 		super();
 		this.gener_id = 0;
 		this.longitude = 0;
 		this.latitude = 0;
-		this.iscurrent = 1;
-		this.time = null;
 	}
 	public int getGener_id() {
 		return gener_id;
@@ -51,50 +45,37 @@ public class Position {
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
-	public int getIscurrent() {
-		return iscurrent;
-	}
-	public void setIscurrent(int iscurrent) {
-		this.iscurrent = iscurrent;
-	}
-	public String getTime() {
-		return time;
-	}
-	public void setTime(String time) {
-		this.time = time;
-	}
 	
 	
-	public static JSONArray GetAllPosition(String gener_id, String start, String end) throws SQLException{
-		JSONArray positions= new JSONArray();
-		String sql = "SELECT people_name, pos_longitude, pos_latitude, pos_time, pos_iscurrent "
-				+ "FROM gastube_inspection.position "
-				+ "inner join people "
-				+ "on people.people_id = `position`.gener_id "
-				+ "where pos_time<'"+end+"' and pos_time>'"+start+"' "
-				+ "and `position`.gener_id="+ gener_id+";";
-
-		DBHelper dbh = new DBHelper();
-		ResultSet rs = dbh.getResultSet(sql);
-		while(rs.next()){
-			JSONObject pos = new JSONObject();
-			pos.put("gener", rs.getString(1));
-			pos.put("longitude", rs.getDouble(2));
-			pos.put("latitude", rs.getDouble(3));
-			pos.put("time", rs.getString(4));
-			pos.put("iscurrent", rs.getString(5));
-			positions.add(pos);
-		}
-		dbh.DBClose(rs);
-		return positions;
-	}
+//	public static JSONArray GetAllPosition(String gener_id, String start, String end) throws SQLException{
+//		JSONArray positions= new JSONArray();
+//		String sql = "SELECT people_name, pos_longitude, pos_latitude "
+//				+ "FROM gastube_inspection.position "
+//				+ "inner join people "
+//				+ "on people.people_id = `position`.gener_id "
+//				+ "where pos_time<'"+end+"' and pos_time>'"+start+"' "
+//				+ "and `position`.gener_id="+ gener_id+";";
+//
+//		DBHelper dbh = new DBHelper();
+//		ResultSet rs = dbh.getResultSet(sql);
+//		while(rs.next()){
+//			JSONObject pos = new JSONObject();
+//			pos.put("gener", rs.getString(1));
+//			pos.put("longitude", rs.getDouble(2));
+//			pos.put("latitude", rs.getDouble(3));
+//			pos.put("time", rs.getString(4));
+//			pos.put("iscurrent", rs.getString(5));
+//			positions.add(pos);
+//		}
+//		dbh.DBClose(rs);
+//		return positions;
+//	}
 	public static JSONArray GetAllPosition() throws SQLException{
 		JSONArray positions= new JSONArray();
 		//Map<String, String> position = new HashMap<String, String>();
-		String sql = "select people_name, pos_longitude, pos_latitude, pos_time "
+		String sql = "select people_name, pos_longitude, pos_latitude "
 				+ "from `position` inner join people "
-				+ "on people_id = position.gener_id "
-				+ "where pos_iscurrent = 1";
+				+ "on people_id = position.gener_id ";
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
 		while(rs.next()){
@@ -102,7 +83,6 @@ public class Position {
 			pos.put("gener", rs.getString(1));
 			pos.put("longitude", rs.getDouble(2));
 			pos.put("latitude", rs.getDouble(3));
-			pos.put("time", rs.getString(4));
 			positions.add(pos);
 		}
 		dbh.DBClose(rs);
@@ -110,11 +90,10 @@ public class Position {
 	}
 	public static JSONObject GetAllPosition(String gener_id) throws SQLException{
 		//Map<String, String> position = new HashMap<String, String>();
-		String sql = "select people_name, pos_longitude, pos_latitude, pos_time "
+		String sql = "select people_name, pos_longitude, pos_latitude "
 				+ "from `position` inner join people "
 				+ "on people_id = position.gener_id "
-				+ "where pos_iscurrent = 1 and "
-				+ "position.gener_id = " + gener_id;
+				+ "where position.gener_id = " + gener_id;
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
 		JSONObject pos = new JSONObject();
@@ -123,7 +102,6 @@ public class Position {
 			pos.put("gener", rs.getString(1));
 			pos.put("longitude", rs.getDouble(2));
 			pos.put("latitude", rs.getDouble(3));
-			pos.put("time", rs.getString(4));
 		}else{
 			return null;
 		}
@@ -147,19 +125,48 @@ public class Position {
 		}
 		return result;	
 	}
-	public static int logoutPosition(String gener_id) throws SQLException{
+	public static int changePosition(Position position) throws SQLException{
 		int result = 0;
-		if (gener_id == null){
+		if (position == null){
 			result = -1;
 		}
 		else{
 			String sql = "update `position` set "
-					+ "pos_iscurrent = 0 "
-					+ "where gener_id = " + gener_id + " and pos_iscurrent = 1";
+					+ "pos_latitude = " + position.getLatitude()+","
+					+ "pos_longitude = "+ position.getLongitude() + " "
+					+ "where gener_id = " + position.getGener_id() + ";";
 			DBHelper dbh = new DBHelper();
 			result = dbh.updateDatabase(sql);
 			dbh.DBClose();
 		}
 		return result;	
+	}
+	public static boolean isPosition(String gener_id) throws SQLException{
+		String sql = "select * "
+				+ "from `position`"
+				+ "where position.gener_id = " + gener_id;
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+
+		if(rs.next()){
+			dbh.DBClose(rs);
+			return true;
+		}else{
+			dbh.DBClose();
+			return false;
+		}
+	}
+	public static int deletePosition(String gener_id) throws SQLException{
+		if (gener_id==null){
+			return -1;
+		}
+		else{
+			String sql = "delete from `position` "
+					+ "where gener_id=" + gener_id;
+			DBHelper dbh = new DBHelper();
+			int result = dbh.updateDatabase(sql);
+			dbh.DBClose();
+			return result;
+		}	
 	}
 }

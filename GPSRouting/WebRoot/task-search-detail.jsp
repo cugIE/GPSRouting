@@ -73,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	List<Period> prds = Period.getAllPeriod(shid);
 	String period_id = request.getParameter("period_id");
 	if (period_id ==null){
-		period_id=prds.get(1).getId();
+		period_id=prds.get(0).getId();
 	}
 	%>
 		<!-- Start: Header -->

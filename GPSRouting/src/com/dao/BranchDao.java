@@ -156,4 +156,38 @@ public class BranchDao {
         conn.close();               
         // TODO Auto-generated method stub      
     }
+    
+    public boolean check(Branch branch) throws SQLException {
+		boolean i = false;
+		Branch b = null;
+		Connection conn = DB.getConn();
+		String branchId = branch.getId();
+		String sql = "select * from branch where branch_id = '"
+				+ branchId + "'";
+		Statement stmt = DB.getStatement(conn);
+		// 根据sql语句获取查询结果
+		ResultSet rs = DB.getResultSet(stmt, sql);
+		try {
+			if (!rs.next()) {
+				throw new Exception("部门不存在：" + branchId);
+			} else {
+				i = true;
+				branch.setId(rs.getString("branch_id"));
+				branch.setBranchName(rs.getString("branch_name"));
+				branch.setBranchCode(rs.getString("branch_code"));
+				branch.setBranchType(rs.getString("branch_type"));
+				branch.setComName(rs.getString("com_name"));
+				branch.setComId(rs.getString("com_id"));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+
+		} finally {
+			DB.close(rs);
+			DB.close(stmt);
+			DB.close(conn);
+		}
+		return i;
+	}
 }

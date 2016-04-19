@@ -14,8 +14,8 @@ public class People {
 	private String password;
 	private String code;
 	private String peopRemark;
-	private int branchId;
-	private int teamId;
+	private String branchId;
+	private String teamId;
 	private int generId;
 	
 	public String getId() {
@@ -48,17 +48,17 @@ public class People {
 	public void setPeopRemark(String peopRemark) {
 		this.peopRemark = peopRemark;
 	}
-	public int getBranchId() {
+	public String getBranchId() {
 		return branchId;
 	}
-	public void setBranchId(int branchId) {
+	public void setBranchId(String branchId) {
 		this.branchId = branchId;
 	}
-	public int getTeamId() {
+	public String getTeamId() {
 		return teamId;
 	}
-	public void setTeamId(int teamId) {
-		this.teamId = teamId;
+	public void setTeamId(String team_id) {
+		this.teamId = team_id;
 	}
 	public int getGenerId() {
 		return generId;

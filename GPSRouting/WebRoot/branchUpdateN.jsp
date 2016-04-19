@@ -95,82 +95,67 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="col-lg-12">	
 							<div class="panel">
 								<div class="panel-heading bk-bg-primary">
-								<h6>
-									<i class="fa fa-table red"></i><span class="break"></span>部门信息
-								</h6>
-								<div class="panel-actions">
-									<a href="table.html#" class="btn-setting"><i
-										class="fa fa-rotate-right"></i></a> <a data-toggle="modal"
-										data-target="#myModal" class="btn-plus"><i
-										class="fa fa-plus"></i></a> <a href="table.html#"
-										class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+									<h6>
+										<i class="fa fa-table red"></i><span class="break"></span>修改部门信息 
+									</h6>
+									<div class="panel-actions">
+										<a href="table.html#" class="btn-setting"><i
+											class="fa fa-rotate-right"></i></a>
+									 	<a href="table.html#" class="btn-minimize"><i
+									 		class="fa fa-chevron-up"></i></a>
+									</div>
 								</div>
+								<div class="panel-body">
+								<%
+									Branch branch = (Branch) request.getAttribute("branch");		
+								%>
+								<form class="form-horizontal "
+						action="ManageBranchServlet?action=update2" method="post">
+						<div class="form-group">
+							<label class=" col-md-4 control-label">部门名称</label>
+							<div class="col-md-5">
+								<input type="text" id="branch_name" name="branch_name" value=<%=branch.getBranchName() %>
+									class="form-control" />
 							</div>
-							<%
-								Branch branch = (Branch)request.getAttribute("branch");
-								if (branch != null) {
-							%>
-							部门ID：<%=branch.getId() %><br /> 
-							名称：<%=branch.getBranchName() %><br />
-							部门编码：<%=branch.getBranchCode() %><br /> 
-							部门类型：<%=branch.getBranchType() %><br />
-							所属分公司：<%=branch.getComName() %><br />
-							公司编码：<%=branch.getComId() %><br />
-							<%
-								} else {
-							%>
-							<jsp:useBean id="service" class="com.service.BranchService"
-								scope="session">
-							</jsp:useBean>
-							<%
-								List<Branch> projectlist = service.fill();
-									Iterator<Branch> iterproject = projectlist.iterator();
-							%>
-
-							<div class="panel-body">
-								<div class="table-responsive">
-									<table
-										class="table table-striped table-bordered bootstrap-datatable datatable">
-										<thead>
-											<tr>
-												<th>部门ID</th>
-												<th>部门名称</th>
-												<th>部门类型</th>
-												<th>部门编码</th>
-												<th>分公司名称</th>
-												<th>操作</th>
-											</tr>
-										</thead>
-										<tbody>
-											<%
-												while (iterproject.hasNext()) {
-														Branch branch1 = iterproject.next();
-											%>
-											<tr>
-												<td><%=branch1.getId() %></td>
-												<td><%=branch1.getBranchName() %></td>
-												<td><%=branch1.getBranchType() %></td>
-												<td><%=branch1.getBranchCode() %></td>
-												<td><%=branch1.getComName() %></td>
-												<td><a class="btn btn-success"
-													href="ManageBranchServlet?id=<%=branch1.getId() %>&action=list2">
-														<i class="fa fa-search-plus "></i>
-												</a> <a class="btn btn-info"
-													href="ManageBranchServlet?id=<%=branch1.getId() %>&action=update">
-														<i class="fa fa-edit "></i>
-												</a> <a class="btn btn-danger" 
-													href="ManageBranchServlet?id=<%=branch1.getId() %>&action=delete3"> <i
-														class="fa fa-trash-o "></i>
-												</a></td>
-											</tr>
-											<%
-												}
-												}
-											%>
-
-										</tbody>
-									</table>
-								</div>
+						</div>
+						<div class="form-group">
+							<label class=" col-md-4 control-label" for="text-input">部门类型</label>
+							<div class="col-md-5">
+								<input type="text" id="branch_type" name="branch_type" value=<%=branch.getBranchType() %>
+									class="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="  col-md-4 control-label" for="text-input">部门编码</label>
+							<div class="col-md-5">
+								<input type="text" id="branch_code" name="branch_code" class="form-control" value=<%=branch.getBranchCode() %>
+									/>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="  col-md-4 control-label" for="text-input">分公司名称</label>
+							<div class="col-md-5">
+								<input type="text" id="com_name" name="com_name" value=<%=branch.getComName() %>
+									class="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="  col-md-4 control-label" for="text-input">分公司编码</label>
+							<div class="col-md-5">
+								<input type="text" id="com_id" name="com_id" value=<%=branch.getComId() %>
+									class="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<input type="submit" class="bk-margin-5 btn btn-primary"
+								value="提交">
+						</div>
+						<br>
+					</form>
+								<hr class="bk-margin-off" />
+							
+								</div>	
 							</div>
 						</div>
 					</div>   
@@ -190,53 +175,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title bk-fg-primary">添加部门信息</h4>
+						<h4 class="modal-title bk-fg-primary">Modal title</h4>
 					</div>
 					<div class="modal-body">
-						<form class="form-horizontal "
-						action="ManageBranchServlet?action=add" method="post">
-						<div class="form-group">
-							<label class=" col-md-4 control-label">部门名称</label>
-							<div class="col-md-5">
-								<input type="text" id="branch_name" name="branch_name"
-									class="form-control" />
-							</div>
-						</div>
-						<div class="form-group">
-							<label class=" col-md-4 control-label" for="text-input">部门类型</label>
-							<div class="col-md-5">
-								<input type="text" id="branch_type" name="branch_type"
-									class="form-control" />
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="  col-md-4 control-label" for="text-input">部门编码</label>
-							<div class="col-md-5">
-								<input type="text" id="branch_code" name="branch_code" class="form-control"
-									placeholder="编码格式：AABBCC">
-							</div>
-						</div>
-						
-						<div class="form-group">
-							<label class="  col-md-4 control-label" for="text-input">分公司名称</label>
-							<div class="col-md-5">
-								<input type="text" id="com_name" name="com_name"
-									class="form-control" />
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="  col-md-4 control-label" for="text-input">分公司编码</label>
-							<div class="col-md-5">
-								<input type="text" id="com_id" name="com_id"
-									class="form-control" />
-							</div>
-						</div>
-						<div class="form-group">
-							<input type="submit" class="bk-margin-5 btn btn-primary"
-								value="提交">
-						</div>
-						<br>
-					</form>
+						<p class="bk-fg-danger">Here settings can be configured...</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

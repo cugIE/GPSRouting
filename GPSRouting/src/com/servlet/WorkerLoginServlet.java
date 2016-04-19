@@ -10,8 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
+import com.bean.Branch;
 import com.bean.People;
+import com.service.BranchService;
 import com.service.PeopleService;
+import com.util.TeamidtoName;
 
 public class WorkerLoginServlet extends HttpServlet {
 	
@@ -41,13 +44,27 @@ public class WorkerLoginServlet extends HttpServlet {
 			//登录成功，返回状态码和json数据
 			if (ps.check(p)) {
 				System.out.println("登录成功！");
-				pJsonObject.put("username", p.getUsername());
-				pJsonObject.put("password", p.getPassword());
-				pJsonObject.put("name", p.getName());
-				pJsonObject.put("branch_id", p.getBranchId());
-				pJsonObject.put("team_id", p.getTeamId());
+				//根据人员表的部门id查询部门信息
+				Branch br = new Branch();
+				br.setId(p.getBranchId());
+				BranchService bs = new BranchService();
+				TeamidtoName teamidtoName = new TeamidtoName();
+				String teamname = "";
+				teamname = teamidtoName.idtoname(p.getTeamId());
+				if (bs.check(br)) {
+					pJsonObject.put("branchname", br.getBranchName());
+					pJsonObject.put("branchtype", br.getBranchType());
+					pJsonObject.put("comname", br.getComName());
+					pJsonObject.put("username", p.getUsername());
+					pJsonObject.put("password", p.getPassword());
+					pJsonObject.put("name", p.getName());
+					pJsonObject.put("branch_id", p.getBranchId());
+					pJsonObject.put("team_id", p.getTeamId());
+					pJsonObject.put("tean_name", teamname);
+					out.print(pJsonObject.toString());
+				}	
 			//	out.print(LOGIN_SUCCESS);
-				out.print(pJsonObject.toString());
+				
 			} else {
 				System.out.println("登录失败！");
 				out.print(LOGIN_FAIL);

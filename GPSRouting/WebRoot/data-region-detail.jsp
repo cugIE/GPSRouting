@@ -145,9 +145,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 															if(rg.getType().equals("site")){
 																out.print("巡站点");
 															} 
-															else {
+															else if(rg.getType().equals("route") ){
 																out.print("巡路点");
-															} %></i>
+															}else{
+																out.print("临时");
+															}
+														%></i>
 													</div>
 													<div class="col-md-4 bk-bg-white bk-padding-top-10">
 														<i class="fa fa-circle-o bk-padding-right-10"></i>范围：
@@ -305,7 +308,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<textarea id="region-edit-intro" name="intro" rows="4" class="form-control" placeholder="输入内容"></textarea>
 								</div>
 							</div>
-							
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="select">区域种类</label>
+								<div class="col-md-9">
+									<select id="region-edit-type" name="type" class="form-control" size="1">
+										<option value="site">训站点</option>
+										<option value="route">巡线点</option>
+									</select>
+								</div>
+							</div>
 							<div class="form-group" id="region-edit-range-group">
 								<label class="col-md-3 control-label text-vertical-center" for="text-input">范围（m）</label>
 								<div class="col-md-9">

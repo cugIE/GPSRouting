@@ -184,7 +184,7 @@ $(document).ready(function(){
  	    	}
  	    	else{
  	    		alert("添加成功");
- 	    		$('#addperiodtime').resetForm();
+ 	    		window.location.reload();
  	    		
  	    	}
  	    });

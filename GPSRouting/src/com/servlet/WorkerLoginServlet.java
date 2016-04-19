@@ -34,9 +34,9 @@ public class WorkerLoginServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		People p = new People();
-		p.setUsername(username);
+		p.setUsername(username); 
 		p.setPassword(password);
-		
+
 		JSONObject pJsonObject = new JSONObject();
 		
 		try {
@@ -44,6 +44,7 @@ public class WorkerLoginServlet extends HttpServlet {
 			//登录成功，返回状态码和json数据
 			if (ps.check(p)) {
 				System.out.println("登录成功！");
+
 				//根据人员表的部门id查询部门信息
 				Branch br = new Branch();
 				br.setId(p.getBranchId());
@@ -63,6 +64,7 @@ public class WorkerLoginServlet extends HttpServlet {
 					pJsonObject.put("tean_name", teamname);
 					out.print(pJsonObject.toString());
 				}	
+
 			//	out.print(LOGIN_SUCCESS);
 				
 			} else {

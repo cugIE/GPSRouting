@@ -153,7 +153,7 @@ public class PtrConnection {
 				+ "inner join region "
 				+ "on periodtoregion.region_id = region.region_id) "
 				+ "inner join people on periodtoregion.gener_id = people.people_id "
-				+ "where periodtoregion.period_id = "+prid + " order by sort ";
+				+ "where periodtoregion.period_id = "+prid + " and region.region_type<>'temp' order by sort ";
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
 		while (rs.next()){

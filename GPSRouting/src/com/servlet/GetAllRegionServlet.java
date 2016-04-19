@@ -197,7 +197,7 @@ public class GetAllRegionServlet extends HttpServlet {
 			else{
 				
 				try {
-					List<Region> AllRegion = Region.getAllRegion(branchID);
+					List<Region> AllRegion = Region.getAllRegionWithoutTemp(branchID);
 					List<PtrConnection> SelectedRegion = PtrConnection.getAllRegion(periodID);
 					if(AllRegion.size()==SelectedRegion.size()){
 						OutputHelper.StringOutPut(JA.toString(),response);

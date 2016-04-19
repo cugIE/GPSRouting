@@ -85,7 +85,7 @@ public class AddPeriodServlet extends HttpServlet {
 			String sheet_id = request.getParameter("sheet_id");
 			String[] periodStrs = periods.split(",");
 			Period pr = new Period();
-			if(Period.isShift(shift)){
+			if(Period.isShift(shift,sheet_id)){
 				OutputHelper.StringOutPut("error_existed", response);
 				return;
 			}

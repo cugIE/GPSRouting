@@ -77,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		Branch brch = bs.fill(branch_id+"");
 		String branchType = brch.getBranchType();
 		if(branchType.equals("管理")){
-			if(brch_id==null){
+			if(brch_id==null||"all".equals(brch_id)){
 				shts=Sheet.getAllSheet();
 			}
 			else{
@@ -133,8 +133,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div class="form-group">
 										<div class="col-md-3">
 											<select id="select" name="branch_id" class="form-control" size="1">
+												<option value="all">所有</option>
 												<%for (int i = 0; i<brchs.size();i++){ %>
-												<option value="<%=brchs.get(i).getId() %>"><%=brchs.get(i).getBranchName() %></option>
+												<option <% if(brchs.get(i).getId().equals(brch_id)){out.print("selected='selected'");} %> value="<%=brchs.get(i).getId() %>"><%=brchs.get(i).getBranchName() %></option>
 												<%} %>
 											</select>
 										</div>
@@ -193,7 +194,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title bk-fg-primary">Modal title</h4>
+						<h4 class="modal-title bk-fg-primary">添加表</h4>
 					</div>
 					<div class="modal-body">
 						<div class = "row">

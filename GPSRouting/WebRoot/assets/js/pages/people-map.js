@@ -6,11 +6,18 @@ map.centerAndZoom(point,15);
 map.disableDoubleClickZoom(true);
 map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
 map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
-var int=self.setInterval("initialBmap()",2000);
+var paragenerid = getUrlParam('id');
+if(paragenerid==null){
+	var int=self.setInterval("initialAllPosition()",2000);
+}
+else{
+	var int=self.setInterval("initialOnePosition()",2000);
+}
 var peoplemarkers = new Array();
+var peoplemarker=null;
 var myIcon = new BMap.Icon("pic/rqx_tm0.png", new BMap.Size(47,53));
 
-function initialBmap(){
+function initialAllPosition(){
 	var peoplearray = new Array();
 	$.getJSON(
 			"GetPositionServlet",
@@ -21,6 +28,9 @@ function initialBmap(){
 					var point = new BMap.Point(jso.longitude,jso.latitude);
 					var people = {
 							id:jso.id,
+							name:jso.gener,
+							branch:jso.branch,
+							team:jso.team,
 							point:point
 							
 					}
@@ -35,12 +45,49 @@ function initialBmap(){
 					var pp = peoplearray[i];
 					peoplemarkers[i] = new BMap.Marker(pp.point);
 					map.addOverlay(peoplemarkers[i]);
-					var content  = "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>"+pp.id+"</h4>"+
-					"<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>"+pp.id+"</p>" + 
+					var content  = "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>"+pp.name+"</h4>"+
+					"<h6 style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>ID:"+pp.id+"</h6>" + 
+					"<h6 style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>所在部门:"+pp.branch+"</h6>" + 
+					"<h6 style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>职位:"+pp.team+"</h6>" + 
+					"<a class='btn btn-default pull-right' href = 'data-position.jsp?id="+pp.id+"'>详情及轨迹</a>"+
 					"</div>";
 					 
 					addClickHandler(content,peoplemarkers[i]);
 				}
+				
+			}
+		);
+}
+function initialOnePosition(){
+	var peoplearray = new Array();
+	$.getJSON(
+			"GetPositionServlet?index=gener&gener_id="+paragenerid,
+			function(data){
+					//alert(parseFloat(gps[0]));
+				var point = new BMap.Point(data.longitude,data.latitude);
+				var people = {
+						id:data.id,
+						name:data.gener,
+						branch:data.branch,
+						team:data.team,
+						point:point
+						
+				}
+				
+				//alert(regionarray.length);
+				if(peoplemarker!=null){
+					map.removeOverlay(peoplemarker);
+				}
+				
+				peoplemarker = new BMap.Marker(people.point);
+				map.addOverlay(peoplemarker);
+				var content  = "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>"+people.name+"</h4>"+
+				"<h6 style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>ID:"+people.id+"</h6>" + 
+				"<h6 style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>所在部门:"+people.branch+"</h6>" + 
+				"<h6 style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>职位:"+people.team+"</h6>" + 
+				"</div>";
+				 
+				addClickHandler(content,peoplemarker);
 				
 			}
 		);
@@ -300,3 +347,9 @@ function displayEquip(){
 //	}
 //
 //}
+function getUrlParam(name)
+{
+	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+	var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+	if (r!=null) return unescape(r[2]); return null; //返回参数值
+}

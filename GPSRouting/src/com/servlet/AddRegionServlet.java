@@ -73,13 +73,21 @@ public class AddRegionServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		String intro = request.getParameter("intro");
 		String branch_id = request.getParameter("branch_id");
+		String gps = request.getParameter("gps");
 		String type = request.getParameter("type");
 		String range = request.getParameter("range");
 		String gener_id = request.getParameter("gener_id");
 		Region rg = new Region();
+		if(name==null || type==null|| intro == null||branch_id==null||gener_id==null){
+			OutputHelper.StringOutPut("error", response);
+			return;
+		}
 		rg.setName(name);
 		rg.setType(type);
 		rg.setIntro(intro);
+		if(gps!=null){
+			rg.setGps(gps);
+		}
 		if(branch_id!=null&&range!=null&&gener_id!=null){
 			rg.setBranch_id(Integer.parseInt(branch_id));
 			rg.setRange(Integer.parseInt(range));

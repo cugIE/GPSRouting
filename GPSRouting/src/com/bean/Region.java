@@ -68,7 +68,7 @@ public class Region {
 		this.name = null;
 		this.branch = null;
 		this.intro = null;
-		this.gps = "{}";
+		this.gps = "";
 		this.qrcode = "http";
 		this.gener = null;
 		this.type = null;

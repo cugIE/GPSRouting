@@ -36,7 +36,7 @@ public class Record {
 	public Record() {
 		super();
 		this.id = null;
-		this.gps = null;
+		this.gps = "";
 		this.asws = null;
 		this.error = null;
 		this.picture = null;

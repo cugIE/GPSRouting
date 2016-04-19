@@ -8,6 +8,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.util.DBHelper;
+import com.util.PrivilegeHelper;
 
 public class Position {
 	private int gener_id;
@@ -73,9 +74,11 @@ public class Position {
 	public static JSONArray GetAllPosition() throws SQLException{
 		JSONArray positions= new JSONArray();
 		//Map<String, String> position = new HashMap<String, String>();
-		String sql = "select people_name, pos_longitude, pos_latitude, people_id "
-				+ "from `position` inner join people "
-				+ "on people_id = position.gener_id ";
+		String sql = "select people_name, pos_longitude, pos_latitude, people_id, branch_name, people.team_id "
+				+ "from (`position` inner join people "
+				+ "on people_id = position.gener_id) "
+				+ "inner join branch "
+				+ "on branch.branch_id = people.branch_id ";
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
 		while(rs.next()){
@@ -84,6 +87,8 @@ public class Position {
 			pos.put("longitude", rs.getDouble(2));
 			pos.put("latitude", rs.getDouble(3));
 			pos.put("id", rs.getString(4));
+			pos.put("branch", rs.getString(5));
+			pos.put("team", PrivilegeHelper.privProcessor(rs.getInt(6)));
 			positions.add(pos);
 		}
 		dbh.DBClose(rs);
@@ -91,9 +96,11 @@ public class Position {
 	}
 	public static JSONObject GetAllPosition(String gener_id) throws SQLException{
 		//Map<String, String> position = new HashMap<String, String>();
-		String sql = "select people_name, pos_longitude, pos_latitude, people_id "
-				+ "from `position` inner join people "
-				+ "on people_id = position.gener_id "
+		String sql = "select people_name, pos_longitude, pos_latitude, people_id, branch_name, people.team_id "
+				+ "from (`position` inner join people "
+				+ "on people_id = position.gener_id) "
+				+ "inner join branch "
+				+ "on branch.branch_id = people.branch_id "
 				+ "where position.gener_id = " + gener_id;
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
@@ -104,6 +111,8 @@ public class Position {
 			pos.put("longitude", rs.getDouble(2));
 			pos.put("latitude", rs.getDouble(3));
 			pos.put("id", rs.getString(4));
+			pos.put("branch", rs.getString(5));
+			pos.put("team", PrivilegeHelper.privProcessor(rs.getInt(6)));
 		}else{
 			return null;
 		}
@@ -113,9 +122,11 @@ public class Position {
 	public static JSONArray GetAllPositionFromBranch(String branch_id) throws SQLException{
 		//Map<String, String> position = new HashMap<String, String>();
 		JSONArray positions= new JSONArray();
-		String sql = "select people_name, pos_longitude, pos_latitude, people_id "
-				+ "from `position` inner join people "
-				+ "on people_id = position.gener_id "
+		String sql =  "select people_name, pos_longitude, pos_latitude, people_id, branch_name, people.team_id "
+				+ "from (`position` inner join people "
+				+ "on people_id = position.gener_id) "
+				+ "inner join branch "
+				+ "on branch.branch_id = people.branch_id "
 				+ "where people.branch_id = " + branch_id;
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
@@ -126,6 +137,8 @@ public class Position {
 			pos.put("longitude", rs.getDouble(2));
 			pos.put("latitude", rs.getDouble(3));
 			pos.put("id", rs.getString(4));
+			pos.put("branch", rs.getString(5));
+			pos.put("team", PrivilegeHelper.privProcessor(rs.getInt(6)));
 			positions.add(pos);
 		}
 		dbh.DBClose(rs);

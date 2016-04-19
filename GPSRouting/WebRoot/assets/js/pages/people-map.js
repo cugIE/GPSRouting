@@ -8,9 +8,11 @@ map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
 map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
 var paragenerid = getUrlParam('id');
 if(paragenerid==null){
+	$("#data-route-button").hide();
 	var int=self.setInterval("initialAllPosition()",2000);
 }
 else{
+	$("#data-route-button").show();
 	var int=self.setInterval("initialOnePosition()",2000);
 }
 var peoplemarkers = new Array();

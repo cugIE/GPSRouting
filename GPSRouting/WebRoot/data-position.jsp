@@ -31,6 +31,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <!-- start: CSS file-->
 		
 		<!-- Vendor CSS-->
+		<link href="<%=path%>/assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+		<link href="<%=path%>/assets/plugins/bootstrap-datepicker/css/datepicker-theme.css" rel="stylesheet" />
+		<link href="<%=path%>/assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.css" rel="stylesheet" />
 		<link href="<%=path%>/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="<%=path%>/assets/vendor/skycons/css/skycons.css" rel="stylesheet" />
 		<link href="<%=path%>/assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
@@ -119,7 +122,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												<li><a onclick="displayPeop()">显示人员位置</a></li>
 											</ul>
 										</div>
-										<button type="button" class="btn btn-info btn-sm" onclick="remove_overlay()">清空</button>								
+										<button type="button" class="btn btn-info btn-sm" onclick="remove_overlay()">清空</button>
+										<button id="data-route-button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#data-route-picker" display='none' >显示轨迹</button>								
 									</div>
 									<div id="allmap"></div>	
 
@@ -139,15 +143,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		
 		<!-- Modal Dialog -->
-		<div class="modal fade" id="myModal">
+		<div class="modal fade" id="data-route-picker">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title bk-fg-primary">Modal title</h4>
+						<h4 class="modal-title bk-fg-primary">选择时间段</h4>
 					</div>
 					<div class="modal-body">
-						<p class="bk-fg-danger">Here settings can be configured...</p>
+						<div class="row">
+							<form class="form-horizontal form-bordered">							
+								<div class="form-group">								
+									<label class="col-md-3 control-label">Default Datepicker</label>
+									<div class="col-md-6">
+										<div class="input-group">
+											<span class="input-group-addon">
+												<i class="fa fa-calendar"></i>
+											</span>
+											<input type="text" data-plugin-datepicker class="form-control" />
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-3 control-label">24 Hour Mode Time Picker</label>
+									<div class="col-md-6">
+										<div class="input-group">
+											<span class="input-group-addon">
+												<i class="fa fa-clock-o"></i>
+											</span>
+											<input type="text" data-plugin-timepicker class="form-control" data-plugin-options='{ "showMeridian": false }' />
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -172,13 +201,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- Plugins JS-->
 		<script src="<%=path%>/assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
 		<script src="<%=path%>/assets/plugins/moment/js/moment.min.js"></script>	
-		<script src="<%=path%>/assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>			
+				<script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+		<script src="assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+		<script src="assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>					
 		
 		<!-- Theme JS -->		
 		<script src="<%=path%>/assets/js/jquery.mmenu.min.js"></script>
 		<script src="<%=path%>/assets/js/core.min.js"></script>
 		
 		<!-- Pages JS -->
+		
+		<script type="text/javascript" src="assets/js/pages/data-position-datepicker.js"></script>
 		<script type="text/javascript" src="assets/js/pages/people-map.js"></script>
 		<!-- end: JavaScript-->
 		

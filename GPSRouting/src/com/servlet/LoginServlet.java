@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.bean.People;
 import com.service.PeopleService;
+import com.util.TeamidtoName;
 
 public class LoginServlet extends HttpServlet {
 	
@@ -30,13 +31,13 @@ public class LoginServlet extends HttpServlet {
 		p.setPassword(password);
 		
 		//创建session，将登录信息保存于session中
-		HttpSession session = request.getSession();
+	/*	HttpSession session = request.getSession();
 		String sessionId = session.getId();
 		if (session.isNew()) {
 			response.getWriter().print("session创建成功，session的id是："+sessionId);
 		} else {
 			response.getWriter().print("服务器已经存在该session了，session的id是："+sessionId);
-		}
+		}*/
 		try {
 			PeopleService ps = new PeopleService();
 			if (ps.check(p)) {
@@ -44,15 +45,36 @@ public class LoginServlet extends HttpServlet {
 				System.out.println("人员姓名："+p.getName());
 				System.out.println("人员所属部门："+p.getBranchId());
 				System.out.println("人员备注信息："+p.getPeopRemark());
-				out.println("登录成功！");
-				out.println(username);
-				out.println(password);	
-				session.setAttribute("SesUser", p.getUsername());
+				System.out.println("人员组id："+p.getTeamId());
+				
+			//	response.sendRedirect(request.getContextPath()+"/index.jsp");
+				
+			//	out.println("登录成功！");
+			//	out.println(username);
+			//	out.println(password);	
+				TeamidtoName teamidtoName = new TeamidtoName();
+				String teamName = "";
+				teamName = teamidtoName.idtoname(p.getTeamId());
+				System.out.println("组类型："+teamName);
+				
+				int branchid = Integer.parseInt(p.getBranchId());
+				int teamid = Integer.parseInt(p.getTeamId());
+				
+				request.getSession().setAttribute("SesUser",p.getUsername());
+				request.getSession().setAttribute("SesPwd", p.getPassword());
+				request.getSession().setAttribute("SesId", p.getId());
+				request.getSession().setAttribute("SesName", p.getName());
+				request.getSession().setAttribute("SesBranchId", branchid);
+				request.getSession().setAttribute("SesTeamId", teamid);
+				request.getSession().setAttribute("SesTeamName", teamName);
+				out.print("<script>" + "alert('登录成功');"+ "document.location.href='index.jsp';"+ "</script>");
+				
+				/*session.setAttribute("SesUser", p.getUsername());
 				session.setAttribute("SesPwd", p.getPassword());
 				session.setAttribute("SesId", p.getId());
 				session.setAttribute("SesName", p.getName());
 				session.setAttribute("SesBranchId", p.getBranchId());
-				session.setAttribute("SesTeamId", p.getTeamId());
+				session.setAttribute("SesTeamId", p.getTeamId());*/
 			} else {
 				out.println("登录失败");
 			}

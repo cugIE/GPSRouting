@@ -125,7 +125,7 @@ public class ManageBranchServlet extends javax.servlet.http.HttpServlet implemen
                     try {
                             Branch branch = service.fill(id1);
                             request.setAttribute("branch", branch);
-                            request.getRequestDispatcher("BranchList.jsp").forward(
+                            request.getRequestDispatcher("data-newbranch.jsp").forward(
                                     request, response);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -138,7 +138,7 @@ public class ManageBranchServlet extends javax.servlet.http.HttpServlet implemen
                             try {
                                     Branch branch = service.fill(id);
                                     request.setAttribute("branch", branch);
-                                    request.getRequestDispatcher("branchUpdate.jsp").forward(
+                                    request.getRequestDispatcher("branchUpdateN.jsp").forward(
                                             request, response);
                                 } catch (Exception e) {
                                     e.printStackTrace();

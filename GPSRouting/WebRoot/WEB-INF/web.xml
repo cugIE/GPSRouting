@@ -105,6 +105,26 @@
     <servlet-name>ManagePeopleServlet</servlet-name>
     <servlet-class>com.servlet.ManagePeopleServlet</servlet-class>
   </servlet>
+
+  <servlet>
+    <servlet-name>ExitServlet</servlet-name>
+    <servlet-class>com.servlet.ExitServlet</servlet-class>
+  </servlet>
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
   <servlet-mapping>
     <servlet-name>GetAllRegionServlet</servlet-name>
     <url-pattern>/GetAllRegionServlet</url-pattern>
@@ -209,6 +229,12 @@
     <servlet-name>ManagePeopleServlet</servlet-name>
     <url-pattern>/ManagePeopleServlet</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ExitServlet</servlet-name>
+    <url-pattern>/ExitServlet</url-pattern>
+  </servlet-mapping>
+
+
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>

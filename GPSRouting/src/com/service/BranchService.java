@@ -4,7 +4,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.bean.Branch;
+import com.bean.People;
 import com.dao.BranchDao;
+import com.dao.PeopleDao;
 
 public class BranchService {
 	/**
@@ -54,4 +56,15 @@ public class BranchService {
         BranchDao dao=new BranchDao();
         dao.delete(Id);
     }
+
+    /**
+     * 根据branchid查出branch值
+     * @param branch
+     * @return
+     * @throws SQLException
+     */
+    public boolean check(Branch branch)throws SQLException {
+		BranchDao dao = new BranchDao();
+		return dao.check(branch);
+	}
 }

@@ -40,9 +40,9 @@ public class PeopleDao {
 			p.setName(rs.getString("people_name"));
 			p.setPassword(rs.getString("people_password"));
 			p.setCode(rs.getString("people_code"));
-			p.setBranchId(rs.getInt("branch_id"));
+			p.setBranchId(rs.getString("branch_id"));
 			p.setPeopRemark(rs.getString("people_remark"));
-			p.setTeamId(rs.getInt("team_id"));
+			p.setTeamId(rs.getString("team_id"));
 			list.add(p);
 		}
 		rs.close();
@@ -59,14 +59,18 @@ public class PeopleDao {
 	 * @throws SQLException
 	 */
 	public int add(People people) throws SQLException {
-		String sql = "insert into people(people_username,people_name,people_password,people_code) values ('"
+		String sql = "insert into people(people_username,people_name,people_password,people_code,branch_id,team_id) values ('"
 				+ people.getUsername()
 				+ "','"
 				+ people.getName()
 				+ "','"
 				+ people.getPassword() 
 				+ "','" 
-				+ people.getCode() + "')";
+				+ people.getCode() 
+				+ "','"
+				+ people.getBranchId() 
+				+"','" 
+				+people.getTeamId() + "')";
 		conn = DB.getConn();
 		stmt = DB.getStatement(conn);
 		int result = stmt.executeUpdate(sql);
@@ -96,9 +100,9 @@ public class PeopleDao {
 			p.setName(rs.getString("people_name"));
 			p.setPassword(rs.getString("people_password"));
 			p.setCode(rs.getString("people_code"));
-			p.setBranchId(rs.getInt("branch_id"));
+			p.setBranchId(rs.getString("branch_id"));
 			p.setPeopRemark(rs.getString("people_remark"));
-			p.setTeamId(rs.getInt("team_id"));
+			p.setTeamId(rs.getString("team_id"));
         }
         rs.close();
         pre.close();
@@ -136,9 +140,9 @@ public class PeopleDao {
 				people.setName(rs.getString("people_name"));
 				people.setUsername(rs.getString("people_username"));
 				people.setPassword(rs.getString("people_password"));
-				people.setBranchId(rs.getInt("branch_id"));
+				people.setBranchId(rs.getString("branch_id"));
 				people.setPeopRemark(rs.getString("people_remark"));
-				people.setTeamId(rs.getInt("team_id"));
+				people.setTeamId(rs.getString("team_id"));
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

@@ -13,7 +13,7 @@
 							<img src="assets/img/avatar.jpg" class="img-circle bk-img-60" alt="" />
 						</div>
 						<div class="bk-padding-top-10">
-							<i class="fa fa-circle text-success"></i> <small>管理员</small>
+							<i class="fa fa-circle text-success"></i> <small><%=request.getSession().getAttribute("SesUser")%></small>
 						</div>
 					</div>
 					<div class="divider2"></div>

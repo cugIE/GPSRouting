@@ -34,7 +34,7 @@
 				<a href="people-profile.html" class="dropdown-toggle" data-toggle="dropdown">
 					<div class="profile-info">
 						<span class="name"><%=request.getSession().getAttribute("SesUser")%></span>
-						<span class="role">管理员</span>
+						<span class="role"><%=request.getSession().getAttribute("SesTeamName") %></span>
 					</div>			
 					<i class="fa custom-caret"></i>
 				</a>
@@ -54,7 +54,7 @@
 							<a href="data-people-form.html"><i class="fa fa-wrench"></i> 编辑</a>
 						</li>								
 						<li>
-							<a id="logoutbutton"><i class="fa fa-power-off"></i> 登出</a>
+							<a href="ExitServlet"><i class="fa fa-power-off"></i> 登出</a>
 						</li>
 					</ul>
 				</div>						

@@ -81,7 +81,7 @@
 		<![endif]-->
 <script src="<%=path%>/assets/plugins/modernizr/js/modernizr.js"></script>
 <!-- Baidu Map -->
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 </head>
 
 <body>
@@ -142,15 +142,27 @@
 								List<People> projectlist = service1.fill();
 									Iterator<People> iterproject = projectlist.iterator();
 							%>
+							<jsp:useBean id="service5" class="com.service.BranchService"
+								scope="session">
+							</jsp:useBean>
+							<%
+								List<Branch> projectlist2 = service5.fill();
+									Iterator<Branch> iterproject2 = projectlist2.iterator();
+							%>
 
 							<div class="panel-body">
 								<div class="form-group">
 									<div class="col-md-3">
 										<select id="select" name="select" class="form-control" size="1">
-											<option value="0">选择部门</option>
-											<option value="1">Option #1</option>
-											<option value="2">Option #2</option>
-											<option value="3">Option #3</option>
+											<%
+												while (iterproject2.hasNext()) {
+														Branch branch1 = iterproject2.next();
+											%>
+											<option value=<%=branch1.getId() %>><%=branch1.getBranchName() %></option>			
+									
+										<%
+												}
+										%>
 										</select>
 									</div>
 									<button class = "btn btn-success">确认</button>
@@ -268,25 +280,42 @@
 									class="form-control" placeholder="编码格式：AABBCC">
 							</div>
 						</div>
+						<jsp:useBean id="service6" class="com.service.BranchService"
+								scope="session">
+							</jsp:useBean>
+							<%
+								List<Branch> projectlist3 = service6.fill();
+									Iterator<Branch> iterproject3 = projectlist3.iterator();
+							%>
 						<div class="form-group">
 							<label class="  col-md-4 control-label" for="text-input">部门</label>
 							<div class="col-md-5">
-								<select name="branchname" id="branchid" class="form-control">
-									<option value="1">111</option>
-									<option value="2">222</option>
-									<option value="3">333</option>
-									<option value="4">444</option>
-									<option value="5">555</option>
+								<select name="branchid" id="branchid" class="form-control">
+									<%
+												while (iterproject3.hasNext()) {
+														Branch branch2 = iterproject3.next();
+											%>
+											<option value=<%=branch2.getId() %>><%=branch2.getBranchName() %></option>			
+									
+										<%
+												}
+										%>
 								</select>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="  col-md-4 control-label" for="text-input">组类型</label>
 							<div class="col-md-5">
-								<input type="text" id="email-input" name="email-input"
-									class="form-control" placeholder="值班员、值班干部、工程师等"><input
+								<select name="teamid" id="teamid" class="form-control">
+									<option value="0001">管理员</option>
+									<option value="0002">工程师</option>
+									<option value="0003">值班干部</option>
+									<option value="0004">值班员</option>
+									<option value="0005">巡检员</option>
+								</select>
+								<!-- <input
 									type="text" name="teamtext" class="form-control" value="组说明"
-									disabled="true">
+									disabled="true"> -->
 							</div>
 						</div>
 

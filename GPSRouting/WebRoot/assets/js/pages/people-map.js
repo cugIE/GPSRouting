@@ -384,7 +384,41 @@ $("#search-trace-button").on('click',function(){
 
 function searchRoute(){
 	var id = $("#select_route_list").find("option:selected").val();
-	
+	if (id = 'all'){
+		var chilcount = $("#select_route_list").children('option').length;
+	    for(var i = 1; i< chilcount; i++){
+			var $singleOpt = $("#select_route_list").find('option').eq(i); //获取option的内容
+	        var val = $singleOpt.val();
+	        if(val != "all"){
+	        	$.getJSON(
+	    				"GetRouteServlet?index=region&region_id="+val,
+	    				function(data){
+	    					var pointArray = new Array();
+	    					for(var i = 0; i < data.length; i++){
+	    						var temp = data[i];
+	    						pointArray[i] = new BMap.Point(temp.longitude,temp.latitude);
+	    					}
+	    					var polyline = new BMap.Polyline(pointArray,{strokeColor:"red", strokeWeight:4, strokeOpacity:1});
+	    					map.addOverlay(polyline);
+	    				}
+	    		);
+	        }
+	    }
+	}
+	else{
+		$.getJSON(
+				"GetRouteServlet?index=region&region_id="+id,
+				function(data){
+					var pointArray = new Array();
+					for(var i = 0; i < data.length; i++){
+						var temp = data[i];
+						pointArray[i] = new BMap.Point(temp.longitude,temp.latitude);
+					}
+					var polyline = new BMap.Polyline(pointArray,{strokeColor:"red", strokeWeight:4, strokeOpacity:1});
+					map.addOverlay(polyline);
+				}
+		);
+	}
 }
 
 function getUrlParam(name)

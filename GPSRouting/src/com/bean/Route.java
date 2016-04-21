@@ -100,29 +100,29 @@ public class Route {
 		dbh.DBClose(rs);
 		return positions;
 	}
-//	public static JSONArray GetAllRoute(String rtr_id) throws SQLException{
-//		JSONArray positions= new JSONArray();
-//		//Map<String, String> position = new HashMap<String, String>();
-//		String sql = "select people_name, route_longitude, route_latitude, route_time, rtr_name"
-//				+ "from (route inner join people "
-//				+ "on people_id = route.gener_id) "
-//				+ "inner join regiontoregion "
-//				+ "on regiontoregion.rtr_id = route.rtr_id"
-//				+ "where route.rtr_id = " + rtr_id ;
-//		DBHelper dbh = new DBHelper();
-//		ResultSet rs = dbh.getResultSet(sql);
-//		while(rs.next()){
-//			JSONObject pos = new JSONObject();
-//			pos.put("gener", rs.getString(1));
-//			pos.put("longitude", rs.getString(2));
-//			pos.put("latitude", rs.getString(3));
-//			pos.put("time", rs.getString(4));
-//			pos.put("rtr_name", rs.getString(5));
-//			positions.add(pos);
-//		}
-//		dbh.DBClose(rs);
-//		return positions;
-//	}
+	public static JSONArray GetAllRoute(String region_id) throws SQLException{
+		JSONArray positions= new JSONArray();
+		//Map<String, String> position = new HashMap<String, String>();
+		String sql = "select people_name, route_longitude, route_latitude, route_time, region_name "
+				+ "from (route inner join people "
+				+ "on people_id = route.gener_id) "
+				+ "inner join region "
+				+ "on region.region_id = route.region_id "
+				+ "where route.region_id = " + region_id ;
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		while(rs.next()){
+			JSONObject pos = new JSONObject();
+			pos.put("gener", rs.getString(1));
+			pos.put("longitude", rs.getString(2));
+			pos.put("latitude", rs.getString(3));
+			pos.put("time", rs.getString(4));
+			pos.put("region", rs.getString(5));
+			positions.add(pos);
+		}
+		dbh.DBClose(rs);
+		return positions;
+	}
 	public static int addOneRoute(Route rt) throws SQLException{
 		int result = 0;
 		if (rt == null){

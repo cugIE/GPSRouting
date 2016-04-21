@@ -192,6 +192,45 @@ public class Region {
 		return rgs;
 	}
 	
+	public static List<Region> getAllRoute() throws SQLException{
+		List<Region> rgs = new ArrayList<Region>();
+		String sql = "SELECT region_id, region_name, region.branch_id , region_range, branch_name "
+				+ "from region inner join branch on region.branch_id = branch.branch_id where region_type='route'";
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		while(rs.next()){
+			Region rg = new Region();
+			rg.setId(rs.getString(1));
+			rg.setName(rs.getString(2));
+			rg.setBranch_id(rs.getInt(3));
+			
+			rg.setRange(rs.getInt(4));
+			rg.setBranch(rs.getString(5));
+			rgs.add(rg);
+		}
+		dbh.DBClose(rs);
+		return rgs;
+	}
+	public static List<Region> getAllRoute(String branch_id) throws SQLException{
+		List<Region> rgs = new ArrayList<Region>();
+		String sql = "SELECT region_id, region_name, region.branch_id , region_range, branch_name "
+				+ "from region inner join branch on region.branch_id = branch.branch_id where region_type='route' and branch_id = "+branch_id;
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		while(rs.next()){
+			Region rg = new Region();
+			rg.setId(rs.getString(1));
+			rg.setName(rs.getString(2));
+			rg.setBranch_id(rs.getInt(3));
+			
+			rg.setRange(rs.getInt(4));
+			rg.setBranch(rs.getString(5));
+			rgs.add(rg);
+		}
+		dbh.DBClose(rs);
+		return rgs;
+	}
+	
 	/**
 	 * Get all regions from one branch
 	 * @param brID

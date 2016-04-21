@@ -45,26 +45,60 @@ public class PostRouteServlet extends HttpServlet {
 		String latitude  = request.getParameter("latitude");
 		String islogin  = request.getParameter("islogin");
 		String rtr_id = request.getParameter("rtr_id");
-		Route tempP = new Route();
+		Route tempR = new Route();
 		int result = 0;
 		if (gener_id==null||longitude ==null || latitude ==null){
 			OutputHelper.StringOutPut("error_index", response);
 			return;
 		}
+		tempR.setGener_id(Integer.parseInt(gener_id));
+		tempR.setLongitude(Double.parseDouble(longitude));
+		tempR.setLatitude(Double.parseDouble(latitude));
+		
+		
+		
+		
+		
+		
+		Position tempP = new Position();
 		tempP.setGener_id(Integer.parseInt(gener_id));
 		tempP.setLongitude(Double.parseDouble(longitude));
 		tempP.setLatitude(Double.parseDouble(latitude));
-		if(islogin!=null)
-		{ tempP.setIslogin(Integer.parseInt(islogin));}
-		if(rtr_id!=null)
-		{ tempP.setRtr_id(Integer.parseInt(rtr_id));}
 		
 		try {
-			result = Route.addOneRoute(tempP);
+			if(Position.isPosition(gener_id)){
+				result = Position.changePosition(tempP);
+			}
+			else{
+				result = Position.addOnePosition(tempP);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			OutputHelper.StringOutPut(""+result, response);
 			e.printStackTrace();
 		}
+		
+		
+		
+		
+		
+		if(islogin!=null){ 
+			tempR.setIslogin(Integer.parseInt(islogin));
+		}
+		if(rtr_id!=null){ 
+			tempR.setRtr_id(Integer.parseInt(rtr_id));
+		}
+		
+		try {
+			result = Route.addOneRoute(tempR);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			OutputHelper.StringOutPut(""+result, response);
+			e.printStackTrace();
+		}
+		
+		
+		
 		OutputHelper.StringOutPut(""+result, response);
 	}
 

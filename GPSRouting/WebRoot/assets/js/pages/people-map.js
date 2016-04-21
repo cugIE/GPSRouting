@@ -81,34 +81,69 @@ equipControl.prototype.initialize = function(map){
 function searchControl(){
 	// 默认停靠位置和偏移量
 	this.defaultAnchor = BMAP_ANCHOR_TOP_LEFT;
-	this.defaultOffset = new BMap.Size(60, 5);
+	this.defaultOffset = new BMap.Size(230, 5);
 }
 searchControl.prototype = new BMap.Control();
 
 
 searchControl.prototype.initialize = function(map){
-
+	
 	var button_search = document.createElement("button");
-//	添加文字说明
-	var i = document.createElement("i");
-	i.setAttribute("class", "fa fa-search")
-
-//	设置样式
 	button_search.setAttribute("class", "btn btn-round-grey");
 	button_search.setAttribute("type", "button");
+	var i = document.createElement("i");
+	i.setAttribute("class", "fa fa-search");
 	button_search.appendChild(i);
-//	绑定事件,点击一次放大两级
 	button_search.onclick = searchRoute;
+	
+	
+	
+	
+//	设置样式
+	
+//	绑定事件,点击一次放大两级
+	
 //	添加DOM元素到地图中
 	map.getContainer().appendChild(button_search);
 //	将DOM元素返回
-	return button_euip;
+	return button_search;
+}
+
+function select(){
+	// 默认停靠位置和偏移量
+	this.defaultAnchor = BMAP_ANCHOR_TOP_LEFT;
+	this.defaultOffset = new BMap.Size(120, 10);
+}
+select.prototype = new BMap.Control();
+
+
+select.prototype.initialize = function(map){
+
+	var select = document.createElement("select");
+//	添加文字说明
+//<div class="form-group">
+	
+
+//	设置样式
+	select.setAttribute("size", "1");
+	select.setAttribute("id", "select_route_list");
+	select.setAttribute("class", "form-control");
+	select.style.width="100px";
+//	绑定事件,点击一次放大两级
+//	添加DOM元素到地图中
+	map.getContainer().appendChild(select);
+//	将DOM元素返回
+	return select;
 }
 
 var rfrs = new refreshControl();
 var equip = new equipControl();
+var sel = new select();
+var ser = new searchControl();
 map.addControl(rfrs);
 map.addControl(equip);
+map.addControl(sel);
+map.addControl(ser);
 
 
 
@@ -301,7 +336,7 @@ $("#search-trace-button").on('click',function(){
 });
 
 
-function showTrace(){
+function searchRoute(){
 	
 }
 //function displayRoute(){

@@ -183,7 +183,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														<div class="bk-bg-white text-center bk-padding-top-20 bk-padding-bottom-10">
 															<div class="row">
 																<div class="text-left bk-padding-left-10">
-																	<h4 class="bk-margin-off">问题列表</h4>
+																	<h4 class="bk-margin-off">内容列表</h4>
 																</div>                            
 															</div>
 														</div> 
@@ -192,7 +192,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														<table  class = "table table-bordered">
 															<thead>
 															<tr>
-														      <th>问题标题</th>
+														      <th>内容标题</th>
 														      <th>问题可选择答案</th>
 														      <th>正常答案</th>
 														    </tr>
@@ -207,8 +207,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 															      <td><%=qsts.get(i).getTitle() %></td>
 															      <td><%=qsts.get(i).getPossibleAsw() %></td>
 															      <td><%=qsts.get(i).getNormalAsw() %>
-															      	<a class = "question-edit pull-right bk-margin-left-10" data-toggle="modal" data-target="#myModal" href = "#" id="<%=qsts.get(i).getId() %>"><i class="fa fa-pencil fa-2x"></i></a>
-															      	<a class = "pull-right question-delete" value="<%=qsts.get(i).getId() %>" href = "#"><i class="fa fa-trash-o fa-2x"></i></a>
+															      	<a class = "search-regions-actions question-edit pull-right bk-margin-left-10" data-toggle="modal" data-target="#myModal" href = "#" id="<%=qsts.get(i).getId() %>"><i class="fa fa-pencil"></i></a>
+															      	<a class = "search-regions-actions-delete pull-right question-delete" value="<%=qsts.get(i).getId() %>" href = "#"><i class="fa fa-trash-o"></i></a>
 															      </td>
 															    </tr>
 															    <%}} %>

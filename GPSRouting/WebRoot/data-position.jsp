@@ -113,17 +113,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</div>
 								<div class="panel-body">
 								<!-- put baidu map here-->
-									<div class="bk-margin-5 btn-group-horizontal">
-																	
-										<div class="btn-group">
-											<button id="btnGroupVerticalDrop1" type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">操作<span class="caret"></span></button>
-											<ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupVerticalDrop1">
-												<li><a onclick="displayEquip()">显示设备位置</a></li>
-												<li><a onclick="displayPeop()">显示人员位置</a></li>
-											</ul>
-										</div>
-										<button type="button" class="btn btn-info btn-sm" onclick="remove_overlay()">清空</button>
-										<button id="data-route-button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#data-route-picker" display='none' >显示轨迹</button>								
+									<div class = "row" hidden="hidden" id = "search-trace">										
+									
+											<div class="form-group form-horizontal form-bordered">								
+												<label class="col-md-2 control-label">时间区间</label>
+												<div class="col-md-9">
+													<div class="input-group">
+														<span class="input-group-addon">
+															<i class="fa fa-calendar"></i>
+														</span>
+														<input id = "start-date" type="text" data-plugin-datepicker class="form-control" />
+														<span class="input-group-addon">
+															<i class="fa fa-clock-o"></i>
+														</span>
+														<input id = "start-time" type="text" data-plugin-timepicker class="form-control" data-plugin-options='{ "showMeridian": false }' />
+														<span class="input-group-addon">
+															to
+														</span>
+														<span class="input-group-addon">
+															<i class="fa fa-calendar"></i>
+														</span>
+														<input id = "end-date" type="text" data-plugin-datepicker class="form-control" />
+														<span class="input-group-addon">
+															<i class="fa fa-clock-o"></i>
+														</span>
+														<input id = "end-time" type="text" data-plugin-timepicker class="form-control" data-plugin-options='{ "showMeridian": false }' />
+								
+													</div>
+													
+													
+												</div>
+												<button id = "search-trace-button" class="btn btn-default" ><i class = "fa fa-search"></i></button>
+												
+											</div>
+											
+										
+										
+										<hr class="bk-margin-off bk-padding-top-15" />
 									</div>
 									<div id="allmap"></div>	
 

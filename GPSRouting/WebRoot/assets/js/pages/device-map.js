@@ -13,7 +13,6 @@ $(document).ready(function(){
 	$.getJSON(
 		"GetSessionServlet",
 		function(data){
-			alert(data.branch_type);
 			var url = "GetAllRegionServlet"
 			if(data.branch_type=="管理"){
 				if(paramBranch_id==null||paramBranch_id=='all'){

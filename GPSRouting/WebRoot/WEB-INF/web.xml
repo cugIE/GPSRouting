@@ -110,6 +110,25 @@
     <servlet-name>ExitServlet</servlet-name>
     <servlet-class>com.servlet.ExitServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>Log4jInit</servlet-name>
+    <servlet-class>com.servlet.sys.Log4jInit</servlet-class>
+    <init-param>
+   <param-name>log4j</param-name>
+   <param-value>/WEB-INF/classes/log4j.properties</param-value>
+  </init-param>
+  </servlet>
+  <servlet>
+    <servlet-name>LogTest</servlet-name>
+    <servlet-class>com.test.jin.LogTest</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ManageSystemServlet</servlet-name>
+    <servlet-class>com.servlet.ManageSystemServlet</servlet-class>
+  </servlet>
+
+
+
 
 
 
@@ -232,6 +251,18 @@
   <servlet-mapping>
     <servlet-name>ExitServlet</servlet-name>
     <url-pattern>/ExitServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Log4jInit</servlet-name>
+    <url-pattern>/Log4jInit</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LogTest</servlet-name>
+    <url-pattern>/LogTest</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ManageSystemServlet</servlet-name>
+    <url-pattern>/ManageSystemServlet</url-pattern>
   </servlet-mapping>
 
 

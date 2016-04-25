@@ -8,7 +8,7 @@ public class PrivilegeHelper {
 		case 2:
 			return "工程师";
 		case 3:
-			return "组长";
+			return "值班干部";
 		case 4:
 			return "巡检员";
 

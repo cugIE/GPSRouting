@@ -71,8 +71,8 @@ $(document).ready(function(){
 		    $(this).ajaxSubmit(function(message){
 		    	if (message != 'error'){
 		    		alert("添加成功成功,编号为"+message);
-		    		var actions="<a class = \"question-edit pull-right bk-margin-left-10\" data-toggle=\"modal\" data-target=\"#myModal\" href = \"#\" value=\""+ message +"\"><i class=\"fa fa-pencil fa-2x\"></i></a>"
-		    		var bars = "<a class = \"pull-right question-delete\" value=\""+ message+"\" href = \"#\"><i class=\"fa fa-trash-o fa-2x\"></i></a>"
+		    		var actions="<a class = \"search-regions-actions question-edit pull-right bk-margin-left-10\" data-toggle=\"modal\" data-target=\"#myModal\" href = \"#\" value=\""+ message +"\"><i class=\"fa fa-pencil\"></i></a>"
+		    		var bars = "<a class = \"search-regions-actions-delete pull-right question-delete\" value=\""+ message+"\" href = \"#\"><i class=\"fa fa-trash-o\"></i></a>"
 		    		var str = "<tr value="+ message +">"+"<td>"+$("#question-title").val()+"</td>"+"<td>"+$("#question-possasws").val()+"</td>"+"<td>"+$("#question-normalasws").val()+ actions + bars + "</td>";
 		    		
 		    		$("#questions-table").append(str);

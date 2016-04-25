@@ -34,18 +34,39 @@ public class GetRouteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String index = request.getParameter("index");
 		String gener_id = request.getParameter("gener_id");
+		String region_id = request.getParameter("region_id");
 		String start = request.getParameter("start");
 		String end = request.getParameter("end");
-		if (gener_id == null||start==null||end ==null) {				
+		System.out.print("wrong123");
+		if(index==null){
 			OutputHelper.StringOutPut("error_index", response);
 			return;
 		}
-		try {
-			OutputHelper.StringOutPut(Route.GetAllRoute(gener_id,start,end).toString(), response);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		else if(index.equals("gener")){
+			if (gener_id == null||start==null||end ==null) {				
+				OutputHelper.StringOutPut("error_para", response);
+				return;
+			}
+			try {
+				OutputHelper.StringOutPut(Route.GetAllRoute(gener_id,start,end).toString(), response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(index.equals("region")){
+			if (region_id == null) {				
+				OutputHelper.StringOutPut("error_para", response);
+				return;
+			}
+			try {
+				OutputHelper.StringOutPut(Route.GetAllRoute(region_id).toString(), response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

@@ -44,9 +44,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<!-- Plugins CSS-->
 		<!-- Plugins CSS-->
-		<link href="<%=path%>assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
-		<link href="<%=path%>assets/plugins/bootstrap-datepicker/css/datepicker-theme.css" rel="stylesheet" />
-		<link href="<%=path%>assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.css" rel="stylesheet" />
+		<link href="<%=path%>/assets/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+		<link href="<%=path%>/assets/plugins/bootstrap-datepicker/css/datepicker-theme.css" rel="stylesheet" />
+		<link href="<%=path%>/assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.css" rel="stylesheet" />
 		<link href="<%=path%>/assets/plugins/bootkit/css/bootkit.css" rel="stylesheet" />
 		<link href="<%=path%>/assets/plugins/fullcalendar/css/fullcalendar.css" rel="stylesheet" />
 		<link href="<%=path%>/assets/plugins/jquery-ui/css/jquery-ui-1.10.4.min.css" rel="stylesheet" />					

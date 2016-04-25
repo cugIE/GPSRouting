@@ -248,6 +248,47 @@ public class GetAllRegionServlet extends HttpServlet {
 				}
 			}
 		}
+		else if (index.equals("route")){
+			String branch_id = request.getParameter("branch_id");
+			JSONArray JA = new JSONArray();
+			if (branch_id == null) {
+				try {
+					List<Region> rgsList = Region.getAllRoute();
+
+					for (int i = 0; i < rgsList.size(); i++ ){
+						JSONObject js = new JSONObject();
+						Region tempRegion = rgsList.get(i);
+						js.put("id", tempRegion.getId());
+						js.put("name", tempRegion.getName());
+						js.put("branch", tempRegion.getBranch());
+						JA.add(js);
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				this.StringOutPut(JA.toString(), response);
+				
+			}
+			else {
+				try {
+					List<Region> rgsList = Region.getAllRoute(branch_id);
+
+					for (int i = 0; i < rgsList.size(); i++ ){
+						JSONObject js = new JSONObject();
+						Region tempRegion = rgsList.get(i);
+						js.put("id", tempRegion.getId());
+						js.put("name", tempRegion.getName());
+						js.put("branch", tempRegion.getBranch());
+						JA.add(js);
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				this.StringOutPut(JA.toString(), response);
+			}
+		}
 		else {
 			this.StringOutPut("error_index", response);
 		}

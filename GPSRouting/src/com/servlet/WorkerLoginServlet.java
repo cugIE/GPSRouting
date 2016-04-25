@@ -56,6 +56,7 @@ public class WorkerLoginServlet extends HttpServlet {
 					pJsonObject.put("branchname", br.getBranchName());
 					pJsonObject.put("branchtype", br.getBranchType());
 					pJsonObject.put("comname", br.getComName());
+					pJsonObject.put("peopleid", p.getId());
 					pJsonObject.put("username", p.getUsername());
 					pJsonObject.put("password", p.getPassword());
 					pJsonObject.put("name", p.getName());

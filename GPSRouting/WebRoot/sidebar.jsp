@@ -52,7 +52,18 @@
 						</a>
 						<ul class="nav nav-children">
 							<li><a href="msg-board.jsp"><span class="text"> 公告 </span></a></li>
-							<li><a href="msg-inbox.jsp"><span class="text"> 消息</span></a></li>										</ul>
+							<li><a href="msg-inbox.jsp"><span class="text"> 消息</span></a></li>	
+						</ul>
+					</li>
+					
+					<li class="nav-parent">
+						<a>
+							<i class="fa fa-certificate" aria-hidden="true"></i><span>系统管理</span>
+						</a>
+						<ul class="nav nav-children">
+							<li><a href="data-log.jsp"><span class="text"> 系统日志管理 </span></a></li>
+							<li><a href="ManageSystemServlet?id=0001&action=updatesite"><span class="text"> 网站参数修改</span></a></li>
+						</ul>
 					</li>
 				</ul>
 			</nav>

@@ -197,8 +197,8 @@
 												</a> <a class="btn btn-info"
 													href="ManagePeopleServlet?id=<%=people1.getId()%>&action=update">
 														<i class="fa fa-edit "></i>
-												</a> <a class="btn btn-danger" 
-													href="ManagePeopleServlet?id=<%=people1.getId()%>&action=delete3"> <i
+												</a> <a class="btn btn-danger people-delete" 
+													value="<%=people1.getId() %>"> <i
 														class="fa fa-trash-o "></i>
 												</a></td>
 											</tr>
@@ -291,6 +291,7 @@
 							<label class="  col-md-4 control-label" for="text-input">部门</label>
 							<div class="col-md-5">
 								<select name="branchid" id="branchid" class="form-control">
+										<option value="" disabled selected>请选择部门</option>
 									<%
 												while (iterproject3.hasNext()) {
 														Branch branch2 = iterproject3.next();
@@ -307,6 +308,7 @@
 							<label class="  col-md-4 control-label" for="text-input">组类型</label>
 							<div class="col-md-5">
 								<select name="teamid" id="teamid" class="form-control">
+									<option value="" disabled selected>请选择职位</option>
 									<option value="0001">管理员</option>
 									<option value="0002">工程师</option>
 									<option value="0003">值班干部</option>
@@ -333,9 +335,11 @@
 								<input type="file" id="file-input" name="file-input">
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group" style="text-align:center;">
 							<input type="submit" class="bk-margin-5 btn btn-primary"
 								value="提交">
+							<input type="reset" class="bk-margin-5 btn btn-primary"
+								value="取消">
 						</div>
 						<br>
 					</form>
@@ -367,6 +371,7 @@
 	<script src="<%=path%>/assets/plugins/moment/js/moment.min.js"></script>
 	<script
 		src="<%=path%>/assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>
+	<script src="<%=path%>/assets/vendor/js/jquery.form.js"></script>
 
 	<!-- Theme JS -->
 	<script src="<%=path%>/assets/js/jquery.mmenu.min.js"></script>
@@ -376,7 +381,8 @@
 	<script src="<%=path%>/assets/js/pages/table.js"></script>
 	<script type="text/javascript"
 		src="<%=path%>/assets/js/pages/device-map.js"></script>
-
+	<script type="text/javascript"
+		src="<%=path%>/assets/js/pages/data-people.js"></script>
 	<!-- end: JavaScript-->
 </body>
 

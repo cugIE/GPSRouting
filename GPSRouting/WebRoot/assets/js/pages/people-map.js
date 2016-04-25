@@ -398,7 +398,7 @@ function searchRoute(){
 	    						var temp = data[i];
 	    						pointArray[i] = new BMap.Point(temp.longitude,temp.latitude);
 	    					}
-	    					var polyline = new BMap.Polyline(pointArray,{strokeColor:"red", strokeWeight:4, strokeOpacity:1});
+	    					var polyline = new BMap.Polyline(pointArray,{strokeColor:"green", strokeWeight:4, strokeOpacity:1});
 	    					map.addOverlay(polyline);
 	    				}
 	    		);
@@ -414,7 +414,7 @@ function searchRoute(){
 						var temp = data[i];
 						pointArray[i] = new BMap.Point(temp.longitude,temp.latitude);
 					}
-					var polyline = new BMap.Polyline(pointArray,{strokeColor:"red", strokeWeight:4, strokeOpacity:1});
+					var polyline = new BMap.Polyline(pointArray,{strokeColor:"green", strokeWeight:4, strokeOpacity:1});
 					map.addOverlay(polyline);
 				}
 		);

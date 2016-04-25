@@ -14,7 +14,6 @@ $("#check-button").on("click", function(){
 	if(confirm("确定审核完毕？")){
 		$.post("CheckRecordServlet",{
 			record_id : record_id,
-			checker : "李欣"
 		},function(data, status){
 			if(data=="1"){
 				alert("成功");

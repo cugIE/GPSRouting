@@ -22,16 +22,16 @@ public class Route {
 	private double latitude;
 	private int islogin;
 	private String time;
-	private int rtr_id;
+	private int region_id;
 	public Route(int gener_id, double longitude, double latitude, int islogin,
-			String time, int rtr_id) {
+			String time, int region_id) {
 		super();
 		this.gener_id = gener_id;
 		this.longitude = longitude;
 		this.latitude = latitude;
 		this.islogin = islogin;
 		this.time = time;
-		this.rtr_id = rtr_id;
+		this.region_id = region_id;
 	}
 	public Route() {
 		super();
@@ -40,7 +40,7 @@ public class Route {
 		this.latitude = 0;
 		this.islogin = 0;
 		this.time = null;
-		this.rtr_id = 0;
+		this.region_id = 0;
 	}
 	public int getGener_id() {
 		return gener_id;
@@ -72,11 +72,11 @@ public class Route {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	public int getRtr_id() {
-		return rtr_id;
+	public int getRegion_id() {
+		return region_id;
 	}
-	public void setRtr_id(int rtr_id) {
-		this.rtr_id = rtr_id;
+	public void setRegion_id(int rtr_id) {
+		this.region_id = rtr_id;
 	}
 	
 	public static JSONArray GetAllRoute(String gener_id, String start, String end) throws SQLException{
@@ -130,12 +130,12 @@ public class Route {
 		}
 		else{
 			String sql = "insert into route"
-					+ "(gener_id, route_longitude, route_latitude, route_islogin, rtr_id)"
+					+ "(gener_id, route_longitude, route_latitude, route_islogin, region_id)"
 					+ " values('"+rt.getGener_id()+ "','" 
 					+ rt.getLongitude() + "','" 
 					+ rt.getLatitude() + "','" 
 					+ rt.getIslogin() + "','"
-					+ rt.getRtr_id()  + "')"; 
+					+ rt.getRegion_id()  + "')"; 
 			DBHelper dbh = new DBHelper();
 			result = dbh.updateDatabase(sql);
 			dbh.DBClose();

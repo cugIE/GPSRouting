@@ -44,7 +44,7 @@ public class PostRouteServlet extends HttpServlet {
 		String longitude = request.getParameter("longitude");
 		String latitude  = request.getParameter("latitude");
 		String islogin  = request.getParameter("islogin");
-		String rtr_id = request.getParameter("rtr_id");
+		String region_id = request.getParameter("region_id");
 		Route tempR = new Route();
 		int result = 0;
 		if (gener_id==null||longitude ==null || latitude ==null){
@@ -76,6 +76,7 @@ public class PostRouteServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			OutputHelper.StringOutPut(""+result, response);
 			e.printStackTrace();
+			return;
 		}
 		
 		
@@ -85,8 +86,8 @@ public class PostRouteServlet extends HttpServlet {
 		if(islogin!=null){ 
 			tempR.setIslogin(Integer.parseInt(islogin));
 		}
-		if(rtr_id!=null){ 
-			tempR.setRtr_id(Integer.parseInt(rtr_id));
+		if(region_id!=null){ 
+			tempR.setRegion_id(Integer.parseInt(region_id));
 		}
 		
 		try {
@@ -95,6 +96,7 @@ public class PostRouteServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			OutputHelper.StringOutPut(""+result, response);
 			e.printStackTrace();
+			return;
 		}
 		
 		

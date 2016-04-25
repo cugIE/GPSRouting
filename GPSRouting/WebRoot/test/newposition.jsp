@@ -12,7 +12,7 @@ System.out.println(basePath);
 <title>Insert title here</title>
 </head>
 <body>
-<form action = "<%=basePath %>PostPositionServlet" method="post">
+<form action = "<%=basePath %>PostRouteServlet" method="post">
 添加者<input type = "text" name="gener_id"/>
 经度<input type = "text" name="longitude"/>
 纬度<input type = "text" name="latitude"/>

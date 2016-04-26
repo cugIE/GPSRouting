@@ -40,7 +40,7 @@ public class CheckRecordServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String record_id = request.getParameter("record_id");
-		String checker = request.getParameter("checker");
+		String checker = (String) request.getSession().getAttribute("SesName");
 		try {
 			if(record_id == null || checker==null){
 				OutputHelper.StringOutPut("error", response);

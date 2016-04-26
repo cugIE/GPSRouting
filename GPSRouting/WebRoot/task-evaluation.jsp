@@ -106,17 +106,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		if (branchType.equals("管理")) {
 			if (!branch_id.equals("")) {
 				rcds = Record.getAllRecord(Integer.parseInt(branch_id),
-						start, end);
+						start, end + " 23:59:59");
 			} else if (!gener_id.equals("")) {
-				rcds = Record.getAllRecord(gener_id, start, end);
+				rcds = Record.getAllRecord(gener_id, start, end + " 23:59:59");
 			} else {
-				rcds = Record.getAllRecord(start, end);
+				rcds = Record.getAllRecord(start, end + " 23:59:59");
 			}
 		} else {
 			if (!gener_id.equals("")) {
-				rcds = Record.getAllRecord(gener_id, brch_id, start, end);
+				rcds = Record.getAllRecord(gener_id, brch_id, start, end + " 23:59:59");
 			} else {
-				rcds = Record.getAllRecord(brch_id, start, end);
+				rcds = Record.getAllRecord(brch_id, start, end + " 23:59:59");
 			}
 		}
 	%>
@@ -172,6 +172,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<label class="col-md-4 control-label" for="部门">部门</label>
 									<div class="col-md-8">
 										<select name="branch_id" class="form-control" size="1">
+										<option value=""></option>
 										<%for (int i = 0; i<brchs.size();i++){ %>
 										<option value="<%=brchs.get(i).getId() %>"><%=brchs.get(i).getBranchName() %></option>
 										<%} %>

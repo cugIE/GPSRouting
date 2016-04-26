@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+import org.omg.CORBA.PRIVATE_MEMBER;
+
 import com.bean.People;
 import com.bean.People;
 import com.service.PeopleService;
@@ -35,6 +38,8 @@ public class ManagePeopleServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		System.out.println("方法：" + action);
 		System.out.println("方法id：" + id);
+		
+		Logger log = Logger.getLogger(ManageBranchServlet.class);
 		/**
 		 * 添加
 		 */
@@ -67,10 +72,13 @@ public class ManagePeopleServlet extends HttpServlet {
 			try {
 				peopleService.add(p);
 				PrintWriter out = response.getWriter();
-				out.print("添加成功");
+				out.print("<script>" + "alert('添加成功');"+ "document.location.href='data-people.jsp';"+ "</script>");
+			//	out.print("添加成功");
+				log.error("新增人员");
 			} catch (SQLException e) {
 				PrintWriter out = response.getWriter();
-				out.print("添加失败");
+				out.print("<script>" + "alert('添加失败');"+ "document.location.href='data-people.jsp';"+ "</script>");
+			//	out.print("添加失败");
 				e.printStackTrace();
 			}
 		}

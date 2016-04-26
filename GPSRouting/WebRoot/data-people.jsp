@@ -129,9 +129,63 @@
 								People people = (People) request.getAttribute("people");
 								if (people != null) {
 							%>
-							用户名：<%=people.getUsername()%><br /> 姓名：<%=people.getName()%><br />
+							<div class="panel-body bk-padding-left-30">
+							<div class="bk-ltr bk-bg-white">
+								<div class="row">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<div class="bk-bg-white text-center bk-padding-top-20 bk-padding-bottom-10">
+											<div class="row">
+												<div class="text-left bk-padding-left-10 col-md-10">
+													<h4 class="bk-margin-off">人员详细信息</h4>
+												</div>                       
+											</div>
+										</div> 
+														
+									</div>																	
+								</div>
+							</div>
+							<div class="bk-ltr bk-padding-bottom-20 bk-padding-left-20">
+								<div class="row">
+									<div class=" col-md-4 bk-bg-white bk-padding-top-10">
+										<i class="fa fa-asterisk bk-padding-right-10"></i>编号：
+										<i class="bk-padding-right-15" id="region-id"><%=people.getId() %></i>
+									</div>
+									<div class="col-md-4 bk-bg-white bk-padding-top-10">
+										<i class="fa fa-user bk-padding-right-10"></i>用户名：：
+										<i class="bk-padding-right-15" id="region-name"><%=people.getUsername()%></i>
+									</div>
+									<div class="col-md-4  bk-bg-white bk-padding-top-10" >
+										<i class="fa fa-group bk-padding-right-10"></i>所属部门id：
+										<i class="bk-padding-right-15"><%=people.getBranchId() %></i>
+									</div>
+									<div class="col-md-4 bk-bg-white bk-padding-top-10">
+										<i class="fa fa-user-md bk-padding-right-10"></i>组id：
+										<i class="bk-padding-right-15" >
+										<% 
+											if(people.getTeamId().equals("0001")){
+												out.print("管理员");
+											}else if(people.getTeamId().equals("0002")){
+												out.print("工程师");				
+											}else if(people.getTeamId().equals("0003")){
+												out.print("值班干部");
+											}else if(people.getTeamId().equals("0004")){
+												out.print("值班员");
+											}else{
+												out.print("巡检员");
+											}
+										%></i>
+									</div>
+									
+									<div class="col-md-4 bk-bg-white bk-padding-top-10">
+										<i class="fa fa-circle-o bk-padding-right-10"></i>备注：
+										<i class="bk-padding-right-15" id="region-range"><%=people.getPeopRemark() %></i>
+									</div>													
+								</div>
+							</div>
+							<%-- 用户名：<%=people.getUsername()%><br /> 姓名：<%=people.getName()%><br />
 							组类型：<%=people.getTeamId()%><br /> 所属部门：<%=people.getBranchId()%><br />
-							备注信息：<%=people.getPeopRemark()%><br />
+							备注信息：<%=people.getPeopRemark()%><br /> --%>
+							</div>
 							<%
 								} else {
 							%>
@@ -379,8 +433,7 @@
 
 	<!-- Pages JS -->
 	<script src="<%=path%>/assets/js/pages/table.js"></script>
-	<script type="text/javascript"
-		src="<%=path%>/assets/js/pages/device-map.js"></script>
+	
 	<script type="text/javascript"
 		src="<%=path%>/assets/js/pages/data-people.js"></script>
 	<!-- end: JavaScript-->

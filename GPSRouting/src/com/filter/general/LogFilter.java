@@ -31,8 +31,14 @@ public class LogFilter implements Filter{
 	            MDC.put("userId",DEFAULT_USERID);    
 	        }  
 	        else{  
-	        	MDC.put("userId",session.getAttribute("SesId"));  
-	            MDC.put("userName",session.getAttribute("SesName"));        
+	        	if (session.getAttribute("SesId")==null) {
+					MDC.put("userId", DEFAULT_USERID);
+					MDC.put("userName", DEFAULT_USERID);
+				}
+	        	else {
+	        		MDC.put("userId",session.getAttribute("SesId"));  
+		            MDC.put("userName",session.getAttribute("SesName")); 
+				}        	       
 	        }  
 	        //logger.info("test for MDC.");  
 	  

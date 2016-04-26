@@ -32,7 +32,7 @@ public class LoginfoDao {
             l = new LogInfo();              
             l.setId(rs.getString("LogId"));
             l.setUsername(rs.getString("UserName"));
-            l.setCreattime(rs.getString("CreatTime"));
+            l.setCreattime(rs.getString("CreateTime"));
             l.setMsg(rs.getString("MSG"));
             list.add(l);
         }

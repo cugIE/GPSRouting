@@ -48,10 +48,10 @@
 							</div>							
 						</li>	
 						<li>
-							<a href="people-profile.html"><i class="fa fa-user"></i> 详细资料</a>
+							<a href="ManagePeopleServlet?id=<%=request.getSession().getAttribute("SesId")%>&action=list2"><i class="fa fa-user"></i> 个人信息</a>
 						</li>
 						<li>
-							<a href="data-people-form.html"><i class="fa fa-wrench"></i> 编辑</a>
+							<a href="modpwd.jsp"><i class="fa fa-wrench"></i> 修改密码</a>
 						</li>								
 						<li>
 							<a href="ExitServlet"><i class="fa fa-power-off"></i> 登出</a>

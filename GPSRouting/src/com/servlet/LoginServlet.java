@@ -9,11 +9,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+import org.eclipse.jdt.internal.compiler.ast.ThisReference;
+
 import com.bean.People;
 import com.service.PeopleService;
 import com.util.TeamidtoName;
 
 public class LoginServlet extends HttpServlet {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	Logger log = Logger.getLogger(LoginServlet.class);
 	
 	protected void processRequest(HttpServletRequest request,HttpServletResponse response) 
 			throws ServletException,IOException{
@@ -69,6 +79,7 @@ public class LoginServlet extends HttpServlet {
 				request.getSession().setAttribute("SesTeamName", teamName);
 				out.print("<script>" + "alert('登录成功');"+ "document.location.href='index.jsp';"+ "</script>");
 				
+				log.error("登录");
 				/*session.setAttribute("SesUser", p.getUsername());
 				session.setAttribute("SesPwd", p.getPassword());
 				session.setAttribute("SesId", p.getId());

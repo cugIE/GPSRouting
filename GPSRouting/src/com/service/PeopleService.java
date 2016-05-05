@@ -40,6 +40,18 @@ public class PeopleService {
         PeopleDao dao=new PeopleDao();
         return dao.update(people);       
     }
+    
+    /**
+     * 更新密码
+     * @param peo
+     * @param newpwd
+     * @return
+     * @throws SQLException
+     */
+    public int update(People peo,String newpwd) throws SQLException {
+		PeopleDao dao= new PeopleDao();
+		return dao.update(peo, newpwd);
+	}
     /**
      *  删除
      * @param Id

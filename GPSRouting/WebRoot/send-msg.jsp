@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.bean.*"%>
-<%@ page import="java.util.*"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -92,11 +90,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<!-- End Page Header -->
 
 					<div class="row">		
-						<div class="col-lg-12">
-						<div class="panel">
+						<div class="col-lg-12">	
+							<div class="panel">
 							<div class="panel-heading bk-bg-primary">
 								<h6>
-									<i class="fa fa-table red"></i><span class="break"></span>修改密码
+									<i class="fa fa-table red"></i><span class="break"></span>发送通知
 								</h6>
 								<div class="panel-actions">
 									<a href="table.html#" class="btn-setting"><i
@@ -106,36 +104,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 							<div class="panel-body">
 								<form class="form-horizontal "
-									action="ModPwdServlet" method="post">
+									action="SendMsgServlet" method="post">
 									<div class="form-group">
-										<label class=" col-md-4 control-label">用户名：</label>
+										<label class=" col-md-4 control-label">通知标题</label>
 										<div class="col-md-5">
-											<input type="text" id="username" name="username" disabled="true"
-												value=<%=request.getSession().getAttribute("SesUser") %> class="form-control" />
-										</div>
-									</div>
-									<div class="form-group">
-										<label class=" col-md-4 control-label" for="text-input">请输入旧密码：</label>
-										<div class="col-md-5">
-											<input type="password" id="old_pwd" name="old_pwd"
+											<input type="text" id="msg_title" name="msg_title"
 												 class="form-control" />
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="  col-md-4 control-label" for="text-input">请输入新密码：</label>
+										<label class=" col-md-4 control-label" for="text-input">通知内容</label>
 										<div class="col-md-5">
-											<input type="password" id="new_pwd" name="new_pwd"
-												class="form-control"  />
-										</div>
-									</div>
-
-									<div class="form-group">
-										<label class="  col-md-4 control-label" for="text-input">重复新密码：</label>
-										<div class="col-md-5">
-											<input type="password" id="new_pwd2" name="new_pwd2"
+											<input type="text" id="msg_content" name="msg_content"
 												 class="form-control" />
 										</div>
 									</div>
+									
 									<br>
 									<div class="form-group" style="text-align:center;">
 										<input type="submit" class="bk-margin-5 btn btn-primary"
@@ -149,7 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 							</div>
 						</div>
-					</div>
+						</div>
 					</div>   
 				</div>
 				<!-- End Main Page -->	

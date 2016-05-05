@@ -206,5 +206,17 @@ public class PeopleDao {
         // TODO Auto-generated method stub
          
     }
+	
+	public int update(People peo,String newpwd) throws SQLException {
+		String sql = "UPDATE people SET people_password=? WHERE people_id=?";
+		conn=DB.getConn();
+		pre = conn.prepareStatement(sql);
+		pre.setString(1, newpwd);
+		pre.setString(2, peo.getId());
+		int count =pre.executeUpdate();
+		pre.close();
+		conn.close();
+		return count;
+	}
 
 }

@@ -126,6 +126,16 @@
     <servlet-name>ManageSystemServlet</servlet-name>
     <servlet-class>com.servlet.ManageSystemServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>SendMsgServlet</servlet-name>
+    <servlet-class>com.servlet.SendMsgServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ModPwdServlet</servlet-name>
+    <servlet-class>com.servlet.ModPwdServlet</servlet-class>
+  </servlet>
+
+
 
 
 
@@ -263,6 +273,14 @@
   <servlet-mapping>
     <servlet-name>ManageSystemServlet</servlet-name>
     <url-pattern>/ManageSystemServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SendMsgServlet</servlet-name>
+    <url-pattern>/SendMsgServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ModPwdServlet</servlet-name>
+    <url-pattern>/ModPwdServlet</url-pattern>
   </servlet-mapping>
 
 

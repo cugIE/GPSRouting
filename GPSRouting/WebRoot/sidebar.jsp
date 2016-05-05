@@ -52,7 +52,8 @@
 						</a>
 						<ul class="nav nav-children">
 							<li><a href="msg-board.jsp"><span class="text"> 公告 </span></a></li>
-							<li><a href="msg-inbox.jsp"><span class="text"> 消息</span></a></li>	
+							<li><a href="send-msg.jsp"><span class="text"> 通知</span></a></li>	
+							<li><a href=""><span class="test">故障信息</span></a>
 						</ul>
 					</li>
 					

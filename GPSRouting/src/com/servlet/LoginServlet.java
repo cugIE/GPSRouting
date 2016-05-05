@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
-import org.eclipse.jdt.internal.compiler.ast.ThisReference;
 
 import com.bean.People;
 import com.service.PeopleService;

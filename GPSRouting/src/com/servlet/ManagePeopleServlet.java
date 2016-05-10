@@ -119,17 +119,28 @@ public class ManagePeopleServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else if (action.equals("update2")) {
+			String user_id = request.getParameter("userid");
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			String name = request.getParameter("name");
 			String people_code = request.getParameter("peoplecode");
+			String branch_id = request.getParameter("branchid");
+			String team_id = request.getParameter("teamid");
+			String people_remark = request.getParameter("peopremark");
 			People p = new People();
+			p.setId(user_id);
 			p.setUsername(username);
 			p.setPassword(password);
 			p.setName(name);
 			p.setCode(people_code);
+			p.setBranchId(branch_id);
+			p.setTeamId(team_id);
+			p.setPeopRemark(people_remark);
 			System.out.println("人员编码：" + people_code);
 			System.out.println("名称：" + name);
+			System.out.println("部门："+branch_id);
+			System.out.println("职位："+team_id);
+			System.out.println("备注："+people_remark);
 
 			PeopleService peopleService = new PeopleService();
 			try {
@@ -170,6 +181,7 @@ public class ManagePeopleServlet extends HttpServlet {
 			String id1 = request.getParameter("id");
 			try {
 				service.delete(id1);
+			//	response.sendRedirect("deletesuccess");
 				response.sendRedirect("ManagePeopleServlet?action=list");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

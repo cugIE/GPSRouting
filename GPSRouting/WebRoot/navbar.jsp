@@ -15,7 +15,7 @@
 		<div class="navbar-right">
 			<ul class="notifications hidden-sm hidden-xs">
 				<li>
-					<a href="msg-inbox.html" class="notification-icon" >
+					<a href="fault-msg.jsp" class="notification-icon" >
 						<i class="fa fa-envelope"></i>
 						<span class="badge">5</span>
 					</a>

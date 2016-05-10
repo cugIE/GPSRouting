@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="panel">
 							<div class="panel-heading bk-bg-primary">
 								<h6>
-									<i class="fa fa-table red"></i><span class="break"></span>发送通知
+									<i class="fa fa-table red"></i><span class="break"></span>发送公告
 								</h6>
 								<div class="panel-actions">
 									<a href="table.html#" class="btn-setting"><i
@@ -106,22 +106,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<form class="form-horizontal "
 									action="SendMsgServlet" method="post">
 									<div class="form-group">
-										<label class=" col-md-4 control-label">通知标题</label>
+										<label class=" col-md-4 control-label">公告标题</label>
 										<div class="col-md-5">
 											<input type="text" id="msg_title" name="msg_title"
 												 class="form-control" />
 										</div>
 									</div>
 									<div class="form-group">
-										<label class=" col-md-4 control-label" for="text-input">通知内容</label>
+										<label class=" col-md-4 control-label" for="text-input">公告内容</label>
 										<div class="col-md-5">
-											<input type="text" id="msg_content" name="msg_content"
-												 class="form-control" />
+											<!-- <input type="text" id="msg_content" name="msg_content"
+												 class="form-control" /> -->
+											<textarea id="msg_content" name="msg_cotent" class="form-control" rows="4"></textarea>
 										</div>
 									</div>
 									
 									<br>
-									<div class="form-group" style="text-align:center;">
+									<div class="form-group" style="text-align:right;">
 										<input type="submit" class="bk-margin-5 btn btn-primary"
 											value="提交">
 										<input type="reset" class="bk-margin-5 btn btn-primary"
@@ -133,6 +134,47 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 							</div>
 						</div>
+						<div class="panel">
+							<div class="panel-heading bk-bg-primary">
+								<h6>
+									<i class="fa fa-table red"></i><span class="break"></span>历史公告
+								</h6>
+								<div class="panel-actions">
+									<a href="table.html#" class="btn-setting"><i
+										class="fa fa-rotate-right"></i></a> <a href="table.html#"
+										class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
+								</div>
+							</div>
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>标题</th>
+											<th>内容</th>
+											<th>时间</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>1</td>
+											<td>任务公告</td>
+											<td>请巡检员0001到巡检区域0003报道</td>
+											<td>2016:05:10:09</td>
+										</tr>
+										<tr>
+											<td>2</td>
+											<td>放假公告</td>
+											<td>休假3天</td>
+											<td>2016:05:10:09</td>
+										</tr>
+									</tbody>	
+									</table>
+								</div>
+							</div>
+						</div>
+						
 						</div>
 					</div>   
 				</div>

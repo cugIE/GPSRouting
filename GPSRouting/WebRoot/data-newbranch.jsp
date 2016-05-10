@@ -158,8 +158,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												</a> <a class="btn btn-info"
 													href="ManageBranchServlet?id=<%=branch1.getId() %>&action=update">
 														<i class="fa fa-edit "></i>
-												</a> <a class="btn btn-danger" 
-													href="ManageBranchServlet?id=<%=branch1.getId() %>&action=delete3"> <i
+												</a> <a class="btn btn-danger branch-delete" 
+												value= "<%=branch1.getId() %>"> <i
 														class="fa fa-trash-o "></i>
 												</a></td>
 											</tr>
@@ -269,7 +269,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<!-- Pages JS -->
 		<script src="<%=path%>/assets/js/pages/table.js"></script>
-		<script type="text/javascript" src="<%=path%>/assets/js/pages/device-map.js"></script>
+		
+		
+		<script type="text/javascript"
+		src="<%=path%>/assets/js/pages/data-branch.js"></script>
 
 		<!-- end: JavaScript-->
 		

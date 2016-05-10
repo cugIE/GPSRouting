@@ -107,14 +107,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</div>
 								<div class="panel-body">
 								<%
-									People people = (People) request.getAttribute("people");
+									People people = (People) request.getAttribute("people");				
+								%>
+								<jsp:useBean id="service11" class="com.service.BranchService"
+								scope="session">
+								</jsp:useBean>
+								<%
+									Branch branch2 = service11.fill(people.getBranchId());
 									
+									List<Branch> projectlist3 = service11.fill();
+										Iterator<Branch> iterproject3 = projectlist3.iterator();
+								%>
+								
+								<jsp:useBean id="service12" class="com.util.TeamidtoName"
+								scope="session">
+								</jsp:useBean>
+								<%
+									String teamname = service12.idtoname(people.getTeamId());
 								%>
 								<form  class="form-horizontal " action="ManagePeopleServlet?action=update2" method="post">
 										<div class="form-group">
 											<label class=" col-md-4 control-label">用户名</label>
 											<div class="col-md-5">
 												<input type="text" id="username" name="username" class="form-control" value=<%=people.getUsername() %>>
+												<input type="hidden" id="userid" name="userid" value=<%=people.getId() %>> 
 											</div>
 										</div>
 										<div class="form-group">
@@ -138,26 +154,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<div class="form-group">
 											<label class="  col-md-4 control-label" for="text-input">部门</label>
 											<div class="col-md-5">
-												<select name="branchname" id="branchid" class="form-control">
-												<option value="1">111</option>
-												<option value="2">222</option>
-												<option value="3">333</option>
-												<option value="4">444</option>
-												<option value="5">555</option>
+												<select name="branchid" id="branchid" class="form-control">
+												<option value=<%=branch2.getId() %>><%=branch2.getBranchName() %></option>
+												<%
+												while (iterproject3.hasNext()) {
+														Branch branch1 = iterproject3.next();
+												%>
+											<option value=<%=branch1.getId() %>><%=branch1.getBranchName() %></option>
+												<%
+												}
+												%>
 												</select>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="  col-md-4 control-label" for="text-input">组类型</label>
 											<div class="col-md-5">
-												<input type="text" id="email-input" name="email-input" class="form-control" placeholder="值班员、值班干部、工程师等"><input type="text"name="teamtext" class="form-control" value="组说明"disabled="true">
+												<select name="teamid" id="teamid" class="form-control">
+												<option value=<%=people.getTeamId() %>><%=teamname %></option>
+												<option value="0001">管理员</option>
+												<option value="0002">工程师</option>
+												<option value="0003">值班干部</option>
+												<option value="0004">值班员</option>
+												<option value="0005">巡检员</option>
+												</select>
+												<input type="text"name="teamtext" class="form-control" value="组说明"disabled="true">
 											</div>
 										</div>
 							
 										<div class="form-group">
 											<label class="  col-md-4 control-label" for="text-input">备注</label>
 											<div class="col-md-5">
-												<input type="text" id="peopRemark" name="peopRemark" class="form-control" placeholder="备注信息">
+												<input type="text" id="peopremark" name="peopremark" class="form-control" placeholder="备注信息">
 											</div>
 										</div>
 										
@@ -167,8 +195,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												<input type="file" id="file-input" name="file-input">
 											</div>
 										</div>
-										<div class="form-group">	
+										<div class="form-group" style="text-align:center;">	
 											<input type="submit" class="bk-margin-5 btn btn-primary" value= "提交">
+											<input type="reset" class="bk-margin-5 btn btn-primary" value= "重置">
 										</div>
 										<br>
 									</form>

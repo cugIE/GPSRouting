@@ -127,10 +127,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="panel-body">
 								<div class="table-responsive">
 									<table
-										class="table table-striped table-bordered bootstrap-datatable datatable">
+										class="table table-striped">
 										<thead>
 											<tr>
-												<th>日志信息ID</th>
+												<th>#</th>
 												<th>操作内容</th>
 												<th>时间</th>
 												<th>操作人</th>

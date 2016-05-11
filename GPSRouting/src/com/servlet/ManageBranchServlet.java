@@ -100,10 +100,12 @@ public class ManageBranchServlet extends javax.servlet.http.HttpServlet implemen
             try {
                 branchService.add(b);
                 PrintWriter out = response.getWriter();
-                out.print("添加成功");
+                //out.print("添加成功");
+                out.print("<script>" + "alert('添加成功');"+ "document.location.href='data-newbranch.jsp';"+ "</script>");
             } catch (SQLException e) {
                 PrintWriter out = response.getWriter();
-                out.print("添加失败");
+             //   out.print("添加失败");
+                out.print("<script>" + "alert('添加失败');"+ "document.location.href='data-newbranch.jsp';"+ "</script>");
                 e.printStackTrace();
             }
         }
@@ -164,7 +166,8 @@ public class ManageBranchServlet extends javax.servlet.http.HttpServlet implemen
                                 try {
                                         branchService.update(b);
                                         PrintWriter out = response.getWriter();
-                                        out.print("修改成功");
+                                        out.print("<script>" + "alert('修改成功');"+ "document.location.href='data-newbranch.jsp';"+ "</script>");
+                                     //  out.print("修改成功");
                                          
                                     } catch (Exception e) {
                                         // TODO Auto-generated catch block

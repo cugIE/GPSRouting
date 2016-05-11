@@ -110,12 +110,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								Branch branch = (Branch)request.getAttribute("branch");
 								if (branch != null) {
 							%>
-							部门ID：<%=branch.getId() %><br /> 
+							<div class="panel-body bk-padding-left-30">
+							<div class="bk-ltr bk-bg-white">
+								<div class="row">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<div class="bk-bg-white text-center bk-padding-top-20 bk-padding-bottom-10">
+											<div class="row">
+												<div class="text-left bk-padding-left-10 col-md-10">
+													<h4 class="bk-margin-off">部门详细信息</h4>
+												</div>                       
+											</div>
+										</div> 
+														
+									</div>																	
+								</div>
+							</div>
+							<div class="bk-ltr bk-padding-bottom-20 bk-padding-left-20">
+								<div class="row">
+									<div class=" col-md-4 bk-bg-white bk-padding-top-10">
+										<i class="fa fa-asterisk bk-padding-right-10"></i>部门ID：
+										<i class="bk-padding-right-15" id="region-id"><%=branch.getId() %></i>
+									</div>
+									<div class="col-md-4 bk-bg-white bk-padding-top-10">
+										<i class="fa fa-user bk-padding-right-10"></i>名称：
+										<i class="bk-padding-right-15" id="region-name"><%=branch.getBranchName() %></i>
+									</div>
+									<div class="col-md-4  bk-bg-white bk-padding-top-10" >
+										<i class="fa fa-group bk-padding-right-10"></i>部门编码：
+										<i class="bk-padding-right-15"><%=branch.getBranchCode() %></i>
+									</div>
+									<div class="col-md-4 bk-bg-white bk-padding-top-10">
+										<i class="fa fa-user-md bk-padding-right-10"></i>部门类型：
+										<i class="bk-padding-right-15" >
+										<%=branch.getBranchType() %></i>
+									</div>
+									
+									<div class="col-md-4 bk-bg-white bk-padding-top-10">
+										<i class="fa fa-circle-o bk-padding-right-10"></i>所属分公司：
+										<i class="bk-padding-right-15" id="region-range"><%=branch.getComName() %></i>
+									</div>
+									<div class="col-md-4 bk-bg-white bk-padding-top-10">
+										<i class="fa fa-circle-o bk-padding-right-10"></i>分公司编码：
+										<i class="bk-padding-right-15" id="region-range"><%=branch.getComId() %></i>
+									</div>														
+								</div>
+							</div>	
+						</div>
+							<%-- 部门ID：<%=branch.getId() %><br /> 
 							名称：<%=branch.getBranchName() %><br />
 							部门编码：<%=branch.getBranchCode() %><br /> 
 							部门类型：<%=branch.getBranchType() %><br />
 							所属分公司：<%=branch.getComName() %><br />
-							公司编码：<%=branch.getComId() %><br />
+							公司编码：<%=branch.getComId() %><br /> --%>
 							<%
 								} else {
 							%>
@@ -205,15 +251,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="form-group">
 							<label class=" col-md-4 control-label" for="text-input">部门类型</label>
 							<div class="col-md-5">
-								<input type="text" id="branch_type" name="branch_type"
-									class="form-control" />
+								<select id="branch_type" name="branch_type" class="form-control">
+									<option value="" disabled selected>请选择部门类型</option>
+									<option value="管理">管理</option>
+									<option value="站场">站场</option>
+								</select>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="  col-md-4 control-label" for="text-input">部门编码</label>
 							<div class="col-md-5">
-								<input type="text" id="branch_code" name="branch_code" class="form-control"
-									placeholder="编码格式：AABBCC">
+								<div class="input-group">
+									<input type="text" id="branch_code" name="branch_code" class="form-control"
+										placeholder="编码格式：AABBCC">
+								<div class="input-group-btn">
+        							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:red">#</button>
+        							<ul class="dropdown-menu">
+          								<li>
+          									编码格式：AABBCC<br>
+          									AA:分公司代码，默认01开始<br>
+          									BB:部门代码，默认01开始<br>
+          									CC:部门人员代码：默认01开始<br>         								
+          								</li>
+       								</ul>
+     							 </div>
+								</div>
 							</div>
 						</div>
 						
@@ -231,9 +293,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									class="form-control" />
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group" style="text-align:center;">
 							<input type="submit" class="bk-margin-5 btn btn-primary"
 								value="提交">
+							<input type="reset" class="bk-margin-5 btn btn-primary"
+								value="重置">
 						</div>
 						<br>
 					</form>

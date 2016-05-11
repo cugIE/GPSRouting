@@ -330,8 +330,21 @@
 						<div class="form-group">
 							<label class="  col-md-4 control-label" for="text-input">编码</label>
 							<div class="col-md-5">
+								<div class="input-group">
 								<input type="text" id="peoplecode" name="peoplecode"
 									class="form-control" placeholder="编码格式：AABBCC">
+								<div class="input-group-btn">
+        							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:red">#</button>
+        							<ul class="dropdown-menu">
+          								<li>
+          									编码格式：AABBCC<br>
+          									AA:分公司代码，默认01开始<br>
+          									BB:部门代码，默认01开始<br>
+          									CC:部门人员代码：默认01开始<br>         								
+          								</li>
+       								</ul>
+     							 </div>
+								</div>
 							</div>
 						</div>
 						<jsp:useBean id="service6" class="com.service.BranchService"
@@ -368,12 +381,11 @@
 									<option value="0003">值班干部</option>
 									<option value="0004">值班员</option>
 									<option value="0005">巡检员</option>
-								</select>
-								<!-- <input
-									type="text" name="teamtext" class="form-control" value="组说明"
-									disabled="true"> -->
+								</select>		
 							</div>
 						</div>
+						<!-- <input type="text" name="teamtext" class="form-control" value="组说明"
+									disabled="true"> -->
 
 						<div class="form-group">
 							<label class="  col-md-4 control-label" for="text-input">备注</label>

@@ -185,7 +185,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<div class="form-group">
 											<label class="  col-md-4 control-label" for="text-input">备注</label>
 											<div class="col-md-5">
-												<input type="text" id="peopremark" name="peopremark" class="form-control" placeholder="备注信息">
+												<input type="text" id="peopremark" name="peopremark" value=<%=people.getPeopRemark() %> class="form-control" placeholder="备注信息">
 											</div>
 										</div>
 										

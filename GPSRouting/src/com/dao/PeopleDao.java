@@ -59,7 +59,7 @@ public class PeopleDao {
 	 * @throws SQLException
 	 */
 	public int add(People people) throws SQLException {
-		String sql = "insert into people(people_username,people_name,people_password,people_code,branch_id,team_id) values ('"
+		String sql = "insert into people(people_username,people_name,people_password,people_code,branch_id,team_id,people_remark) values ('"
 				+ people.getUsername()
 				+ "','"
 				+ people.getName()
@@ -70,7 +70,8 @@ public class PeopleDao {
 				+ "','"
 				+ people.getBranchId() 
 				+"','" 
-				+people.getTeamId() + "')";
+				+people.getTeamId() + "','"+ people.getPeopRemark() 
+				+"')";
 		conn = DB.getConn();
 		stmt = DB.getStatement(conn);
 		int result = stmt.executeUpdate(sql);

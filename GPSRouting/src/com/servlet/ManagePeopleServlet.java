@@ -52,12 +52,14 @@ public class ManagePeopleServlet extends HttpServlet {
 			String people_code = request.getParameter("peoplecode");
 			String branch_id = request.getParameter("branchid");
 			String team_id = request.getParameter("teamid");
+			String people_remark = request.getParameter("peopRemark");
 			System.out.println(username);
 			System.out.println(password);
 			System.out.println(name);
 			System.out.println(people_code);
 			System.out.println(branch_id);
 			System.out.println(team_id);
+			System.out.println("备注信息："+people_remark);
 
 			People p = new People();
 			p.setUsername(username);
@@ -66,6 +68,7 @@ public class ManagePeopleServlet extends HttpServlet {
 			p.setCode(people_code);
 			p.setBranchId(branch_id);
 			p.setTeamId(team_id);
+			p.setPeopRemark(people_remark);
 			
 			
 			PeopleService peopleService = new PeopleService();

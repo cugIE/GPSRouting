@@ -114,6 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="form-group">
 							<label class=" col-md-4 control-label">部门名称</label>
 							<div class="col-md-5">
+								<input type="hidden" id="branch_id" name="branch_id" value=<%=branch.getId() %> >
 								<input type="text" id="branch_name" name="branch_name" value=<%=branch.getBranchName() %>
 									class="form-control" />
 							</div>
@@ -121,8 +122,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="form-group">
 							<label class=" col-md-4 control-label" for="text-input">部门类型</label>
 							<div class="col-md-5">
-								<input type="text" id="branch_type" name="branch_type" value=<%=branch.getBranchType() %>
-									class="form-control" />
+								<select id="branch_type" name="branch_type" class="form-control">
+									<option value=<%=branch.getBranchType() %>><%=branch.getBranchType() %></option>
+									<option value="管理">管理</option>
+									<option value="站场">站场</option>
+								</select>
 							</div>
 						</div>
 						<div class="form-group">
@@ -147,9 +151,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									class="form-control" />
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group" style="text-align:center">							
 							<input type="submit" class="bk-margin-5 btn btn-primary"
 								value="提交">
+							<input type="reset" class="bk-margin-5 btn btn-primary"
+								value="重置">
 						</div>
 						<br>
 					</form>

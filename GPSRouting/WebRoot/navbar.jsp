@@ -12,20 +12,23 @@
 		<!-- Navbar Left -->
 		
 		<!-- Navbar Right -->
+		<jsp:useBean id="service31" class="com.service.MsgService"
+								scope="session">
+		</jsp:useBean>
 		<div class="navbar-right">
 			<ul class="notifications hidden-sm hidden-xs">
 				<li>
 					<a href="fault-msg.jsp" class="notification-icon" >
 						<i class="fa fa-envelope"></i>
-						<span class="badge">5</span>
+						<span class="badge"><%=service31.faultcount() %></span>
 					</a>
 					
 				</li>
 
 				<li>
-					<a href="msg-inbox.html" class="notification-icon">
+					<a href="alarm-msg.jsp" class="notification-icon">
 						<i class="fa fa-bell"></i>
-						<span class="badge">3</span>
+						<span class="badge">0</span>
 					</a>
 					
 				</li>

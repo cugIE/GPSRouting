@@ -134,6 +134,11 @@
     <servlet-name>ModPwdServlet</servlet-name>
     <servlet-class>com.servlet.ModPwdServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ManageFaultmsgServlet</servlet-name>
+    <servlet-class>com.servlet.ManageFaultmsgServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -281,6 +286,10 @@
   <servlet-mapping>
     <servlet-name>ModPwdServlet</servlet-name>
     <url-pattern>/ModPwdServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ManageFaultmsgServlet</servlet-name>
+    <url-pattern>/ManageFaultmsgServlet</url-pattern>
   </servlet-mapping>
 
 

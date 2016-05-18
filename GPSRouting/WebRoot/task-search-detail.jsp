@@ -73,7 +73,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	List<Period> prds = Period.getAllPeriod(shid);
 	String period_id = request.getParameter("period_id");
 	if (period_id ==null){
-		period_id=prds.get(0).getId();
+		if(prds.size()!=0) {
+			period_id = prds.get(0).getId();
+		}
+		else {
+			period_id = null;
+		}
 	}
 	%>
 		<!-- Start: Header -->
@@ -230,6 +235,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													</div>															
 												</div>
 											</div>
+											<% if (period_id!=null){%>
 											<hr class="bk-margin-off" />
 											<div class="bk-ltr bk-bg-white">
 												<div class="row">
@@ -297,6 +303,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													</div>															
 												</div>
 											</div>
+											<%}%>
 										</div>
 									</div>
 								</div>

@@ -248,7 +248,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="form-group" hidden="hidden">>
 								<label class="col-md-3 control-label text-vertical-center" for="text-input">创建者编号</label>
 								<div class="col-md-9">
-									<input type="text" value="0001" id="region_gener" name="gener_id" class="form-control" >
+									<input type="text" value="<%=session.getAttribute("SesId")%>" id="region_gener" name="gener_id" class="form-control" >
 								</div>
 							</div>
 							<div class="form-group">
@@ -303,7 +303,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<input type="text" id="region_range" name="range" class="form-control" value="0">
 								</div>
 							</div>
-							<button type="submit" class="btn btn-success col-md-12">提交</button>
+							<button id="add-region-button" type="submit" class="btn btn-success col-md-12">提交</button>
 						</form>
 						</div>
 					</div>

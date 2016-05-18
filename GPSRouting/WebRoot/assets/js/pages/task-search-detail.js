@@ -3,6 +3,7 @@
 $(document).ready(function(){
 	var allTimes = "00:00,02:00,04:00,06:00,08:00,10:00,12:00,14:00,16:00,18:00,20:00,22:00"
 	var usedTimes = new Array();
+	$("#shift-add-submit-button").hide();
 	$('#sheet-edit-form').submit(function() {
 	    // submit the form
 	    $(this).ajaxSubmit(function(message){
@@ -40,10 +41,18 @@ $(document).ready(function(){
 		$("#sheet-edit-intro").val($("#sheet-intro").text());
 	  
 	});
+	$('#shift-add-name').bind('input propertychange',function(){
+		if($(this).val().length==0){
+			$('#shift-add-submit-button').fadeOut();
+		}
+		else{
+			$("#shift-add-submit-button").fadeIn();
+		}
+	});
 	 
      $("#shift-add-submit-button").on("click",function(){
     	 var str = "";
-    	 var gener_id = "0001";
+    	 var gener_id = $("#period-add-time-gener").val();
     	 var sheet_id = $("#sheet-id").text();
     	 $("input[name='times']:checkbox").each(function(){ 
              
@@ -117,7 +126,6 @@ $(document).ready(function(){
      
      $(".sheet-add-period").on("click",function(){
     	 
-    	 $("#period-add-time-gener").val("0001");
     	 $("#period-add-time-sheet").val($("#sheet-id").text());
     	 $("#period-add-time-shift").val($(this).attr("value"));
     	 var shift = $(this).attr("value");

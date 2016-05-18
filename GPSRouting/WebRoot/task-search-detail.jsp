@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<% 
 	String shid = request.getParameter("sheet_id");
 	Sheet sht = Sheet.getOneSheet(shid);
-	String shiftString = Period.getShift(shid);
+		String shiftString = Period.getShift(shid);
 	String[] shifts = shiftString.split(",");
 	List<Period> prds = Period.getAllPeriod(shid);
 	String period_id = request.getParameter("period_id");
@@ -370,7 +370,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<form id = "addperiodtime" action="AddPeriodServlet" method="post" class="form-horizontal col-md-8 col-md-offset-2">
 							<div class="form-group" hidden = "hidden">
 							<input type="text" name="index" class="form-control" value="one" />
-							<input type="text" name="gener_id" id = "period-add-time-gener" class="form-control" />
+							<input type= "text" name="gener_id" id = "period-add-time-gener" class="form-control" value="<%=session.getAttribute("SesId")%>" />
 							<input type="text" name="sheet_id" id = "period-add-time-sheet" class="form-control" />
 							</div>
 							<div class="form-group" hidden = "hidden">

@@ -384,7 +384,7 @@ $("#search-trace-button").on('click',function(){
 
 function searchRoute(){
 	var id = $("#select_route_list").find("option:selected").val();
-	if (id = 'all'){
+	if (id == 'all'){
 		var chilcount = $("#select_route_list").children('option').length;
 	    for(var i = 1; i< chilcount; i++){
 			var $singleOpt = $("#select_route_list").find('option').eq(i); //获取option的内容

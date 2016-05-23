@@ -9,6 +9,8 @@ $(document).ready(function(){
 //		}
 //		
 //	});
+	$("#add-region-button").hide();
+
 	$(".region-delete").on("click",function(){
 		var region = $(this).attr("value");
 		if(confirm("确定要删除编号为"+region+"的设备?")){
@@ -46,6 +48,14 @@ $(document).ready(function(){
 		}
 		else{
 			$("#range_group").fadeIn();
+		}
+	});
+	$('#region_name').bind('input propertychange',function(){
+		if($(this).val().length==0){
+			$('#add-region-button').fadeOut();
+		}
+		else{
+			$("#add-region-button").fadeIn();
 		}
 	});
 	$('#addregion').submit(function() {

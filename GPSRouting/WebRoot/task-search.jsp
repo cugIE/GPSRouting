@@ -202,13 +202,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="form-group">
 									<label class="col-md-3 control-label">表名</label>
 									<div class="col-md-9">
-										<input type="text" name="name" class="form-control" />
+										<input id="add-sheet-name" type="text" name="name" class="form-control" />
 									</div>
 								</div>
 								<div class="form-group" hidden="hidden">
 									<label class="col-md-3 control-label">创建者名</label>
 									<div class="col-md-9">
-										<input type="text" name="gener_id" class="form-control" value="0001" />
+										<input type="text" name="gener_id" class="form-control" value="<%=session.getAttribute("SesId")%>" />
 									</div>
 								</div>
 								<% 
@@ -242,7 +242,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<textarea id="sheet-add-intro" name="intro" rows="4" class="form-control" placeholder="输入内容"></textarea>
 									</div>
 								</div>
-								<button type = "submit" class = "btn btn-success col-md-12">确认</button>											
+								<button id= "add-sheet-button" type = "submit" class = "btn btn-success col-md-12">确认</button>
 	
 							</form>
 						</div>

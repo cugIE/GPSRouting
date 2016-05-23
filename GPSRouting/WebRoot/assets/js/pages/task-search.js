@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	$('#add-sheet-button').hide();
 	$('#addsheetform').submit(function() {
 		// submit the form
 	    $(this).ajaxSubmit(function(message){
@@ -13,6 +14,14 @@ $(document).ready(function(){
 	    
 	    // return false to prevent normal browser submit and page navigation
 	    return false;
+	});
+	$('#add-sheet-name').bind('input propertychange',function(){
+		if($(this).val().length==0){
+			$('#add-sheet-button').fadeOut();
+		}
+		else{
+			$("#add-sheet-button").fadeIn();
+		}
 	});
 	$("td").delegate(".sheet-delete","click",function(){
 		var sheet_id = $(this).attr("value");

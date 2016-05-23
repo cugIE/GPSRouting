@@ -68,12 +68,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<% 
 	String shid = request.getParameter("sheet_id");
 	Sheet sht = Sheet.getOneSheet(shid);
-	String shiftString = Period.getShift(shid);
+		String shiftString = Period.getShift(shid);
 	String[] shifts = shiftString.split(",");
 	List<Period> prds = Period.getAllPeriod(shid);
 	String period_id = request.getParameter("period_id");
 	if (period_id ==null){
-		period_id=prds.get(0).getId();
+		if(prds.size()!=0) {
+			period_id = prds.get(0).getId();
+		}
+		else {
+			period_id = null;
+		}
 	}
 	%>
 		<!-- Start: Header -->
@@ -230,6 +235,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													</div>															
 												</div>
 											</div>
+											<% if (period_id!=null){%>
 											<hr class="bk-margin-off" />
 											<div class="bk-ltr bk-bg-white">
 												<div class="row">
@@ -297,6 +303,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													</div>															
 												</div>
 											</div>
+											<%}%>
 										</div>
 									</div>
 								</div>
@@ -363,7 +370,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<form id = "addperiodtime" action="AddPeriodServlet" method="post" class="form-horizontal col-md-8 col-md-offset-2">
 							<div class="form-group" hidden = "hidden">
 							<input type="text" name="index" class="form-control" value="one" />
-							<input type="text" name="gener_id" id = "period-add-time-gener" class="form-control" />
+							<input type= "text" name="gener_id" id = "period-add-time-gener" class="form-control" value="<%=session.getAttribute("SesId")%>" />
 							<input type="text" name="sheet_id" id = "period-add-time-sheet" class="form-control" />
 							</div>
 							<div class="form-group" hidden = "hidden">

@@ -86,8 +86,9 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("SesBranchId", p.getBranchId());
 				session.setAttribute("SesTeamId", p.getTeamId());*/
 			} else {
-				out.println("登录失败");
-			//	out.print("<script>" + "alert('登录失败');"+"document.location.href='login_defeat.jsp';"+ "</script>");
+			//	out.println("登录失败");
+				
+				out.print("<script>" + "alert('登录失败,用户名密码错误！');"+"document.location.href='login.jsp';"+ "</script>");
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

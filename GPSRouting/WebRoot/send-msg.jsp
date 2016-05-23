@@ -117,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<div class="col-md-5">
 											<!-- <input type="text" id="msg_content" name="msg_content"
 												 class="form-control" /> -->
-											<textarea id="msg_content" name="msg_cotent" class="form-control" rows="4"></textarea>
+											<textarea id="msg_content" name="msg_content" class="form-control" rows="4"></textarea>
 										</div>
 									</div>
 									

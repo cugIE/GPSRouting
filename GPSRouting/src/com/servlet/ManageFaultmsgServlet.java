@@ -60,6 +60,24 @@ public class ManageFaultmsgServlet extends HttpServlet {
 				// TODO: handle exception
 				e.printStackTrace();
 			}
+		}else if (action.equals("newfault")) {
+			String fault_title = request.getParameter("title");
+			String fault_word = request.getParameter("word");
+			String fault_time = request.getParameter("time");
+			String gener_id = request.getParameter("worker_id");
+			Faultmsg faultmsg = new Faultmsg();
+			faultmsg.setFaultTitle(fault_title);
+			faultmsg.setFaultWord(fault_word);
+			faultmsg.setFaultTime(fault_time);
+			faultmsg.setGenerId(gener_id);
+			PrintWriter out = response.getWriter();
+			try {
+				service.add(faultmsg);
+				out.print("1");
+			} catch (Exception e) {
+				// TODO: handle exception
+				out.print("0");
+			}
 		}
 	}
 

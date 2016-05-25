@@ -51,7 +51,7 @@
 							<i class="fa fa-envelope" aria-hidden="true"></i><span>信息管理</span>
 						</a>
 						<ul class="nav nav-children">
-							<li><a href="msg-board.jsp"><span class="text">警报</span></a></li>
+							<li><a href="alarm-msg.jsp"><span class="text">警报</span></a></li>
 							<li><a href="send-msg.jsp"><span class="text">公告</span></a></li>	
 							<li><a href="fault-msg.jsp"><span class="test">故障信息</span></a>
 						</ul>

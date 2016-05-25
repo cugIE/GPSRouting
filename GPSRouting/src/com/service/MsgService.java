@@ -47,4 +47,15 @@ public class MsgService {
 		FaultmsgDao dao = new FaultmsgDao();
 		return dao.faultcount();
 	}
+	
+	/**
+	 * 添加故障信息
+	 * @param faultmsg
+	 * @return
+	 * @throws SQLException
+	 */
+	public int add(Faultmsg faultmsg) throws SQLException{
+		FaultmsgDao dao = new FaultmsgDao();
+		return dao.add(faultmsg);
+	}
 }

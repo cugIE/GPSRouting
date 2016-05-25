@@ -112,4 +112,22 @@ public class FaultmsgDao {
 		}
 		return count;
 	}
+	
+	/**
+	 * @param faultmsg
+	 * @return
+	 * @throws SQLException
+	 */
+	public int add(Faultmsg faultmsg)throws SQLException{
+		String sql = "insert into faultmsg(title,word,time,gener_id) values ('" + faultmsg.getFaultTitle() +"','"
+				+ faultmsg.getFaultWord() +"','"
+				+ faultmsg.getFaultTime()+"','"
+				+ faultmsg.getGenerId()+ "')";
+		conn= DB.getConn();
+		stmt = conn.createStatement();
+		int result = stmt.executeUpdate(sql);
+		stmt.close();
+		conn.close();
+		return result;
+	}
 }

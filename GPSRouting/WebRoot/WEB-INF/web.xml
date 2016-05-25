@@ -138,6 +138,11 @@
     <servlet-name>ManageFaultmsgServlet</servlet-name>
     <servlet-class>com.servlet.ManageFaultmsgServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>PushAlarmServlet</servlet-name>
+    <servlet-class>com.servlet.PushAlarmServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -290,6 +295,10 @@
   <servlet-mapping>
     <servlet-name>ManageFaultmsgServlet</servlet-name>
     <url-pattern>/ManageFaultmsgServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PushAlarmServlet</servlet-name>
+    <url-pattern>/PushAlarmServlet</url-pattern>
   </servlet-mapping>
 
 

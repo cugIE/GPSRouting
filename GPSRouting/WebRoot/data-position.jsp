@@ -227,7 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- Plugins JS-->
 		<script src="<%=path%>/assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
 		<script src="<%=path%>/assets/plugins/moment/js/moment.min.js"></script>	
-				<script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+		<script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 		<script src="assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
 		<script src="assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>					
 		

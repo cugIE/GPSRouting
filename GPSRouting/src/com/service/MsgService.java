@@ -3,8 +3,13 @@ package com.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import sun.launcher.resources.launcher;
+
+import com.bean.AlarmMsg;
 import com.bean.Faultmsg;
+import com.dao.AlarmMsgDao;
 import com.dao.FaultmsgDao;
+import com.sun.swing.internal.plaf.metal.resources.metal;
 
 public class MsgService {
 	/**
@@ -40,12 +45,22 @@ public class MsgService {
 	}
 	
 	/**
+	 * 统计未读的故障信息条数
 	 * @return
 	 * @throws SQLException
 	 */
 	public int faultcount()throws SQLException {
 		FaultmsgDao dao = new FaultmsgDao();
 		return dao.faultcount();
+	}
+	
+	/**
+	 * @return
+	 * @throws SQLException
+	 */
+	public int Alarmscount()throws SQLException {
+		AlarmMsgDao dao = new AlarmMsgDao();
+		return dao.Alarmscount();
 	}
 	
 	/**
@@ -57,5 +72,25 @@ public class MsgService {
 	public int add(Faultmsg faultmsg) throws SQLException{
 		FaultmsgDao dao = new FaultmsgDao();
 		return dao.add(faultmsg);
+	}
+	
+	/**
+	 * 添加报警信息
+	 * @param alarmMsg
+	 * @return
+	 * @throws SQLException
+	 */
+	public int addAlarm(AlarmMsg alarmMsg)throws SQLException {
+		AlarmMsgDao dao = new AlarmMsgDao();
+		return dao.addAlarm(alarmMsg);
+	}
+	
+	/**
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<AlarmMsg> fillAlarm()throws SQLException {
+		AlarmMsgDao dao = new AlarmMsgDao();
+		return dao.fillAlarm();
 	}
 }

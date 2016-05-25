@@ -63,6 +63,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->		
 		<script src="<%=path%>/assets/plugins/modernizr/js/modernizr.js"></script>
+	     <!-- Baidu Map -->
+	    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=M7TQ1t1WsazHr9whomCjQ8rP"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/library/CurveLine/1.5/src/CurveLine.min.js"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
+		<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
 	    <!-- Baidu Map -->
 
 	</head>
@@ -98,7 +103,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="panel">
 								<div class="panel-heading bk-bg-primary">
 								<h6>
-									<i class="fa fa-table red"></i><span class="break"></span>警报信息
+									<i class="fa fa-table red"></i><span class="break"></span>警报位置
 								</h6>
 								<div class="panel-actions">
 									<a href="table.html#" class="btn-setting"><i
@@ -106,66 +111,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
 								</div>
 							</div>
-							<jsp:useBean id="alarmService" class="com.service.MsgService"
-								scope="session">
-							</jsp:useBean>
-							<jsp:useBean id="peoService" class="com.service.PeopleService"
-								scope="session"></jsp:useBean>
-							<%
-								List<AlarmMsg> projectlist1 = alarmService.fillAlarm();
-								Iterator<AlarmMsg> iterproject1 = projectlist1.iterator();
-							%>
+							
 							<div class="panel-body">
-								<div class="table-responsive">
-									<table
-										class="table table-hover">
-										<thead>
-											<tr>
-												<th>#</th>
-												<th>标题</th>
-												<th>时间</th>
-												<th>地点</th>
-												<th>提交人</th>
-												<th>状态</th>
-											</tr>
-										</thead>
-										<tbody>
-										<%
-											while(iterproject1.hasNext()){
-												AlarmMsg alarmMsg = iterproject1.next();
-											
-										%>
-										<%
-												String status = null;
-												String statusword = null;
-												if(alarmMsg.getState().equals("0")){
-													status="danger";
-													statusword="未查看"; 
-												}else {
-													status="default";
-													statusword="已查看";
-												}
-											%>
-											<tr>
-												<td><%=alarmMsg.getId() %></td>
-												<td>重要警报</td>
-												<td><%=alarmMsg.getAlarmTime() %></td>
-												<td><%=alarmMsg.getAlarmAddress() %></td>
-												<td>
-												<% 
-													People p = peoService.fill(alarmMsg.getGener_id());
-													String genername = p.getName();
-													out.print(genername);
-												%>
-												</td>
-												<td><a href="#"><span  class="label label-<%=status %>"><%=statusword %></span></a></td>
-											</tr>
-										<%
-											}
-										%>										
-										</tbody>
-									</table>
-								</div>
+								<div id="allmap"></div>	
 							</div>
 							</div>
 						</div>
@@ -214,16 +162,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- Plugins JS-->
 		<script src="<%=path%>/assets/plugins/jquery-ui/js/jquery-ui-1.10.4.min.js"></script>
 		<script src="<%=path%>/assets/plugins/moment/js/moment.min.js"></script>	
-		<script src="<%=path%>/assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>			
+		<script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+		<script src="assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+		<script src="assets/plugins/fullcalendar/js/fullcalendar.min.js"></script>			
 		
 		<!-- Theme JS -->		
 		<script src="<%=path%>/assets/js/jquery.mmenu.min.js"></script>
 		<script src="<%=path%>/assets/js/core.min.js"></script>
 		
 		<!-- Pages JS -->
-		<script src="<%=path%>/assets/js/pages/table.js"></script>
-		<script type="text/javascript" src="<%=path%>/assets/js/pages/device-map.js"></script>
-
+		<%-- <script src="<%=path%>/assets/js/pages/table.js"></script>
+		<script type="text/javascript" src="<%=path%>/assets/js/pages/device-map.js"></script> --%>
+		
+		
+		<script type="text/javascript" src="assets/js/pages/alarms-map.js"></script>
 		<!-- end: JavaScript-->
 		
 	</body>

@@ -28,7 +28,7 @@
 				<li>
 					<a href="alarm-msg.jsp" class="notification-icon">
 						<i class="fa fa-bell"></i>
-						<span class="badge">0</span>
+						<span class="badge"><%=service31.Alarmscount() %></span>
 					</a>
 					
 				</li>

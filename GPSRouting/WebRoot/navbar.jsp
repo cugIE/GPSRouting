@@ -26,7 +26,7 @@
 				</li>
 
 				<li>
-					<a href="alarm-msg.jsp" class="notification-icon">
+					<a href="alarm-msg.jsp" class="notification-icon alarm-fresh">
 						<i class="fa fa-bell"></i>
 						<span class="badge"><%=service31.Alarmscount() %></span>
 					</a>
@@ -67,3 +67,4 @@
 		<!-- End Navbar Right -->
 	</div>		
 </div>
+

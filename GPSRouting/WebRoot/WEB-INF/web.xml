@@ -142,6 +142,12 @@
     <servlet-name>PushAlarmServlet</servlet-name>
     <servlet-class>com.servlet.PushAlarmServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ControlAlarmsServlet</servlet-name>
+    <servlet-class>com.test.jin.ControlAlarmsServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
 
 
 
@@ -300,7 +306,11 @@
     <servlet-name>PushAlarmServlet</servlet-name>
     <url-pattern>/PushAlarmServlet</url-pattern>
   </servlet-mapping>
-
+  <!-- <servlet-mapping>
+    <servlet-name>ControlAlarmsServlet</servlet-name>
+    <url-pattern>/servlet/ControlAlarmsServlet</url-pattern>
+  </servlet-mapping>
+ -->
 
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

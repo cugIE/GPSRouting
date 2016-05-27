@@ -147,6 +147,11 @@
     <servlet-class>com.test.jin.ControlAlarmsServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
+  <servlet>
+    <servlet-name>FindAlarmpoiServlet</servlet-name>
+    <servlet-class>com.servlet.FindAlarmpoiServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -308,9 +313,13 @@
   </servlet-mapping>
   <!-- <servlet-mapping>
     <servlet-name>ControlAlarmsServlet</servlet-name>
-    <url-pattern>/servlet/ControlAlarmsServlet</url-pattern>
+    <url-pattern>/ControlAlarmsServlet</url-pattern>
+  </servlet-mapping>  -->
+  <servlet-mapping>
+    <servlet-name>FindAlarmpoiServlet</servlet-name>
+    <url-pattern>/FindAlarmpoiServlet</url-pattern>
   </servlet-mapping>
- -->
+
 
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

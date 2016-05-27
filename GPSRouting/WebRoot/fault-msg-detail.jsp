@@ -94,6 +94,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="row">		
 						<div class="col-lg-12">	
 							<div class="panel">
+							<jsp:useBean id="pService" class="com.service.PeopleService"
+								scope="session"></jsp:useBean>
 							<%
 								Faultmsg faultmsg = (Faultmsg)request.getAttribute("faultmsg");
 							%>
@@ -140,7 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<div class="form-group">
 											<label class="col-md-2 control-label">故障图片：</label>
 											<div class="col-md-6">
-												<img src="#" class="img-thumbnail" alt="Responsive image">
+												<img src=<%=faultmsg.getFaultUrL() %> class="img-thumbnail" alt="Responsive image">
 											</div>
 										</div>
 										<div class="form-group">
@@ -152,7 +154,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<div class="form-group">
 											<label class="col-md-2 control-label">上报人：</label>
 											<div class="col-md-10">
-												<p class="form-control-static"><%=faultmsg.getGenerId() %></p>
+												<p class="form-control-static"><% 
+													People p = pService.fill(faultmsg.getGenerId());
+													String genername = p.getName();
+													out.print(genername);
+												%></p>
 											</div>
 										</div>
 										<div class="form-group">

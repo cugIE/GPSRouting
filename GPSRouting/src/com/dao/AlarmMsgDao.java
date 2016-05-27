@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.bean.AlarmMsg;
+import com.bean.Branch;
 import com.util.DB;
 
 public class AlarmMsgDao {
@@ -25,8 +26,7 @@ public class AlarmMsgDao {
 	 * @throws SQLException
 	 */
 	public int addAlarm(AlarmMsg alarmMsg) throws SQLException{
-		String sql = "insert into alarmmsg(id,address,time,gener_id) values ('"+ alarmMsg.getId() +"','"
-				+ alarmMsg.getAlarmAddress() +"','" 
+		String sql = "insert into alarmmsg(address,time,gener_id) values ('"+ alarmMsg.getAlarmAddress() +"','" 
 				+ alarmMsg.getAlarmTime()+ "','"
 				+ alarmMsg.getGener_id()+"')";
 		conn = DB.getConn();
@@ -61,6 +61,29 @@ public class AlarmMsgDao {
 		stmt.close();
 		conn.close();
 		return list;
+	}
+	
+	public AlarmMsg fillAlarm(String id) throws SQLException{
+		AlarmMsg a = null;
+		String sql = "select * from alarmmsg where id=?";
+		conn = DB.getConn();
+		pre = conn.prepareStatement(sql);
+	    pre.setString(1, id);
+	    rs=pre.executeQuery();
+	    if (rs.next()) {
+			a = new AlarmMsg();
+			a.setId(rs.getString("id"));
+			a.setAlarmAddress(rs.getString("address"));
+			a.setAlarmTime(rs.getString("time"));
+			a.setState(rs.getString("state"));
+			a.setGener_id(rs.getString("gener_id"));
+		}
+	    rs.close();
+	    pre.close();
+	    conn.close();
+	    return a;
+	
+		
 	}
 	
 	/**

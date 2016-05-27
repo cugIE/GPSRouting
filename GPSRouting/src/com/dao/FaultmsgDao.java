@@ -119,9 +119,10 @@ public class FaultmsgDao {
 	 * @throws SQLException
 	 */
 	public int add(Faultmsg faultmsg)throws SQLException{
-		String sql = "insert into faultmsg(title,word,time,gener_id) values ('" + faultmsg.getFaultTitle() +"','"
+		String sql = "insert into faultmsg(title,word,time,url,gener_id) values ('" + faultmsg.getFaultTitle() +"','"
 				+ faultmsg.getFaultWord() +"','"
 				+ faultmsg.getFaultTime()+"','"
+				+ faultmsg.getFaultUrL() +"','"
 				+ faultmsg.getGenerId()+ "')";
 		conn= DB.getConn();
 		stmt = conn.createStatement();

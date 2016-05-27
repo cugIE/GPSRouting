@@ -158,7 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													out.print(genername);
 												%>
 												</td>
-												<td><a href="#"><span  class="label label-<%=status %>"><%=statusword %></span></a></td>
+												<td><a href="FindAlarmpoiServlet?id=<%=alarmMsg.getId() %>"><span  class="label label-<%=status %>"><%=statusword %></span></a></td>
 											</tr>
 										<%
 											}

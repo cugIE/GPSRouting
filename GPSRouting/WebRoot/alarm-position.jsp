@@ -111,8 +111,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
 								</div>
 							</div>
-							
-							<div class="panel-body">
+							<%
+								AlarmMsg alarmMsg = (AlarmMsg)request.getAttribute("alarmMsg");
+								String gps = alarmMsg.getAlarmAddress();
+								String[] split = gps.split(",");
+								String longitude = split[0].toString();
+								String latitude = split[1].toString();  
+							%>
+							<div class="panel-body">								
+								<div id="a" display:none>
+								<a class="btn Alarm-longitude" value="<%=longitude %>"></a>
+								<a class="btn Alarm-latitde" value="<%=latitude %>"></a>
+								</div>
 								<div id="allmap"></div>	
 							</div>
 							</div>

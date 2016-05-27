@@ -64,11 +64,13 @@ public class ManageFaultmsgServlet extends HttpServlet {
 			String fault_title = request.getParameter("title");
 			String fault_word = request.getParameter("word");
 			String fault_time = request.getParameter("time");
+			String picture_url =  request.getParameter("pic_url");
 			String gener_id = request.getParameter("worker_id");
 			Faultmsg faultmsg = new Faultmsg();
 			faultmsg.setFaultTitle(fault_title);
 			faultmsg.setFaultWord(fault_word);
 			faultmsg.setFaultTime(fault_time);
+			faultmsg.setFaultUrL(picture_url);
 			faultmsg.setGenerId(gener_id);
 			PrintWriter out = response.getWriter();
 			try {

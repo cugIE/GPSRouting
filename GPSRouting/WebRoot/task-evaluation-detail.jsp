@@ -212,8 +212,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														<div class="bk-bg-white text-center bk-padding-top-20 bk-padding-bottom-10">
 															<div class="row">
 																<div class="text-left bk-padding-left-10 ">
-																	<h4 class="bk-margin-off">图片记录</h4>
-																	            
+																	<h4 class="bk-margin-off">图片记录</h4>							            
 																</div>
 									
 															</div>

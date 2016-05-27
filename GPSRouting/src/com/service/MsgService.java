@@ -93,4 +93,14 @@ public class MsgService {
 		AlarmMsgDao dao = new AlarmMsgDao();
 		return dao.fillAlarm();
 	}
+	
+	/**
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
+	public AlarmMsg fillAlarm(String id)throws SQLException {
+		AlarmMsgDao dao = new AlarmMsgDao();
+		return dao.fillAlarm(id);
+	}
 }

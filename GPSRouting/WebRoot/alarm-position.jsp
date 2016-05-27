@@ -111,6 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										class="btn-minimize"><i class="fa fa-chevron-up"></i></a>
 								</div>
 							</div>
+							<jsp:useBean id="peopService" class="com.service.PeopleService" scope="session"></jsp:useBean>
 							<%
 								AlarmMsg alarmMsg = (AlarmMsg)request.getAttribute("alarmMsg");
 								String gps = alarmMsg.getAlarmAddress();
@@ -118,12 +119,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								String longitude = split[0].toString();
 								String latitude = split[1].toString();  
 							%>
-							<div class="panel-body">								
+							<div class="panel-body">	
+								<div id="allmap"></div>								
 								<div id="a" display:none>
 								<a class="btn Alarm-longitude" value="<%=longitude %>"></a>
 								<a class="btn Alarm-latitde" value="<%=latitude %>"></a>
-								</div>
-								<div id="allmap"></div>	
+								<a class="btn Alarm-time" value="<%=alarmMsg.getAlarmTime() %>"></a>
+								<a class="btn Alarm-genername" value="
+								<%
+									People p = peopService.fill(alarmMsg.getGener_id());
+									String generName = p.getName();
+									out.print(generName);
+								%>"></a>
+								</div>							
 							</div>
 							</div>
 						</div>

@@ -242,8 +242,24 @@
 											<tr>
 												<td><%=people1.getUsername()%></td>
 												<td><%=people1.getName()%></td>
-												<td><%=people1.getTeamId()%></td>
-												<td><%=people1.getBranchId()%></td>
+												<td>
+												<% 
+											if(people1.getTeamId().equals("0001")){
+												out.print("管理员");
+											}else if(people1.getTeamId().equals("0002")){
+												out.print("工程师");				
+											}else if(people1.getTeamId().equals("0003")){
+												out.print("值班干部");
+											}else if(people1.getTeamId().equals("0004")){
+												out.print("值班员");
+											}else{
+												out.print("巡检员");
+											}
+										%></td>
+												<td><% Branch bra = service5.fill(people1.getBranchId());
+														String branchName = bra.getBranchName();
+														out.print(branchName);
+												%></td>
 												<td><%=people1.getPeopRemark()%></td>
 												<td><a class="btn btn-success"
 													href="ManagePeopleServlet?id=<%=people1.getId()%>&action=list2">

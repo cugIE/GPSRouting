@@ -45,6 +45,16 @@ public class MsgService {
 	}
 	
 	/**
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
+	public int updateAlarm(String id)throws SQLException {
+		AlarmMsgDao dao = new AlarmMsgDao();
+		return dao.updateAlarm(id);
+	}
+	
+	/**
 	 * 统计未读的故障信息条数
 	 * @return
 	 * @throws SQLException

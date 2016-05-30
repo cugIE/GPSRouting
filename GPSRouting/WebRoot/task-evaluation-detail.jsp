@@ -226,7 +226,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 															for(int i = 0; i<pics.length;i++){
 														%>
 
-														<div class="col-xs-4 col-md-3">
+														<div class="col-xs-4 col-md-3 bk-padding-bottom-10">
 
 														<a href="<%=pics[i] %>" class="thumbnail">
 														  <img src="<%=pics[i] %>" alt="点击查看原图">
@@ -240,6 +240,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													</div>
 												</div>
 											</div>
+											<hr class="bk-margin-off" />
 											<div class="bk-ltr bk-bg-white">
 												<div class="row">
 													<div class="col-md-12">

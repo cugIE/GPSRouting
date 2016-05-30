@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"  
-import="com.bean.Record" 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+import="com.bean.Record"
 import="net.sf.json.*"
 pageEncoding="UTF-8"%>
 <%
@@ -212,17 +212,59 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														<div class="bk-bg-white text-center bk-padding-top-20 bk-padding-bottom-10">
 															<div class="row">
 																<div class="text-left bk-padding-left-10 ">
-																	<h4 class="bk-margin-off">图片记录</h4>							            
+																	<h4 class="bk-margin-off">图片记录</h4>
 																</div>
 									
 															</div>
 														</div>
-															<div class="col-xs-6 col-md-3">
-															<a href="<%=rcd.getPicture() %>" class="thumbnail">
-														      <img src="<%=rcd.getPicture() %>" alt="点击查看原图">
-														    </a>
-														    </div>
-													</div>															
+														<%
+															String picandvedio = rcd.getPicture();
+															JSONObject jsonObjecttemp = JSONObject.fromObject(picandvedio);
+															String pic = (String) jsonObjecttemp.get("picture");
+															String[] pics = pic.split(",");
+
+															for(int i = 0; i<pics.length;i++){
+														%>
+
+														<div class="col-xs-4 col-md-3">
+
+														<a href="<%=pics[i] %>" class="thumbnail">
+														  <img src="<%=pics[i] %>" alt="点击查看原图">
+														</a>
+
+														</div>
+														<%
+															}
+														%>
+
+													</div>
+												</div>
+											</div>
+											<div class="bk-ltr bk-bg-white">
+												<div class="row">
+													<div class="col-md-12">
+														<div class="bk-bg-white text-center bk-padding-top-20 bk-padding-bottom-10">
+															<div class="row">
+																<div class="text-left bk-padding-left-10 ">
+																	<h4 class="bk-margin-off">视频记录</h4>
+																</div>
+
+															</div>
+														</div>
+														<% if(jsonObjecttemp.get("vedio")!=null){
+														%>
+														<div class="col-xs-4 col-md-3">
+
+															<video  controls="controls">
+																<source src="<%=jsonObjecttemp.get("vedio") %>" type="video/mp4" >视频</source>
+																您的浏览器不支持video标签
+															</video>
+
+														</div>
+														<%
+															}
+														%>
+													</div>
 												</div>
 											</div>
 											<hr class="bk-margin-off" />

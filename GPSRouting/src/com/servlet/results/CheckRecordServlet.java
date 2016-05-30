@@ -41,12 +41,13 @@ public class CheckRecordServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String record_id = request.getParameter("record_id");
 		String checker = (String) request.getSession().getAttribute("SesName");
+		String comment = request.getParameter("comment");
 		try {
 			if(record_id == null || checker==null){
 				OutputHelper.StringOutPut("error", response);
 				return;
 			}
-			int result = Record.checkOneRecord(checker, record_id);
+			int result = Record.checkOneRecord(checker, record_id,comment);
 			if (result==0){
 				OutputHelper.StringOutPut("error", response);
 				return;

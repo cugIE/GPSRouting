@@ -71,6 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<% 
 	String record_id = request.getParameter("record_id");
 	Record rcd= new Record();
+		int team = (int) request.getSession().getAttribute("SesTeamId");
 	if (record_id!=null){
 	 rcd = Record.getOneRecord(record_id);
 	}
@@ -219,10 +220,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														</div>
 														<%
 															String picandvedio = rcd.getPicture();
-															JSONObject jsonObjecttemp = JSONObject.fromObject(picandvedio);
-															String pic = (String) jsonObjecttemp.get("picture");
-															String[] pics = pic.split(",");
+															String pic = "";
+															JSONObject jsonObjecttemp = new JSONObject();
+															try {
+																jsonObjecttemp = JSONObject.fromObject(picandvedio);
+																pic = (String) jsonObjecttemp.get("picture");
+															}
+															catch (JSONException JSE){
+																JSE.printStackTrace();
+															}
 
+															String[] pics = pic.split(",");
 															for(int i = 0; i<pics.length;i++){
 														%>
 
@@ -302,7 +310,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														</div>
 													</div>
 													<%
-													JSONArray JA = JSONArray.fromObject(rcd.getAsws());
+													 JSONArray JA = JSONArray.fromObject(rcd.getAsws());
 													 %>
 													 
 													<div class="col-md-10 col-md-offset-1">
@@ -339,10 +347,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												</div>
 											</div>
 											<div class="col-md-12">
+
 												<h6 class="text-danger text-center">共<%=rcd.getError() %>个问题不符合正常情况</h6>
+												<% if(rcd.getComment()==""||rcd.getComment()==null){ if (team<=3){%>
+
+												<div class="col-md-8 col-md-offset-2">
+													<textarea id="record-comment" name="intro" rows="4" class="form-control" placeholder="输入评论内容"></textarea>
+												</div>
 												<a class="col-md-6 col-md-offset-3 btn btn-success " id = "check-button" href="#">
-													<i class="fa fa-check"></i>                                            
-												</a>            
+													<i class="fa fa-check"></i>
+												</a>
+												<%}}else{%>
+
+												<h4 class="text-primary text-center bk-margin-10">审核评论</h4>
+												<p class="text-primary text-center col-md-8 col-md-offset-2"><%=rcd.getComment()%></p>
+												<%}%>
+
 											</div> 
 										</div>
 									</div>
@@ -351,11 +371,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 					</div>   
 				</div>
-				<!-- End Main Page -->	
-		
+				<!-- End Main Page -->
 				<!-- Usage -->
-				
-			
 			</div>
 		</div><!--/container-->
 		

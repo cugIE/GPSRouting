@@ -477,7 +477,7 @@ public class Record {
 					+ "checker_name = '" + checker + "', "
 					+ "record_status = '1', "
 					+ "record_check_time = '" +new Timestamp(System.currentTimeMillis()).toString()+ "', "
-					+ "record_comment = "+ comment + "' "
+					+ "record_comment = '"+ comment + "' "
 					+ "where record_id = " + id;
 			DBHelper dbh = new DBHelper();
 			int result = dbh.updateDatabase(sql);

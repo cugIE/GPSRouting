@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"  
-import="com.bean.Record" 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+import="com.bean.Record"
 import="net.sf.json.*"
 pageEncoding="UTF-8"%>
 <%
@@ -71,6 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<% 
 	String record_id = request.getParameter("record_id");
 	Record rcd= new Record();
+		int team = (int) request.getSession().getAttribute("SesTeamId");
 	if (record_id!=null){
 	 rcd = Record.getOneRecord(record_id);
 	}
@@ -212,17 +213,67 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														<div class="bk-bg-white text-center bk-padding-top-20 bk-padding-bottom-10">
 															<div class="row">
 																<div class="text-left bk-padding-left-10 ">
-																	<h4 class="bk-margin-off">图片记录</h4>							            
+																	<h4 class="bk-margin-off">图片记录</h4>
 																</div>
 									
 															</div>
 														</div>
-															<div class="col-xs-6 col-md-3">
-															<a href="<%=rcd.getPicture() %>" class="thumbnail">
-														      <img src="<%=rcd.getPicture() %>" alt="点击查看原图">
-														    </a>
-														    </div>
-													</div>															
+														<%
+															String picandvedio = rcd.getPicture();
+															String pic = "";
+															JSONObject jsonObjecttemp = new JSONObject();
+															try {
+																jsonObjecttemp = JSONObject.fromObject(picandvedio);
+																pic = (String) jsonObjecttemp.get("picture");
+															}
+															catch (JSONException JSE){
+																JSE.printStackTrace();
+															}
+
+															String[] pics = pic.split(",");
+															for(int i = 0; i<pics.length;i++){
+														%>
+
+														<div class="col-xs-4 col-md-3 bk-padding-bottom-10">
+
+														<a href="<%=pics[i] %>" class="thumbnail">
+														  <img src="<%=pics[i] %>" alt="点击查看原图">
+														</a>
+
+														</div>
+														<%
+															}
+														%>
+
+													</div>
+												</div>
+											</div>
+											<hr class="bk-margin-off" />
+											<div class="bk-ltr bk-bg-white">
+												<div class="row">
+													<div class="col-md-12">
+														<div class="bk-bg-white text-center bk-padding-top-20 bk-padding-bottom-10">
+															<div class="row">
+																<div class="text-left bk-padding-left-10 ">
+																	<h4 class="bk-margin-off">视频记录</h4>
+																</div>
+
+															</div>
+														</div>
+														<% if(jsonObjecttemp.get("vedio")!=null){
+														%>
+														<div class="col-xs-4 col-md-3">
+
+															<video  controls="controls">
+																<source src="<%=jsonObjecttemp.get("vedio") %>" type="video/mp4" >视频</source>
+																您的浏览器不支持video标签
+															</video>
+
+														</div>
+														<%
+															}
+														%>
+													</div>
 												</div>
 											</div>
 											<hr class="bk-margin-off" />
@@ -259,7 +310,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 														</div>
 													</div>
 													<%
-													JSONArray JA = JSONArray.fromObject(rcd.getAsws());
+													 JSONArray JA = JSONArray.fromObject(rcd.getAsws());
 													 %>
 													 
 													<div class="col-md-10 col-md-offset-1">
@@ -296,10 +347,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												</div>
 											</div>
 											<div class="col-md-12">
+
 												<h6 class="text-danger text-center">共<%=rcd.getError() %>个问题不符合正常情况</h6>
+												<% if(rcd.getComment()==""||rcd.getComment()==null){ if (team<=3){%>
+
+												<div class="col-md-8 col-md-offset-2">
+													<textarea id="record-comment" name="intro" rows="4" class="form-control" placeholder="输入评论内容"></textarea>
+												</div>
 												<a class="col-md-6 col-md-offset-3 btn btn-success " id = "check-button" href="#">
-													<i class="fa fa-check"></i>                                            
-												</a>            
+													<i class="fa fa-check"></i>
+												</a>
+												<%}}else{%>
+
+												<h4 class="text-primary text-center bk-margin-10">审核评论</h4>
+												<p class="text-primary text-center col-md-8 col-md-offset-2"><%=rcd.getComment()%></p>
+												<%}%>
+
 											</div> 
 										</div>
 									</div>
@@ -308,11 +371,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 					</div>   
 				</div>
-				<!-- End Main Page -->	
-		
+				<!-- End Main Page -->
 				<!-- Usage -->
-				
-			
 			</div>
 		</div><!--/container-->
 		

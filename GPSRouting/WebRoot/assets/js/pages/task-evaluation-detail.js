@@ -11,9 +11,11 @@ $(document).ready(function(){
 	}
 $("#check-button").on("click", function(){
 	var record_id = $("#eva-record-id").text();
+	var comment =$("#record-comment").val();
 	if(confirm("确定审核完毕？")){
 		$.post("CheckRecordServlet",{
 			record_id : record_id,
+			comment : comment
 		},function(data, status){
 			if(data=="1"){
 				alert("成功");

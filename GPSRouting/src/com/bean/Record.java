@@ -26,6 +26,7 @@ public class Record {
 	private int gener_id;
 	private String gener;
 	private String status;
+	private String comment;
 	private int checker_id;
 	private String checker;
 	private String note;
@@ -57,6 +58,15 @@ public class Record {
 		this.check = null;
 		this.type = null;
 		this.branch = null;
+		this.comment = null;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	public int getBranch_id() {
@@ -458,7 +468,7 @@ public class Record {
 			return result;
 		}
 	}
-	public static int checkOneRecord(String checker, String id) throws SQLException{
+	public static int checkOneRecord(String checker, String id, String comment) throws SQLException{
 		if (id == null){
 			return -1;
 		}
@@ -466,7 +476,8 @@ public class Record {
 			String sql = "update record set "
 					+ "checker_name = '" + checker + "', "
 					+ "record_status = '1', "
-					+ "record_check_time = '" +new Timestamp(System.currentTimeMillis()).toString()+ "' "
+					+ "record_check_time = '" +new Timestamp(System.currentTimeMillis()).toString()+ "', "
+					+ "record_comment = '"+ comment + "' "
 					+ "where record_id = " + id;
 			DBHelper dbh = new DBHelper();
 			int result = dbh.updateDatabase(sql);
@@ -488,7 +499,7 @@ public class Record {
 		}
 	}
 	public static Record getOneRecord(String rcdid) throws SQLException{
-		String sql = "SELECT record_id, record_gps, record_asws, record_error, record_picture, record_start, record_end, record_submit, record.ptr_id, region.region_name, period.period_shift, period.period_time, record.gener_id, people_name, record_status, checker_name, record_note, record_check_time, region.region_type, branch.branch_name "
+		String sql = "SELECT record_id, record_gps, record_asws, record_error, record_picture, record_start, record_end, record_submit, record.ptr_id, region.region_name, period.period_shift, period.period_time, record.gener_id, people_name, record_status, checker_name, record_note, record_check_time, region.region_type, branch.branch_name, record_comment "
 				+ "FROM ( ( ( (`record`  "
 				+ "inner join people "
 				+ "on record.gener_id = people.people_id ) "
@@ -525,6 +536,7 @@ public class Record {
 			rcrd.setCheck(rs.getTimestamp(18));
 			rcrd.setType(rs.getString(19));
 			rcrd.setBranch(rs.getString(20));
+			rcrd.setComment(rs.getString(21));
 			dbh.DBClose();
 			return rcrd;
 		}

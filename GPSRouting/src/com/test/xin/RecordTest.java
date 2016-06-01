@@ -84,7 +84,7 @@ public class RecordTest {
 //	@Test
 	public void testCheck(){
 		try {
-			assertEquals(1,Record.checkOneRecord("李欣","5"));
+			assertEquals(1,Record.checkOneRecord("李欣","5", null));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -145,7 +145,7 @@
   <servlet>
     <servlet-name>ControlAlarmsServlet</servlet-name>
     <servlet-class>com.test.jin.ControlAlarmsServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
+    
   </servlet>
   <servlet>
     <servlet-name>FindAlarmpoiServlet</servlet-name>

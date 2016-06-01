@@ -7,6 +7,7 @@ public class Faultmsg {
 	private String faultUrL;
 	private String faultTime;
 	private String faultState;
+	private String dutyPeople;
 	private String generId;
 	public String getId() {
 		return id;
@@ -43,6 +44,12 @@ public class Faultmsg {
 	}
 	public void setFaultState(String faultState) {
 		this.faultState = faultState;
+	}
+	public String getDutyPeople() {
+		return dutyPeople;
+	}
+	public void setDutyPeople(String dutyPeople) {
+		this.dutyPeople = dutyPeople;
 	}
 	public String getGenerId() {
 		return generId;

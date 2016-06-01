@@ -108,6 +108,18 @@ public class ManagePeopleServlet extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		} else if (action.equals("branchpeople")) {
+			String branchid = request.getParameter("selbraid");
+			System.out.println("员工所属部门id:"+branchid);
+			try {
+				
+		//		List<People> listpeo = service.findPeo(branchid);
+				request.setAttribute("branchid", branchid);
+				request.getRequestDispatcher("data-brapeople.jsp").forward(request, response);
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
 		}
 		/**
 		 * 修改

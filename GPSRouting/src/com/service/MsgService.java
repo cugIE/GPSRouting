@@ -84,6 +84,10 @@ public class MsgService {
 		return dao.add(faultmsg);
 	}
 	
+	public int handlefault(String fault_id,String duty_man)throws SQLException {
+		FaultmsgDao dao = new FaultmsgDao();
+		return dao.handleFault(fault_id, duty_man);
+	}
 	/**
 	 * 添加报警信息
 	 * @param alarmMsg

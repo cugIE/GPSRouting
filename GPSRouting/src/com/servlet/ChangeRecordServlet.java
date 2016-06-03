@@ -61,6 +61,7 @@ public class ChangeRecordServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String record_id = request.getParameter("record_id");
+		System.out.println(record_id);
 		if (record_id!=null){
 			try {
 				String asws = request.getParameter("asws");
@@ -70,7 +71,8 @@ public class ChangeRecordServlet extends HttpServlet {
 				String note = request.getParameter("note");
 				String submit_time = request.getParameter("submit_time");
 				Record rcd = Record.getOneRecord(record_id);
-				JSONObject jsonObject = new JSONObject();
+
+				JSONObject jsonObject = JSONObject.fromObject(rcd.getPicture());
 				if (asws!=null){
 					rcd.setAsws(asws);
 				}
@@ -82,20 +84,16 @@ public class ChangeRecordServlet extends HttpServlet {
 				}
 				if (picture!=null){
 					jsonObject.put("picture", picture);
-				}
-				else{
-					jsonObject.put("picture", "");
+					rcd.setPicture(jsonObject.toString());
 				}
 				if (vedio!=null){
 					jsonObject.put("vedio", vedio);
-				}
-				else {
-					jsonObject.put("vedio","");
+					rcd.setPicture(jsonObject.toString());
 				}
 				if (submit_time!=null){
 					rcd.setSubmit(Timestamp.valueOf(submit_time));
 				}
-				rcd.setPicture(jsonObject.toString());
+
 				int result = Record.changeOneRecord(rcd);
 				OutputHelper.StringOutPut(""+result, response);
 			} catch (SQLException e) {

@@ -62,8 +62,21 @@ public class AddRecordServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String RecordStr = request.getParameter("record");
 		JSONObject jso = JSONObject.fromObject(RecordStr);
+		JSONObject temp  = new JSONObject();
 		Record rcd = new Record();
 		try {
+			if(jso.get("picture")!=null){
+				temp.put("picture",jso.get("picture"));
+			}
+			else{
+				temp.put("picture","");
+			}
+			if(jso.get("vedio")!=null){
+				temp.put("vedio",jso.get("vedio"));
+			}
+			else{
+				temp.put("vedio","");
+			}
 //			String sql = "insert into record"
 //					+ "(record_gps, record_asws, record_error, record_picture, "
 //					+ "record_start, record_end, ptr_id, "
@@ -80,7 +93,7 @@ public class AddRecordServlet extends HttpServlet {
 			rcd.setGps(jso.getString("gps"));
 			rcd.setAsws(jso.getString("asws"));
 			rcd.setError(jso.getString("error"));
-			rcd.setPicture(jso.getString("picture"));
+			rcd.setPicture(temp.toString());
 			rcd.setStart(Timestamp.valueOf(jso.getString("start")));
 			rcd.setEnd(Timestamp.valueOf(jso.getString("end")));
 			rcd.setPtr_id(jso.getInt("ptr_id"));

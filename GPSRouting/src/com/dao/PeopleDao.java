@@ -50,7 +50,38 @@ public class PeopleDao {
 		conn.close();
 		return list;
 	}
-
+	
+	/**
+	 * 根据部门查询人员
+	 * @param branchid
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<People> findPeo(String branchid)throws SQLException {
+		List<People> list = new ArrayList<People>();
+		String sql =  "select * from people where branch_id=?";
+		conn = DB.getConn();
+		pre = conn.prepareStatement(sql);
+		pre.setString(1, branchid);
+		rs = pre.executeQuery();
+		People p = null;
+		if (rs.next()) {
+			p = new People();
+			p.setId(rs.getString("people_id"));
+			p.setUsername(rs.getString("people_username"));
+			p.setName(rs.getString("people_name"));
+			p.setPassword(rs.getString("people_password"));
+			p.setCode(rs.getString("people_code"));
+			p.setBranchId(rs.getString("branch_id"));
+			p.setPeopRemark(rs.getString("people_remark"));
+			p.setTeamId(rs.getString("team_id"));
+			list.add(p);
+		}
+		rs.close();
+        pre.close();
+        conn.close();
+        return list;
+	}
 	/**
 	 * 添加人员信息
 	 * 
@@ -110,7 +141,7 @@ public class PeopleDao {
         conn.close();
         return p;
     }
-
+	
 	/**
 	 * 检查用户名和密码
 	 * 

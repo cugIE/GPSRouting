@@ -117,17 +117,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<%
 												String status = null;
 												String statusword = null;
+												String clickstatus = null;
 												if(faultmsg.getFaultState().equals("0")){
 													status="success";
 													statusword="未读"; 
+													clickstatus = null;
 												}else {
 													status="default";
 													statusword="已读";
+													clickstatus = "disabled";
 												}
 											%>
 										<form class= "form-horizontal" action="ManageFaultmsgServlet?action=updatestatus" method="post">
 										<div class="form-group">
-											<label class="col-md-2 control-label">故障标题：</label>
+											<label class="col-md-2 control-label"><strong>故障标题：</strong></label>
 											<div class="col-md-10">
 												<p class="form-control-static"><%=faultmsg.getFaultTitle() %></p>
 												<input type="hidden" id="faultid" name="faultid" value=<%=faultmsg.getId() %>>
@@ -162,9 +165,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											</div>
 										</div>
 										<div class="form-group">
+											<label class="col-md-2 control-label">处理故障人员：</label>
+											<div class="col-md-10">
+												<p class="form-control-static"><%=faultmsg.getDutyPeople() %></p>
+											</div>
+										</div>
+										<div class="form-group">
 											<label class="col-md-2 control-label"></label>
 											<div class="col-md-6">
-												<button type="submit" class="btn btn-<%=status %> btn-sm btn-block"><%=statusword %></button>
+												<button type="submit" class="btn btn-<%=status %> btn-sm btn-block" <%=clickstatus %>><%=statusword %></button>
 											</div>
 										</div>
 										</form>

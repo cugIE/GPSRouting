@@ -103,4 +103,22 @@ public class AlarmMsgDao {
 		}
 		return count;
 	}
+	
+	/**
+	 * 根据警报信息id更新状态
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
+	public int updateAlarm(String id) throws SQLException{
+		String sql = "UPDATE alarmmsg SET state=? WHERE id=?";
+		conn=DB.getConn();
+		pre = conn.prepareStatement(sql);
+		pre.setString(1, "1");
+		pre.setString(2, id);
+		int count =pre.executeUpdate();
+		pre.close();
+		conn.close();
+		return count;
+	}
 }

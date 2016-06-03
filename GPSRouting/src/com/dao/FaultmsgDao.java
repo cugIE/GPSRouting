@@ -39,6 +39,7 @@ public class FaultmsgDao {
         	f.setFaultTime(rs.getString("time"));
         	f.setFaultState(rs.getString("state"));
         	f.setFaultUrL(rs.getString("url"));
+        	f.setDutyPeople(rs.getString("duty_man"));
         	f.setGenerId(rs.getString("gener_id"));
         	list.add(f);
             
@@ -69,6 +70,7 @@ public class FaultmsgDao {
         	f.setFaultTime(rs.getString("time"));
         	f.setFaultState(rs.getString("state"));
         	f.setFaultUrL(rs.getString("url"));
+        	f.setDutyPeople(rs.getString("duty_man"));
         	f.setGenerId(rs.getString("gener_id"));
         }
         rs.close();
@@ -130,5 +132,24 @@ public class FaultmsgDao {
 		stmt.close();
 		conn.close();
 		return result;
+	}
+	
+	/**
+	 * 添加故障责任人
+	 * @param faultid
+	 * @param dutyman
+	 * @return
+	 * @throws SQLException
+	 */
+	public int handleFault(String faultid,String dutyman) throws SQLException{
+		String sql = "UPDATE faultmsg SET duty_man=? WHERE id=?";
+		conn=DB.getConn();
+		pre = conn.prepareStatement(sql);
+		pre.setString(1, dutyman);
+		pre.setString(2, faultid);
+		int count =pre.executeUpdate();
+		pre.close();
+		conn.close();
+		return count;
 	}
 }

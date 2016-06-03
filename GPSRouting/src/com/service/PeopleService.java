@@ -29,7 +29,10 @@ public class PeopleService {
         PeopleDao dao=new PeopleDao();    
         return dao.fill(Id);
     }
-    
+    public List<People> findPeo(String branchid) throws SQLException{
+		PeopleDao dao = new PeopleDao();
+		return dao.findPeo(branchid);
+	}
     /**
      * 修改
      * @param people

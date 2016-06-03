@@ -39,7 +39,7 @@ public class ManagePeopleServlet extends HttpServlet {
 		System.out.println("方法：" + action);
 		System.out.println("方法id：" + id);
 		
-		Logger log = Logger.getLogger(ManageBranchServlet.class);
+		Logger log = Logger.getLogger(ManagePeopleServlet.class);
 		/**
 		 * 添加
 		 */
@@ -77,7 +77,7 @@ public class ManagePeopleServlet extends HttpServlet {
 				PrintWriter out = response.getWriter();
 				out.print("<script>" + "alert('添加成功');"+ "document.location.href='data-people.jsp';"+ "</script>");
 			//	out.print("添加成功");
-				log.error("新增人员");
+				log.error("新增人员信息");
 			} catch (SQLException e) {
 				PrintWriter out = response.getWriter();
 				out.print("<script>" + "alert('添加失败');"+ "document.location.href='data-people.jsp';"+ "</script>");
@@ -106,6 +106,18 @@ public class ManagePeopleServlet extends HttpServlet {
 				request.getRequestDispatcher("data-people.jsp").forward(request,
 						response);
 			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (action.equals("branchpeople")) {
+			String branchid = request.getParameter("selbraid");
+			System.out.println("员工所属部门id:"+branchid);
+			try {
+				
+		//		List<People> listpeo = service.findPeo(branchid);
+				request.setAttribute("branchid", branchid);
+				request.getRequestDispatcher("data-brapeople.jsp").forward(request, response);
+			} catch (Exception e) {
+				// TODO: handle exception
 				e.printStackTrace();
 			}
 		}
@@ -149,8 +161,8 @@ public class ManagePeopleServlet extends HttpServlet {
 			try {
 				peopleService.update(p);
 				PrintWriter out = response.getWriter();
-				out.print("修改成功");
-
+				out.print("<script>" + "alert('修改成功！');"+ "document.location.href='data-people.jsp';"+ "</script>");
+				log.error("修改人员信息");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -186,6 +198,7 @@ public class ManagePeopleServlet extends HttpServlet {
 				service.delete(id1);
 			//	response.sendRedirect("deletesuccess");
 				response.sendRedirect("ManagePeopleServlet?action=list");
+				log.error("删除人员信息");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

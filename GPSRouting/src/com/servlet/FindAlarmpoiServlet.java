@@ -35,6 +35,7 @@ public class FindAlarmpoiServlet extends HttpServlet {
 		
 		MsgService service = new MsgService();
 		try {
+			service.updateAlarm(id);
 			AlarmMsg alarmMsg = service.fillAlarm(id);
 			request.setAttribute("alarmMsg", alarmMsg);
 			request.getRequestDispatcher("alarm-position.jsp").forward(request, response);

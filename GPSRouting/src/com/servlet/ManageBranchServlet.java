@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.bean.Branch;
 import com.service.BranchService;
 
@@ -74,6 +76,8 @@ public class ManageBranchServlet extends javax.servlet.http.HttpServlet implemen
         String id = request.getParameter("id");
         System.out.println("方法："+action);
         System.out.println("方法id："+id);
+        
+        Logger log = Logger.getLogger(ManageBranchServlet.class);
         /**
          * 添加
          */
@@ -102,6 +106,7 @@ public class ManageBranchServlet extends javax.servlet.http.HttpServlet implemen
                 PrintWriter out = response.getWriter();
                 //out.print("添加成功");
                 out.print("<script>" + "alert('添加成功');"+ "document.location.href='data-newbranch.jsp';"+ "</script>");
+                log.error("新增部门信息");
             } catch (SQLException e) {
                 PrintWriter out = response.getWriter();
              //   out.print("添加失败");
@@ -168,7 +173,7 @@ public class ManageBranchServlet extends javax.servlet.http.HttpServlet implemen
                                         PrintWriter out = response.getWriter();
                                         out.print("<script>" + "alert('修改成功');"+ "document.location.href='data-newbranch.jsp';"+ "</script>");
                                      //  out.print("修改成功");
-                                         
+                                        log.error("更新部门信息");
                                     } catch (Exception e) {
                                         // TODO Auto-generated catch block
                                         e.printStackTrace();
@@ -205,6 +210,7 @@ public class ManageBranchServlet extends javax.servlet.http.HttpServlet implemen
                           try {                          
                             service.delete(id1);
                               response.sendRedirect("ManageBranchServlet?action=list");
+                              log.error("删除部门信息");
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();

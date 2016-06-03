@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.bean.Faultmsg;
 import com.bean.People;
@@ -52,10 +53,15 @@ public class ManageFaultmsgServlet extends HttpServlet {
 		}else if (action.equals("updatestatus")) {
 			String fault_id = request.getParameter("faultid");
 			MsgService msgService = new MsgService();
-			try {
-				msgService.updatestatus(fault_id);
-				PrintWriter out = response.getWriter();
-				out.print("<script>" + "alert('更新成功');"+ "document.location.href='fault-msg.jsp';"+ "</script>");
+			try {  
+				if (msgService.updatestatus(fault_id)==1) {
+					HttpSession session = request.getSession();
+					String dutyMan = (String) session.getAttribute("SesName");
+					System.out.println("故障处理人："+dutyMan);
+					msgService.handlefault(fault_id, dutyMan);
+					PrintWriter out = response.getWriter();
+					out.print("<script>" + "alert('更新成功');"+ "document.location.href='fault-msg.jsp';"+ "</script>");
+				}			
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();

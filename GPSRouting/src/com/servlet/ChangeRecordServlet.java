@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bean.Record;
 import com.util.OutputHelper;
+import net.sf.json.JSONObject;
 
 public class ChangeRecordServlet extends HttpServlet {
 
@@ -65,9 +66,11 @@ public class ChangeRecordServlet extends HttpServlet {
 				String asws = request.getParameter("asws");
 				String error = request.getParameter("error");
 				String picture = request.getParameter("picture");
+				String vedio = request.getParameter("vedio");
 				String note = request.getParameter("note");
 				String submit_time = request.getParameter("submit_time");
 				Record rcd = Record.getOneRecord(record_id);
+				JSONObject jsonObject = new JSONObject();
 				if (asws!=null){
 					rcd.setAsws(asws);
 				}
@@ -78,11 +81,21 @@ public class ChangeRecordServlet extends HttpServlet {
 					rcd.setNote(note);
 				}
 				if (picture!=null){
-					rcd.setPicture(picture);
+					jsonObject.put("picture", picture);
+				}
+				else{
+					jsonObject.put("picture", "");
+				}
+				if (vedio!=null){
+					jsonObject.put("vedio", vedio);
+				}
+				else {
+					jsonObject.put("vedio","");
 				}
 				if (submit_time!=null){
 					rcd.setSubmit(Timestamp.valueOf(submit_time));
 				}
+				rcd.setPicture(jsonObject.toString());
 				int result = Record.changeOneRecord(rcd);
 				OutputHelper.StringOutPut(""+result, response);
 			} catch (SQLException e) {

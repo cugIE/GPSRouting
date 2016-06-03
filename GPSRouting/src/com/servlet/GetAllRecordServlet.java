@@ -63,7 +63,12 @@ public class GetAllRecordServlet extends HttpServlet {
 				jso.put("gps", rcd.getGps());
 				jso.put("asws", rcd.getAsws());
 				jso.put("error", rcd.getError());
-				jso.put("picture", rcd.getPicture());
+				if (rcd.getPicture()!=null){
+					JSONObject jsoTemp  = JSONObject.fromObject(rcd.getPicture());
+					jso.put("picture",jsoTemp.get("picture"));
+					jso.put("vedio", jsoTemp.get("vedio"));
+
+				}
 				jso.put("start", rcd.getStart().toString());
 				jso.put("end", rcd.getEnd().toString());
 				jso.put("submit", rcd.getSubmit().toString());
@@ -76,6 +81,12 @@ public class GetAllRecordServlet extends HttpServlet {
 				jso.put("note", rcd.getNote());
 				jso.put("type", rcd.getType());
 				jso.put("branch", rcd.getBranch());
+				if(rcd.getComment()!=null) {
+					jso.put("comment", rcd.getComment());
+				}
+				else {
+					jso.put("comment", "");
+				}
 				if(rcd.getCheck() == null){
 					jso.put("check_time", "");
 				}

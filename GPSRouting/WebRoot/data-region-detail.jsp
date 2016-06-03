@@ -360,14 +360,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<label class="col-md-3 control-label" for="text-input">可选答案</label>
 								<div class="col-md-9">
 									<input type="text" id="question-edit-possasws" name="possasws" class="form-control">
-									<span class="help-block">每一个答案用英文";"隔开</span>
+									<span class="help-block">每一个答案用英文";"隔开,若没有请写上"#"</span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-md-3 control-label" for="text-input">正常答案</label>
 								<div class="col-md-9">
 									<input type="text" id="question-edit-normalasws" name="normalasws" class="form-control" placeholder="否">
-									<span class="help-block">在这里填上设备正常时应该有的答案</span>
+									<span class="help-block">在这里填上设备正常时应该有的答案,若没有请写上"#"</span>
 								</div>
 							</div>
 							<button type="submit" class="btn btn-success col-md-12">保存设置</button>

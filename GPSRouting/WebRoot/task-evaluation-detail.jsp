@@ -349,7 +349,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<div class="col-md-12">
 
 												<h6 class="text-danger text-center">共<%=rcd.getError() %>个问题不符合正常情况</h6>
-												<% if(rcd.getComment()==""||rcd.getComment()==null){ if (team<=3){%>
+												<% if(rcd.getComment().equals("")||rcd.getComment()==null){ if (team<=3){%>
 
 												<div class="col-md-8 col-md-offset-2">
 													<textarea id="record-comment" name="intro" rows="4" class="form-control" placeholder="输入评论内容"></textarea>

@@ -360,7 +360,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<label class="col-md-3 control-label" for="text-input">可选答案</label>
 								<div class="col-md-9">
 									<input type="text" id="question-edit-possasws" name="possasws" class="form-control">
-									<span class="help-block">每一个答案用英文";"隔开,若没有请写上"#"</span>
+									<span class="help-block">每一个答案用英文";"隔开,若没有请写上"无"</span>
 								</div>
 							</div>
 							<div class="form-group">

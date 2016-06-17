@@ -10,6 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import java.io.UnsupportedEncodingException;
+import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.methods.PostMethod;
+
 import com.bean.Faultmsg;
 import com.bean.People;
 import com.service.MsgService;
@@ -52,6 +58,14 @@ public class ManageFaultmsgServlet extends HttpServlet {
 				
 		}else if (action.equals("updatestatus")) {
 			String fault_id = request.getParameter("faultid");
+			String fault_title = request.getParameter("faulttitle");
+			String fault_word = request.getParameter("faultword");
+			String people_num = request.getParameter("pnum");//手机号
+			System.out.println("手机号："+people_num);
+			HttpClient client = new HttpClient();
+			PostMethod post = new PostMethod("http://utf8.sms.webchinese.cn"); 
+			post.addRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");//在头文件中设置转码
+			NameValuePair[] data ={ new NameValuePair("Uid", "gpsrouting"),new NameValuePair("Key", "42d1fea592e834991fab"),new NameValuePair("smsMob",people_num),new NameValuePair("smsText",fault_word)};
 			MsgService msgService = new MsgService();
 			try {  
 				if (msgService.updatestatus(fault_id)==1) {
@@ -61,6 +75,23 @@ public class ManageFaultmsgServlet extends HttpServlet {
 					msgService.handlefault(fault_id, dutyMan);
 					PrintWriter out = response.getWriter();
 					out.print("<script>" + "alert('更新成功');"+ "document.location.href='fault-msg.jsp';"+ "</script>");
+					//-------------------------发送短信-------------------------------------
+					post.setRequestBody(data);
+
+					client.executeMethod(post);
+					Header[] headers = post.getResponseHeaders();
+					int statusCode = post.getStatusCode();
+					System.out.println("statusCode:"+statusCode);
+					for(Header h : headers)
+					{
+					System.out.println(h.toString());
+					}
+					String result = new String(post.getResponseBodyAsString().getBytes("utf-8")); 
+					System.out.println(result); //打印返回消息状态
+
+
+					post.releaseConnection();
+
 				}			
 			} catch (Exception e) {
 				// TODO: handle exception

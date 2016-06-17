@@ -132,14 +132,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<div class="form-group">
 											<label class="col-md-2 control-label"><strong>故障标题：</strong></label>
 											<div class="col-md-10">
-												<p class="form-control-static"><%=faultmsg.getFaultTitle() %></p>
+												<p id = "faulttitle" name="faulttitle" class="form-control-static"><%=faultmsg.getFaultTitle() %></p>
 												<input type="hidden" id="faultid" name="faultid" value=<%=faultmsg.getId() %>>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-md-2 control-label">故障详情：</label>
 											<div class="col-md-6">
-												<textarea class="form-control" rows="6"><%=faultmsg.getFaultWord() %></textarea>
+												<textarea id="faultword" name = "faultword" class="form-control" rows="6"><%=faultmsg.getFaultWord() %></textarea>
 											</div>
 										</div>
 										<div class="form-group">
@@ -162,6 +162,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 													String genername = p.getName();
 													out.print(genername);
 												%></p>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-2 control-label">发送故障信息手机号：</label>
+											<div class="col-md-10">
+												<input type="text" id = "pnum"  name="pnum" class="form-control" />
 											</div>
 										</div>
 										<div class="form-group">

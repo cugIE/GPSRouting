@@ -15,14 +15,15 @@
 	<%
 		System.out.println(request.getParameter("branch_id"));
 	%>
-		<table id="people-data" title="表管理" class="easyui-datagrid" style="max-height:600px;"
+		<table id="sheet-data" title="表管理" class="easyui-datagrid" style="max-height:600px;"
 		        url="GetAllSheetServlet?branch_id=<%=request.getParameter("branch_id")%>&isWeb=0"
 		        toolbar="#toolbar"
 		        rownumbers="true" fitColumns="true" singleSelect="true">
 		    <thead>
 		        <tr>
+					<th field="id" width="30">表编号</th>
 		        	<th field="name" width="30">表名</th>
-		            <th field="intro" width="50">表介绍</th>
+		            <th field="intro" width="70">表介绍</th>
 		            <th field="gener" width="30">创建人</th>
 		        </tr>
 		    </thead>
@@ -51,6 +52,29 @@
 		    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editSheet()">修改表</a>
 		    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroySheet()">删除表</a>
 		</div>
+		<div id="add-sheet-dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+			 closed="true" buttons="#sheet-dlg-buttons">
+			<div class="ftitle">添加表</div>
+			<form id="add-sheet-form" method="post">
+				<div class="fitem">
+					<label>表名</label>
+					<input name="name" class="easyui-validatebox" required="true">
+				</div>
+				<div class="fitem">
+					<label>表介绍</label>
+					<input name="intro" class="easyui-validatebox" required="false">
+				</div>
+
+				<input hidden="hidden" name="branch_id" value="<%=request.getParameter("branch_id")%>" class="easyui-validatebox" required="false">
+				<input hidden="hidden" name="gener_id" value="<%=request.getSession().getAttribute("SesId")%>" class="easyui-validatebox" required="false">
+
+			</form>
+		</div>
+		<div id="dlg-buttons">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">保存</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
+		</div>
+		<script type="text/javascript" src="js/people-data.js"></script>
 
 	</div>
 	<script type="text/javascript" src="js/sheet-data.js"></script>

@@ -65,9 +65,13 @@
 		<div region="west" split="true" title="导航栏" style="width:200px;">
 			<div class="easyui-panel" style="padding: 5px;width: 100%;height: 133px; text-align: center;">
 				<img style="height: 70px;width: 70px;  border: 3px solid #6495ED;"src="assets/img/haven.png"/>
-				<p style="font-size: 12px; margin-top: -2px">张三
+				<p style="font-size: 12px; margin-top: -2px"><%=session.getAttribute("SesName")%>
 				</p>
-				<p style="background-color: #104E8B;color: #ffffff;margin-top: -5px; height:20px;font-size: 11px;">XX部-巡检员</p>
+				<%
+					BranchService bs = new BranchService();
+					Branch tempbranch = bs.fill(""+session.getAttribute("SesBranchId"));
+				%>
+				<p style="background-color: #104E8B;color: #ffffff;margin-top: -5px; height:20px;font-size: 11px;"><%=tempbranch.getBranchName()%>-<%=session.getAttribute("SesTeamName")%></p>
 			</div>
 			<div class="easyui-panel" style="padding:5px; width: 100%; height: 100%">
 				<ul class="easyui-tree">
@@ -75,7 +79,6 @@
 				
 
 					<%
-						BranchService bs = new BranchService();
 						List<Branch> branchList = bs.fill();
 						for (int i = 0; i<branchList.size();i++){
 							Branch branch = branchList.get(i);
@@ -158,10 +161,10 @@
 		<div id="tbs" region="center" class="easyui-tabs" >
 			<div title="关于" style="padding:10px">
 				<div style="width: 60%; padding-left: 15%; height: 300px;">
-				<div class="easyui-panel" title="介绍" style="height: 300px;" align="center" >
-					<h1 style="color: #104E8B">燃气管道巡检系统</h1>
-					<p>更方便更简洁的管理系统。</p>
-				</div>
+					<div class="easyui-panel" title="介绍" style="height: 300px;" align="center" >
+						<h1 style="color: #104E8B">燃气管道巡检系统</h1>
+						<p>更方便更简洁的管理系统。</p>
+					</div>
 				</div>
 			</div>
 				

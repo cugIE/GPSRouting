@@ -341,5 +341,12 @@
     <filter-name>LogFilter</filter-name>
     <url-pattern>*.jsp</url-pattern>
   </filter-mapping> 
-
+   <filter>
+    <filter-name>LoginFilter</filter-name>
+    <filter-class>com.filter.general.LoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoginFilter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
 </web-app>

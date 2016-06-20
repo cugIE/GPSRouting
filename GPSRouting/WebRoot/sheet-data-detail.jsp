@@ -5,10 +5,13 @@
 	<title>燃气巡检系统</title>
 	<link rel="stylesheet" type="text/css" href="assets/easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="assets/easyui/themes/icon.css">
-		<link rel="stylesheet" type="text/css" href="assets/easyui/themes/color.css">
+	<link rel="stylesheet" type="text/css" href="assets/easyui/themes/color.css">
+	<link rel="stylesheet" type="text/css" href="css/dialog.css">
+	<link rel="stylesheet" type="text/css" href="css/checkbox.css">
 
 	<script type="text/javascript" src="assets/easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="assets/easyui/jquery.easyui.min.js"></script>
+
 </head>				
 <body>
 		<table id="time-data" title="班次时间点管理" class="easyui-datagrid" style="max-height:600px;"
@@ -43,6 +46,79 @@
 			</div>
 		
 		</div>
+		<div id="add-shift-dlg" class="easyui-dialog" style="width:400px;height:250px;padding:10px 20px"
+			 closed="true" buttons="#sheet-dlg-buttons">
+			<div class="ftitle">添加班次</div>
+			<form id="add-sheet-form" method="post">
+				<div class="fitem">
+					<label>班次名</label>
+					<input id="shift-name" name="shift" class="easyui-validatebox" required="true">
+				</div>
+				<div class="checkbox-row">
+					<div class="checkbox-item">
+						<input type="checkbox" id="checkbox1" name="times" value="00:00">
+						<label for="checkbox1"> 00:00</label>
+					</div>
+					<div class="checkbox-item">
+						<input type="checkbox" id="checkbox2" name="times" value="02:00">
+						<label for="checkbox2"> 02:00</label>
+					</div>
+					<div class="checkbox-item">
+						<input type="checkbox" id="checkbox3" name="times" value="04:00">
+						<label for="checkbox3"> 04:00</label>
+					</div>
+					<div class="checkbox-item">
+						<input type="checkbox" id="checkbox4" name="times" value="06:00">
+						<label for="checkbox4"> 06:00</label>
+					</div>
+				</div>
+				<div class="checkbox-row">
+					<div class="checkbox-item">
+						<input type="checkbox" id="checkbox5" name="times" value="08:00">
+						<label for="checkbox5"> 08:00</label>
+					</div>
+					<div class="checkbox-item">
+						<input type="checkbox" id="checkbox6" name="times" value="10:00">
+						<label for="checkbox6"> 10:00</label>
+					</div>
+					<div class="checkbox-item">
+						<input type="checkbox" id="checkbox7" name="times" value="12:00">
+						<label for="checkbox7"> 12:00</label>
+					</div>
+					<div class="checkbox-item">
+						<input type="checkbox" id="checkbox8" name="times" value="14:00">
+						<label for="checkbox8"> 14:00</label>
+					</div>
+				</div>
+				<div class="checkbox-row">
+					<div class="checkbox-item">
+						<input type="checkbox" id="checkbox9" name="times" value="16:00">
+						<label for="checkbox9"> 16:00</label>
+					</div>
+					<div class="checkbox-item">
+						<input type="checkbox" id="checkbox10" name="times" value="18:00">
+						<label for="checkbox10"> 18:00</label>
+					</div>
+					<div class="checkbox-item">
+						<input type="checkbox" id="checkbox11" name="times" value="20:00">
+						<label for="checkbox11"> 20:00</label>
+					</div>
+					<div class="checkbox-item">
+						<input type="checkbox" id="checkbox12" name="times" value="22:00">
+						<label for="checkbox12"> 22:00</label>
+					</div>
+				</div>
+				<%--<div class="fitem">--%>
+				<%--<label>所在部门</label>--%>
+				<%--<input name="branch_id" value="<%=request.getParameter("branch_id")%>" class="easyui-validatebox" >--%>
+				<%--</div>--%>
 
+			</form>
+		</div>
+		<div id="sheet-dlg-buttons">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveShift()">保存</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#add-sheet-dlg').dialog('close')">取消</a>
+		</div>
+		<script type="text/javascript" src="js/sheet-data-detail.js"></script>
 </body>
 </html>

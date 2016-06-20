@@ -6,11 +6,48 @@
         var r = window.location.search.substr(1).match(reg);
         if (r != null) return unescape(r[2]); return null;
     }
-    function newPeriod(){
-        $('#add-sheet-dlg').dialog('open').dialog('setTitle','新表');
+    function newShift(){
+
+        $('#add-shift-dlg').dialog('open').dialog('setTitle','新班次');
         $('#add-sheet-form').form('clear');
 
-        url = 'AddSheetServlet?branch_id='+getQueryString("branch_id");
+    }
+
+    function saveShift() {
+        var str = "";
+        alert(str);
+        $("input[name='times']:checkbox").each(function () {
+            if ($(this).attr("checked")) {
+                alert("checked");
+                str += $(this).val() + ","
+            }
+        })
+        if (str == "") {
+            $.messager.show({
+                title: 'Error',
+                msg: "请选择时间点"
+            });
+        }
+
+        else {
+            var shift_name = $("#shift-name").val();
+            alert(shift_name);
+            $.post("AddPeriodServlet", {
+                index: "several",
+                shift: shift_name,
+                periods: str,
+                sheet_id: getQueryString('sheet_id')
+            }, function (data, status) {
+                if (data == "1") {
+                    alert("添加成功");
+                    window.location.reload();
+                }
+                else {
+                    alert("添加失败")
+                }
+
+            });
+        }
     }
     function newTime(){
         $('#add-sheet-dlg').dialog('open').dialog('setTitle','新表');

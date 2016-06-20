@@ -107,17 +107,17 @@
 								<span>巡检数据</span>
 								<ul>
 									<li>
-										<span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-巡检表管理','sheet-data.jsp?branch_id=<%=branch.getId()%>')">巡检表</a></span>
+										<span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-巡检表管理','sheet-data.jsp?branch_id=<%=branch.getId()%>')">巡检表管理</a></span>
 									</li>
 									<li>
-									<span> <a href="#" onclick="addTab('<%=branch.getBranchName()%>-巡检区域管理','region-data.jsp?branch_id=<%=branch.getId()%>')">区域管道管理</a>
+									<span> <a href="#" onclick="addTab('<%=branch.getBranchName()%>-巡检区域管理','region-data.jsp?branch_id=<%=branch.getId()%>')">巡检区域管理</a>
 									</span>
 									</li>
 									<li>
-										<span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-巡检位置管理','position-data.jsp?branch_id=<%=branch.getId()%>')">位置管理</a></span>
+										<span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-巡检位置管理','position-data.jsp?branch_id=<%=branch.getId()%>')">巡检位置管理</a></span>
 									</li>
 									<li>
-										<a href="#" onclick="addTab('<%=branch.getBranchName()%>-巡检内容管理','content-data.jsp?branch_id=<%=branch.getId()%>')">巡检内容</a>
+										<a href="#" onclick="addTab('<%=branch.getBranchName()%>-巡检内容管理','content-data.jsp?branch_id=<%=branch.getId()%>')">巡检内容管理</a>
 									</li>
 								</ul>
 							</li>

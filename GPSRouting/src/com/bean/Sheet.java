@@ -140,7 +140,7 @@ public class Sheet {
 	}
 	public static List<Sheet> getAllSheet(String brid) throws SQLException{
 		List<Sheet> sts = new ArrayList<Sheet>();
-		String sql = "SELECT sheet_id, sheet_name, sheet.gener_id, people_name, sheet.branch_id, branch_name "
+		String sql = "SELECT sheet_id, sheet_name, sheet_intro, sheet.gener_id, people_name, sheet.branch_id, branch_name "
 				+ "from "
 				+ "(sheet "
 				+ "inner join people "
@@ -154,10 +154,11 @@ public class Sheet {
 			Sheet st = new Sheet();
 			st.setId(rs.getString(1));
 			st.setName(rs.getString(2));
-			st.setGener_id(rs.getInt(3));
-			st.setGener(rs.getString(4));
-			st.setBranch_id(rs.getInt(5));
-			st.setBranch(rs.getString(6));
+			st.setIntro(rs.getString(3));
+			st.setGener_id(rs.getInt(4));
+			st.setGener(rs.getString(5));
+			st.setBranch_id(rs.getInt(6));
+			st.setBranch(rs.getString(7));
 			sts.add(st);
 		}
 		dbh.DBClose(rs);
@@ -165,7 +166,7 @@ public class Sheet {
 	}
 	public static List<Sheet> getAllSheet() throws SQLException{
 		List<Sheet> sts = new ArrayList<Sheet>();
-		String sql = "SELECT sheet_id, sheet_name, sheet.gener_id, people_name, sheet.branch_id, branch_name "
+		String sql = "SELECT sheet_id, sheet_name, sheet_intro, sheet.gener_id, people_name, sheet.branch_id, branch_name "
 				+ "from "
 				+ "(sheet "
 				+ "inner join people "
@@ -178,10 +179,11 @@ public class Sheet {
 			Sheet st = new Sheet();
 			st.setId(rs.getString(1));
 			st.setName(rs.getString(2));
-			st.setGener_id(rs.getInt(3));
-			st.setGener(rs.getString(4));
-			st.setBranch_id(rs.getInt(5));
-			st.setBranch(rs.getString(6));
+			st.setIntro(rs.getString(3));
+			st.setGener_id(rs.getInt(4));
+			st.setGener(rs.getString(5));
+			st.setBranch_id(rs.getInt(6));
+			st.setBranch(rs.getString(7));
 			sts.add(st);
 		}
 		dbh.DBClose(rs);

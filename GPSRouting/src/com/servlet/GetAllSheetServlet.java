@@ -46,7 +46,7 @@ public class GetAllSheetServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String index = request.getParameter("index");
-		
+		System.out.println("in");
 		if(index.equals("branch")){
 			String branch_id = request.getParameter("branch_id");
 			if (branch_id==null){
@@ -75,6 +75,7 @@ public class GetAllSheetServlet extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+
 				OutputHelper.StringOutPut(JA.toString(), response);
 			}
 			
@@ -128,19 +129,41 @@ public class GetAllSheetServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		out.print("    This is ");
-		out.print(this.getClass());
-		out.println(", using the POST method");
-		out.println("  </BODY>");
-		out.println("</HTML>");
-		out.flush();
-		out.close();
+		String branch_id = request.getParameter("branch_id");
+		String isWeb = request.getParameter("isWeb");
+		JSONArray JA = new JSONArray();
+		try {
+			List<Sheet> shts = Sheet.getAllSheet(branch_id);
+			if (shts.size() == 0){
+				OutputHelper.StringOutPut("no result",response);
+				return;
+			}
+			else{
+				for(int i = 0; i < shts.size(); i++){
+					JSONObject jso = new JSONObject();
+					jso.put("id", shts.get(i).getId());
+					jso.put("name", shts.get(i).getName());
+					jso.put("intro", shts.get(i).getIntro());
+					jso.put("gener", shts.get(i).getGener());
+					jso.put("action", "<a href='#' class=\"easyui-linkbutton\" iconCls=\"icon-search\" plain=\"true\" onclick=\"addTab('"+shts.get(i).getName()+"','sheet-data-detail.jsp?sheet_id="+shts.get(i).getId()+"')\"></a>");
+					JA.add(jso);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(isWeb!=null){
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("total", 12);
+			jsonObject.put("rows", JA);
+			OutputHelper.StringOutPut(jsonObject.toString(), response);
+
+		}
+		else {
+			OutputHelper.StringOutPut(JA.toString(), response);
+		}
+
 	}
 
 	/**

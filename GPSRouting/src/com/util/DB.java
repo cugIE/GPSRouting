@@ -9,9 +9,9 @@ import java.sql.Statement;
 //连接数据库类
 public class DB {
 //获取连接
-	public static final String url = "jdbc:mysql://127.0.0.1/gastube_inspection?characterEncoding=UTF-8";  
-	public static final String user = "root";  
-    public static final String password = "Cug317317";  
+	public static final String url = "jdbc:mysql://127.0.0.1/gastube_inspection?characterEncoding=UTF-8";
+	public static final String user = "root";
+    public static final String password = "Cug317317";
 //	public static final String url ="jdbc:mysql://w.rdc.sae.sina.com.cn:3307/app_gpsrouting";
 //	public static final String user ="2yzjjx0w2m";
 //	public static final String password ="jkhz0mhxzj52iww5ym1zhhw3yjl0ijyh443k4140";

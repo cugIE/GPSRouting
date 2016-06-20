@@ -6,13 +6,19 @@
         var r = window.location.search.substr(1).match(reg);
         if (r != null) return unescape(r[2]); return null;
     }
-    function newSheet(){
+    function newPeriod(){
         $('#add-sheet-dlg').dialog('open').dialog('setTitle','新表');
         $('#add-sheet-form').form('clear');
 
         url = 'AddSheetServlet?branch_id='+getQueryString("branch_id");
     }
-    function editSheet() {
+    function newTime(){
+        $('#add-sheet-dlg').dialog('open').dialog('setTitle','新表');
+        $('#add-sheet-form').form('clear');
+
+        url = 'AddSheetServlet?branch_id='+getQueryString("branch_id");
+    }
+    function editTime() {
         var row = $('#sheet-data').datagrid('getSelected');
         if (row){
             $('#add-sheet-dlg').dialog('open').dialog('setTitle','修改表');
@@ -21,7 +27,7 @@
         }
     }
 
-    function saveSheet(){
+    function saveTime(){
         $('#add-sheet-form').form('submit',{
             url: url,
             onSubmit: function(){
@@ -40,7 +46,7 @@
             }
         });
     }
-    function destroySheet(){
+    function destroyTime(){
         var row = $('#sheet-data').datagrid('getSelected');
         if (row){
             $.messager.confirm('Confirm','确认删除?',function(r){

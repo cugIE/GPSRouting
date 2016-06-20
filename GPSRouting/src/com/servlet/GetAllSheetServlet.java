@@ -145,7 +145,6 @@ public class GetAllSheetServlet extends HttpServlet {
 					jso.put("name", shts.get(i).getName());
 					jso.put("intro", shts.get(i).getIntro());
 					jso.put("gener", shts.get(i).getGener());
-					jso.put("action", "<a href='#' class=\"easyui-linkbutton\" iconCls=\"icon-search\" plain=\"true\" onclick=\"addTab('"+shts.get(i).getName()+"','sheet-data-detail.jsp?sheet_id="+shts.get(i).getId()+"')\"></a>");
 					JA.add(jso);
 				}
 			}
@@ -155,7 +154,7 @@ public class GetAllSheetServlet extends HttpServlet {
 		}
 		if(isWeb!=null){
 			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("total", 12);
+			jsonObject.put("total", 20);
 			jsonObject.put("rows", JA);
 			OutputHelper.StringOutPut(jsonObject.toString(), response);
 

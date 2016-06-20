@@ -70,12 +70,11 @@ public class AddSheetServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		request.setCharacterEncoding("UTF-8");
 		String name = request.getParameter("name");
 		String intro = request.getParameter("intro");
 		String branch_id = request.getParameter("branch_id");
-		String gener_id = request.getParameter("gener_id");
+		String gener_id = (String) request.getSession().getAttribute("SesId");
 		Sheet sht = new Sheet();
 		sht.setName(name);
 		sht.setIntro(intro);

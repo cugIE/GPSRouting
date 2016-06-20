@@ -131,19 +131,42 @@ public class GetAllPeriodServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		out.print("    This is ");
-		out.print(this.getClass());
-		out.println(", using the POST method");
-		out.println("  </BODY>");
-		out.println("</HTML>");
-		out.flush();
-		out.close();
+		String sheet_id = request.getParameter("sheet_id");
+		if (sheet_id == null){
+			this.StringOutPut("error_sheet", response);
+		}
+
+		else{
+			JSONArray JA = new JSONArray();
+
+			try {
+				List<Period> prds = Period.getAllPeriod(sheet_id);
+				if (prds.size() == 0){
+					OutputHelper.StringOutPut("no result",response);
+					return;
+				}
+				else{
+					for (int i = 0; i < prds.size(); i++){
+						JSONObject jso = new JSONObject();
+
+						jso.put("id", prds.get(i).getId());
+						jso.put("shift", prds.get(i).getShift());
+						jso.put("time", prds.get(i).getTime());
+						jso.put("gener", prds.get(i).getGener());
+						jso.put("gener_id", prds.get(i).getGener_id());
+
+						JA.add(jso);
+					}
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("total", 20);
+			jsonObject.put("rows", JA);
+			OutputHelper.StringOutPut(jsonObject.toString(), response);
+		}
 	}
 
 	/**

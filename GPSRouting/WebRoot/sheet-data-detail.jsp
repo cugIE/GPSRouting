@@ -20,7 +20,7 @@
 		        rownumbers="true" fitColumns="true" singleSelect="true">
 		    <thead>
 		        <tr>
-					<th field="id" width="20">班次</th>
+					<th field="id" width="10"></th>
 		        	<th field="shift" width="30">班次</th>
 		            <th field="time" width="40">时间点</th>
 		            <th field="gener" width="50">创建者</th>
@@ -37,17 +37,56 @@
 			<div>
 				<div style="margin-left:5px;">
 		    	选择班次：
-				<input class="easyui-combobox" style=" width:100px"
-						url="data/combobox_data.json"
-						valueField="id" textField="text">
-				<a href="#" class="easyui-linkbutton" iconCls="icon-search">查看</a>
+				<input id="shift-search" class="easyui-combobox" style=" width:100px"
+					   url="GetAllPeriodServlet?index=shift&sheet_id=<%=request.getParameter("sheet_id")%>"
+					   data-options="valueField:'shift',textField:'text'">
+				<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="searchShift()">查看</a>
 				<a href="#" class="easyui-linkbutton" iconCls="icon-remove" onclick="destroyShift()">删除</a>
 			</div>
 			</div>
 		
 		</div>
+
+		<div id="edit-time-dlg" class="easyui-dialog" style="width:600px;height:400px;padding:10px 20px"
+			 closed="true" buttons="#time-edit-dlg-buttons">
+				<div style="padding: 20px">
+					<div style="float: left; width: 45%;" >
+						已选择
+						<table style="font-size: 14px; border: 1px solid #6495ED; width: 100%;">
+							<tbody id="SelectedRegions">
+							</tbody>
+						</table>
+					</div>
+					<div style="float: left; width: 45%; margin-left: 10%">
+						未选择
+						<table style="font-size: 14px; border: 1px solid #6495ED; width: 100%;">
+							<tbody id="RestRegions">
+							</tbody>
+						</table>
+					</div>
+				</div>
+		</div>
+		<div id="add-time-dlg" class="easyui-dialog" style="width:400px;height:250px;padding:10px 20px"
+			 closed="true" buttons="#time-dlg-buttons">
+			<div class="ftitle">添加时间点</div>
+			<form id="add-time-form" method="post">
+				<div class="fitem">
+					<label>班次名</label>
+					<input id="shift-list" name="shift" style=" width:100px">
+
+				</div>
+				<div class="fitem">
+					<label>时间点</label>
+					<input id="times-list" name="time" style=" width:100px">
+				</div>
+			</form>
+		</div>
+		<div id="time-dlg-buttons">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveTime()">保存</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#add-time-dlg').dialog('close')">取消</a>
+		</div>
 		<div id="add-shift-dlg" class="easyui-dialog" style="width:400px;height:250px;padding:10px 20px"
-			 closed="true" buttons="#sheet-dlg-buttons">
+			 closed="true" buttons="#shift-dlg-buttons">
 			<div class="ftitle">添加班次</div>
 			<form id="add-sheet-form" method="post">
 				<div class="fitem">
@@ -115,9 +154,9 @@
 
 			</form>
 		</div>
-		<div id="sheet-dlg-buttons">
+		<div id="shift-dlg-buttons">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveShift()">保存</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#add-sheet-dlg').dialog('close')">取消</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#add-shift-dlg').dialog('close')">取消</a>
 		</div>
 		<script type="text/javascript" src="js/sheet-data-detail.js"></script>
 </body>

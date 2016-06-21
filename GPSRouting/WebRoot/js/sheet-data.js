@@ -61,5 +61,5 @@
     }
     function checkSheet(){
         var row = $('#sheet-data').datagrid('getSelected');
-        parent.addTab(getQueryString("branch_id")+'-'+row.name,'sheet-data-detail.jsp?sheet_id='+row.id);
+        parent.addTab(getQueryString("branch_id")+'-'+row.name,'sheet-data-detail.jsp?sheet_id='+row.id+'&branch_id='+getQueryString('branch_id'));
     }

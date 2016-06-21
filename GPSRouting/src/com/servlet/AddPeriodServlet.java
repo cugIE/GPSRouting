@@ -72,7 +72,9 @@ public class AddPeriodServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		String index = request.getParameter("index");
-	//	System.out.println(index);
+		String gener_id = (String) request.getSession().getAttribute("SesId");
+
+		//	System.out.println(index);
 		if (index == null){
 			OutputHelper.StringOutPut("error_index", response);
 			
@@ -81,7 +83,6 @@ public class AddPeriodServlet extends HttpServlet {
 		if (index.equals("several")){
 			String shift = request.getParameter("shift");
 			String periods = request.getParameter("periods");
-			String gener_id = request.getParameter("gener_id");
 			String sheet_id = request.getParameter("sheet_id");
 			String[] periodStrs = periods.split(",");
 			Period pr = new Period();
@@ -111,7 +112,6 @@ public class AddPeriodServlet extends HttpServlet {
 		else if(index.equals("one")){
 			String shift = request.getParameter("shift");
 			String time = request.getParameter("time");
-			String gener_id = request.getParameter("gener_id");
 			String sheet_id = request.getParameter("sheet_id");
 			Period pr = new Period();
 		//	System.out.println(shift+","+time+","+gener_id+","+sheet_id);

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -9,55 +9,41 @@
 
 	<script type="text/javascript" src="assets/easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="assets/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="js/easyui-lang-zh_CN.js"></script>
 </head>				
 <body>
-		<table id="people-data" title="巡检日志" class="easyui-datagrid" style="max-height:600px;"
-		        url="get_users.php"
-		        toolbar="#toolbar"
+		<table id="result-data" title="按照巡检班次" class="easyui-datagrid" style="max-height:600px;"
+		        url="GetAllPeriodServlet"
+			   	method="get"
+		        toolbar="#toolbar-1"
 		        rownumbers="true" fitColumns="true" singleSelect="true">
 		    <thead>
 		        <tr>
-		        	<th field="username" width="30">班次时间点</th>
-		            <th field="name" width="40">巡检员</th>
-		            <th field="position" width="50">开始时间</th>
-		            <th field="endtime" width="50">结束时间</th>
-		            <th field="action" width="30">操作</th>
+					<th field="id" width="5"></th>
+		        	<th field="shift" width="10">班次</th>
+					<th field="time" width="10">时间点</th>
+					<th field="all" width="40">全部区域</th>
+		            <th field="done" width="40">已检查区域</th>
 		        </tr>
 		    </thead>
-		    <tbody>
-		    	<tr>
-		    		<td>白班 12:00</td>
-		    		<td>李某</td>
-		    		<td>2012年11月12日</td>
-		    		<td>2012年11月12日</td>
-		    		<td><a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="addTab('白班 12:00 日志','result-data-detail.html')"></a>
-		    			<a href="#" class="easyui-linkbutton c4" onclick="addTab('临时表','sheet-data-detail.html')">待审核</a>
-		    		</td>
-		    	</tr>
-		    	<tr>
-		    		<td>白班 11:00</td>
-		    		<td>张某</td>
-		    		<td>2012年11月13日</td>
-		    		<td>2012年11月14日</td>
-		    		<td><a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="addTab('白班 11:00 日志','result-data-detail.html')"></a>
-		    			<a href="#" class="easyui-linkbutton" onclick="addTab('临时表','sheet-data-detail.html')" disabled="disabled">已审核</a>
-		    		</td>
-		    	</tr>
-		    </tbody>
+
 		</table>
-		<div id="toolbar" style="padding:5px;height:auto">
+		<div id="toolbar-1" style="padding:5px;height:auto">
 			
 			<div>
-				从 <input class="easyui-datebox" style="width:80px">
-				到 <input class="easyui-datebox" style="width:80px">
-				选择巡检员：
-				<input class="easyui-combobox" style="width:100px"
-						url="data/combobox_data.json"
-						valueField="id" textField="text">
-				<a href="#" class="easyui-linkbutton" iconCls="icon-search">确定</a>
+				选择时间: <input class="easyui-datebox" id="pick-date" style="width:80px">
+				巡检表：
+				<input class="easyui-combobox" id="sheet-list" style=" width:100px; margin-right: 5px"
+					   method="get"
+					   url="GetAllSheetServlet?index=branch&branch_id=<%=request.getParameter("branch_id")%>"
+					   valueField="id" textField="name">
+				<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="showResults()">确定</a>
+				<div style="float: right">
+					<a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="showDetail()">查看报表</a>
+				</div>
 			</div>
 		
 		</div>
-
+		<script type="text/javascript" src="js/result-data.js"></script>
 </body>
 </html>

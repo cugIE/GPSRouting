@@ -49,6 +49,7 @@ public class GetAllQuestionServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String index = request.getParameter("index");
+		String web = request.getParameter("web");
 		if (index.equals("question")){
 			String question_id = request.getParameter("question_id");
 			if (question_id == null){
@@ -146,7 +147,16 @@ public class GetAllQuestionServlet extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				this.StringOutPut(JA.toString(), response);
+				if(web!=null){
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("total", 20);
+					jsonObject.put("rows", JA);
+					OutputHelper.StringOutPut(jsonObject.toString(), response);
+				}
+				else {
+					this.StringOutPut(JA.toString(), response);
+				}
+
 			}
 		}
 		else{

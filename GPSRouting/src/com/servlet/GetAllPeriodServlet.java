@@ -48,6 +48,7 @@ public class GetAllPeriodServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String index = request.getParameter("index");
+		String web = request.getParameter("web");
 		if (index.equals("sheet")){
 			String sheet_id = request.getParameter("sheet_id");
 			if (sheet_id == null){
@@ -68,8 +69,13 @@ public class GetAllPeriodServlet extends HttpServlet {
 							JSONObject jso = new JSONObject();
 							
 							jso.put("id", prds.get(i).getId());
-							jso.put("shift", prds.get(i).getShift());
-							jso.put("time", prds.get(i).getTime());
+							if(web!=null){
+								jso.put("time", prds.get(i).getShift()+"-"+prds.get(i).getTime());
+							}
+							else {
+								jso.put("shift", prds.get(i).getShift());
+								jso.put("time", prds.get(i).getTime());
+							}
 							jso.put("gener", prds.get(i).getGener());
 							jso.put("gener_id", prds.get(i).getGener_id());
 							

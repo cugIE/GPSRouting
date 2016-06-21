@@ -46,7 +46,6 @@ public class GetAllSheetServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String index = request.getParameter("index");
-		System.out.println("in");
 		if(index.equals("branch")){
 			String branch_id = request.getParameter("branch_id");
 			if (branch_id==null){

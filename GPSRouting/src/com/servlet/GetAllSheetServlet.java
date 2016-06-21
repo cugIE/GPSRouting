@@ -134,19 +134,14 @@ public class GetAllSheetServlet extends HttpServlet {
 		JSONArray JA = new JSONArray();
 		try {
 			List<Sheet> shts = Sheet.getAllSheet(branch_id);
-			if (shts.size() == 0){
-				OutputHelper.StringOutPut("no result",response);
-				return;
-			}
-			else{
-				for(int i = 0; i < shts.size(); i++){
-					JSONObject jso = new JSONObject();
-					jso.put("id", shts.get(i).getId());
-					jso.put("name", shts.get(i).getName());
-					jso.put("intro", shts.get(i).getIntro());
-					jso.put("gener", shts.get(i).getGener());
-					JA.add(jso);
-				}
+
+			for(int i = 0; i < shts.size(); i++){
+				JSONObject jso = new JSONObject();
+				jso.put("id", shts.get(i).getId());
+				jso.put("name", shts.get(i).getName());
+				jso.put("intro", shts.get(i).getIntro());
+				jso.put("gener", shts.get(i).getGener());
+				JA.add(jso);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

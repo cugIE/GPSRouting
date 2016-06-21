@@ -141,10 +141,7 @@ public class GetAllPeriodServlet extends HttpServlet {
 
 				try {
 					List<Period> prds = Period.getAllPeriod(sheet_id);
-					if (prds.size() == 0) {
-						OutputHelper.StringOutPut("no result", response);
-						return;
-					} else {
+
 						for (int i = 0; i < prds.size(); i++) {
 							JSONObject jso = new JSONObject();
 
@@ -156,7 +153,6 @@ public class GetAllPeriodServlet extends HttpServlet {
 
 							JA.add(jso);
 						}
-					}
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -198,21 +194,17 @@ public class GetAllPeriodServlet extends HttpServlet {
 
 					try {
 						List<Period> prds = Period.getAllPeriod(sheet_id,shift);
-						if (prds.size() == 0) {
-							OutputHelper.StringOutPut("no result", response);
-							return;
-						} else {
-							for (int i = 0; i < prds.size(); i++) {
-								JSONObject jso = new JSONObject();
 
-								jso.put("id", prds.get(i).getId());
-								jso.put("shift", prds.get(i).getShift());
-								jso.put("time", prds.get(i).getTime());
-								jso.put("gener", prds.get(i).getGener());
-								jso.put("gener_id", prds.get(i).getGener_id());
+						for (int i = 0; i < prds.size(); i++) {
+							JSONObject jso = new JSONObject();
 
-								JA.add(jso);
-							}
+							jso.put("id", prds.get(i).getId());
+							jso.put("shift", prds.get(i).getShift());
+							jso.put("time", prds.get(i).getTime());
+							jso.put("gener", prds.get(i).getGener());
+							jso.put("gener_id", prds.get(i).getGener_id());
+
+							JA.add(jso);
 						}
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block

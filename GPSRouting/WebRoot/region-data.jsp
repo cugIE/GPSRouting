@@ -27,7 +27,7 @@
 		        	<th field="name" width="40">区域名称</th>
 					<th field="intro" width="80">区域介绍</th>
 		            <th field="branch" width="40">所属部门</th>
-		            <th field="type" width="8">区域类型</th>
+		            <th field="type" width="15">区域类型</th>
 		        </tr>
 		    </thead>
 
@@ -47,11 +47,11 @@
 			<form id="add-region-form" method="post">
 				<div class="fitem">
 					<label>区域名</label>
-					<input name="name" class="easyui-validatebox" required="true" style=" width:160px">
+					<input name="title" class="easyui-validatebox" required="true" style=" width:160px">
 				</div>
 				<div class="fitem">
 					<label>区域介绍</label>
-					<input name="intro" class="easyui-validatebox" style=" width:160px" >
+					<input name="poss" class="easyui-validatebox" style=" width:160px" >
 				</div>
                 <div class="fitem">
                     <label>区域类型</label>

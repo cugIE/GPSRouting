@@ -168,20 +168,42 @@ public class GetAllQuestionServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String index = request.getParameter("index");
+		if(index.equals("region")){
+			String region_id = request.getParameter("region_id");
+			if (region_id == null){
+				this.StringOutPut("error_region", response);
+			}
 
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		out.print("    This is ");
-		out.print(this.getClass());
-		out.println(", using the POST method");
-		out.println("  </BODY>");
-		out.println("</HTML>");
-		out.flush();
-		out.close();
+			else{
+				JSONArray JA = new JSONArray();
+
+				try {
+					List<Question> qsts = Question.getAllQuestion(region_id);
+
+					for (int i = 0; i < qsts.size(); i++){
+						JSONObject jso = new JSONObject();
+
+						jso.put("id", qsts.get(i).getId());
+						jso.put("title", qsts.get(i).getTitle());
+						jso.put("possasws", qsts.get(i).getPossibleAsw());
+						jso.put("normalasws", qsts.get(i).getNormalAsw());
+						jso.put("gener", qsts.get(i).getGener());
+						jso.put("gener_id", qsts.get(i).getGener_id());
+
+						JA.add(jso);
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				JSONObject jsonObject = new JSONObject();
+				jsonObject.put("total", 20);
+				jsonObject.put("rows", JA);
+				OutputHelper.StringOutPut(jsonObject.toString(), response);
+			}
+
+		}
 	}
 
 	/**

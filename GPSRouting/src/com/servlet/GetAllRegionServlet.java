@@ -59,7 +59,7 @@ public class GetAllRegionServlet extends HttpServlet {
 					List<Region> regions;
 					regions = Region.getAllRegion(branchID);
 					if (regions.size()!=0){
-						
+
 						for (int i = 0; i < regions.size(); i++ ){
 							JSONObject js = new JSONObject();
 							Region rg = regions.get(i);
@@ -320,34 +320,30 @@ public class GetAllRegionServlet extends HttpServlet {
 				try {
 					List<Region> regions;
 					regions = Region.getAllRegion(branchID);
-					if (regions.size()!=0){
 
-						for (int i = 0; i < regions.size(); i++ ){
-							JSONObject js = new JSONObject();
-							Region rg = regions.get(i);
-							js.put("id", rg.getId());
-							js.put("name", rg.getName());
-							js.put("branch", rg.getBranch());
-							js.put("intro", rg.getIntro());
-							js.put("gps", rg.getGps());
-							js.put("qrcode", rg.getQrcode());
-							if(rg.getType().equals("site")){
-								js.put("type", "巡站点");
-							}
-							else if(rg.getType().equals("route")){
-								js.put("type", "巡线点");
-							}
-							else{
-								js.put("type", "临时");
-							}
-							js.put("gener", rg.getGener());
-							JA.add(js);
+					for (int i = 0; i < regions.size(); i++ ){
+						JSONObject js = new JSONObject();
+						Region rg = regions.get(i);
+						js.put("id", rg.getId());
+						js.put("name", rg.getName());
+						js.put("branch", rg.getBranch());
+						js.put("intro", rg.getIntro());
+						js.put("gps", rg.getGps());
+						js.put("qrcode", rg.getQrcode());
+						if(rg.getType().equals("site")){
+							js.put("type", "巡站点");
 						}
+						else if(rg.getType().equals("route")){
+							js.put("type", "巡线点");
+						}
+						else{
+							js.put("type", "临时");
+						}
+						js.put("gener", rg.getGener());
+						JA.add(js);
 					}
-					else{
-						OutputHelper.StringOutPut("no result",response);
-						return;
-					}
+
+
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

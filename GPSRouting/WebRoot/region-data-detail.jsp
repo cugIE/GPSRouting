@@ -7,6 +7,8 @@
 	<link rel="stylesheet" type="text/css" href="assets/easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="assets/easyui/themes/color.css">
 
+	<link rel="stylesheet" type="text/css" href="css/dialog.css">
+
 	<script type="text/javascript" src="assets/easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="assets/easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=M7TQ1t1WsazHr9whomCjQ8rP"></script>
@@ -16,48 +18,58 @@
 
 </head>				
 	<body>
-		<table id="people-data" title="巡检内容" class="easyui-datagrid" style="max-height:500px;"
-		        url="get_users.php"
+		<table id="question-data" title="巡检内容" class="easyui-datagrid" style="max-height:500px;"
+		        url="GetAllQuestionServlet?index=region&region_id=<%=request.getParameter("region_id")%>"
 		        toolbar="#toolbar"
 		        rownumbers="true" fitColumns="true" singleSelect="true">
 		    <thead>
 		        <tr>
-		        	<th field="name" width="40">问题</th>
-		            <th field="code" width="40">答案</th>
-		            <th field="type" width="40">正确答案</th>
+					<th field="id" width="10"></th>
+		        	<th field="title" width="40">问题</th>
+		            <th field="possasws" width="40">答案</th>
+		            <th field="normalasws" width="20">正确答案</th>
 		        </tr>
 		    </thead>
-		    <tbody>
-		    	<tr>
-		    		<td>是否漏油</td>
-		    		<td>是或否</td>
-		    		<td>否</td>
-		    	</tr>
-		    </tbody>
+
 		</table>
 		<div id="toolbar">
-		    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">添加问题</a>
-		    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改问题</a>
+		    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newQuestion()">添加问题</a>
+		    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editQuestion()">修改问题</a>
 		    
-		    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除问题</a>
+		    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyQuestion()">删除问题</a>
 		</div>
 
-	</div>
-	</br>
-	
-	<div class="easyui-panel" title= "地图显示" toolbar="#tb" style="background-color: #eee">
-		<div id="tb" style="padding: 1px">
-			<div>
-				<a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true">查看巡站点</a>
-				<a href="#" class="easyui-linkbutton" iconCls="icon-tip" plain="true">所有线路</a>
-			</div>
-		</div>
-		<div style="height: 1px;background-color: #ccc;"></div>
-		<div id="allmap" style="height: 500px;">
-			
-		</div>
-	</div>
+		<div id="add-question-dlg" class="easyui-dialog" style="width:300px;height:240px;padding:10px 20px"
+			 closed="true" buttons="#sheet-dlg-buttons">
+			<div class="ftitle">添加表</div>
+			<form id="add-question-form" method="post">
+				<div class="fitem">
+					<label>问题标题</label>
+					<input name="title" class="easyui-validatebox" required="true" style=" width:160px">
+				</div>
+				<div class="fitem">
+					<label>答案</label>
+					<input name="possasws" class="easyui-validatebox" style=" width:160px" >
+				</div>
+				<div class="ftips">
+					每一种答案请用英文";"号隔开,如果没有固定答案请输入无;
+				</div>
+				<div class="fitem">
+					<label>正确答案</label>
+					<input name="normalasws" class="easyui-validatebox" style=" width:160px" >
+				</div>
+				<%--<div class="fitem">--%>
+				<%--<label>所在部门</label>--%>
+				<%--<input name="branch_id" value="<%=request.getParameter("branch_id")%>" class="easyui-validatebox" >--%>
+				<%--</div>--%>
 
-	<script type="text/javascript" src="js/region-data.js"></script>
+			</form>
+		</div>
+		<div id="sheet-dlg-buttons">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveQuestion()">保存</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#add-question-dlg').dialog('close')">取消</a>
+		</div>
+
+	<script type="text/javascript" src="js/region-data-detail.js"></script>
 </body>
 </html>

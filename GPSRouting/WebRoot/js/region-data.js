@@ -56,8 +56,6 @@ function showdata(url){
             }
         }
     );
-}function addTab(title,url){
-    parent.addTab(title,url);
 }
 
 function addTab(title,url){

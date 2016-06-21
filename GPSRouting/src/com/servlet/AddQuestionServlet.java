@@ -76,7 +76,12 @@ public class AddQuestionServlet extends HttpServlet {
 		String possasws = request.getParameter("possasws");
 		String normalasws = request.getParameter("normalasws");
 		String gener_id = request.getParameter("gener_id");
+
 		String region_id = request.getParameter("region_id");
+
+		if (gener_id == null){
+			gener_id = (String) request.getSession().getAttribute("SesId");
+		}
 		Question qst = new Question();
 		qst.setTitle(title);
 		qst.setPossibleAsw(possasws);

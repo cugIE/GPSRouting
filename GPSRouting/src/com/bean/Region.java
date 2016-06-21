@@ -214,7 +214,7 @@ public class Region {
 	public static List<Region> getAllRoute(String branch_id) throws SQLException{
 		List<Region> rgs = new ArrayList<Region>();
 		String sql = "SELECT region_id, region_name, region.branch_id , region_range, branch_name "
-				+ "from region inner join branch on region.branch_id = branch.branch_id where region_type='route' and branch_id = "+branch_id;
+				+ "from region inner join branch on region.branch_id = branch.branch_id where region_type='route' and region.branch_id = "+branch_id;
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
 		while(rs.next()){

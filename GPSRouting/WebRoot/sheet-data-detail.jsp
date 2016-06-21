@@ -66,7 +66,7 @@
 					</div>
 				</div>
 		</div>
-		<div id="add-time-dlg" class="easyui-dialog" style="width:400px;height:250px;padding:10px 20px"
+		<div id="add-time-dlg" class="easyui-dialog" style="width:200px;height:250px;padding:10px 20px"
 			 closed="true" buttons="#time-dlg-buttons">
 			<div class="ftitle">添加时间点</div>
 			<form id="add-time-form" method="post">

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -16,32 +16,30 @@
 
 </head>				
 	<body>
-		<table id="people-data" title="区域管理" class="easyui-datagrid" style="max-height:500px;"
+		<table id="people-data" title="巡检内容" class="easyui-datagrid" style="max-height:500px;"
 		        url="get_users.php"
 		        toolbar="#toolbar"
 		        rownumbers="true" fitColumns="true" singleSelect="true">
 		    <thead>
 		        <tr>
-		        	<th field="name" width="40">区域名称</th>
-		            <th field="code" width="40">区域编号</th>
-		            <th field="type" width="40">所属部门</th>
-		            <th field="action" width="8">操作</th>
+		        	<th field="name" width="40">问题</th>
+		            <th field="code" width="40">答案</th>
+		            <th field="type" width="40">正确答案</th>
 		        </tr>
 		    </thead>
 		    <tbody>
 		    	<tr>
-		    		<td>新区域</td>
-		    		<td>1</td>
-		    		<td>测试部门</td>
-		    		<td><a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="addTab('区域名','region-data-detail.html')"></a></td>
+		    		<td>是否漏油</td>
+		    		<td>是或否</td>
+		    		<td>否</td>
 		    	</tr>
 		    </tbody>
 		</table>
 		<div id="toolbar">
-		    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">添加区域</a>
-		    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改区域</a>
-		    <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="addTab('区域名','region-data-detail.html')">查看区域</a>
-		    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除区域</a>
+		    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">添加问题</a>
+		    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改问题</a>
+		    
+		    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除问题</a>
 		</div>
 
 	</div>

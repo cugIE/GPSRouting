@@ -1,0 +1,10 @@
+[
+  {
+    "type": "site",
+    "typename": "巡站点"
+  },
+  {
+    "type": "route",
+    "typename": "站点"
+  }
+]

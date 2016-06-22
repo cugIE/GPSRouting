@@ -6,7 +6,8 @@
 	<title>燃气巡检系统</title>
 	<link rel="stylesheet" type="text/css" href="assets/easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="assets/easyui/themes/icon.css">
-		<link rel="stylesheet" type="text/css" href="assets/easyui/themes/color.css">
+	<link rel="stylesheet" type="text/css" href="assets/easyui/themes/color.css">
+	<link rel="stylesheet" type="text/css" href="css/dialog.css">
 
 	<script type="text/javascript" src="assets/easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="assets/easyui/jquery.easyui.min.js"></script>
@@ -33,7 +34,7 @@
 		    		<%--<td>这是一张日常表</td>--%>
 		    		<%--<td>2012年11月5日</td>--%>
 		    		<%--<td>--%>
-		    		<%--<a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="addTab('日常表','sheet-data-detail.html')"></a>--%>
+		    		<%--<a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="addTab('日常表','sheet-data-detail.jsp')"></a>--%>
 		    		<%--</td>--%>
 		    	<%--</tr>--%>
 		    	<%--<tr>--%>
@@ -41,14 +42,14 @@
 		    		<%--<td>这是一张临时表</td>--%>
 		    		<%--<td>2012年11月5日</td>--%>
 		    		<%--<td>--%>
-		    		<%--<a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="addTab('临时表','sheet-data-detail.html')"></a>--%>
+		    		<%--<a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="addTab('临时表','sheet-data-detail.jsp')"></a>--%>
 		    		<%--</td>--%>
 		    	<%--</tr>--%>
 		    <%--</tbody>--%>
 		</table>
 		<div id="toolbar">
 		    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newSheet()">添加表</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="checkSheet()">查看表</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="checkSheet()">查看表</a>
 		    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editSheet()">修改表</a>
 		    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroySheet()">删除表</a>
 		</div>
@@ -62,21 +63,20 @@
 				</div>
 				<div class="fitem">
 					<label>表介绍</label>
-					<input name="intro" class="easyui-validatebox" required="false">
+					<input name="intro" class="easyui-validatebox" >
 				</div>
-
-				<input hidden="hidden" name="branch_id" value="<%=request.getParameter("branch_id")%>" class="easyui-validatebox" required="false">
-				<input hidden="hidden" name="gener_id" value="<%=request.getSession().getAttribute("SesId")%>" class="easyui-validatebox" required="false">
+				<%--<div class="fitem">--%>
+					<%--<label>所在部门</label>--%>
+					<%--<input name="branch_id" value="<%=request.getParameter("branch_id")%>" class="easyui-validatebox" >--%>
+				<%--</div>--%>
 
 			</form>
 		</div>
-		<div id="dlg-buttons">
-			<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">保存</a>
-			<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
+		<div id="sheet-dlg-buttons">
+			<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveSheet()">保存</a>
+			<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#add-sheet-dlg').dialog('close')">取消</a>
 		</div>
-		<script type="text/javascript" src="js/people-data.js"></script>
 
-	</div>
 	<script type="text/javascript" src="js/sheet-data.js"></script>
 </body>
 </html>

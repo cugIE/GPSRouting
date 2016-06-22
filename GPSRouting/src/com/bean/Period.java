@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.util.DBHelper;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  * @author XinLi
@@ -173,6 +175,29 @@ public class Period {
 		dbh.DBClose(rs);
 		return prs;
 	}
+	public static List<Period> getAllPeriod(String sheetid,String shift) throws SQLException{
+		List<Period> prs = new ArrayList<Period>();
+		String sql = "SELECT period_id, period_shift, period_time, period.gener_id, people_name "
+				+ "from period "
+				+ "inner join people "
+				+ "on period.gener_id = people.people_id "
+				+ "where period.sheet_id = " + sheetid
+				+ " and period_shift= '" + shift + "'";
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		while(rs.next()){
+			Period pr = new Period();
+			pr.setId(rs.getString(1));
+			pr.setShift(rs.getString(2));
+			pr.setTime(rs.getString(3));
+			pr.setGener_id(rs.getInt(4));
+			pr.setGener(rs.getString(5));
+
+			prs.add(pr);
+		}
+		dbh.DBClose(rs);
+		return prs;
+	}
 	public static Period getOnePeriod(String periodid) throws SQLException{
 		String sql = "SELECT period_id, period_shift, period_time, period.gener_id, people_name "
 				+ "from period "
@@ -195,16 +220,24 @@ public class Period {
 		return pr;
 	}
 	public static String getShift(String shid) throws SQLException{
-		String value ="";
 		String sql = "select distinct period_shift from period "
 				+ "where sheet_id =" + shid;
 		DBHelper dbh = new DBHelper();
 		ResultSet rs = dbh.getResultSet(sql);
+		JSONArray JA = new JSONArray();
+		int i = 0;
 		while(rs.next()){
-			value += rs.getString(1) +",";
+			JSONObject jo = new JSONObject();
+			jo.put("shift",rs.getString(1));
+			jo.put("text",rs.getString(1));
+			if(i == 0){
+				jo.put("selected",true);
+			}
+			i++;
+			JA.add(jo);
 		}
 		dbh.DBClose(rs);
-		return value;
+		return JA.toString();
 		
 	}
 	public static List<Period> getPeriodfromShift(String shid, String shift) throws SQLException{
@@ -223,6 +256,37 @@ public class Period {
 		dbh.DBClose(rs);
 		return prs;
 		
+	}
+	public static String getRestPeriod(String shid, String shift) throws SQLException{
+		String alltime = "00:00,02:00,04:00,06:00,08:00,10:00,12:00,14:00,16:00,18:00,20:00,22:00";
+		String sql = "select period_id, period_time from period "
+				+ "where sheet_id =" + shid
+				+ " and period_shift= '" + shift + "'";
+		List<Period> prs = new ArrayList<Period>();
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		while(rs.next()){
+			Period pr = new Period();
+			pr.setTime(rs.getString(2));
+			alltime.replace(rs.getString(2),"");
+			prs.add(pr);
+		}
+		System.out.println(alltime);
+		String[] temp = alltime.split(",");
+		JSONArray jsonArray = new JSONArray();
+		for(int i=0;i<temp.length;i++){
+			JSONObject jsonObject = new JSONObject();
+			if(!temp[i].equals("")) {
+				jsonObject.put("time", temp[i]);
+				jsonObject.put("text", temp[i]);
+				jsonArray.add(jsonObject);
+			}
+		}
+
+		dbh.DBClose(rs);
+		System.out.println(jsonArray.toString());
+		return jsonArray.toString();
+
 	}
 	public static int changeOnePeriod(Period prd) throws SQLException{
 		if (prd == null){

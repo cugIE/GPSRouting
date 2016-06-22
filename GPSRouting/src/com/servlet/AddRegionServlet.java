@@ -77,6 +77,9 @@ public class AddRegionServlet extends HttpServlet {
 		String type = request.getParameter("type");
 		String range = request.getParameter("range");
 		String gener_id = request.getParameter("gener_id");
+		if(gener_id==null){
+			gener_id=(String)request.getSession().getAttribute("SesId");
+		}
 		Region rg = new Region();
 		if(name==null || type==null|| intro == null||branch_id==null||gener_id==null){
 			OutputHelper.StringOutPut("error", response);

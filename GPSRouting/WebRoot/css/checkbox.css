@@ -1,0 +1,9 @@
+.checkbox-row{
+    padding: 5px;
+    width: 100%;
+}
+.checkbox-item{
+    width: 25%;
+    float: left;
+
+}

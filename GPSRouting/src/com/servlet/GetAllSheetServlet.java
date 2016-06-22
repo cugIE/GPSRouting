@@ -46,7 +46,6 @@ public class GetAllSheetServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String index = request.getParameter("index");
-		System.out.println("in");
 		if(index.equals("branch")){
 			String branch_id = request.getParameter("branch_id");
 			if (branch_id==null){
@@ -134,20 +133,14 @@ public class GetAllSheetServlet extends HttpServlet {
 		JSONArray JA = new JSONArray();
 		try {
 			List<Sheet> shts = Sheet.getAllSheet(branch_id);
-			if (shts.size() == 0){
-				OutputHelper.StringOutPut("no result",response);
-				return;
-			}
-			else{
-				for(int i = 0; i < shts.size(); i++){
-					JSONObject jso = new JSONObject();
-					jso.put("id", shts.get(i).getId());
-					jso.put("name", shts.get(i).getName());
-					jso.put("intro", shts.get(i).getIntro());
-					jso.put("gener", shts.get(i).getGener());
-					jso.put("action", "<a href='#' class=\"easyui-linkbutton\" iconCls=\"icon-search\" plain=\"true\" onclick=\"addTab('"+shts.get(i).getName()+"','sheet-data-detail.jsp?sheet_id="+shts.get(i).getId()+"')\"></a>");
-					JA.add(jso);
-				}
+
+			for(int i = 0; i < shts.size(); i++){
+				JSONObject jso = new JSONObject();
+				jso.put("id", shts.get(i).getId());
+				jso.put("name", shts.get(i).getName());
+				jso.put("intro", shts.get(i).getIntro());
+				jso.put("gener", shts.get(i).getGener());
+				JA.add(jso);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -155,7 +148,7 @@ public class GetAllSheetServlet extends HttpServlet {
 		}
 		if(isWeb!=null){
 			JSONObject jsonObject = new JSONObject();
-			jsonObject.put("total", 12);
+			jsonObject.put("total", 20);
 			jsonObject.put("rows", JA);
 			OutputHelper.StringOutPut(jsonObject.toString(), response);
 

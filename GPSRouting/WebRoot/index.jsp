@@ -94,11 +94,11 @@
 								<span>巡检报表</span>
 								<ul>
 									
-									<li><a href="#" onclick="addTab('巡检日志','result-data.html')">巡检日志</a></li>
+									<li><a href="#" onclick="addTab('<%=branch.getBranchName()%>-巡检日志','result-data.jsp?branch_id=<%=branch.getId()%>')">巡检日志</a></li>
 									<li>
-										<span><a href="#" onclick="addTab('故障信息','error-data.html')">故障信息</a></span>
+										<span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-故障信息','error-data.html')">故障信息</a></span>
 									</li>
-									<li><span><span><a href="#" onclick="addTab('月度巡检报告','calender/index.html')">月度巡检报告</a></span></li>
+									<li><span><span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-月度巡检报告','calender/index.html')">月度巡检报告</a></span></li>
 								</ul>
 
 							</li>
@@ -107,17 +107,17 @@
 								<span>巡检数据</span>
 								<ul>
 									<li>
-										<span><a href="#" onclick="addTab('巡检表管理','sheet-data.jsp?branch_id=<%=branch.getId()%>')">巡检表</a></span>
+										<span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-巡检表管理','sheet-data.jsp?branch_id=<%=branch.getId()%>')">巡检表管理</a></span>
 									</li>
 									<li>
-									<span> <a href="#" onclick="addTab('巡检区域管理','region-data.html')">区域管道管理</a> 
+									<span> <a href="#" onclick="addTab('<%=branch.getBranchName()%>-巡检区域管理','region-data.jsp?branch_id=<%=branch.getId()%>')">巡检区域管理</a>
 									</span>
 									</li>
 									<li>
-										<span><a href="#" onclick="addTab('巡检位置管理','position-data.html')">位置管理</a></span>
+										<span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-巡检位置管理','position-data.jsp?branch_id=<%=branch.getId()%>')">巡检位置管理</a></span>
 									</li>
 									<li>
-										<a href="#" onclick="addTab('巡检内容管理','content-data.html')">巡检内容</a>
+										<a href="#" onclick="addTab('<%=branch.getBranchName()%>-巡检内容管理','content-data.jsp?branch_id=<%=branch.getId()%>')">巡检内容管理</a>
 									</li>
 								</ul>
 							</li>
@@ -125,7 +125,7 @@
 							<li data-options="state:'closed'" >
 								<span>辅助功能</span>
 								<ul>
-									<li><span><a href="#" onclick="addTab('公告','billboard.html')">公告</a></span></li>
+									<li><span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-公告','billboard.html')">公告</a></span></li>
 									<li>警报</li>
 								</ul>
 							</li>

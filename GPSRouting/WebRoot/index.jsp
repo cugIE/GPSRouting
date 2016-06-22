@@ -142,7 +142,7 @@
 							<span ><a href="#" onclick="addTab('部门管理','branch-data.html')">部门管理</a></span>
 						</li>
 						<li >
-							 <span><a href="#" onclick="addTab('人员管理','people-data.html')">人员管理</a></span>
+							 <span><a href="#" onclick="addTab('人员管理','data-people.jsp')">人员管理</a></span>
 						</li>
 						<li >
 							 <span><a href="#" onclick="addTab('人员管理','')">网站参数</a></span>

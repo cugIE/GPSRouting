@@ -18,7 +18,17 @@ public class Question {
 	private String possibleAsw;
 	private String normalAsw;
 	private String region;
+	private String type;
 	private int region_id;
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	private String gener;
 	private int gener_id;
 	/**
@@ -33,6 +43,7 @@ public class Question {
 		this.gener = null;
 		this.region_id = 0;
 		this.gener_id = 0;
+		this.type=null;
 	}
 	/**
 	 * Constructor with its variables
@@ -44,7 +55,7 @@ public class Question {
 	 * @param gener
 	 */
 	public Question(String id, String title, String possibleAsw,
-			String normalAsw, String region, String gener, int region_id, int gener_id) {
+			String normalAsw, String region,String type, String gener, int region_id, int gener_id) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -119,9 +130,10 @@ public class Question {
 		}
 		else{
 			String sql = "insert into question"
-					+ "(question_title, question_asws, question_r_asws, gener_id, region_id)"
+					+ "(question_title, question_type , question_asws, question_r_asws, gener_id, region_id)"
 					+ "values('"+ qs.getTitle() + "','"
-					+ qs.getPossibleAsw() + "','" 
+					+ qs.getPossibleAsw() + "','"
+					+ qs.getType() + "','"
 					+ qs.getNormalAsw()  + "','" 
 					+ qs.getGener_id()  + "','" 
 					+ qs.getRegion_id()  + "')"; 
@@ -140,7 +152,7 @@ public class Question {
 	}
 	/**
 	 * Delete one Question
-	 * @param qID
+	 * @param
 	 * @return
 	 * @throws SQLException 
 	 */
@@ -178,7 +190,8 @@ public class Question {
 			String sql = "update question set "
 					+ "question_title = '" + qt.getTitle() + "', "
 					+ "question_asws= '" + qt.getPossibleAsw() + "', "
-					+ "question_r_asws = '" + qt.getNormalAsw()+ "' "
+					+ "question_r_asws = '" + qt.getNormalAsw()+ "', "
+					+ "question_type = '" + qt.getType() + "' "
 					+ "where question_id = " + qt.getId();
 			DBHelper dbh = new DBHelper();
 			int result = dbh.updateDatabase(sql);
@@ -197,7 +210,7 @@ public class Question {
 	
 	/**
 	 * Get all questions from one region;
-	 * @param rgif
+	 * @param
 	 * @return
 	 * @throws SQLException 
 	 */
@@ -209,7 +222,7 @@ public class Question {
 //				+ "inner join people "
 //				+ "on question.gener_id = people.people_id"
 //				+ " where question.region_id = " + rgid;
-		String sql = "SELECT question_id, question_title, question_asws, question_r_asws, question.gener_id, people_name "
+		String sql = "SELECT question_id, question_title, question_asws, question_r_asws, question_type, question.gener_id, people_name "
 				+ "from question "
 				+ "inner join people "
 				+ "on question.gener_id = people.people_id "
@@ -222,8 +235,9 @@ public class Question {
 			qt.setTitle(rs.getString(2));
 			qt.setPossibleAsw(rs.getString(3));
 			qt.setNormalAsw(rs.getString(4));
-			qt.setGener_id(rs.getInt(5));
-			qt.setGener(rs.getString(6));
+			qt.setType(rs.getString(5));
+			qt.setGener_id(rs.getInt(6));
+			qt.setGener(rs.getString(7));
 			qt.setRegion_id(Integer.parseInt(rgid));
 			qts.add(qt);
 		}
@@ -233,7 +247,7 @@ public class Question {
 	
 	public static Question getOneQuestion(String qstid) throws SQLException{
 		Question qt = new Question();
-		String sql = "SELECT question_id, question_title, question_asws, question_r_asws, question.gener_id, people_name "
+		String sql = "SELECT question_id, question_title, question_asws, question_r_asws, question_type, question.gener_id, people_name "
 				+ "from question "
 				+ "inner join people "
 				+ "on question.gener_id = people.people_id "
@@ -245,8 +259,9 @@ public class Question {
 			qt.setTitle(rs.getString(2));
 			qt.setPossibleAsw(rs.getString(3));
 			qt.setNormalAsw(rs.getString(4));
-			qt.setGener_id(rs.getInt(5));
-			qt.setGener(rs.getString(6));
+			qt.setType(rs.getString(5));
+			qt.setGener_id(rs.getInt(6));
+			qt.setGener(rs.getString(7));
 			qt.setRegion_id(Integer.parseInt(qstid));
 			dbh.DBClose(rs);
 			return qt;

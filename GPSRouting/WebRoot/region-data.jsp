@@ -47,15 +47,18 @@
 			<form id="add-region-form" method="post">
 				<div class="fitem">
 					<label>区域名</label>
-					<input name="title" class="easyui-validatebox" required="true" style=" width:160px">
+					<input name="name" class="easyui-validatebox" required="true" style=" width:160px">
 				</div>
 				<div class="fitem">
 					<label>区域介绍</label>
-					<input name="poss" class="easyui-validatebox" style=" width:160px" >
+					<input name="intro" class="easyui-validatebox" style=" width:160px" >
 				</div>
                 <div class="fitem">
                     <label>区域类型</label>
-                    <input id="region-type-list" name="type" style=" width:160px">
+					<select id="cc" class="easyui-combobox" name="type" style="width:160px;">
+						<option value="site">巡站点</option>
+						<option value="route">巡线点</option>
+					</select>
                 </div>
 				<%--<div class="fitem">--%>
 				<%--<label>所在部门</label>--%>

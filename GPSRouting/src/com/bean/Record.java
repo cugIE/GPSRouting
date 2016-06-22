@@ -378,7 +378,7 @@ public class Record {
 
 	public static List<Record> getAllRecordFromPeriod(String period_id, String start, String end) throws SQLException{
 		List<Record> rcrds = new ArrayList<Record>();
-		String sql = "SELECT record_id, record_error, record_start, record_end, record_submit, record.ptr_id, region.region_name, period.period_shift, period.period_time, record.gener_id, people_name, record_status, checker_name, record_check_time, region.region_type, branch.branch_name "
+		String sql = "SELECT record_id, record_asws, record_error, record_start, record_end, record_submit, record.ptr_id, region.region_name, period.period_shift, period.period_time, record.gener_id, people_name, record_status, checker_name, record_check_time, region.region_type, branch.branch_name "
 				+ "from ((((record "
 				+ "inner join people "
 				+ "on record.gener_id = people.people_id) "
@@ -398,21 +398,22 @@ public class Record {
 		while(rs.next()){
 			Record rcrd = new Record();
 			rcrd.setId(rs.getString(1));
-			rcrd.setError(rs.getString(2));
-			rcrd.setStart(rs.getTimestamp(3));
-			rcrd.setEnd(rs.getTimestamp(4));
-			rcrd.setSubmit(rs.getTimestamp(5));
-			rcrd.setPtr_id(rs.getInt(6));
-			rcrd.setRegion(rs.getString(7));
-			rcrd.setPeriod_shift(rs.getString(8));
-			rcrd.setPeriod_time(rs.getTime(9));
-			rcrd.setGener_id(rs.getInt(10));
-			rcrd.setGener(rs.getString(11));
-			rcrd.setStatus(rs.getString(12));
-			rcrd.setChecker(rs.getString(13));
-			rcrd.setCheck(rs.getTimestamp(14));
-			rcrd.setType(rs.getString(15));
-			rcrd.setBranch(rs.getString(16));
+			rcrd.setAsws(rs.getString(2));
+			rcrd.setError(rs.getString(3));
+			rcrd.setStart(rs.getTimestamp(4));
+			rcrd.setEnd(rs.getTimestamp(5));
+			rcrd.setSubmit(rs.getTimestamp(6));
+			rcrd.setPtr_id(rs.getInt(7));
+			rcrd.setRegion(rs.getString(8));
+			rcrd.setPeriod_shift(rs.getString(9));
+			rcrd.setPeriod_time(rs.getTime(10));
+			rcrd.setGener_id(rs.getInt(11));
+			rcrd.setGener(rs.getString(12));
+			rcrd.setStatus(rs.getString(13));
+			rcrd.setChecker(rs.getString(14));
+			rcrd.setCheck(rs.getTimestamp(15));
+			rcrd.setType(rs.getString(16));
+			rcrd.setBranch(rs.getString(17));
 			rcrds.add(rcrd);
 		}
 		dbh.DBClose(rs);

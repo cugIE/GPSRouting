@@ -149,8 +149,46 @@ public class GetAllRecordServlet extends HttpServlet {
 			}
 			OutputHelper.StringOutPut(JA.toString(), response);
 		}
-		else if(index.equals("timestamp")){
-			
+		else if(index.equals("period")){
+			String period_id = request.getParameter("period_id");
+			String start = request.getParameter("start");
+			String end = request.getParameter("end");
+			if (period_id == null||start == null||end == null){
+				OutputHelper.StringOutPut("error", response);
+				return;
+			}
+			JSONArray JA = new JSONArray();
+			try {
+				List<Record> recordList = Record.getAllRecordFromPeriod(period_id, start, end);
+				if (recordList.size() == 0){
+					OutputHelper.StringOutPut("no result", response);
+					return;
+				}
+
+				for(int i = 0; i < recordList.size(); i++){
+					Record rcd = recordList.get(i);
+					JSONObject jso = new JSONObject();
+					jso.put("id", rcd.getId());
+					jso.put("error", rcd.getError());
+					jso.put("start", rcd.getStart().toString());
+					jso.put("end", rcd.getEnd().toString());
+					jso.put("submit", rcd.getSubmit().toString());
+					jso.put("region", rcd.getRegion());
+					jso.put("period_shift", rcd.getPeriod_shift());
+					jso.put("period_time", rcd.getPeriod_time().toString());
+					jso.put("status", rcd.getStatus());
+					jso.put("checker", rcd.getChecker());
+					jso.put("type", rcd.getType());
+					jso.put("branch", rcd.getType());
+					JA.add(jso);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			OutputHelper.StringOutPut(JA.toString(), response);
+
+
 		}
 		else {
 			OutputHelper.StringOutPut("error_index", response);

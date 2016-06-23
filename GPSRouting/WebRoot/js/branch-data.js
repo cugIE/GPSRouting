@@ -1,7 +1,7 @@
-function newUser(){
-	$('#dlg').dialog('open').dialog('setTitle','添加人员');
+function newBranch(){
+	$('#dlg').dialog('open').dialog('setTitle','添加部门');
 	$('#fm').form('clear');
-	url = 'save_user.php';
+	
 };
 
 function addTab(title,url){
@@ -21,14 +21,14 @@ function addTab(title,url){
         }
     };*/
     
-    function destroyUser() {
-        var row = $('#people-data').datagrid('getSelected');
+    function destroyBranch() {
+        var row = $('#branch-data').datagrid('getSelected');
         if (row){
             $.messager.confirm('Confirm','确认删除?',function(r){
                 if (r){
-                    $.post('ManagePeopleServlet?action=delete3',{id:row.id},function(result){
-                        if (result=="1"){
-                            $('#people-data').datagrid('reload');	// reload the user data
+                    $.post('ManageBranchServlet?action=delete3',{id:row.id},function(data,status){
+                        if (status=="success"){
+                            $('#branch-data').datagrid('reload');	// reload the user data
                         } else {
                             $.messager.show({	// show error message
                                 title: 'Error',
@@ -45,13 +45,18 @@ function addTab(title,url){
     	
     }
     
-    function editUser(){
-        var row = $('#people-data').datagrid('getSelected');
+    function editBranch(){
+        var row = $('#branch-data').datagrid('getSelected');
+        url='ManageBranchServlet?action=update&id='+row.id;
         if (row){
-            $('#dlg-edit').dialog('open').dialog('setTitle','修改人员信息');
-            $('#updatefm').form('load',row);
+        	parent.addTab('修改部门信息',url);
+           /* $('#dlg-edit').dialog('open').dialog('setTitle','修改人员信息');
+            $('#updatefm').form('load',row);*/
          //   url = 'ChangeRegionServlet?region_id='+row.id;
-            url='ManagePeopleServlet?action=update&id='+row.id;
+      
         }
+        
+        
+        
     }
 	

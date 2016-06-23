@@ -2,6 +2,7 @@
 pageEncoding="UTF-8"%>
 <%@ page import="com.bean.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="com.service.*"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme() + "://"
@@ -41,8 +42,9 @@ String basePath = request.getScheme() + "://"
 	%>
 	<thead>
 		<tr>
-			<th field="username" width="15" >账号</th>
-			<th field="name" width="15">名字</th>
+			<th field="id" width="10" ></th>
+			<th field="username" width="10" >账号</th>
+			<th field="name" width="10">名字</th>
 			<th field="position" width="15">职位</th>
 			<th field="branch" width="15">所属部门</th>
 			<th field="remark" width="20">备注信息</th>
@@ -55,6 +57,7 @@ String basePath = request.getScheme() + "://"
 			People people1 = iterproject.next();
 			%>
 			<tr>
+				<td><%=people1.getId() %></td>
 				<td><%=people1.getUsername()%></td>
 				<td><%=people1.getName()%></td>
 				<td>
@@ -83,7 +86,7 @@ String basePath = request.getScheme() + "://"
 					href="#" iconCls="icon-edit" plain="true" 
 					onclick="addTab('修改人员信息','ManagePeopleServlet?id=<%=people1.getId()%>&action=update')">修改</a> 
 					<a id="destroyPeo" class="easyui-linkbutton" iconCls="icon-remove" plain="true" 
-					onclick="destroyUser()" value="<%=people1.getId() %>">删除</a>							
+					onclick="destroyU()" value="<%=people1.getId() %>">删除</a>							
 				</td>
 			</tr>
 				<%
@@ -162,10 +165,10 @@ String basePath = request.getScheme() + "://"
 		</form>
 	</div>
 	<div id="dlg-buttons">
-		<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">保存</a>
+		<!-- <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">保存</a> -->
 		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
 	</div>
+	
 	<script type="text/javascript" src="js/people-data.js"></script>
-	<script type="text/javascript" src="js/index.js"></script>
 </body>
 </html>

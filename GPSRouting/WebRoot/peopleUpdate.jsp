@@ -90,9 +90,11 @@ String basePath = request.getScheme() + "://"
 				<label>备注</label>							
 				<input type="text" id="peopremark" name="peopremark" value=<%=people.getPeopRemark() %> class="easyui-validatebox" placeholder="备注信息">
 			</div>
+			<div>
+				<input type="submit" value="提交"/>
+				<input type="reset" value="重置"/>
+			</div>
 		</form>
-	</div>
-
 </table>
 <script type="text/javascript" src="js/people-data.js"></script>
 </body>

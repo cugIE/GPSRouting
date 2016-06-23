@@ -17,6 +17,7 @@ import com.bean.People;
 import com.bean.People;
 import com.service.PeopleService;
 import com.service.PeopleService;
+import com.util.OutputHelper;
 
 public class ManagePeopleServlet extends HttpServlet {
 
@@ -38,6 +39,7 @@ public class ManagePeopleServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		System.out.println("方法：" + action);
 		System.out.println("方法id：" + id);
+		
 		
 		Logger log = Logger.getLogger(ManagePeopleServlet.class);
 		/**
@@ -195,9 +197,12 @@ public class ManagePeopleServlet extends HttpServlet {
 		} else if (action.equals("delete3")) {
 			String id1 = request.getParameter("id");
 			try {
+				int result = 1 ;
+			//	PrintWriter out = response.getWriter();
 				service.delete(id1);
 			//	response.sendRedirect("deletesuccess");
-				response.sendRedirect("ManagePeopleServlet?action=list");
+			//	response.sendRedirect("ManagePeopleServlet?action=list");
+				OutputHelper.StringOutPut(result+"", response);
 				log.error("删除人员信息");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

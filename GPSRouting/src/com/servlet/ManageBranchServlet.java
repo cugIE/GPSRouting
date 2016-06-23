@@ -105,12 +105,12 @@ public class ManageBranchServlet extends javax.servlet.http.HttpServlet implemen
                 branchService.add(b);
                 PrintWriter out = response.getWriter();
                 //out.print("添加成功");
-                out.print("<script>" + "alert('添加成功');"+ "document.location.href='data-newbranch.jsp';"+ "</script>");
+                out.print("<script>" + "alert('添加成功');"+ "document.location.href='branch-data.jsp';"+ "</script>");
                 log.error("新增部门信息");
             } catch (SQLException e) {
                 PrintWriter out = response.getWriter();
              //   out.print("添加失败");
-                out.print("<script>" + "alert('添加失败');"+ "document.location.href='data-newbranch.jsp';"+ "</script>");
+                out.print("<script>" + "alert('添加失败');"+ "document.location.href='branch-data.jsp';"+ "</script>");
                 e.printStackTrace();
             }
         }
@@ -145,7 +145,7 @@ public class ManageBranchServlet extends javax.servlet.http.HttpServlet implemen
                             try {
                                     Branch branch = service.fill(id);
                                     request.setAttribute("branch", branch);
-                                    request.getRequestDispatcher("branchUpdateN.jsp").forward(
+                                    request.getRequestDispatcher("branchUpdate.jsp").forward(
                                             request, response);
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -171,7 +171,7 @@ public class ManageBranchServlet extends javax.servlet.http.HttpServlet implemen
                                 try {
                                         branchService.update(b);
                                         PrintWriter out = response.getWriter();
-                                        out.print("<script>" + "alert('修改成功');"+ "document.location.href='data-newbranch.jsp';"+ "</script>");
+                                        out.print("<script>" + "alert('修改成功');"+ "document.location.href='branch-data.jsp';"+ "</script>");
                                      //  out.print("修改成功");
                                         log.error("更新部门信息");
                                     } catch (Exception e) {

@@ -1,4 +1,4 @@
 eclipse.preferences.version=1
-validator.Checked=WebRoot/assets,WebRoot/calender
+validator.Checked=WebRoot/assets,WebRoot/json,WebRoot/calender
 validator.Revalidate=true
 validator.Unchecked=

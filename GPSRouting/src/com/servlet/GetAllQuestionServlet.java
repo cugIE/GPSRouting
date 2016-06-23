@@ -125,10 +125,7 @@ public class GetAllQuestionServlet extends HttpServlet {
 			
 				try {
 					List<PtrConnection> ptrs = PtrConnection.getAllRegion(period_id);
-					if (ptrs.size()==0){
-						OutputHelper.StringOutPut("no result",response);
-						return;
-					}
+
 					for (int i = 0; i < ptrs.size(); i++){
 						List<Question> qsts = Question.getAllQuestion(ptrs.get(i).getRegion_content().getId());
 						for(int j = 0; j <qsts.size(); j++){

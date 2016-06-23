@@ -130,7 +130,7 @@ public class Question {
 		}
 		else{
 			String sql = "insert into question"
-					+ "(question_title, question_type , question_asws, question_r_asws, gener_id, region_id)"
+					+ "(question_title, question_asws , question_type, question_r_asws, gener_id, region_id)"
 					+ "values('"+ qs.getTitle() + "','"
 					+ qs.getPossibleAsw() + "','"
 					+ qs.getType() + "','"

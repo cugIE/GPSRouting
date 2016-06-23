@@ -20,6 +20,7 @@
 		        <tr>
                     <th field="id" width="10"></th>
 		        	<th field="region" width="20">检查区域</th>
+                    <th field="type" width="60">巡检点</th>
 		            <th field="title" width="60">巡检内容</th>
 		            <th field="possasws" width="40">内容答案</th>
 		            <th field="normalasws" width="30">正确答案</th>

@@ -65,9 +65,9 @@ function addTab(title,url){
 function editRegion(){
     var row = $('#region-data').datagrid('getSelected');
     if (row){
-        $('#add-region-dlg').dialog('open').dialog('setTitle','修改表');
+        $('#add-region-dlg').dialog('open').dialog('setTitle','修改区域');
         $('#add-region-form').form('load',row);
-        url = 'ChangeRegionServlet?region_id='+row.id;
+        url = 'ChangeRegionServlet?id='+row.id;
     }
 }
 function destroyRegion() {

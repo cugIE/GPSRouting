@@ -93,7 +93,7 @@ public class ChangeSheetServlet extends HttpServlet {
 			}
 		}
 		else {
-			OutputHelper.StringOutPut("error_sheet", response);
+			OutputHelper.StringOutPut("error", response);
 			return;
 		}
 	}

@@ -26,6 +26,7 @@
 		        <tr>
 					<th field="id" width="10"></th>
 		        	<th field="title" width="40">问题</th>
+					<th field="type" width="40">巡检点</th>
 		            <th field="possasws" width="40">答案</th>
 		            <th field="normalasws" width="20">正确答案</th>
 		        </tr>
@@ -39,14 +40,19 @@
 		    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyQuestion()">删除问题</a>
 		</div>
 
-		<div id="add-question-dlg" class="easyui-dialog" style="width:300px;height:240px;padding:10px 20px"
+		<div id="add-question-dlg" class="easyui-dialog" style="width:300px;height:300px;padding:10px 20px"
 			 closed="true" buttons="#sheet-dlg-buttons">
 			<div class="ftitle">添加表</div>
 			<form id="add-question-form" method="post">
 				<div class="fitem">
+					<label>巡检点</label>
+					<input name="type" class="easyui-validatebox" required="true" style=" width:160px">
+				</div>
+				<div class="fitem">
 					<label>问题标题</label>
 					<input name="title" class="easyui-validatebox" required="true" style=" width:160px">
 				</div>
+
 				<div class="fitem">
 					<label>答案</label>
 					<input name="possasws" class="easyui-validatebox" style=" width:160px" >

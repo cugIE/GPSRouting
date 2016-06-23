@@ -68,6 +68,7 @@ public class GetAllQuestionServlet extends HttpServlet {
 					jso.put("title", qst.getTitle());
 					jso.put("possasws", qst.getPossibleAsw());
 					jso.put("normalasws", qst.getNormalAsw());
+					jso.put("type", qst.getType());
 					jso.put("gener", qst.getGener());
 					jso.put("gener_id", qst.getGener_id());
 				} catch (SQLException e) {
@@ -100,6 +101,7 @@ public class GetAllQuestionServlet extends HttpServlet {
 						jso.put("title", qsts.get(i).getTitle());
 						jso.put("possasws", qsts.get(i).getPossibleAsw());
 						jso.put("normalasws", qsts.get(i).getNormalAsw());
+						jso.put("type", qsts.get(i).getType());
 						jso.put("gener", qsts.get(i).getGener());
 						jso.put("gener_id", qsts.get(i).getGener_id());
 						
@@ -123,10 +125,7 @@ public class GetAllQuestionServlet extends HttpServlet {
 			
 				try {
 					List<PtrConnection> ptrs = PtrConnection.getAllRegion(period_id);
-					if (ptrs.size()==0){
-						OutputHelper.StringOutPut("no result",response);
-						return;
-					}
+
 					for (int i = 0; i < ptrs.size(); i++){
 						List<Question> qsts = Question.getAllQuestion(ptrs.get(i).getRegion_content().getId());
 						for(int j = 0; j <qsts.size(); j++){
@@ -136,6 +135,7 @@ public class GetAllQuestionServlet extends HttpServlet {
 							jso.put("title", qsts.get(j).getTitle());
 							jso.put("possasws", qsts.get(j).getPossibleAsw());
 							jso.put("normalasws", qsts.get(j).getNormalAsw());
+							jso.put("type", qsts.get(j).getType());
 							jso.put("gener", qsts.get(j).getGener());
 							jso.put("gener_id", qsts.get(j).getGener_id());
 							jso.put("region_id", qsts.get(j).getRegion_id());
@@ -198,6 +198,7 @@ public class GetAllQuestionServlet extends HttpServlet {
 						jso.put("title", qsts.get(i).getTitle());
 						jso.put("possasws", qsts.get(i).getPossibleAsw());
 						jso.put("normalasws", qsts.get(i).getNormalAsw());
+						jso.put("type", qsts.get(i).getType());
 						jso.put("gener", qsts.get(i).getGener());
 						jso.put("gener_id", qsts.get(i).getGener_id());
 

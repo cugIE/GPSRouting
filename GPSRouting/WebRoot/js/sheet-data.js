@@ -28,7 +28,7 @@
                 return $(this).form('validate');
             },
             success: function(result){
-                if (result!="1"){
+                if (result=="error"){
                     $.messager.show({
                         title: 'Error',
                         msg: "添加错误"

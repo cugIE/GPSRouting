@@ -75,6 +75,7 @@ public class AddQuestionServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String possasws = request.getParameter("possasws");
 		String normalasws = request.getParameter("normalasws");
+		String type = request.getParameter("type");
 		String gener_id = request.getParameter("gener_id");
 
 		String region_id = request.getParameter("region_id");
@@ -85,6 +86,7 @@ public class AddQuestionServlet extends HttpServlet {
 		Question qst = new Question();
 		qst.setTitle(title);
 		qst.setPossibleAsw(possasws);
+		qst.setType(type);
 		qst.setNormalAsw(normalasws);
 		if(gener_id==null || region_id==null){
 			OutputHelper.StringOutPut("error", response);

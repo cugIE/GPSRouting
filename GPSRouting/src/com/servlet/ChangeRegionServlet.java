@@ -92,6 +92,13 @@ public class ChangeRegionServlet extends HttpServlet {
 				rg.setQrcode(qrcode);
 			}
 			if(type!=null){
+				if(type.equals("巡站点")){
+					type="site";
+				}
+				else if(type.equals("巡线点")){
+					type="route";
+				}
+
 				rg.setType(type);
 			}
 			if(range!=null){

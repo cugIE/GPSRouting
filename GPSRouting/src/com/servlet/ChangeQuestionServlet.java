@@ -78,6 +78,7 @@ public class ChangeQuestionServlet extends HttpServlet {
 			try {
 				String title = request.getParameter("title");
 				String possasws = request.getParameter("possasws");
+				String type = request.getParameter("type");
 				String normalasws = request.getParameter("normalasws");
 				System.out.println(question_id+";"+title+";"+possasws+";"+normalasws);
 				Question qst = Question.getOneQuestion(question_id);
@@ -86,6 +87,9 @@ public class ChangeQuestionServlet extends HttpServlet {
 				}
 				if (possasws!=null){
 					qst.setPossibleAsw(possasws);
+				}
+				if (type!=null){
+					qst.setType(type);
 				}
 				if (normalasws!=null){
 					qst.setNormalAsw(normalasws);

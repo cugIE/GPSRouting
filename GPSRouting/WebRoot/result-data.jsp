@@ -10,7 +10,7 @@
 	<script type="text/javascript" src="assets/easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="assets/easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="js/easyui-lang-zh_CN.js"></script>
-</head>				
+</head>
 <body>
 		<table id="result-data" title="按照巡检班次" class="easyui-datagrid" style="max-height:600px;"
 		        url="GetAllPeriodServlet"

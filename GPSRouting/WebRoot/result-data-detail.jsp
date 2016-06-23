@@ -14,7 +14,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <title>燃气巡检系统</title>
+    <link rel="stylesheet" type="text/css" href="assets/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="assets/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="assets/easyui/themes/color.css">
+
+    <script type="text/javascript" src="assets/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="js/easyui-lang-zh_CN.js"></script>
 </head>
 <body>
 <%
@@ -24,9 +32,9 @@
     String start = date + " 00:00";
 
 %>
+<div class="easyui-panel" title="报表" style="padding: 20px; height: 800px;">
 <table style="width: 100%" border="1" bordercolor="black" cellspacing="0">
     <tr>
-        <td>巡检区域</td>
         <td>巡检点</td>
         <td>巡检内容</td>
         <td>可选结果</td>
@@ -57,7 +65,7 @@
 
         %>
 
-        <td rowspan="<%=jalist.size()%>"><%=rcd.getRegion()%></td>
+        <td rowspan="<%=jalist.size()%>"><a href="#" onclick="parent.addTab('<%=rcd.getRegion()+'-'+rcd.getId()%>','result-data-detail-line.jsp?record_id=<%=rcd.getId()%>')"><%=rcd.getRegion()%></a></td>
 
     <%
 
@@ -81,5 +89,6 @@
     <%}}%>
 
 </table>
+</div>
 </body>
 </html>

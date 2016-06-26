@@ -32,9 +32,10 @@
     String start = date + " 00:00";
 
 %>
-<div class="easyui-panel" title="报表" style="padding: 20px; height: 800px;">
+<div class="easyui-panel" title="报表" style="padding: 20px; height: 800px;" data-options="iconCls:'icon-save',closable:true,tools:'#tt'">
 <table style="width: 100%" border="1" bordercolor="black" cellspacing="0">
     <tr>
+        <td>巡检区域</td>
         <td>巡检点</td>
         <td>巡检内容</td>
         <td>可选结果</td>
@@ -46,8 +47,15 @@
     </tr>
     <%
         List<Record> recordList = Record.getAllRecordFromPeriod(period_id, start, end);
+        String rcdid = "";
         for(int i = 0; i < recordList.size(); i++){
             Record rcd = recordList.get(i);
+            if(i==0){
+                rcdid = rcd.getId();
+            }
+            else {
+                rcdid = rcdid + "," + rcd.getId();
+            }
             rcd.getRegion();
             String RegionName = "";
             String TypeName="";
@@ -61,11 +69,14 @@
         <%
             if (!RegionName.equals(rcd.getRegion())){
                 RegionName = rcd.getRegion();
-
-
+                String isCheck="已审核";
+                if(rcd.getStatus().equals("0")){
+                    isCheck="未审核";
+                }
         %>
 
-        <td rowspan="<%=jalist.size()%>"><a href="#" onclick="parent.addTab('<%=rcd.getRegion()+'-'+rcd.getId()%>','result-data-detail-line.jsp?record_id=<%=rcd.getId()%>')"><%=rcd.getRegion()%></a></td>
+
+        <td rowspan="<%=jalist.size()%>"><a href="#" onclick="parent.addTab('<%=rcd.getRegion()+'-'+rcd.getId()%>','result-data-detail-line.jsp?record_id=<%=rcd.getId()%>')"><%=rcd.getRegion()%></a><%=isCheck%></td>
 
     <%
 
@@ -89,6 +100,32 @@
     <%}}%>
 
 </table>
+
 </div>
+<div id="tt">
+    <a href="javascript:void(0)" class="icon-edit" onclick="newCheck()"></a>
+</div>
+<div id="add-check-dlg" class="easyui-dialog" style="width:300px;height:300px;padding:10px 20px"
+     closed="true" buttons="#sheet-dlg-buttons">
+    <div class="ftitle">审核</div>
+    <form id="add-question-form" method="post">
+        <div class="fitem">
+            <label>评论</label>
+            <textarea id="record-comment" name="intro" rows="4" class="form-control" placeholder="输入评论内容"></textarea>
+        </div>
+
+        <%--<div class="fitem">--%>
+        <%--<label>所在部门</label>--%>
+        <%--<input name="branch_id" value="<%=request.getParameter("branch_id")%>" class="easyui-validatebox" >--%>
+        <%--</div>--%>
+
+    </form>
+</div>
+<div id="sheet-dlg-buttons">
+    <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="checkAllRecord('<%=rcdid%>')">保存</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#add-check-dlg').dialog('close')">取消</a>
+</div>
+
+<script type="text/javascript" src="js/result-data-detail.js"></script>
 </body>
 </html>

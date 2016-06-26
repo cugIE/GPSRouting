@@ -94,6 +94,10 @@
 					<input id="shift-name" name="shift" class="easyui-validatebox" required="true">
 				</div>
 				<div class="checkbox-row">
+					<input type="checkbox" id="checkbox0" name="all" onclick="if(this.checked==true) { checkAll('times'); } else { clearAll('times'); }">
+					<label for="checkbox1"> 全选</label>
+				</div>
+				<div class="checkbox-row">
 					<div class="checkbox-item">
 						<input type="checkbox" id="checkbox1" name="times" value="00:00">
 						<label for="checkbox1"> 00:00</label>

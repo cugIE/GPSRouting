@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="assets/easyui/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="assets/easyui/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="assets/easyui/themes/color.css">
+    <link rel="stylesheet" type="text/css" href="css/table.css">
 
     <script type="text/javascript" src="assets/easyui/jquery.min.js"></script>
     <script type="text/javascript" src="assets/easyui/jquery.easyui.min.js"></script>
@@ -33,18 +34,21 @@
 
 %>
 <div class="easyui-panel" title="报表" style="padding: 20px; height: 800px;" data-options="iconCls:'icon-save',closable:true,tools:'#tt'">
-<table style="width: 100%" border="1" bordercolor="black" cellspacing="0">
+<table class="imagetable"  cellspacing="0">
+    <thead>
     <tr>
-        <td>巡检区域</td>
-        <td>巡检点</td>
-        <td>巡检内容</td>
-        <td>可选结果</td>
-        <td style="color:'#e4a555'">已测结果</td>
-        <td>正常结果</td>
+        <th>巡检区域</th>
+        <th>巡检点</th>
+        <th>巡检内容</th>
+        <th>可选结果</th>
+        <th>已测结果</th>
+        <th>正常结果</th>
 
 
 
     </tr>
+    </thead>
+    <tbody
     <%
         List<Record> recordList = Record.getAllRecordFromPeriod(period_id, start, end);
         String rcdid = "";
@@ -98,7 +102,7 @@
         <td><%=jso.get("normalasws")%></td>
     </tr>
     <%}}%>
-
+    </tbody>
 </table>
 
 </div>

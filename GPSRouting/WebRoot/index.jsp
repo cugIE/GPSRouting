@@ -60,7 +60,7 @@
 		<div class="title-text">燃气巡检系统</div>
 		<a href="#" class="easyui-linkbutton c4 l-btn l-btn-small" style="position:absolute; right:140px; bottom:10px">通知</a>
 		<a href="#" class="easyui-linkbutton c5 l-btn l-btn-small" style="position:absolute; right:100px; bottom:10px">警报</a>
-		<a href="#" class="easyui-linkbutton c2 l-btn l-btn-small" style="position:absolute; right:20px; bottom:10px">安全退出</a>
+		<a href="ExitServlet" class="easyui-linkbutton c2 l-btn l-btn-small" style="position:absolute; right:20px; bottom:10px">安全退出</a>
 		</div>
 		<div region="west" split="true" title="导航栏" style="width:200px;">
 			<div class="easyui-panel" style="padding: 5px;width: 100%;height: 133px; text-align: center;">
@@ -139,10 +139,10 @@
 						<span>系统管理</span>
 						<ul>
 						<li>
-							<span ><a href="#" onclick="addTab('部门管理','branch-data.html')">部门管理</a></span>
+							<span ><a href="#" onclick="addTab('部门管理','branch-data.jsp')">部门管理</a></span>
 						</li>
 						<li >
-							 <span><a href="#" onclick="addTab('人员管理','people-data.html')">人员管理</a></span>
+							 <span><a href="#" onclick="addTab('人员管理','data-people.jsp')">人员管理</a></span>
 						</li>
 						<li >
 							 <span><a href="#" onclick="addTab('人员管理','')">网站参数</a></span>

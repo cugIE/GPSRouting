@@ -23,17 +23,21 @@
 		</style>
 	</head>
 	<body>
-		<div id="login-pannel" class="easyui-layout" style="left:450px;width:700px;height:350px;">
+		<div id="login-pannel" class="easyui-layout" style="left:450px;width:700px;height:500px;">
 			<div style="text-align:center">
-				<div id="login" class="easyui-panel" title="用&nbsp;户&nbsp;登&nbsp;录" data-options="footer:'#ft'" style="left:250px;width:400px;height:200px;padding:10px;">
+				<div id="login" class="easyui-panel" title="用&nbsp;户&nbsp;登&nbsp;录" data-options="footer:'#ft'" style="left:250px;width:400px;height:215px;padding:10px;">
 					<form action="LoginServlet" method="post">
 						<div class="fitem">
-							<label>用户名</label>
+							<div style="margin-bottom:5px">
+							<label>用户名：</label>
+							</div>
 							<div></div>
 							<input type="text" id="username" name="username" class="easyui-validatebox" required="true">
 						</div>
-						<div class="fitem">
-							<label>密码</label>
+						<div class="fitem" style="margin-bottom:10px">
+							<div style="margin-bottom:5px">
+							<label>密码：</label>
+							</div>
 							<div></div>
 							<input type="password" id="password" name="password" class="easyui-validatebox" required="true">
 						</div>

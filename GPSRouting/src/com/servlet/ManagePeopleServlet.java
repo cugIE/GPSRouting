@@ -2,20 +2,24 @@ package com.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.List;
+
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import org.apache.log4j.Logger;
 import org.omg.CORBA.PRIVATE_MEMBER;
 
 import com.bean.People;
-import com.bean.People;
-import com.service.PeopleService;
 import com.service.PeopleService;
 import com.util.OutputHelper;
 
@@ -49,14 +53,14 @@ public class ManagePeopleServlet extends HttpServlet {
 			response.setContentType("text/html;charset=utf-8");
 			// String People_id = request.getParameter("People_id");
 			String username = request.getParameter("username");
-			String password = request.getParameter("password");
+		//	String password = request.getParameter("password");
 			String name = request.getParameter("name");
 			String people_code = request.getParameter("peoplecode");
 			String branch_id = request.getParameter("branchid");
 			String team_id = request.getParameter("teamid");
 			String people_remark = request.getParameter("peopRemark");
 			System.out.println(username);
-			System.out.println(password);
+	//		System.out.println(password);
 			System.out.println(name);
 			System.out.println(people_code);
 			System.out.println(branch_id);
@@ -65,7 +69,7 @@ public class ManagePeopleServlet extends HttpServlet {
 
 			People p = new People();
 			p.setUsername(username);
-			p.setPassword(password);
+	//		p.setPassword(password);
 			p.setName(name);
 			p.setCode(people_code);
 			p.setBranchId(branch_id);
@@ -91,11 +95,30 @@ public class ManagePeopleServlet extends HttpServlet {
 		 * 查詢
 		 */
 		else if (action.equals("list")) {
+			JSONArray JA = new JSONArray();
 			try {
 				List<People> peopleList = service.fill();
-				request.setAttribute("PeopleList", peopleList);
+				if (peopleList.size()!=0) {
+					for (int i = 0; i < peopleList.size(); i++) {
+						JSONObject js = new JSONObject();
+						People p = peopleList.get(i);
+						js.put("id", p.getId());
+						js.put("username", p.getUsername());
+						js.put("name", p.getName());
+						js.put("teamid", p.getTeamId());
+						js.put("branchid", p.getBranchId());
+						js.put("peoplecode", p.getCode());
+						js.put("peopRemark", p.getPeopRemark());		
+						JA.add(js);
+					}
+				}else {
+					OutputHelper.StringOutPut("no result",response);
+					return;
+				}
+				this.StringOutPut(JA.toString(), response);
+				/*request.setAttribute("PeopleList", peopleList);
 				request.getRequestDispatcher("data-people.jsp").forward(request,
-						response);
+						response);*/
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -136,18 +159,18 @@ public class ManagePeopleServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else if (action.equals("update2")) {
-			String user_id = request.getParameter("userid");
+			String user_id = request.getParameter("id");
 			String username = request.getParameter("username");
-			String password = request.getParameter("password");
+		//	String password = request.getParameter("password");
 			String name = request.getParameter("name");
 			String people_code = request.getParameter("peoplecode");
 			String branch_id = request.getParameter("branchid");
 			String team_id = request.getParameter("teamid");
-			String people_remark = request.getParameter("peopremark");
+			String people_remark = request.getParameter("peopRemark");
 			People p = new People();
 			p.setId(user_id);
 			p.setUsername(username);
-			p.setPassword(password);
+		//	p.setPassword(password);
 			p.setName(name);
 			p.setCode(people_code);
 			p.setBranchId(branch_id);
@@ -161,9 +184,10 @@ public class ManagePeopleServlet extends HttpServlet {
 
 			PeopleService peopleService = new PeopleService();
 			try {
-				peopleService.update(p);
-				PrintWriter out = response.getWriter();
-				out.print("<script>" + "alert('修改成功！');"+ "document.location.href='data-people.jsp';"+ "</script>");
+				int result = peopleService.update(p);
+			//	PrintWriter out = response.getWriter();
+				OutputHelper.StringOutPut(""+result, response);
+	//			out.print("<script>" + "alert('修改成功！');"+ "document.location.href='data-people.jsp';"+ "</script>");
 				log.error("修改人员信息");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -273,5 +297,17 @@ public class ManagePeopleServlet extends HttpServlet {
 	public String getServletInfo() {
 		return "This is my default servlet created by Eclipse";
 	}
-
+	public void StringOutPut (String str, HttpServletResponse response){
+		System.out.println(str);
+		response.setContentType("charset=utf-8");
+		try {
+			response.getOutputStream().write(str.getBytes("utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

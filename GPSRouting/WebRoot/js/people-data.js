@@ -1,26 +1,32 @@
 function newUser(){
-	$('#dlg').dialog('open').dialog('setTitle','添加人员');
-	$('#fm').form('clear');
-	url = 'save_user.php';
+	$('#dlg-people').dialog('open').dialog('setTitle','添加人员');
+	$('#fm-people').form('clear');
+	url = 'ManagePeopleServlet?action=add';
 };
 
+function saveUser() {
+    $('#fm-people').form('submit',{
+        url: url,
+        onSubmit: function(){
+            return $(this).form('validate');
+        },
+        success: function(result){
+            if (result=="error"){
+                $.messager.show({
+                    title: 'Error',
+                    msg: "添加错误"
+                });
+            } else {
+                $('#dlg-people').dialog('close');		// close the dialog
+                $('#people-data').datagrid('reload');	// reload the user data
+            }
+        }
+    });
+}
 function addTab(title,url){
     parent.addTab(title,url);
 };
-	
-/*	function addTab(title,url){
-        if ($('#tbs').tabs('exists', title)){
-            $('#tbs').tabs('select', title);
-        } else {
-            var content = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="margin-left: 10%;width:80%;height:100%;"></iframe>';
-            $('#tbs').tabs('add',{
-                title:title,
-                content:content,
-                closable:true
-            });
-        }
-    };*/
-    
+	    
     function destroyUser() {
         var row = $('#people-data').datagrid('getSelected');
         if (row){
@@ -48,10 +54,10 @@ function addTab(title,url){
     function editUser(){
         var row = $('#people-data').datagrid('getSelected');
         if (row){
-            $('#dlg-edit').dialog('open').dialog('setTitle','修改人员信息');
-            $('#updatefm').form('load',row);
+            $('#dlg-people').dialog('open').dialog('setTitle','修改人员信息');
+            $('#fm-people').form('load',row);
          //   url = 'ChangeRegionServlet?region_id='+row.id;
-            url='ManagePeopleServlet?action=update&id='+row.id;
+            url='ManagePeopleServlet?action=update2&id='+row.id;
         }
     }
 	

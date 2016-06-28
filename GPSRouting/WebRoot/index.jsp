@@ -58,8 +58,9 @@
 	<div class="easyui-layout autoHeight">
 		<div class="title" region="north">
 		<div class="title-text">燃气巡检系统</div>
-		<a href="#" class="easyui-linkbutton c4 l-btn l-btn-small" style="position:absolute; right:140px; bottom:10px">通知</a>
-		<a href="#" class="easyui-linkbutton c5 l-btn l-btn-small" style="position:absolute; right:100px; bottom:10px">警报</a>
+		<a href="#" class="easyui-linkbutton c4 l-btn l-btn-small" style="position:absolute; right:200px; bottom:10px">通知</a>
+		<a href="#" class="easyui-linkbutton c5 l-btn l-btn-small" style="position:absolute; right:160px; bottom:10px">警报</a>
+		<a href="#" onclick="addTab('修改密码','modpwd.jsp')" class="easyui-linkbutton c3 l-btn l-btn-small" style="position:absolute; right:80px; bottom:10px">修改密码</a>		
 		<a href="ExitServlet" class="easyui-linkbutton c2 l-btn l-btn-small" style="position:absolute; right:20px; bottom:10px">安全退出</a>
 		</div>
 		<div region="west" split="true" title="导航栏" style="width:200px;">

@@ -90,13 +90,11 @@ public class PeopleDao {
 	 * @throws SQLException
 	 */
 	public int add(People people) throws SQLException {
-		String sql = "insert into people(people_username,people_name,people_password,people_code,branch_id,team_id,people_remark) values ('"
+		String sql = "insert into people(people_username,people_name,people_code,branch_id,team_id,people_remark) values ('"
 				+ people.getUsername()
 				+ "','"
 				+ people.getName()
 				+ "','"
-				+ people.getPassword() 
-				+ "','" 
 				+ people.getCode() 
 				+ "','"
 				+ people.getBranchId() 
@@ -223,17 +221,17 @@ public class PeopleDao {
 		conn.close();
 	}
 	public int  update(People people) throws SQLException {
-        String sql="UPDATE people SET people_username=?,people_name=?,people_password=?,people_code=?,branch_id=?,team_id=?,people_remark=? WHERE people_id=?";
+        String sql="UPDATE people SET people_username=?,people_name=?,people_code=?,branch_id=?,team_id=?,people_remark=? WHERE people_id=?";
         conn=DB.getConn();
         pre = conn.prepareStatement(sql);
         pre.setString(1,  people.getUsername());
         pre.setString(2,  people.getName());
-        pre.setString(3,  people.getPassword());
-        pre.setString(4,  people.getCode());
-        pre.setString(5,  people.getBranchId());
-        pre.setString(6,  people.getTeamId());
-        pre.setString(7,  people.getPeopRemark());
-        pre.setString(8,  people.getId());
+//      pre.setString(3,  people.getPassword());
+        pre.setString(3,  people.getCode());
+        pre.setString(4,  people.getBranchId());
+        pre.setString(5,  people.getTeamId());
+        pre.setString(6,  people.getPeopRemark());
+        pre.setString(7,  people.getId());
         int count=pre.executeUpdate();
         pre.close();
         conn.close();

@@ -23,7 +23,7 @@ String basePath = request.getScheme() + "://"
 </head>				
 <body>
 	<table id="people-data" title="人员管理" class="easyui-datagrid" style="max-height:600px;"
-	url="ManagePeopleServlet?action=list"
+	url="ManagePeopleServlet?action=list&userbranch=<%=session.getAttribute("SesBranchId") %>"
 	toolbar="#toolbar"
 	rownumbers="true" fitColumns="true" singleSelect="true">
 	<%-- <jsp:useBean id="service1" class="com.service.PeopleService"
@@ -45,8 +45,8 @@ String basePath = request.getScheme() + "://"
 			<th field="id" width="10" ></th>
 			<th field="username" width="10" >用户名</th>
 			<th field="name" width="10">姓名</th>
-			<th field="teamid" width="15">职位</th>
-			<th field="branchid" width="15">所属部门</th>			
+			<th field="teamname" width="15">职位</th>
+			<th field="braname" width="15">所属部门</th>			
 			<th field="peoplecode" width="20">人员编码</th>
 			<th field="peopRemark" width="20">备注信息</th>
 		</tr>
@@ -99,6 +99,7 @@ String basePath = request.getScheme() + "://"
 			<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">添加人员</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改人员</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除人员</a>
+			
 		</div>
 
 		<div id="dlg-people" class="easyui-dialog" style="width:400px;height:380px;padding:10px 20px"

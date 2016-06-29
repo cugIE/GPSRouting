@@ -8,6 +8,9 @@ import java.util.List;
 
 
 
+
+
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,9 +22,12 @@ import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 import org.omg.CORBA.PRIVATE_MEMBER;
 
+import com.bean.Branch;
 import com.bean.People;
+import com.service.BranchService;
 import com.service.PeopleService;
 import com.util.OutputHelper;
+import com.util.TeamidtoName;
 
 public class ManagePeopleServlet extends HttpServlet {
 
@@ -95,9 +101,20 @@ public class ManagePeopleServlet extends HttpServlet {
 		 * 查詢
 		 */
 		else if (action.equals("list")) {
-			JSONArray JA = new JSONArray();
+			String userBranch = request.getParameter("userbranch");
+			System.out.println("当前登录用户部门id："+userBranch);
+			BranchService bs = new BranchService();
+			Branch uBranch = bs.fill(userBranch);
+			String uBranchType = uBranch.getBranchType();
+			System.out.println("当前登录用户部门类型："+uBranchType);
+			
+			TeamidtoName teamidtoName = new TeamidtoName();
+			
+			//==========================================================
+			/*JSONArray JA = new JSONArray();
 			try {
 				List<People> peopleList = service.fill();
+				System.out.println("记录条数："+peopleList.size());
 				if (peopleList.size()!=0) {
 					for (int i = 0; i < peopleList.size(); i++) {
 						JSONObject js = new JSONObject();
@@ -116,13 +133,75 @@ public class ManagePeopleServlet extends HttpServlet {
 					return;
 				}
 				this.StringOutPut(JA.toString(), response);
-				/*request.setAttribute("PeopleList", peopleList);
-				request.getRequestDispatcher("data-people.jsp").forward(request,
-						response);*/
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}*/
+			//=============================================
+			
+		
+
+			if (uBranchType.equals("管理")) {
+				JSONArray JA = new JSONArray();
+				try {
+					List<People> peopleList = service.fill();
+					System.out.println("记录条数："+peopleList.size());
+					if (peopleList.size()!=0) {
+						for (int i = 0; i < peopleList.size(); i++) {
+							JSONObject js = new JSONObject();
+							People p = peopleList.get(i);
+							js.put("id", p.getId());
+							js.put("username", p.getUsername());
+							js.put("name", p.getName());
+							js.put("teamid", p.getTeamId());
+							js.put("teamname", teamidtoName.idtoname(p.getTeamId()));
+							js.put("branchid", p.getBranchId());
+							js.put("braname", teamidtoName.braid2name(p.getBranchId()));
+							js.put("peoplecode", p.getCode());
+							js.put("peopRemark", p.getPeopRemark());		
+							JA.add(js);
+						}
+					}else {
+						OutputHelper.StringOutPut("no result",response);
+						return;
+					}
+					this.StringOutPut(JA.toString(), response);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else if (uBranchType.equals("站场")) {
+				JSONArray JA2 = new JSONArray();
+				try {
+					PeopleService ps = new PeopleService();
+					List<People> peopleList2 = ps.findPeo(userBranch);
+					System.out.println("记录条数："+peopleList2.size());
+					if (peopleList2.size()!=0) {
+						for (int i = 0; i < peopleList2.size(); i++) {
+							JSONObject js2 = new JSONObject();
+							People p = peopleList2.get(i);
+							js2.put("id", p.getId());
+							js2.put("username", p.getUsername());
+							js2.put("name", p.getName());
+							js2.put("teamid", p.getTeamId());
+							js2.put("teamname", teamidtoName.idtoname(p.getTeamId()));
+							js2.put("branchid", p.getBranchId());
+							js2.put("braname", teamidtoName.braid2name(p.getBranchId()));
+							js2.put("peoplecode", p.getCode());
+							js2.put("peopRemark", p.getPeopRemark());		
+							JA2.add(js2);
+						}
+					}else {
+						OutputHelper.StringOutPut("no result",response);
+						return;
+					}
+					this.StringOutPut(JA2.toString(), response);
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+			} 
+								
 		} else if (action.equals("list2")) {
 			String id1 = request.getParameter("id");
 			try {

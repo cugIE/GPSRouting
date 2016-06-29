@@ -80,6 +80,7 @@
 				
 
 					<%
+					if(tempbranch.getBranchType().equals("管理")){
 						List<Branch> branchList = bs.fill();
 						for (int i = 0; i<branchList.size();i++){
 							Branch branch = branchList.get(i);
@@ -133,23 +134,75 @@
 						</ul>
 					</li>
 					<%
-						}}
+						}
+							}
+					}else{
+					%>
+					<li data-options="state:'closed'">
+						
+						<span><%=tempbranch.getBranchName() %></span>
+
+						<ul>
+
+							<li data-options="state:'closed'">
+								<span>巡检报表</span>
+								<ul>
+									
+									<li><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-巡检日志','result-data.jsp?branch_id=<%=tempbranch.getId()%>')">巡检日志</a></li>
+									<li>
+										<span><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-故障信息','error-data.html')">故障信息</a></span>
+									</li>
+									<li><span><span><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-月度巡检报告','calender/index.html')">月度巡检报告</a></span></li>
+								</ul>
+
+							</li>
+							
+							<li data-options="state:'closed'">
+								<span>巡检数据</span>
+								<ul>
+									<li>
+										<span><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-巡检表管理','sheet-data.jsp?branch_id=<%=tempbranch.getId()%>')">巡检表管理</a></span>
+									</li>
+									<li>
+									<span> <a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-巡检区域管理','region-data.jsp?branch_id=<%=tempbranch.getId()%>')">巡检区域管理</a>
+									</span>
+									</li>
+									<li>
+										<span><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-巡检位置管理','position-data.jsp?branch_id=<%=tempbranch.getId()%>')">巡检位置管理</a></span>
+									</li>
+									<li>
+										<a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-巡检内容管理','content-data.jsp?branch_id=<%=tempbranch.getId()%>')">巡检内容管理</a>
+									</li>
+								</ul>
+							</li>
+							
+							<li data-options="state:'closed'" >
+								<span>辅助功能</span>
+								<ul>
+									<li><span><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-公告','billboard.html')">公告</a></span></li>
+									<li>警报</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<%
+						}
 					%>
 					<li data-options="state:'closed'">
 					
 						<span>系统管理</span>
 						<ul>
 						<li>
-							<span ><a href="#" onclick="addTab('部门管理','branch-data.jsp')">部门管理</a></span>
+							<span ><a href="#" onclick="addTab('部门管理','branch-data.jsp?userTeamid=<%=session.getAttribute("SesTeamId") %>&userBranchtype=<%=tempbranch.getBranchType() %>')">部门管理</a></span>
 						</li>
 						<li >
-							 <span><a href="#" onclick="addTab('人员管理','data-people.jsp')">人员管理</a></span>
+							 <span><a href="#" onclick="addTab('人员管理','data-people.jsp?userTeamid=<%=session.getAttribute("SesTeamId") %>')">人员管理</a></span>
 						</li>
 						<li >
-							 <span><a href="#" onclick="addTab('人员管理','')">网站参数</a></span>
+							 <span><a href="#" onclick="addTab('网站参数','data-site.jsp')">网站参数</a></span>
 						</li>
 						<li >
-							 <span><a href="#" onclick="addTab('人员管理','')">系统日志</a></span>
+							 <span><a href="#" onclick="addTab('系统日志','data-log.jsp')">系统日志</a></span>
 						</li>
 						</ul>
 					</li>

@@ -1,5 +1,10 @@
 package com.util;
 
+import java.sql.SQLException;
+
+import com.bean.Branch;
+import com.service.BranchService;
+
 public class TeamidtoName {
 	private static final String ADMIN = "管理员";
 	private static final String ENGINEER = "工程师";
@@ -29,6 +34,24 @@ public class TeamidtoName {
 			break;
 		}
 		return value;
+	}
+	
+	/**
+	 * 根据branchid取部门名称
+	 * @param branchid
+	 * @return
+	 */
+	public String braid2name(String branchid) {
+		String bname =  "";
+		BranchService bs = new BranchService();
+		try {
+			Branch branch = bs.fill(branchid);
+			bname = branch.getBranchName();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return bname;
 	}
 	
 	

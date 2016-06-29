@@ -1,3 +1,19 @@
+var userTeamid = getQueryString('userTeamid');
+
+
+window.onload=function()
+{
+	if(userTeamid>2){
+		$(".datagrid-toolbar").hide();
+	}	
+};
+
+
+function hideTool(){
+	$(".datagrid-toolbar").hide();
+	
+};
+
 function newUser(){
 	$('#dlg-people').dialog('open').dialog('setTitle','添加人员');
 	$('#fm-people').form('clear');
@@ -61,3 +77,8 @@ function addTab(title,url){
         }
     }
 	
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }

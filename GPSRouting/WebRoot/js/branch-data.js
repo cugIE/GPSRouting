@@ -1,3 +1,14 @@
+var userTeamid = getQueryString('userTeamid');
+var userBranchtype = getQueryString('userBranchtype');
+
+
+window.onload=function()
+{
+	if(userTeamid>1||userBranchid=="站场"){
+		$(".datagrid-toolbar").hide();
+	}	
+};
+
 function newBranch(){
 	$('#dlg-branch').dialog('open').dialog('setTitle','添加部门');
 	$('#fm-branch').form('clear');
@@ -73,5 +84,11 @@ function addTab(title,url){
          //   url = 'ChangeRegionServlet?region_id='+row.id;
             url='ManageBranchServlet?action=update2&id='+row.id;
         }      
+    }
+    
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
     }
 	

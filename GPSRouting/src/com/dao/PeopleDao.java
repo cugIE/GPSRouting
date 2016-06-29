@@ -59,13 +59,15 @@ public class PeopleDao {
 	 */
 	public List<People> findPeo(String branchid)throws SQLException {
 		List<People> list = new ArrayList<People>();
-		String sql =  "select * from people where branch_id=?";
+		String sql =  "select * from people where branch_id = '"+ branchid +"'";
 		conn = DB.getConn();
-		pre = conn.prepareStatement(sql);
+		stmt = conn.createStatement();		
+		rs = stmt.executeQuery(sql);
+		/*pre = conn.prepareStatement(sql);
 		pre.setString(1, branchid);
-		rs = pre.executeQuery();
+		rs = pre.executeQuery();*/
 		People p = null;
-		if (rs.next()) {
+		while (rs.next()) {
 			p = new People();
 			p.setId(rs.getString("people_id"));
 			p.setUsername(rs.getString("people_username"));
@@ -78,7 +80,8 @@ public class PeopleDao {
 			list.add(p);
 		}
 		rs.close();
-        pre.close();
+   //     pre.close();
+		stmt.close();
         conn.close();
         return list;
 	}

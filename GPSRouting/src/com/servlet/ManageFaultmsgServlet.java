@@ -2,6 +2,7 @@ package com.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.io.UnsupportedEncodingException;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
@@ -18,7 +23,11 @@ import org.apache.commons.httpclient.methods.PostMethod;
 
 import com.bean.Faultmsg;
 import com.bean.People;
+import com.mysql.fabric.xmlrpc.base.Array;
 import com.service.MsgService;
+import com.service.PeopleService;
+import com.util.OutputHelper;
+import com.util.TeamidtoName;
 
 public class ManageFaultmsgServlet extends HttpServlet {
 
@@ -33,6 +42,7 @@ public class ManageFaultmsgServlet extends HttpServlet {
 		MsgService service = new MsgService();
 		String action =  request.getParameter("action");
 		String id = request.getParameter("id");
+		PeopleService ps = new PeopleService();
 		
 		if (action.equals("list")) {
 			try {
@@ -51,6 +61,47 @@ public class ManageFaultmsgServlet extends HttpServlet {
 				MsgService ms = new MsgService();
 				int count=ms.faultcount();
 				System.out.println("统计信息:"+count);
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		}else if (action.equals("list3")) {
+			String userBranchid = request.getParameter("userBranchid");//当前站场编号
+			List<People> peopleList = ps.findPeo(userBranchid);
+			List<String> peopleidList = new ArrayList<String>();//当前站场所有人员id
+			String peopleid = "";
+			TeamidtoName id2Name = new TeamidtoName();
+			for (int i = 0; i < peopleList.size(); i++) {	
+				People p = peopleList.get(i);
+				peopleid = p.getId();
+				peopleidList.add(peopleid);
+			}
+			JSONArray JA = new JSONArray();
+			try {
+				if (peopleidList.size()!=0) {
+					for (int i = 0; i < peopleidList.size(); i++) {
+						String gennerid = peopleidList.get(i);
+						List<Faultmsg> faultList = service.fillgenid(gennerid);
+						for (int j = 0; j < faultList.size(); j++) {
+							Faultmsg f = faultList.get(j);
+							JSONObject js = new JSONObject();
+							js.put("id", f.getId());
+							js.put("title", f.getFaultTitle());
+							js.put("word", f.getFaultWord());
+							js.put("photoUrl", f.getFaultUrL());
+							js.put("time", f.getFaultTime());
+							js.put("state", f.getFaultState());
+							js.put("dutyMan", f.getDutyPeople());
+							js.put("generid", f.getGenerId());
+							js.put("generName", id2Name.peoid2name(f.getGenerId()));
+							JA.add(js);
+						}
+					}
+				} else {
+					OutputHelper.StringOutPut("no result",response);
+					return;
+				}
+				this.StringOutPut(JA.toString(), response);
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
@@ -172,6 +223,20 @@ public class ManageFaultmsgServlet extends HttpServlet {
 	 */
 	public String getServletInfo() {
 		return "This is my default servlet created by Eclipse";
+	}
+	
+	public void StringOutPut (String str, HttpServletResponse response){
+		System.out.println(str);
+		response.setContentType("charset=utf-8");
+		try {
+			response.getOutputStream().write(str.getBytes("utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

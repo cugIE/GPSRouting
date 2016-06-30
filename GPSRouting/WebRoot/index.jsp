@@ -98,7 +98,7 @@
 									
 									<li><a href="#" onclick="addTab('<%=branch.getBranchName()%>-巡检日志','result-data.jsp?branch_id=<%=branch.getId()%>')">巡检日志</a></li>
 									<li>
-										<span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-故障信息','error-data.html')">故障信息</a></span>
+										<span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-故障信息','fault-msg.jsp?branch_id=<%=branch.getId() %>')">故障信息</a></span>
 									</li>
 									<li><span><span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-月度巡检报告','calender/index.html')">月度巡检报告</a></span></li>
 								</ul>
@@ -127,8 +127,8 @@
 							<li data-options="state:'closed'" >
 								<span>辅助功能</span>
 								<ul>
-									<li><span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-公告','billboard.html')">公告</a></span></li>
-									<li>警报</li>
+									<li><span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-公告','announcement.jsp?branch_id=<%=branch.getId() %>')">公告</a></span></li>
+									<li><span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-警报','alarm-msg.jsp?branch_id=<%=branch.getId() %>')">警报</a></span></li>
 								</ul>
 							</li>
 						</ul>
@@ -150,7 +150,7 @@
 									
 									<li><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-巡检日志','result-data.jsp?branch_id=<%=tempbranch.getId()%>')">巡检日志</a></li>
 									<li>
-										<span><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-故障信息','error-data.html')">故障信息</a></span>
+										<span><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-故障信息','fault-msg.jsp?branch_id=<%=tempbranch.getId() %>')">故障信息</a></span>
 									</li>
 									<li><span><span><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-月度巡检报告','calender/index.html')">月度巡检报告</a></span></li>
 								</ul>
@@ -179,8 +179,8 @@
 							<li data-options="state:'closed'" >
 								<span>辅助功能</span>
 								<ul>
-									<li><span><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-公告','billboard.html')">公告</a></span></li>
-									<li>警报</li>
+									<li><span><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-公告','announcement.jsp?branch_id=<%=tempbranch.getId() %>')">公告</a></span></li>
+									<li><span><a href="#" onclick="addTab('<%=tempbranch.getBranchName()%>-警报','alarm-msg.jsp?branch_id=<%=tempbranch.getId() %>')">警报</a></span></li>
 								</ul>
 							</li>
 						</ul>

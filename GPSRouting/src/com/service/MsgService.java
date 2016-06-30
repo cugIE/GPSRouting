@@ -6,8 +6,10 @@ import java.util.List;
 import sun.launcher.resources.launcher;
 
 import com.bean.AlarmMsg;
+import com.bean.Announcement;
 import com.bean.Faultmsg;
 import com.dao.AlarmMsgDao;
+import com.dao.AnnounceDao;
 import com.dao.FaultmsgDao;
 import com.sun.swing.internal.plaf.metal.resources.metal;
 
@@ -21,6 +23,18 @@ public class MsgService {
         FaultmsgDao dao=new FaultmsgDao();   
         return dao.fill();
     }
+	
+	/**
+	 * 根据上报人id查找故障信息
+	 * @param generid
+	 * @return
+	 * @throws SQLException
+	 */
+	public  List<Faultmsg>  fillgenid(String generid) throws SQLException{
+        FaultmsgDao dao=new FaultmsgDao();   
+        return dao.fillgenId(generid);
+    }
+	
 	
 	/**
 	 * 查询指定故障信息
@@ -108,6 +122,11 @@ public class MsgService {
 		return dao.fillAlarm();
 	}
 	
+	public List<AlarmMsg> fillpeoAlarm(String generid)throws SQLException {
+		AlarmMsgDao dao = new AlarmMsgDao();
+		return dao.fillpeoAlarm(generid);
+	}
+	
 	/**
 	 * @param id
 	 * @return
@@ -116,5 +135,15 @@ public class MsgService {
 	public AlarmMsg fillAlarm(String id)throws SQLException {
 		AlarmMsgDao dao = new AlarmMsgDao();
 		return dao.fillAlarm(id);
+	}
+	
+	public List<Announcement> fillAnnounce()throws SQLException {
+		AnnounceDao dao = new AnnounceDao();
+		return dao.fill();
+	}
+	
+	public List<Announcement> fillgenidAnnounce(String generid)throws SQLException {
+		AnnounceDao dao = new AnnounceDao();
+		return dao.fillgenId(generid);
 	}
 }

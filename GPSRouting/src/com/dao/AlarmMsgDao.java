@@ -81,10 +81,39 @@ public class AlarmMsgDao {
 	    rs.close();
 	    pre.close();
 	    conn.close();
-	    return a;
-	
-		
+	    return a;		
 	}
+	
+	/**
+	 * 根据警报上传人id查找警报信息
+	 * @param generid
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<AlarmMsg> fillpeoAlarm(String generid) throws SQLException{
+		List<AlarmMsg> list = new ArrayList<AlarmMsg>();
+		AlarmMsg a = null;
+		String sql = "select * from alarmmsg where gener_id=?";
+		conn = DB.getConn();
+		pre = conn.prepareStatement(sql);
+	    pre.setString(1, generid);
+	    rs=pre.executeQuery();
+	    if (rs.next()) {
+			a = new AlarmMsg();
+			a.setId(rs.getString("id"));
+			a.setAlarmAddress(rs.getString("address"));
+			a.setAlarmTime(rs.getString("time"));
+			a.setState(rs.getString("state"));
+			a.setGener_id(rs.getString("gener_id"));
+			list.add(a);
+		}
+	    rs.close();
+	    pre.close();
+	    conn.close();
+	    return list;		
+	}
+	
+	
 	
 	/**
 	 * 统计未查看的警告信息条数

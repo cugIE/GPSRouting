@@ -3,7 +3,9 @@ package com.util;
 import java.sql.SQLException;
 
 import com.bean.Branch;
+import com.bean.People;
 import com.service.BranchService;
+import com.service.PeopleService;
 
 public class TeamidtoName {
 	private static final String ADMIN = "管理员";
@@ -52,6 +54,19 @@ public class TeamidtoName {
 			e.printStackTrace();
 		}
 		return bname;
+	}
+	
+	public String peoid2name(String id) {
+		String pname = "";
+		PeopleService ps = new PeopleService();
+		try {
+			People people = ps.fill(id);
+			pname = people.getName();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return pname;
 	}
 	
 	

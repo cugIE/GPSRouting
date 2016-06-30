@@ -55,9 +55,7 @@ public class ManageSystemServlet extends HttpServlet {
 				// TODO: handle exception
 				e.printStackTrace();
 			}
-		}{
-
-		}
+		}	
 	}
 
 	/**

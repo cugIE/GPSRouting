@@ -60,7 +60,7 @@ public class AnnounceDao {
         pre.setString(1, generid);
         rs=pre.executeQuery();
         Announcement a = null;
-        if(rs.next()){
+        while(rs.next()){
         	a = new Announcement();
         	a.setId(rs.getString("id"));
         	a.setTitle(rs.getString("title"));
@@ -73,6 +73,32 @@ public class AnnounceDao {
         pre.close();
         conn.close();
         return list;
+	}
+	
+	/**
+	 * @param Id
+	 * @return
+	 * @throws SQLException
+	 */
+	public Announcement fill(String Id)throws SQLException {
+		Announcement a = null;
+		String sql="select * from announcement where id=?";
+		conn = DB.getConn();
+		pre = conn.prepareStatement(sql);
+        pre.setString(1, Id);
+        rs=pre.executeQuery();
+        if (rs.next()) {
+        	a = new Announcement();
+        	a.setId(rs.getString("id"));
+        	a.setTitle(rs.getString("title"));
+        	a.setContent(rs.getString("content"));
+        	a.setTime(rs.getString("time"));
+        	a.setGenerId(rs.getString("gener_id"));
+		}
+        rs.close();
+        pre.close();
+        conn.close();
+		return a;
 	}
 	
 }

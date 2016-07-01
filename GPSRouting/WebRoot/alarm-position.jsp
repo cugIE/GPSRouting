@@ -35,12 +35,12 @@ String basePath = request.getScheme() + "://"
 				String longitude = split[0].toString();
 				String latitude = split[1].toString();  
 			%>
-		<div id="tb" style="padding: 1px">
+		<!-- <div id="tb" style="padding: 1px">
 			<div>
 				<a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true">查看巡站点</a>
 				<a href="#" class="easyui-linkbutton" iconCls="icon-tip" plain="true">所有线路</a>
 			</div>
-		</div>
+		</div> -->
 		<div id="a" display:none>
 			<a class="btn Alarm-longitude" value="<%=longitude %>"></a>
 			<a class="btn Alarm-latitde" value="<%=latitude %>"></a>

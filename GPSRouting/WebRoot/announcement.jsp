@@ -41,7 +41,7 @@ String basePath = request.getScheme() + "://"
 		    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newMsg()">添加公告</a>
 		    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editMsg()">修改公告</a>
 		    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyMsg()">删除公告</a>
-		    <a href="#" class="easyui-linkbutton" iconCls="icon-ok" plain="true" onclick="pushMsg()">删除公告</a>
+		    <a href="#" class="easyui-linkbutton" iconCls="icon-ok" plain="true" onclick="pushMsg()">发布公告</a>
 		</div>
 
 	<div id="dlg-add" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"

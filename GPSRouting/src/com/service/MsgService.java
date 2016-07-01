@@ -146,4 +146,9 @@ public class MsgService {
 		AnnounceDao dao = new AnnounceDao();
 		return dao.fillgenId(generid);
 	}
+	
+	public Announcement fillAnnounce(String Id)throws SQLException {
+		AnnounceDao dao = new AnnounceDao();
+		return dao.fill(Id);
+	}
 }

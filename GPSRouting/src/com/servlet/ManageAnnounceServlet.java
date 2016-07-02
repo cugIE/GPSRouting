@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -44,6 +46,8 @@ public class ManageAnnounceServlet extends HttpServlet {
 		String action =  request.getParameter("action");
 		String id = request.getParameter("id");
 		PeopleService ps = new PeopleService();
+		
+		Logger log = Logger.getLogger(ManageAnnounceServlet.class);
 		
 		String handleState = "";
 		
@@ -86,6 +90,79 @@ public class ManageAnnounceServlet extends HttpServlet {
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
+			}
+		}else if (action.equals("add")) {
+			String annTitle = request.getParameter("title");
+			String annContent = request.getParameter("content");
+			String annTime = request.getParameter("time");
+			String annGenerid = request.getParameter("generId");
+			
+			System.out.println("故障标题："+annTitle);
+			System.out.println("发布时间："+annTime);
+			System.out.println("发布人id："+annGenerid);
+			System.out.println("故障内容："+annContent);
+			
+			Announcement ann = new Announcement();
+			ann.setTitle(annTitle);
+			ann.setContent(annContent);
+			ann.setTime(annTime);
+			ann.setGenerId(annGenerid);
+
+			MsgService msgService = new MsgService();
+			try {
+				
+				int result = msgService.addAnn(ann);
+				OutputHelper.StringOutPut(result+"", response);
+				log.error("添加公告信息");
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}		
+			
+		}else if (action.equals("update")) {
+			String annId = request.getParameter("id");
+			String annTitle = request.getParameter("title");
+			String annContent = request.getParameter("content");
+			String annTime = request.getParameter("time");
+			String annGenerid = request.getParameter("generId");
+			
+			System.out.println("故障id："+annId);
+			System.out.println("故障标题："+annTitle);
+			System.out.println("发布时间："+annTime);
+			System.out.println("发布人id："+annGenerid);
+			System.out.println("故障内容："+annContent);
+			
+			Announcement ann = new Announcement();
+			ann.setId(annId);
+			ann.setTitle(annTitle);
+			ann.setContent(annContent);
+			ann.setTime(annTime);
+			ann.setGenerId(annGenerid);
+
+			MsgService msgService = new MsgService();
+			try {
+				
+				int result = msgService.updateAnn(ann);
+				OutputHelper.StringOutPut(result+"", response);
+				log.error("更新公告信息");
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				OutputHelper.StringOutPut("error", response);
+			}		
+		}else if (action.equals("delete")) {
+			String annId = request.getParameter("id");
+			try {
+				
+			
+				int result = service.deleteAnn(annId);
+	
+				OutputHelper.StringOutPut(result+"", response);
+				log.error("删除人员信息");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				OutputHelper.StringOutPut("error", response);
 			}
 		}
 	}
@@ -166,5 +243,6 @@ public class ManageAnnounceServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+	
 
 }

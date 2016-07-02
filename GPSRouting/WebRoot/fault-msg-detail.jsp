@@ -85,9 +85,9 @@ String basePath = request.getScheme() + "://"
 </div>
 <br>
 
-<div class="easyui-panel" title="审核内容" style="padding: 10px">
+<div class="easyui-panel" title="故障信息处理" style="padding: 10px">
 
-        <% if(faultmsg.getFaultState().equals("0")){ if (team<=3){%>
+        <%-- <% if(faultmsg.getFaultState().equals("0")){ if (team<=3){%>
 
         <div class="col-md-8 col-md-offset-2">
             <textarea id="record-comment" name="intro" rows="4" class="form-control" placeholder="输入评论内容"></textarea>
@@ -97,7 +97,36 @@ String basePath = request.getScheme() + "://"
         <%}}else{%>
 
         <p class="text-primary text-center col-md-8 col-md-offset-2"><%=faultmsg.getFaultState() %></p>
-        <%}%>
+        <%}%> --%>
+        
+        <%if(team<=3){ %>
+        <div class="col-md-8 col-md-offset-2">
+        	<form id="doFault" method="post">
+        		<div>
+        			<div>
+        			<label>标题：</label>
+        			
+        			</div>
+        			<input type="hidden" id="faultid" name="faultid" value=<%=faultmsg.getId() %>>
+        			<input type="text" id="faulttitle" name="faulttitle" value=<%=faultmsg.getFaultTitle() %>>
+        		</div>
+        		<div>
+        			<label>内容：</label>
+        			<div>
+        			
+            		<textarea id="faultword" name="faultword" rows="4"  value=<%=faultmsg.getFaultWord() %>><%=faultmsg.getFaultWord() %></textarea>
+            		
+            		</div>
+            	</div>
+            	<div>
+            		<p>发送故障信息至</p><input type="text" id = "pnum"  name="pnum" placeholder="手机号码">
+            		<a class="easyui-linkbutton" id = "check-button" href="#" onclick="sendFault()">确认发送</a>
+            	</div>
+            </form>
+        </div>
+        <%}else{ %>
+        	<p class="text-primary text-center col-md-8 col-md-offset-2">您当前不具备处理故障权限，请及时联系管理员或者工程师！</p>
+        <%} %>
 
 </div>
 
@@ -105,7 +134,7 @@ String basePath = request.getScheme() + "://"
 
 
 
-<script src="js/result-data-detail-line.js"></script>
+<script src="js/fault-msg-detail.js"></script>
 
 <!-- end: JavaScript-->
 

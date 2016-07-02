@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.bean.Announcement;
 import com.bean.Faultmsg;
+import com.bean.People;
 import com.util.DB;
 
 public class AnnounceDao {
@@ -99,6 +100,66 @@ public class AnnounceDao {
         pre.close();
         conn.close();
 		return a;
+	}
+	
+	/**
+	 * 添加公告
+	 * @param announcement
+	 * @return
+	 * @throws SQLException
+	 */
+	public int add(Announcement announcement)throws SQLException {
+		String sql = "insert into announcement(title,content,time,gener_id) values ('"
+				+ announcement.getTitle()
+				+ "','"
+				+ announcement.getContent()
+				+ "','"
+				+ announcement.getTime()
+				+ "','"
+				+ announcement.getGenerId()
+				+"')";
+		conn = DB.getConn();
+		stmt = DB.getStatement(conn);
+		int result = stmt.executeUpdate(sql);
+		// result值为1则添加成功！
+		stmt.close();
+		conn.close();
+		return result;
+	}
+	
+	/**
+	 * 更新公告
+	 * @param announcement
+	 * @return
+	 * @throws SQLException
+	 */
+	public int  update(Announcement announcement) throws SQLException {
+        String sql="UPDATE announcement SET title=?,content=?,time=?,gener_id=? WHERE id=?";
+        conn=DB.getConn();
+        pre = conn.prepareStatement(sql);
+        pre.setString(1,  announcement.getTitle());
+        pre.setString(2,  announcement.getContent());
+        pre.setString(3,  announcement.getTime());
+        pre.setString(4,  announcement.getGenerId()); 
+        pre.setString(5,  announcement.getId());
+        int count=pre.executeUpdate();
+        pre.close();
+        conn.close();
+        return count;      
+        // TODO Auto-generated method stub
+         
+    }
+	
+	public int delete(String Id) throws SQLException {
+		String sql = "delete from announcement where id=?";
+		conn = DB.getConn();
+		pre = conn.prepareStatement(sql);
+		pre.setString(1, Id);
+		int count=pre.executeUpdate();
+	
+		pre.close();
+		conn.close();
+		return count;
 	}
 	
 }

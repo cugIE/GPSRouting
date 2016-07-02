@@ -1,7 +1,10 @@
 var branch_id = getQueryString('branch_id');
-/*alert("部门id："+branch_id);*/
+
+
+
 window.onload = function(){
 	$('#fault-data').datagrid({url:'ManageFaultmsgServlet?action=list3&userBranchid='+branch_id });
+	
 };
 
     function getQueryString(name) {

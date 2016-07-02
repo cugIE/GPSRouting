@@ -2,6 +2,7 @@
 pageEncoding="UTF-8"%>
 <%@ page import="com.bean.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="java.text.*"%> 
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme() + "://"
@@ -22,10 +23,13 @@ String basePath = request.getScheme() + "://"
 	<script type="text/javascript" src="assets/easyui/jquery.easyui.min.js"></script>
 </head>				
 <body>
-		<table id="announce-data" title="公告" class="easyui-datagrid" style="max-height:600px;"
-		        
+		<%
+			String datetime=new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()); 
+		%>
+		<table id="announce-data" title="公告" class="easyui-datagrid" style="max-height:600px;"        
 		        toolbar="#toolbar"
 		        rownumbers="true" fitColumns="true" singleSelect="true">
+		  
 		    <thead>
 		        <tr>
 		        	<th field="id" width="20" >#</th>
@@ -47,7 +51,7 @@ String basePath = request.getScheme() + "://"
 	<div id="dlg-add" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
 		closed="true" buttons="#dlg-buttons">
 		<div class="ftitle">添加公告</div>
-		<form id="fm" method="post">
+		<form id="fm-msg" method="post">
 			<div class="fitem">
 				<label>标题</label>
 				<input name="title" class="easyui-validatebox" required="true">
@@ -55,6 +59,16 @@ String basePath = request.getScheme() + "://"
 			<div class="fitem">
 				<label>内容</label>
 				<input name="content" class="easyui-validatebox" required="true">
+			</div>
+			<div class="fitem">
+				<label>发布时间</label>
+				<input type="text" name="timeB" value=<%=datetime %> class="easyui-validatebox" disabled="disabled" >
+				<input type="hidden" name="time" value=<%=datetime %> class="easyui-validatebox" >
+			</div>
+			<div class="fitem">
+				<label>发布人员</label>
+				<input type="text"  name="generName" value=<%=session.getAttribute("SesName") %> class="easyui-validatebox" disabled="disabled"  >
+				<input name="generId" value=<%=session.getAttribute("SesId") %> class="easyui-validatebox" type="hidden">
 			</div>
 			
 		</form>

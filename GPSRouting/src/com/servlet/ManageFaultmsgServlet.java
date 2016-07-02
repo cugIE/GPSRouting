@@ -113,6 +113,8 @@ public class ManageFaultmsgServlet extends HttpServlet {
 			String fault_word = request.getParameter("faultword");
 			String people_num = request.getParameter("pnum");//手机号
 			System.out.println("手机号："+people_num);
+			System.out.println("故障信息："+"id:"+fault_id+"标题："+fault_title+"content:"+fault_word+"num:"+people_num);
+			
 			HttpClient client = new HttpClient();
 			PostMethod post = new PostMethod("http://utf8.sms.webchinese.cn"); 
 			post.addRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");//在头文件中设置转码
@@ -123,9 +125,11 @@ public class ManageFaultmsgServlet extends HttpServlet {
 					HttpSession session = request.getSession();
 					String dutyMan = (String) session.getAttribute("SesName");
 					System.out.println("故障处理人："+dutyMan);
-					msgService.handlefault(fault_id, dutyMan);
-					PrintWriter out = response.getWriter();
-					out.print("<script>" + "alert('更新成功');"+ "document.location.href='fault-msg.jsp';"+ "</script>");
+					int statusresult = msgService.handlefault(fault_id, dutyMan);
+					/*PrintWriter out = response.getWriter();
+					out.print("<script>" + "alert('更新成功');"+ "document.location.href='fault-msg.jsp';"+ "</script>");*/
+					
+					OutputHelper.StringOutPut(statusresult+"", response);
 					//-------------------------发送短信-------------------------------------
 					post.setRequestBody(data);
 
@@ -147,6 +151,7 @@ public class ManageFaultmsgServlet extends HttpServlet {
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
+				OutputHelper.StringOutPut("error", response);
 			}
 		}else if (action.equals("newfault")) {
 			String fault_title = request.getParameter("title");

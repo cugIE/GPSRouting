@@ -151,4 +151,19 @@ public class MsgService {
 		AnnounceDao dao = new AnnounceDao();
 		return dao.fill(Id);
 	}
+	
+	public int addAnn(Announcement ann)throws SQLException {
+		AnnounceDao dao = new AnnounceDao();
+		return dao.add(ann);
+	}
+	
+	public int updateAnn(Announcement ann)throws SQLException {
+		AnnounceDao dao = new AnnounceDao();
+		return dao.update(ann);
+	}
+	
+	public int deleteAnn(String Id)throws SQLException {
+		AnnounceDao dao = new AnnounceDao();
+		return dao.delete(Id);
+	}
 }

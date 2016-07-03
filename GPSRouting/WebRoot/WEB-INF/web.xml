@@ -151,6 +151,16 @@
     <servlet-name>FindAlarmpoiServlet</servlet-name>
     <servlet-class>com.servlet.FindAlarmpoiServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ManageAlarmServlet</servlet-name>
+    <servlet-class>com.servlet.ManageAlarmServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ManageAnnounceServlet</servlet-name>
+    <servlet-class>com.servlet.ManageAnnounceServlet</servlet-class>
+  </servlet>
+
+
 
 
 
@@ -319,12 +329,21 @@
     <servlet-name>FindAlarmpoiServlet</servlet-name>
     <url-pattern>/FindAlarmpoiServlet</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ManageAlarmServlet</servlet-name>
+    <url-pattern>/ManageAlarmServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ManageAnnounceServlet</servlet-name>
+    <url-pattern>/ManageAnnounceServlet</url-pattern>
+  </servlet-mapping>
 
 
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
+    <!-- <welcome-file>index.jsp</welcome-file> -->
+    <welcome-file>login.jsp</welcome-file>
     <welcome-file>default.html</welcome-file>
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>

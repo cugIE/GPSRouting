@@ -1,8 +1,39 @@
-function newBranch(){
-	$('#dlg').dialog('open').dialog('setTitle','添加部门');
-	$('#fm').form('clear');
-	
+var userTeamid = getQueryString('userTeamid');
+var userBranchtype = getQueryString('userBranchtype');
+
+
+window.onload=function()
+{
+	if(userTeamid>1||userBranchid=="站场"){
+		$(".datagrid-toolbar").hide();
+	}	
 };
+
+function newBranch(){
+	$('#dlg-branch').dialog('open').dialog('setTitle','添加部门');
+	$('#fm-branch').form('clear');
+	url = 'ManageBranchServlet?action=add';
+};
+
+function saveBranch() {
+    $('#fm-branch').form('submit',{
+        url: url,
+        onSubmit: function(){
+            return $(this).form('validate');
+        },
+        success: function(result){
+            if (result=="error"){
+                $.messager.show({
+                    title: 'Error',
+                    msg: "添加错误"
+                });
+            } else {
+                $('#dlg-branch').dialog('close');		// close the dialog
+                $('#branch-data').datagrid('reload');	// reload the user data
+            }
+        }
+    });
+}
 
 function addTab(title,url){
     parent.addTab(title,url);
@@ -47,16 +78,17 @@ function addTab(title,url){
     
     function editBranch(){
         var row = $('#branch-data').datagrid('getSelected');
-        url='ManageBranchServlet?action=update&id='+row.id;
         if (row){
-        	parent.addTab('修改部门信息',url);
-           /* $('#dlg-edit').dialog('open').dialog('setTitle','修改人员信息');
-            $('#updatefm').form('load',row);*/
+            $('#dlg-branch').dialog('open').dialog('setTitle','修改部门信息');
+            $('#fm-branch').form('load',row);
          //   url = 'ChangeRegionServlet?region_id='+row.id;
-      
-        }
-        
-        
-        
+            url='ManageBranchServlet?action=update2&id='+row.id;
+        }      
+    }
+    
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
     }
 	

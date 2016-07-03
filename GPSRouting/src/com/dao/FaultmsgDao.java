@@ -80,6 +80,38 @@ public class FaultmsgDao {
 	}
 	
 	/**
+	 * 根据上报人id查找故障信息
+	 * @param generid
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Faultmsg> fillgenId(String generid)throws SQLException {
+		List<Faultmsg> list = new ArrayList<Faultmsg>();
+		conn = DB.getConn();
+        String sql="select * from faultmsg where gener_id=?";
+        pre = conn.prepareStatement(sql);
+        pre.setString(1, generid);
+        rs=pre.executeQuery();
+        Faultmsg f = null;
+        if(rs.next()){
+        	f = new Faultmsg();
+        	f.setId(rs.getString("id"));
+        	f.setFaultTitle(rs.getString("title"));
+        	f.setFaultWord(rs.getString("word"));
+        	f.setFaultTime(rs.getString("time"));
+        	f.setFaultState(rs.getString("state"));
+        	f.setFaultUrL(rs.getString("url"));
+        	f.setDutyPeople(rs.getString("duty_man"));
+        	f.setGenerId(rs.getString("gener_id"));
+        	list.add(f);
+        }
+        rs.close();
+        pre.close();
+        conn.close();
+        return list;
+	}
+	
+	/**
 	 * 根据故障信息id更新状态
 	 * @param id
 	 * @return

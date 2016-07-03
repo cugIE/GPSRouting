@@ -48,7 +48,7 @@
 
     </tr>
     </thead>
-    <tbody
+    <tbody>
     <%
         List<Record> recordList = Record.getAllRecordFromPeriod(period_id, start, end);
         String rcdid = "";

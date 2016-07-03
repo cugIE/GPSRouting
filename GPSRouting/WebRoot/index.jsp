@@ -1,7 +1,14 @@
-<%@ page import="com.service.BranchService" %>
-<%@ page import="com.bean.Branch" %>
-<%@ page import="java.util.List" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="com.bean.*"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.service.*"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme() + "://"
++ request.getServerName() + ":" + request.getServerPort()
++ path + "/";
+%>
 
 <body>
 
@@ -58,8 +65,9 @@
 	<div class="easyui-layout autoHeight">
 		<div class="title" region="north">
 		<div class="title-text">燃气巡检系统</div>
-		<a href="#" class="easyui-linkbutton c4 l-btn l-btn-small" style="position:absolute; right:140px; bottom:10px">通知</a>
-		<a href="#" class="easyui-linkbutton c5 l-btn l-btn-small" style="position:absolute; right:100px; bottom:10px">警报</a>
+		<a href="#" class="easyui-linkbutton c4 l-btn l-btn-small" style="position:absolute; right:200px; bottom:10px">通知</a>
+		<a href="#" class="easyui-linkbutton c5 l-btn l-btn-small" style="position:absolute; right:160px; bottom:10px">警报</a>
+		<a href="#" onclick="addTab('修改密码','modpwd.jsp')" class="easyui-linkbutton c3 l-btn l-btn-small" style="position:absolute; right:80px; bottom:10px">修改密码</a>		
 		<a href="ExitServlet" class="easyui-linkbutton c2 l-btn l-btn-small" style="position:absolute; right:20px; bottom:10px">安全退出</a>
 		</div>
 		<div region="west" split="true" title="导航栏" style="width:200px;">
@@ -79,6 +87,7 @@
 				
 
 					<%
+					if(tempbranch.getBranchType().equals("管理")){
 						List<Branch> branchList = bs.fill();
 						for (int i = 0; i<branchList.size();i++){
 							Branch branch = branchList.get(i);
@@ -96,7 +105,7 @@
 									
 									<li><a href="#" onclick="addTab('<%=branch.getBranchName()%>-巡检日志','result-data.jsp?branch_id=<%=branch.getId()%>')">巡检日志</a></li>
 									<li>
-										<span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-故障信息','error-data.html')">故障信息</a></span>
+										<span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-故障信息','fault-msg.jsp?branch_id=<%=branch.getId() %>&userTeamid=<%=session.getAttribute("SesTeamId") %>')">故障信息</a></span>
 									</li>
 									<li><span><span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-月度巡检报告','calender/index.html')">月度巡检报告</a></span></li>
 								</ul>
@@ -125,30 +134,82 @@
 							<li data-options="state:'closed'" >
 								<span>辅助功能</span>
 								<ul>
-									<li><span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-公告','billboard.html')">公告</a></span></li>
-									<li>警报</li>
+									<li><span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-公告','announcement.jsp?branch_id=<%=branch.getId() %>&userTeamid=<%=session.getAttribute("SesTeamId") %>')">公告</a></span></li>
+									<li><span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-警报','alarm-msg.jsp?branch_id=<%=branch.getId() %>')">警报</a></span></li>
 								</ul>
 							</li>
 						</ul>
 					</li>
 					<%
-						}}
+						}
+							}
+					}else{
+					%>
+					<li data-options="state:'closed'">
+						
+						<span><%=tempbranch.getBranchName() %></span>
+
+						<ul>
+
+							<li data-options="state:'closed'">
+								<span>巡检报表</span>
+								<ul>
+									
+									<li><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-巡检日志','result-data.jsp?branch_id=<%=tempbranch.getId()%>')">巡检日志</a></li>
+									<li>
+										<span><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-故障信息','fault-msg.jsp?branch_id=<%=tempbranch.getId() %>&userTeamid=<%=session.getAttribute("SesTeamId") %>')">故障信息</a></span>
+									</li>
+									<li><span><span><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-月度巡检报告','calender/index.html')">月度巡检报告</a></span></li>
+								</ul>
+
+							</li>
+							
+							<li data-options="state:'closed'">
+								<span>巡检数据</span>
+								<ul>
+									<li>
+										<span><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-巡检表管理','sheet-data.jsp?branch_id=<%=tempbranch.getId()%>')">巡检表管理</a></span>
+									</li>
+									<li>
+									<span> <a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-巡检区域管理','region-data.jsp?branch_id=<%=tempbranch.getId()%>')">巡检区域管理</a>
+									</span>
+									</li>
+									<li>
+										<span><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-巡检位置管理','position-data.jsp?branch_id=<%=tempbranch.getId()%>')">巡检位置管理</a></span>
+									</li>
+									<li>
+										<a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-巡检内容管理','content-data.jsp?branch_id=<%=tempbranch.getId()%>')">巡检内容管理</a>
+									</li>
+								</ul>
+							</li>
+							
+							<li data-options="state:'closed'" >
+								<span>辅助功能</span>
+								<ul>
+									<li><span><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-公告','announcement.jsp?branch_id=<%=tempbranch.getId() %>&userTeamid=<%=session.getAttribute("SesTeamId") %>')">公告</a></span></li>
+									<li><span><a href="#" onclick="addTab('<%=tempbranch.getBranchName()%>-警报','alarm-msg.jsp?branch_id=<%=tempbranch.getId() %>')">警报</a></span></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<%
+						}
 					%>
 					<li data-options="state:'closed'">
 					
 						<span>系统管理</span>
 						<ul>
 						<li>
-							<span ><a href="#" onclick="addTab('部门管理','branch-data.jsp')">部门管理</a></span>
+							<span ><a href="#" onclick="addTab('部门管理','branch-data.jsp?userTeamid=<%=session.getAttribute("SesTeamId") %>&userBranchtype=<%=tempbranch.getBranchType() %>')">部门管理</a></span>
 						</li>
 						<li >
-							 <span><a href="#" onclick="addTab('人员管理','data-people.jsp')">人员管理</a></span>
+							 <span><a href="#" onclick="addTab('人员管理','data-people.jsp?userTeamid=<%=session.getAttribute("SesTeamId") %>')">人员管理</a></span>
 						</li>
 						<li >
-							 <span><a href="#" onclick="addTab('人员管理','')">网站参数</a></span>
+							 <span><a href="#" onclick="addTab('网站参数','data-site.jsp')">网站参数</a></span>
 						</li>
 						<li >
-							 <span><a href="#" onclick="addTab('人员管理','')">系统日志</a></span>
+							 <span><a href="#" onclick="addTab('系统日志','data-log.jsp')">系统日志</a></span>
 						</li>
 						</ul>
 					</li>

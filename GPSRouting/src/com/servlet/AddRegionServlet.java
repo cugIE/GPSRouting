@@ -107,7 +107,7 @@ public class AddRegionServlet extends HttpServlet {
 				return;
 			}
 			
-			OutputHelper.StringOutPut(String.format("%04d", result), response);
+			OutputHelper.StringOutPut(String.format("%04d", result), response);//将x格式化为000x
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			OutputHelper.StringOutPut("error", response);

@@ -2,6 +2,7 @@ package com.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.io.UnsupportedEncodingException;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
@@ -18,7 +23,11 @@ import org.apache.commons.httpclient.methods.PostMethod;
 
 import com.bean.Faultmsg;
 import com.bean.People;
+import com.mysql.fabric.xmlrpc.base.Array;
 import com.service.MsgService;
+import com.service.PeopleService;
+import com.util.OutputHelper;
+import com.util.TeamidtoName;
 
 public class ManageFaultmsgServlet extends HttpServlet {
 
@@ -33,6 +42,7 @@ public class ManageFaultmsgServlet extends HttpServlet {
 		MsgService service = new MsgService();
 		String action =  request.getParameter("action");
 		String id = request.getParameter("id");
+		PeopleService ps = new PeopleService();
 		
 		if (action.equals("list")) {
 			try {
@@ -55,6 +65,47 @@ public class ManageFaultmsgServlet extends HttpServlet {
 				// TODO: handle exception
 				e.printStackTrace();
 			}
+		}else if (action.equals("list3")) {
+			String userBranchid = request.getParameter("userBranchid");//当前站场编号
+			List<People> peopleList = ps.findPeo(userBranchid);
+			List<String> peopleidList = new ArrayList<String>();//当前站场所有人员id
+			String peopleid = "";
+			TeamidtoName id2Name = new TeamidtoName();
+			for (int i = 0; i < peopleList.size(); i++) {	
+				People p = peopleList.get(i);
+				peopleid = p.getId();
+				peopleidList.add(peopleid);
+			}
+			JSONArray JA = new JSONArray();
+			try {
+				if (peopleidList.size()!=0) {
+					for (int i = 0; i < peopleidList.size(); i++) {
+						String gennerid = peopleidList.get(i);
+						List<Faultmsg> faultList = service.fillgenid(gennerid);
+						for (int j = 0; j < faultList.size(); j++) {
+							Faultmsg f = faultList.get(j);
+							JSONObject js = new JSONObject();
+							js.put("id", f.getId());
+							js.put("title", f.getFaultTitle());
+							js.put("word", f.getFaultWord());
+							js.put("photoUrl", f.getFaultUrL());
+							js.put("time", f.getFaultTime());
+							js.put("state", f.getFaultState());
+							js.put("dutyMan", f.getDutyPeople());
+							js.put("generid", f.getGenerId());
+							js.put("generName", id2Name.peoid2name(f.getGenerId()));
+							JA.add(js);
+						}
+					}
+				} else {
+					OutputHelper.StringOutPut("no result",response);
+					return;
+				}
+				this.StringOutPut(JA.toString(), response);
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
 				
 		}else if (action.equals("updatestatus")) {
 			String fault_id = request.getParameter("faultid");
@@ -62,6 +113,8 @@ public class ManageFaultmsgServlet extends HttpServlet {
 			String fault_word = request.getParameter("faultword");
 			String people_num = request.getParameter("pnum");//手机号
 			System.out.println("手机号："+people_num);
+			System.out.println("故障信息："+"id:"+fault_id+"标题："+fault_title+"content:"+fault_word+"num:"+people_num);
+			
 			HttpClient client = new HttpClient();
 			PostMethod post = new PostMethod("http://utf8.sms.webchinese.cn"); 
 			post.addRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");//在头文件中设置转码
@@ -72,9 +125,11 @@ public class ManageFaultmsgServlet extends HttpServlet {
 					HttpSession session = request.getSession();
 					String dutyMan = (String) session.getAttribute("SesName");
 					System.out.println("故障处理人："+dutyMan);
-					msgService.handlefault(fault_id, dutyMan);
-					PrintWriter out = response.getWriter();
-					out.print("<script>" + "alert('更新成功');"+ "document.location.href='fault-msg.jsp';"+ "</script>");
+					int statusresult = msgService.handlefault(fault_id, dutyMan);
+					/*PrintWriter out = response.getWriter();
+					out.print("<script>" + "alert('更新成功');"+ "document.location.href='fault-msg.jsp';"+ "</script>");*/
+					
+					OutputHelper.StringOutPut(statusresult+"", response);
 					//-------------------------发送短信-------------------------------------
 					post.setRequestBody(data);
 
@@ -96,6 +151,7 @@ public class ManageFaultmsgServlet extends HttpServlet {
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
+				OutputHelper.StringOutPut("error", response);
 			}
 		}else if (action.equals("newfault")) {
 			String fault_title = request.getParameter("title");
@@ -172,6 +228,20 @@ public class ManageFaultmsgServlet extends HttpServlet {
 	 */
 	public String getServletInfo() {
 		return "This is my default servlet created by Eclipse";
+	}
+	
+	public void StringOutPut (String str, HttpServletResponse response){
+		System.out.println(str);
+		response.setContentType("charset=utf-8");
+		try {
+			response.getOutputStream().write(str.getBytes("utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

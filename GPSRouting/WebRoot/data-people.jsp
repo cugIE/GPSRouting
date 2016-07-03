@@ -23,10 +23,10 @@ String basePath = request.getScheme() + "://"
 </head>				
 <body>
 	<table id="people-data" title="人员管理" class="easyui-datagrid" style="max-height:600px;"
-	
+	url="ManagePeopleServlet?action=list&userbranch=<%=session.getAttribute("SesBranchId") %>"
 	toolbar="#toolbar"
 	rownumbers="true" fitColumns="true" singleSelect="true">
-	<jsp:useBean id="service1" class="com.service.PeopleService"
+	<%-- <jsp:useBean id="service1" class="com.service.PeopleService"
 								scope="session">
 	</jsp:useBean>
 	<%
@@ -39,19 +39,19 @@ String basePath = request.getScheme() + "://"
 	<%
 		List<Branch> projectlist2 = service5.fill();
 			Iterator<Branch> iterproject2 = projectlist2.iterator();
-	%>
+	%> --%>
 	<thead>
 		<tr>
 			<th field="id" width="10" ></th>
-			<th field="username" width="10" >账号</th>
-			<th field="name" width="10">名字</th>
-			<th field="position" width="15">职位</th>
-			<th field="branch" width="15">所属部门</th>
-			<th field="remark" width="20">备注信息</th>
-			<th field="handle" width="20">操作</th>
+			<th field="username" width="10" >用户名</th>
+			<th field="name" width="10">姓名</th>
+			<th field="teamname" width="15">职位</th>
+			<th field="braname" width="15">所属部门</th>			
+			<th field="peoplecode" width="20">人员编码</th>
+			<th field="peopRemark" width="20">备注信息</th>
 		</tr>
 	</thead>
-	<tbody>
+	<%-- <tbody>
 		<%
 		while (iterproject.hasNext()) {
 			People people1 = iterproject.next();
@@ -93,33 +93,30 @@ String basePath = request.getScheme() + "://"
 					}			
 				%>
 
-			</tbody>
+			</tbody> --%>
 		</table>
 		<div id="toolbar">
 			<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">添加人员</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改人员</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除人员</a>
+			
 		</div>
 
-		<div id="dlg" class="easyui-dialog" style="width:400px;height:380px;padding:10px 20px"
-		closed="true" buttons="#dlg-buttons">
-		<div class="ftitle">添加人员</div>
-		<form id="fm" action="ManagePeopleServlet?action=add" method="post">
+		<div id="dlg-people" class="easyui-dialog" style="width:400px;height:380px;padding:10px 20px"
+			closed="true" buttons="#dlg-buttons">
+		<div class="ftitle">人员信息</div>
+		<form id="fm-people" method="post">
 			<div class="fitem">
 				<label>用户名</label>
-				<input type="text" id="username" name="username" class="easyui-validatebox" required="true">
+				<input name="username" class="easyui-validatebox" required="true">
 			</div>
 			<div class="fitem">
-				<label>密码</label>
-				<input type="password" id="password" name="password" class="easyui-validatebox" required="true">
+				<label>姓名</label>
+				<input name="name" class="easyui-validatebox" required="true">
 			</div>
 			<div class="fitem">
-				<label>名字</label>
-				<input type="text" id="name" name="name" class="easyui-validatebox" required="true">
-			</div>
-			<div class="fitem">
-				<label>編碼</label>
-				<input type="text" id="peoplecode" name="peoplecode" class="easyui-validatebox" validType="email"  placeholder="编码格式：AABBCC">		
+				<label>编码</label>
+				<input name="peoplecode" class="easyui-validatebox" placeholder="编码格式：AABBCC">		
 			</div>
 			<jsp:useBean id="service6" class="com.service.BranchService"
 								scope="session">
@@ -155,18 +152,17 @@ String basePath = request.getScheme() + "://"
 			</div>
 			<div class="fitem">
 				<label>备注</label>							
-				<input type="text" id="peopRemark" name="peopRemark"
-					class="easyui-validatebox" placeholder="备注信息">
+				<input name="peopRemark" class="easyui-validatebox" placeholder="备注信息">
 			</div>	
-			<div class="fitem">
+			<!-- <div class="fitem">
 				<input type="submit" class="easyui-validatebox" value="提交">
 				<input type="reset" class="easyui-validatebox" value="取消">
-			</div>
+			</div> -->
 		</form>
 	</div>
 	<div id="dlg-buttons">
-		<!-- <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">保存</a> -->
-		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">保存</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg-people').dialog('close')">取消</a>
 	</div>
 	
 	<script type="text/javascript" src="js/people-data.js"></script>

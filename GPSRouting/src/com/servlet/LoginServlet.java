@@ -65,7 +65,9 @@ public class LoginServlet extends HttpServlet {
 				String teamName = "";
 				teamName = teamidtoName.idtoname(p.getTeamId());
 				System.out.println("组类型："+teamName);
-				
+				String branchName = "";
+				branchName = teamidtoName.braid2name(p.getBranchId());
+						
 				int branchid = Integer.parseInt(p.getBranchId());
 				int teamid = Integer.parseInt(p.getTeamId());
 				
@@ -74,6 +76,7 @@ public class LoginServlet extends HttpServlet {
 				request.getSession().setAttribute("SesId", p.getId());
 				request.getSession().setAttribute("SesName", p.getName());
 				request.getSession().setAttribute("SesBranchId", branchid);
+				request.getSession().setAttribute("SesBranchName", branchName);
 				request.getSession().setAttribute("SesTeamId", teamid);
 				request.getSession().setAttribute("SesTeamName", teamName);
 				out.print("<script>" + "alert('登录成功');"+ "document.location.href='index.jsp';"+ "</script>");

@@ -3,6 +3,7 @@ package com.servlet;
 import java.util.List;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -10,10 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import org.apache.log4j.Logger;
 
 import com.bean.Branch;
 import com.service.BranchService;
+import com.util.OutputHelper;
 
 public class ManageBranchServlet extends javax.servlet.http.HttpServlet implements
 		javax.servlet.Servlet {
@@ -84,11 +89,11 @@ public class ManageBranchServlet extends javax.servlet.http.HttpServlet implemen
         if (action.equals("add")) {
             response.setContentType("text/html;charset=utf-8");
             //String branch_id = request.getParameter("branch_id");
-            String branch_code = request.getParameter("branch_code");
-            String branch_name = request.getParameter("branch_name");
-            String branch_type = request.getParameter("branch_type");
-            String com_name = request.getParameter("com_name");
-            String com_id = request.getParameter("com_id");
+            String branch_code = request.getParameter("branchCode");
+            String branch_name = request.getParameter("branchName");
+            String branch_type = request.getParameter("branchType");
+            String com_name = request.getParameter("comName");
+            String com_id = request.getParameter("comId");
             System.out.println(branch_name);
             System.out.println(branch_code);
             System.out.println(com_name);
@@ -118,11 +123,29 @@ public class ManageBranchServlet extends javax.servlet.http.HttpServlet implemen
          * 查詢
          */
         else if (action.equals("list")) {
+        	JSONArray JA = new JSONArray();
                     try {
                             List<Branch> branchList = service.fill();
-                            request.setAttribute("BranchList", branchList);
+                            if (branchList.size()!=0) {
+								for (int i = 0; i < branchList.size(); i++) {
+									JSONObject js =  new JSONObject();
+									Branch b = branchList.get(i);
+									js.put("id", b.getId());
+									js.put("branchName", b.getBranchName());
+									js.put("branchType", b.getBranchType());
+									js.put("branchCode", b.getBranchCode());
+									js.put("comName", b.getComName());
+									js.put("comId", b.getComId());
+									JA.add(js);
+								}
+							} else {
+								OutputHelper.StringOutPut("no result",response);
+								return;
+							}
+                            this.StringOutPut(JA.toString(), response);
+                            /*request.setAttribute("BranchList", branchList);
                             request.getRequestDispatcher("data-newbranch.jsp").forward(
-                                    request, response);
+                                    request, response);*/
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();
@@ -151,12 +174,12 @@ public class ManageBranchServlet extends javax.servlet.http.HttpServlet implemen
                                     e.printStackTrace();
                                 }
                         } else if(action.equals("update2")){
-                                String branch_id = request.getParameter("branch_id");
-                                String branch_code = request.getParameter("branch_code");
-                                String branch_name = request.getParameter("branch_name");
-                                String branch_type = request.getParameter("branch_type");
-                                String com_name = request.getParameter("com_name");
-                                String com_id = request.getParameter("com_id");
+                                String branch_id = request.getParameter("id");
+                                String branch_code = request.getParameter("branchCode");
+                                String branch_name = request.getParameter("branchName");
+                                String branch_type = request.getParameter("branchType");
+                                String com_name = request.getParameter("comName");
+                                String com_id = request.getParameter("comId");
                                 Branch b = new Branch();
                                 b.setId(branch_id);
                                 b.setBranchCode(branch_code);
@@ -169,11 +192,12 @@ public class ManageBranchServlet extends javax.servlet.http.HttpServlet implemen
 
                                 BranchService branchService = new BranchService();
                                 try {
-                                        branchService.update(b);
-                                        PrintWriter out = response.getWriter();
-                                        out.print("<script>" + "alert('修改成功');"+ "document.location.href='branch-data.jsp';"+ "</script>");
+                                        int result = branchService.update(b);
+                                     //  PrintWriter out = response.getWriter();
+                                      // out.print("<script>" + "alert('修改成功');"+ "document.location.href='branch-data.jsp';"+ "</script>");
                                      //  out.print("修改成功");
-                                        log.error("更新部门信息");
+                                        OutputHelper.StringOutPut(""+result, response);
+                                        log.error("修改部门信息");
                                     } catch (Exception e) {
                                         // TODO Auto-generated catch block
                                         e.printStackTrace();
@@ -226,6 +250,19 @@ public class ManageBranchServlet extends javax.servlet.http.HttpServlet implemen
 	 */
 	public String getServletInfo() {
 		return "This is my default servlet created by Eclipse";
+	}
+	public void StringOutPut (String str, HttpServletResponse response){
+		System.out.println(str);
+		response.setContentType("charset=utf-8");
+		try {
+			response.getOutputStream().write(str.getBytes("utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

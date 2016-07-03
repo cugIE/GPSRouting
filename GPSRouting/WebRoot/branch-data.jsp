@@ -22,7 +22,7 @@ String basePath = request.getScheme() + "://"
 </head>				
 <body>
 		<table id="branch-data" title="部门管理" class="easyui-datagrid" style="max-height:600px;"
-		        url="get_users.php"
+		        url="ManageBranchServlet?action=list"
 		        toolbar="#toolbar"
 		        rownumbers="true" fitColumns="true" singleSelect="true">
 
@@ -36,14 +36,14 @@ String basePath = request.getScheme() + "://"
 		    <thead>
 		        <tr>
 		        	<th field="id" width="15"></th>
-		        	<th field="name" width="15">部门名称</th>
-		            <th field="type" width="15">部门类型</th>
-		            <th field="code" width="15">部门编码</th>
-		            <th field="comname" width="20">分公司名称</th>
-		            <th field="action" width="20">操作</th>
+		        	<th field="branchName" width="15">部门名称</th>
+		            <th field="branchType" width="15">部门类型</th>
+		            <th field="branchCode" width="15">部门编码</th>
+		            <th field="comName" width="20">分公司名称</th>
+		            <th field="comId" width="20">分公司编码</th>
 		        </tr>
 		    </thead>
-		    <tbody>
+		    <%-- <tbody>
 		    	<%
 		    	while (iterproject.hasNext()) {
 		    		Branch branch1 = iterproject.next();
@@ -73,7 +73,7 @@ String basePath = request.getScheme() + "://"
 		}
 
 	%>
-</tbody>
+</tbody> --%>
 		</table>
 		<div id="toolbar">
 		    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newBranch()">添加部门</a>
@@ -81,18 +81,17 @@ String basePath = request.getScheme() + "://"
 		    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyBranch()">删除部门</a>
 		</div>
 
-<div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+<div id="dlg-branch" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
 		closed="true" buttons="#dlg-buttons">
-		<div class="ftitle">添加部门</div>
-		<form id="fm" action="ManageBranchServlet?action=add" method="post">
+		<div class="ftitle">部门信息</div>
+		<form id="fm-branch" method="post">
 			<div class="fitem">
 				<label>部门名称</label>
-				<input type="text" id="branch_name" name="branch_name"
-									class="easyui-validatebox" />
+				<input name="branchName" class="easyui-validatebox">
 			</div>
 			<div class="fitem">
 				<label>部门类型</label>
-				<select id="branch_type" name="branch_type" class="easyui-validatebox">
+				<select id="branchType" name="branchType" class="easyui-validatebox">
 					<option value="" disabled selected>请选择部门类型</option>
 					<option value="管理">管理</option>
 					<option value="站场">站场</option>
@@ -100,30 +99,27 @@ String basePath = request.getScheme() + "://"
 			</div>
 			<div class="fitem">
 				<label>部门编码</label>
-				<input type="text" id="branch_code" name="branch_code" class="easyui-validatebox"
-										placeholder="编码格式：AABBCC">
+				<input name="branchCode" class="easyui-validatebox" placeholder="编码格式：AABBCC">
 			</div>
 			<div class="fitem">
 				<label>分公司名称</label>
-				<input type="text" id="com_name" name="com_name"
-									class="easyui-validatebox" />
+				<input name="comName" class="easyui-validatebox">
 			</div>
 			<div class="fitem">
 				<label>分公司编码</label>
-				<input type="text" id="com_id" name="com_id"
-									class="easyui-validatebox" />
+				<input name="comId" class="easyui-validatebox">
 			</div>
-			<div style="text-align:center;">
+			<!-- <div style="text-align:center;">
 							<input type="submit" 
 								value="提交">
 							<input type="reset"
 								value="重置">
-						</div>
+						</div> -->
 		</form>
 	</div>
 	<div id="dlg-buttons">
-		<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">保存</a>
-		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveBranch()">保存</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg-branch').dialog('close')">取消</a>
 	</div>
 
 	<script type="text/javascript" src="js/branch-data.js"></script>

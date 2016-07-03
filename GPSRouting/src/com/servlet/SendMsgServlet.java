@@ -2,6 +2,7 @@ package com.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,8 +18,13 @@ import com.baidu.yun.push.client.BaiduPushClient;
 import com.baidu.yun.push.constants.BaiduPushConstants;
 import com.baidu.yun.push.exception.PushClientException;
 import com.baidu.yun.push.exception.PushServerException;
+import com.baidu.yun.push.model.PushMsgToAllRequest;
+import com.baidu.yun.push.model.PushMsgToAllResponse;
 import com.baidu.yun.push.model.PushMsgToSingleDeviceRequest;
 import com.baidu.yun.push.model.PushMsgToSingleDeviceResponse;
+import com.bean.Announcement;
+import com.service.MsgService;
+import com.util.OutputHelper;
 
 public class SendMsgServlet extends HttpServlet {
 
@@ -32,9 +38,22 @@ public class SendMsgServlet extends HttpServlet {
 		res.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=utf-8");
 		
-		PrintWriter pout = res.getWriter();
-		String msgtitle = req.getParameter("msg_title");
-		String msgcontent = req.getParameter("msg_content");
+	//	PrintWriter pout = res.getWriter();
+		String msgtitle = "";
+		String msgcontent = "";
+		
+		String announceId = req.getParameter("id");
+		MsgService ms = new MsgService();
+		try {
+			Announcement announcement = ms.fillAnnounce(announceId);
+			msgtitle = announcement.getTitle();
+			msgcontent = announcement.getContent();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 		
 		System.out.println(msgtitle);
 		System.out.println(msgcontent);
@@ -71,6 +90,7 @@ public class SendMsgServlet extends HttpServlet {
 			jsonCustormCont.put("key", "value"); //自定义内容，key-value
 			notification.put("custom_content", jsonCustormCont);
 
+			//--------------推送到单个设备-------------------
 			PushMsgToSingleDeviceRequest request = new PushMsgToSingleDeviceRequest()
 					.addChannelId("4200905901171146427")
 					.addMsgExpires(new Integer(3600)). // message有效时间
@@ -83,8 +103,26 @@ public class SendMsgServlet extends HttpServlet {
 			// Http请求结果解析打印
 			System.out.println("msgId: " + response.getMsgId() + ",sendTime: "
 					+ response.getSendTime());
+			//-----------end----------------------- 
 			
-			pout.print("<script>" + "alert('发送成功');"+ "document.location.href='send-msg.jsp';"+ "</script>");			
+			//-----------------推送到所有设备（广播推送）-----------------------
+			/*PushMsgToAllRequest request = new PushMsgToAllRequest()
+					.addMsgExpires(new Integer(3600)).addMessageType(0)
+					.addMessage(notification.toString())
+					// 设置定时推送时间，必需超过当前时间一分钟，单位秒.实例70秒后推送
+					.addSendTime(System.currentTimeMillis() / 1000 + 70)
+					.addDeviceType(3);
+			// 5. http request
+			PushMsgToAllResponse response = pushClient.pushMsgToAll(request);
+			// Http请求返回值解析
+			System.out.println("msgId: " + response.getMsgId() + ",sendTime: "
+					+ response.getSendTime() + ",timerId: "
+					+ response.getTimerId());*/
+			//--------------------end-----------------------------------------
+			
+			int result = 1;
+			OutputHelper.StringOutPut(result+"", res);
+		//	pout.print("<script>" + "alert('发送成功');"+ "document.location.href='send-msg.jsp';"+ "</script>");			
 		} catch (PushClientException e) {
 			/*
 			 * ERROROPTTYPE 用于设置异常的处理方式 -- 抛出异常和捕获异常,'true' 表示抛出, 'false' 表示捕获。

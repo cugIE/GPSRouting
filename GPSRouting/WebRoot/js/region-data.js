@@ -81,7 +81,7 @@ function destroyRegion() {
                     } else {
                         $.messager.show({	// show error message
                             title: 'Error',
-                            msg: "添加错误"
+                            msg: "该区域已生成生产日志,无法删除"
                         });
                     }
                 },'json');

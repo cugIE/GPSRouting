@@ -72,15 +72,9 @@ public class DeleteSingleSheetServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String sheet_id = request.getParameter("sheet_id");
 		int result = 0;
-		System.out.println(sheet_id);
-		try {
-			result = Sheet.deleteOneSheet(sheet_id);
-				OutputHelper.StringOutPut(result+"", response);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			OutputHelper.StringOutPut("error", response);
-			e.printStackTrace();
-		}
+		result = Sheet.deleteOneSheet(sheet_id);
+		OutputHelper.StringOutPut(result+"", response);
+
 	}
 
 	/**

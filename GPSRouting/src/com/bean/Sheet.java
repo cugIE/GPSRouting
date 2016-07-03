@@ -112,6 +112,7 @@ public class Sheet {
 			return -1;
 		}
 		else{
+			Period.deletePeriodFromSheet(id);
 			String sql = "delete from sheet "
 					+ "where sheet_id=" + id;
 			DBHelper dbh = new DBHelper();

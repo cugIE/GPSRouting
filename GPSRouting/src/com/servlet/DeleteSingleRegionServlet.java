@@ -61,14 +61,9 @@ public class DeleteSingleRegionServlet extends HttpServlet {
 		String region_id = request.getParameter("region_id");
 		int result = 0;
 		System.out.println(region_id);
-		try {
 			result = Region.deleteOneRegion(region_id);
 				OutputHelper.StringOutPut(result+"", response);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			OutputHelper.StringOutPut("error", response);
-			e.printStackTrace();
-		}
+
 	}
 
 	/**

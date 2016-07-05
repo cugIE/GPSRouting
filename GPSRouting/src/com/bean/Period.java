@@ -132,6 +132,30 @@ public class Period {
 			return result;
 		}	
 	}
+	public static int deletePeriodFromSheet(String sheetid) throws SQLException{
+		if (sheetid == null){
+			return -1;
+		}
+		else{
+			String sql = "SELECT period_id "
+					+ "from period "
+					+ "where period.sheet_id = " + sheetid;
+			DBHelper dbh = new DBHelper();
+			DBHelper dbh2 = new DBHelper();
+			ResultSet rs = dbh.getResultSet(sql);
+			int result =0;
+			while(rs.next()) {
+				PtrConnection.deleteConnectionfromPeriod(rs.getString(1));
+				String sql2 = "delete from period "
+						+ "where period_id =" + rs.getString(1);
+				result += dbh2.updateDatabase(sql2);
+			}
+			dbh.DBClose();
+			dbh2.DBClose();
+
+			return result;
+		}
+	}
 	public static int deleteOneShift(String shid, String shift) throws SQLException{
 		if (shid == null||shift == null){
 			return -1;

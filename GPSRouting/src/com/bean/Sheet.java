@@ -107,17 +107,24 @@ public class Sheet {
 		}
 		return result;
 	}
-	public static int deleteOneSheet(String id) throws SQLException{
+	public static int deleteOneSheet(String id) {
 		if (id == null){
 			return -1;
 		}
 		else{
-			String sql = "delete from sheet "
-					+ "where sheet_id=" + id;
-			DBHelper dbh = new DBHelper();
-			int result = dbh.updateDatabase(sql);
-			dbh.DBClose();
-			return result;
+			try {
+				Period.deletePeriodFromSheet(id);
+				String sql = "delete from sheet "
+						+ "where sheet_id=" + id;
+				DBHelper dbh = new DBHelper();
+				int result = dbh.updateDatabase(sql);
+				dbh.DBClose();
+				return result;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return -1;
+			}
+
 		}	
 	}
 	public static int changeOneSheet(Sheet sht) throws SQLException{

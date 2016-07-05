@@ -347,19 +347,25 @@ public class Region {
 	 * @return
 	 * @throws SQLException 
 	 */
-	public static int deleteOneRegion(String id) throws SQLException{
+	public static int deleteOneRegion(String id) {
 		if (id == null){
 			return -1;
 		}
 		else{
-			Question.deleteQuestionfromRegion(id);
-			PtrConnection.deleteConnectionfromRegion(id);
-			String sql = "delete from region "
-					+ "where region_id=" + id;
-			DBHelper dbh = new DBHelper();
-			int result = dbh.updateDatabase(sql);
-			dbh.DBClose();
-			return result;
+			try {
+				Question.deleteQuestionfromRegion(id);
+
+				PtrConnection.deleteConnectionfromRegion(id);
+				String sql = "delete from region "
+						+ "where region_id=" + id;
+				DBHelper dbh = new DBHelper();
+				int result = dbh.updateDatabase(sql);
+				dbh.DBClose();
+				return result;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return -1;
+			}
 		}
 
 	}

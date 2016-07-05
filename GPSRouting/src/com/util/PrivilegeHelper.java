@@ -11,6 +11,8 @@ public class PrivilegeHelper {
 			return "值班干部";
 		case 4:
 			return "巡检员";
+		case 5:
+			return "值班员";
 
 		default:
 			return "error";

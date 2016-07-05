@@ -124,6 +124,7 @@ public class GetAllPeriodServlet extends HttpServlet {
 		else if(index.equals("result")) {
 			String sheet_id = request.getParameter("sheet_id");
 			String date = request.getParameter("date");
+			System.out.println("选择的时间为："+date);
 			if (sheet_id == null||date== null){
 				this.StringOutPut("error_sheet", response);
 			}else {

@@ -304,4 +304,22 @@ public class Period {
 		}
 				
 	}
+	
+	/**
+	 * 表id为sheet_id的时间点数量
+	 * @param sheetId
+	 * @return
+	 * @throws SQLException
+	 */
+	public static int fillPeriodTimes(String sheetId)throws SQLException {
+		if (sheetId == null) {
+			return -1;
+		} else {
+			String sql = "select count(sheet_id) from period where sheet_id = '"+ sheetId +"'";
+			DBHelper dbh = new DBHelper();
+			int result = dbh.updateDatabase(sql);
+			dbh.DBClose();
+			return result;
+		}
+	}
 }

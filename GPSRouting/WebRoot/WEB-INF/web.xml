@@ -159,6 +159,11 @@
     <servlet-name>ManageAnnounceServlet</servlet-name>
     <servlet-class>com.servlet.ManageAnnounceServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>MonthDataServlet</servlet-name>
+    <servlet-class>com.servlet.MonthDataServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -336,6 +341,10 @@
   <servlet-mapping>
     <servlet-name>ManageAnnounceServlet</servlet-name>
     <url-pattern>/ManageAnnounceServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MonthDataServlet</servlet-name>
+    <url-pattern>/MonthDataServlet</url-pattern>
   </servlet-mapping>
 
 

@@ -27,12 +27,7 @@ public class SheetTest {
 
 	//@Test
 	public void testDeleteOneSheet() {
-		try {
-			assertEquals(1,Sheet.deleteOneSheet("3"));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		assertEquals(1,Sheet.deleteOneSheet("3"));
 	}
 
 	@Test

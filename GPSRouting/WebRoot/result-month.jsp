@@ -25,29 +25,23 @@
 	
 </head>
 <body>
-	<div class="easyui-panel" style="width:max;height:40px;padding:5px;">
+	<!-- <div class="easyui-panel" style="width:max;height:40px;padding:5px;">
 
 	
 	<a href="#" class="easyui-linkbutton" iconCls="icon-search">确定</a>
-	</div>
+	</div> -->
 	<div class="easyui-panel" title="月巡检表" style="width:max;height:480px;padding:10px;"
-		toolbar="#toolbar">
-		
-		<%-- <div class="easyui-layout" data-options="fit:true">
-			<div data-options="region:'north',split:true" style="width:100px;height:55px;padding:10px">
-				选择时间：<input class="easyui-datebox" id="pick-date" style="width:80px">
-				巡检表：
-				<input class="easyui-combobox" id="sheet-list" style=" width:100px; margin-right: 5px"
-					   method="get"
-					   url="GetAllSheetServlet?index=branch&branch_id=<%=request.getParameter("branch_id")%>"
-					   valueField="id" textField="name">
-				<a href="#" class="easyui-linkbutton" iconCls="icon-search">确定</a>
-			</div>
-			<div data-options="region:'center'" style="width:100px;padding:10px">
-				<!-- <div id='calendar'></div> -->
-			</div> --%>
+		data-options="iconCls:'icon-save',tools:'#tt'">
 					
 			<div id='calendar'></div>
+	</div>
+	<div id="tt">
+		
+	<input class="easyui-combobox" id="sheet-list" style=" width:150px;height:17px; margin-right: 5px"
+		method="get"
+		url="GetAllSheetServlet?index=branch&branch_id=<%=request.getParameter("branch_id")%>"
+		valueField="id" textField="name">
+	<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="showResults()">确定</a>
 	</div>			
 	
 		<script type="text/javascript" src="js/result-month.js"></script>

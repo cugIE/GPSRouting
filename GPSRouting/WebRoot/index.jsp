@@ -107,7 +107,7 @@ String basePath = request.getScheme() + "://"
 									<li>
 										<span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-故障信息','fault-msg.jsp?branch_id=<%=branch.getId() %>&userTeamid=<%=session.getAttribute("SesTeamId") %>')">故障信息</a></span>
 									</li>
-									<li><span><span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-月度巡检报告','result-month.jsp')">月度巡检报告</a></span></li>
+									<li><span><span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-月度巡检报告','result-month.jsp?branch_id=<%=branch.getId()%>')">月度巡检报告</a></span></li>
 								</ul>
 
 							</li>
@@ -159,7 +159,7 @@ String basePath = request.getScheme() + "://"
 									<li>
 										<span><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-故障信息','fault-msg.jsp?branch_id=<%=tempbranch.getId() %>&userTeamid=<%=session.getAttribute("SesTeamId") %>')">故障信息</a></span>
 									</li>
-									<li><span><span><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-月度巡检报告','result-month.jsp')">月度巡检报告</a></span></li>
+									<li><span><span><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-月度巡检报告','result-month.jsp?branch_id=<%=tempbranch.getId()%>')">月度巡检报告</a></span></li>
 								</ul>
 
 							</li>

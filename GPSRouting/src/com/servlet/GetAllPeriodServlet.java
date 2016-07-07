@@ -133,12 +133,15 @@ public class GetAllPeriodServlet extends HttpServlet {
 					String start = date + " 00:00";
 					String end = date + " 23:59";
 					List<Period> prds = Period.getAllPeriod(sheet_id);
+					System.out.println("表id为"+sheet_id+"的在时间为"+date+"时间点有"+prds.size()+"个");
 					for (int i = 0; i < prds.size(); i++) {
+						
 						JSONObject jsonObject = new JSONObject();
 
 						Period prd = prds.get(i);
 
 						List<Record> recordList = Record.getAllRecordFromPeriod(prd.getId(), start, end);
+						System.out.println("表id为"+sheet_id+"的巡检记录在"+date+"共有"+recordList.size()+"条");
 						List<PtrConnection> ptrConnectionList = PtrConnection.getAllRegion(prd.getId());
 						if (recordList.size() == 0 || ptrConnectionList.size() == 0) {
 
@@ -155,6 +158,7 @@ public class GetAllPeriodServlet extends HttpServlet {
 								done = done+rcd.getRegion()+",";
 							}
 							jsonObject.put("done",done);
+							
 							for(int j=0; j< ptrConnectionList.size(); j++){
 								Region rg = ptrConnectionList.get(j).getRegion_content();
 								all = all+rg.getName()+",";
@@ -167,6 +171,7 @@ public class GetAllPeriodServlet extends HttpServlet {
 					JSONObject jo = new JSONObject();
 					jo.put("total", 20);
 					jo.put("rows", JA);
+					System.out.println("记录数："+JA.size());
 					OutputHelper.StringOutPut(jo.toString(), response);
 				} catch (SQLException e) {
 					e.printStackTrace();

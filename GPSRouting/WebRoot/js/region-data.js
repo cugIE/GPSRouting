@@ -1,3 +1,12 @@
+var userTeamid = getQueryString('userTeamid');
+
+
+window.onload=function()
+{
+	if(userTeamid>4){
+		$(".datagrid-toolbar").hide();
+	}	
+};
 var map = new BMap.Map("allmap");
 var point = new BMap.Point(114.405, 30.513);
 map.centerAndZoom(point,15);	

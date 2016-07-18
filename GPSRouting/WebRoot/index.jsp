@@ -116,10 +116,10 @@ String basePath = request.getScheme() + "://"
 								<span>巡检数据</span>
 								<ul>
 									<li>
-										<span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-巡检表管理','sheet-data.jsp?branch_id=<%=branch.getId()%>')">巡检表管理</a></span>
+										<span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-巡检表管理','sheet-data.jsp?branch_id=<%=branch.getId()%>&userTeamid=<%=session.getAttribute("SesTeamId") %>')">巡检表管理</a></span>
 									</li>
 									<li>
-									<span> <a href="#" onclick="addTab('<%=branch.getBranchName()%>-巡检区域管理','region-data.jsp?branch_id=<%=branch.getId()%>')">巡检区域管理</a>
+									<span> <a href="#" onclick="addTab('<%=branch.getBranchName()%>-巡检区域管理','region-data.jsp?branch_id=<%=branch.getId()%>&userTeamid=<%=session.getAttribute("SesTeamId") %>')">巡检区域管理</a>
 									</span>
 									</li>
 									<li>
@@ -168,10 +168,10 @@ String basePath = request.getScheme() + "://"
 								<span>巡检数据</span>
 								<ul>
 									<li>
-										<span><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-巡检表管理','sheet-data.jsp?branch_id=<%=tempbranch.getId()%>')">巡检表管理</a></span>
+										<span><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-巡检表管理','sheet-data.jsp?branch_id=<%=tempbranch.getId()%>&userTeamid=<%=session.getAttribute("SesTeamId") %>')">巡检表管理</a></span>
 									</li>
 									<li>
-									<span> <a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-巡检区域管理','region-data.jsp?branch_id=<%=tempbranch.getId()%>')">巡检区域管理</a>
+									<span> <a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-巡检区域管理','region-data.jsp?branch_id=<%=tempbranch.getId()%>&userTeamid=<%=session.getAttribute("SesTeamId") %>')">巡检区域管理</a>
 									</span>
 									</li>
 									<li>

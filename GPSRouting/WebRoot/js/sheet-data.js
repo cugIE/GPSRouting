@@ -1,4 +1,14 @@
-    function addTab(title,url){
+	var userTeamid = getQueryString('userTeamid');
+
+
+window.onload=function()
+{
+	if(userTeamid>4){
+		$(".datagrid-toolbar").hide();
+	}	
+};
+
+	function addTab(title,url){
         parent.addTab(title,url);
     }
     function getQueryString(name) {

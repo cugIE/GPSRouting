@@ -122,11 +122,16 @@ String basePath = request.getScheme() + "://"
 								scope="session">
 			</jsp:useBean>
 			<%
+				
+				Branch tempbranch = service6.fill(""+session.getAttribute("SesBranchId"));
 				List<Branch> projectlist3 = service6.fill();
 					Iterator<Branch> iterproject3 = projectlist3.iterator();
 			%>
 			<div class="fitem">
 				<label>部门</label>
+				<%
+					if(tempbranch.getBranchType().equals("管理")){
+				%>
 				<select name="branchid" id="branchid" class="easyui-validatebox">
 				<option value="" disabled selected>请选择部门</option>
 					<%
@@ -137,7 +142,15 @@ String basePath = request.getScheme() + "://"
 					<%
 						}
 					%>
-			</select>		
+			</select>
+			<%
+					}else if(tempbranch.getBranchType().equals("站场")){
+			%>		
+				<input type="hidden" id="branchid" name="branchid" value=<%=tempbranch.getId() %>>
+				<input type="text" id="branchName" name="branchName" value=<%=tempbranch.getBranchName() %> class="easyui-validatebox" disabled="disabled">
+				<%
+					}
+				%>
 			</div>
 			<div class="fitem">
 				<label>组类型</label>

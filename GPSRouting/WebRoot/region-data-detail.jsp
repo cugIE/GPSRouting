@@ -24,7 +24,7 @@
 		        rownumbers="true" fitColumns="true" singleSelect="true">
 		    <thead>
 		        <tr>
-					<th field="id" width="10"></th>
+					<th field="id" width="0" hidden="true"></th>
 		        	<th field="title" width="40">问题</th>
 					<th field="type" width="40">巡检点</th>
 		            <th field="possasws" width="40">答案</th>

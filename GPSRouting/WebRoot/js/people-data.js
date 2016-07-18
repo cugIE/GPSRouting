@@ -16,7 +16,7 @@ function hideTool(){
 
 function newUser(){
 	$('#dlg-people').dialog('open').dialog('setTitle','添加人员');
-	$('#fm-people').form('clear');
+	/*$('#fm-people').form('clear');*/
 	url = 'ManagePeopleServlet?action=add';
 };
 

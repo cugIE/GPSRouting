@@ -75,7 +75,7 @@
              closed="true" buttons="#show-qrcode-button">
             <div class="fitem">
                 <label>输入尺寸</label>
-                <input id="qrcode-size" type="number" name="size" class="easyui-validatebox" required="true" style=" width:160px">
+                <input id="qrcode-size" type="number" name="size" class="easyui-validatebox" value="400" required="true" style=" width:160px">
             </div>
         </div>
         <div id="show-qrcode-button">

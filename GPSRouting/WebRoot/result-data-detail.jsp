@@ -93,10 +93,10 @@
     %>
 
         <td rowspan="<%=JAHelper.GetCount(TypeName,jalist)%>"><%=TypeName%></td>
-        <%}
-
-        %>
-        <td><%=jso.get("title")%></td>
+					<%
+						}
+					%>
+		<td><%=jso.get("title")%></td>
         <td><%=jso.get("possasws")%></td>
         <td><%=jso.get("choosedasws")%></td>
         <td><%=jso.get("normalasws")%></td>

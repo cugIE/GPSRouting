@@ -18,7 +18,7 @@
 </head>				
 	<body>
 		<table id="region-data" title="区域管理" class="easyui-datagrid" style="max-height:500px;"
-		        url="GetAllRegionServlet?index=branch&branch_id=<%=request.getParameter("branch_id")%>"
+		        url="GetAllRegionServlet?index=branch&regionType=all&branch_id=<%=request.getParameter("branch_id")%>"
 		        toolbar="#toolbar"
 		        rownumbers="true" fitColumns="true" singleSelect="true">
 		    <thead>
@@ -37,8 +37,15 @@
 		    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editRegion()">修改区域</a>
 		    <a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="checkRegion()">查看区域</a>
 			<a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="checkQRcode()">查看二维码</a>
-		    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyRegion()">删除区域</a>
-		</div>
+		    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyRegion()">删除区域</a> 
+		    <select id="regionType" class="easyui-combobox" name="dept"
+				style="margin-left:auto;margin-right:2px;width:150px;">
+				<option value="all">全部</option>			
+				<option value="site">巡站点</option>
+				<option value="route">巡线点</option>
+				<option value="巡站点">临时</option>			
+			</select>
+	</div>
 
 	</div>
 		<div id="add-region-dlg" class="easyui-dialog" style="width:300px;height:240px;padding:10px 20px"

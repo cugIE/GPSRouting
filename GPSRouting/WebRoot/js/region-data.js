@@ -21,6 +21,16 @@ var url = "GetAllRegionServlet"
 url = url +"?index=branch&branch_id="+paramBranch_id;
 showdata(url);
 
+$('#regionType').combobox({
+	onSelect: function(record){
+		alert("区域类型："+record.value);
+		$('#region-data').datagrid( {
+		    url : 'GetAllRegionServlet?index=branch&regionType='+ record.value + '&branch_id='+paramBranch_id,
+		    action : 'POST'
+		}); 
+	}
+});
+
 function showdata(url){
     $.getJSON(
         url,

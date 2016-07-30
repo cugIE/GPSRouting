@@ -309,8 +309,9 @@ public class GetAllRegionServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		String index = request.getParameter("index");
+		String regionType = request.getParameter("regionType");
 		//System.out.print(index+"1");
-		if (index.equals("branch")){
+		if (index.equals("branch") && regionType.equals("all")){
 			String branchID = request.getParameter("branch_id");
 			JSONArray JA = new JSONArray();
 			if (branchID == null) {
@@ -341,6 +342,141 @@ public class GetAllRegionServlet extends HttpServlet {
 						}
 						js.put("gener", rg.getGener());
 						JA.add(js);
+					}
+
+
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				JSONObject jsonObject = new JSONObject();
+				jsonObject.put("total", 20);
+				jsonObject.put("rows", JA);
+				OutputHelper.StringOutPut(jsonObject.toString(), response);
+			}
+		}else if(index.equals("branch") && regionType.equals("site")) {
+			String branchID = request.getParameter("branch_id");
+			JSONArray JA = new JSONArray();
+			if (branchID == null) {
+				this.StringOutPut("error_branch", response);
+			}
+			else {
+				try {
+					List<Region> regions;
+					regions = Region.getAllRegion(branchID);
+
+					for (int i = 0; i < regions.size(); i++ ){
+						JSONObject js = new JSONObject();
+						Region rg = regions.get(i);
+						if (rg.getType().equals(regionType)) {
+							js.put("id", rg.getId());
+							js.put("name", rg.getName());
+							js.put("branch", rg.getBranch());
+							js.put("intro", rg.getIntro());
+							js.put("gps", rg.getGps());
+							js.put("qrcode", rg.getQrcode());
+							if(regionType.equals("site")){
+								js.put("type", "巡站点");
+							}
+							else if(regionType.equals("route")){
+								js.put("type", "巡线点");
+							}
+							else{
+								js.put("type", "临时");
+							}
+							js.put("gener", rg.getGener());
+							JA.add(js);
+						}			
+					}
+
+
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				JSONObject jsonObject = new JSONObject();
+				jsonObject.put("total", 20);
+				jsonObject.put("rows", JA);
+				OutputHelper.StringOutPut(jsonObject.toString(), response);
+			}
+		}else if (index.equals("branch") && regionType.equals("route")) {
+			String branchID = request.getParameter("branch_id");
+			JSONArray JA = new JSONArray();
+			if (branchID == null) {
+				this.StringOutPut("error_branch", response);
+			}
+			else {
+				try {
+					List<Region> regions;
+					regions = Region.getAllRegion(branchID);
+
+					for (int i = 0; i < regions.size(); i++ ){
+						JSONObject js = new JSONObject();
+						Region rg = regions.get(i);
+						if (rg.getType().equals(regionType)) {
+							js.put("id", rg.getId());
+							js.put("name", rg.getName());
+							js.put("branch", rg.getBranch());
+							js.put("intro", rg.getIntro());
+							js.put("gps", rg.getGps());
+							js.put("qrcode", rg.getQrcode());
+							if(regionType.equals("site")){
+								js.put("type", "巡站点");
+							}
+							else if(regionType.equals("route")){
+								js.put("type", "巡线点");
+							}
+							else{
+								js.put("type", "临时");
+							}
+							js.put("gener", rg.getGener());
+							JA.add(js);
+						}			
+					}
+
+
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				JSONObject jsonObject = new JSONObject();
+				jsonObject.put("total", 20);
+				jsonObject.put("rows", JA);
+				OutputHelper.StringOutPut(jsonObject.toString(), response);
+			}
+		}else if (index.equals("branch") && regionType.equals("巡站点")) {
+			String branchID = request.getParameter("branch_id");
+			JSONArray JA = new JSONArray();
+			if (branchID == null) {
+				this.StringOutPut("error_branch", response);
+			}
+			else {
+				try {
+					List<Region> regions;
+					regions = Region.getAllRegion(branchID);
+
+					for (int i = 0; i < regions.size(); i++ ){
+						JSONObject js = new JSONObject();
+						Region rg = regions.get(i);
+						if (rg.getType().equals(regionType)) {
+							js.put("id", rg.getId());
+							js.put("name", rg.getName());
+							js.put("branch", rg.getBranch());
+							js.put("intro", rg.getIntro());
+							js.put("gps", rg.getGps());
+							js.put("qrcode", rg.getQrcode());
+							if(regionType.equals("site")){
+								js.put("type", "巡站点");
+							}
+							else if(regionType.equals("route")){
+								js.put("type", "巡线点");
+							}
+							else{
+								js.put("type", "临时");
+							}
+							js.put("gener", rg.getGener());
+							JA.add(js);
+						}			
 					}
 
 

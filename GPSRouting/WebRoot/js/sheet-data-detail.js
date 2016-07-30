@@ -124,7 +124,7 @@
         },function(data,status){
             if(data=="1"){
                 alert("删除成功");
-                $("#RestRegions").append("<tr class= 'rest-regions-tr'><td  period_id = '"+ period_id +"' id = '" + region_id + "' >" +  button_left+ name +"</td><tr>");
+                $("#RestRegions").append("<tr class= 'rest-regions-tr'><td  period_id = '"+ period_id +"' id = '" + region_id + "' >" + button_left + name +"</td><tr>");
                 th.remove();
             }
             else{
@@ -184,7 +184,7 @@
                 },function(data,status){
                     if(data!="error"&&status=="success"){
                         alert("添加成功");
-                        $("#SelectedRegions").append("<tr class='selected-region-tr'><td period_id = '"+ period_id + "' region_id = '" + region_id + "' id = '" + data + "' >" + name + button_up+ "</td><tr>");
+                        $("#SelectedRegions").append("<tr class='selected-region-tr'><td period_id = '"+ period_id + "' region_id = '" + region_id + "' id = '" + data + "' >" + name + button_up + "</td><tr>");
                         th.remove();
                     }
                     else{

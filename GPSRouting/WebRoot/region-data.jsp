@@ -39,7 +39,7 @@
 			<a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="checkQRcode()">查看二维码</a>
 		    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyRegion()">删除区域</a> 
 		    <select id="regionType" class="easyui-combobox" name="dept"
-				style="margin-left:auto;margin-right:2px;width:150px;">
+				style="text-align:right;width:150px;">
 				<option value="all">全部</option>			
 				<option value="site">巡站点</option>
 				<option value="route">巡线点</option>

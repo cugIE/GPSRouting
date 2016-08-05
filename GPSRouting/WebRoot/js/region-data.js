@@ -3,7 +3,7 @@ var userTeamid = getQueryString('userTeamid');
 
 window.onload=function()
 {
-	if(userTeamid>4){
+	if(userTeamid>3){
 		$(".datagrid-toolbar").hide();
 	}	
 };
@@ -23,7 +23,7 @@ showdata(url);
 
 $('#regionType').combobox({
 	onSelect: function(record){
-		alert("区域类型："+record.value);
+		/*alert("区域类型："+record.value);*/
 		$('#region-data').datagrid( {
 		    url : 'GetAllRegionServlet?index=branch&regionType='+ record.value + '&branch_id='+paramBranch_id,
 		    action : 'POST'

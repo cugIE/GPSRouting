@@ -3,7 +3,7 @@
 
 window.onload=function()
 {
-	if(userTeamid>4){
+	if(userTeamid>3){
 		$(".datagrid-toolbar").hide();
 	}	
 };

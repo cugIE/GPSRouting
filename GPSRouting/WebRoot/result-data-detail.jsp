@@ -1,4 +1,5 @@
 <%@ page import="com.util.OutputHelper" %>
+<%@ page import="com.util.TeamidtoName" %>
 <%@ page import="net.sf.json.JSONArray" %>
 <%@ page import="com.bean.Record" %>
 <%@ page import="java.util.List" %>
@@ -27,14 +28,54 @@
 </head>
 <body>
 <%
+	TeamidtoName teamidtoName = new TeamidtoName();
+	String braName = teamidtoName.braid2name(""+session.getAttribute("SesBranchId"));
+	String shift = request.getParameter("shift");
+	String time = request.getParameter("time");
     String period_id = request.getParameter("period_id");
     String date = request.getParameter("date");
     String end = date + " 23:59";
     String start = date + " 00:00";
-
+    List<Record> recordList2 = Record.getAllRecordFromPeriod(period_id, start, end);
 %>
 <div class="easyui-panel" title="报表" style="padding: 20px; height: 800px;" data-options="iconCls:'icon-save',closable:true,tools:'#tt'">
-<table class="imagetable"  cellspacing="0">
+		<div style="float: left; width: 15%;">
+			<i class="fa fa-asterisk bk-padding-right-10"></i>站场： 
+			<i class="bk-padding-right-15" id="eva-record-id"><b><%=braName %></b></i>
+		</div>
+		 <div style="float: left; width: 20%;">
+                    巡检日期：
+                    <i class="bk-padding-right-15" ><b><%=date %></b></i>
+                </div>
+         <div style="float: left; width: 15%;">
+                   班次：
+                    <i class="bk-padding-right-15" ><b><%=shift %></b></i>
+                </div>
+         <div style="float: left; width: 15%;">
+                   时间：
+                    <i class="bk-padding-right-15" ><b><%=time %></b></i>
+                </div>
+          <div style="float: left; width: 15%;">
+                   巡检人：
+                    <i class="bk-padding-right-15" ><b><%Record rcdRecord = recordList2.get(0);out.print(rcdRecord.getGener()); %></b></i>
+                </div>
+          <div style="float: left; width: 20%;">
+                    <i class="fa fa-database bk-padding-right-10"></i>审核状态：
+                    
+                    <i class="bk-padding-right-15" ><b>
+                    <%
+                    		
+                    		for(int i = 0; i < recordList2.size(); i++){
+                    			Record rcd = recordList2.get(i);
+                    			if(rcd.getStatus().equals("0")){
+                    				out.print("未完成");
+                    			}
+                    			break;
+                    		}
+                    		out.print("已完成");
+                    %></b></i>
+                </div>
+	<table class="imagetable"  cellspacing="0" style="margin-top:30px">
     <thead>
     <tr>
         <th>巡检区域</th>
@@ -98,8 +139,18 @@
 					%>
 		<td><%=jso.get("title")%></td>
         <td><%=jso.get("possasws")%></td>
-        <td><%=jso.get("choosedasws")%></td>
-        <td><%=jso.get("normalasws")%></td>
+        <%
+        	if(jso.get("error").equals("1")){
+        %>
+        <td><font color="red"><%=jso.get("choosedasws")%></td>
+        <%
+        	}else{
+        %>
+        <td><font color="blue"><%=jso.get("choosedasws")%></td>
+        <%
+        	}
+        %>
+        <td><font color="blue"><%=jso.get("normalasws")%></td>
     </tr>
     <%}}%>
     </tbody>

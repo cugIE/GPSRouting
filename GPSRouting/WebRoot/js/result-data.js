@@ -23,5 +23,5 @@ function showResults(){
 
 function showDetail() {
     var row = $('#result-data').datagrid('getSelected');
-    addTab(row.date+'-'+row.shift+'-'+row.time, "result-data-detail.jsp?date="+row.date+"&period_id="+row.id);
+    addTab(row.date+'-'+row.shift+'-'+row.time, "result-data-detail.jsp?date="+row.date+"&period_id="+row.id+"&shift="+row.shift+"&time="+row.time);
 }

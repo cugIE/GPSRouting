@@ -3,6 +3,7 @@ package com.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.security.interfaces.DSAKey;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -84,6 +85,7 @@ public class MonthDataServlet extends HttpServlet {
 		        timesPlan = js2.getInt("prds");
 		        timesActual = js2.getInt("records");
 		        dotsMiss = js2.getInt("missRegions");
+		        dotsUnusual = unusualDots(df.format(d),sheet_id);
 		        System.out.println(df.format(d));  
 		        js.put("title","计划巡检："+timesPlan+"\n"+"实际巡检："+timesActual+"\n"+"当天漏检："+dotsMiss+"\n"+"发现异常："+dotsUnusual);
 		        js.put("start", df.format(d));
@@ -228,6 +230,42 @@ public class MonthDataServlet extends HttpServlet {
 			resultJSON.put("missRegions", missRgns+totalRgns*(periods-rcds));
 			return resultJSON;
 		}
+	}
+
+	private int unusualDots(String date,String sheetId)throws Exception {
+		int resultDots = 0;
+		
+		if (date == null || sheetId == null) {
+			return 0;
+		} else {
+			String end = date + " 23:59";
+		    String start = date + " 00:00";		    
+		    try {
+		    	List<Period> prds = Period.getAllPeriod(sheetId);
+		    	for (int i = 0; i < prds.size(); i++) {
+		    		Period prd = prds.get(i);
+					List<Record> recordList = Record.getAllRecordFromPeriod(prd.getId(), start, end);
+					for (int j = 0; j < recordList.size(); j++) {
+						Record rcd = recordList.get(i);
+						JSONArray jalist = JSONArray.fromObject(rcd.getAsws());
+						for (int k = 0; k < jalist.size(); k++) {
+							
+							JSONObject jsrcd = jalist.getJSONObject(k);
+							if (jsrcd.getString("error").equals("1")) {
+								resultDots++;
+							}
+						
+						}
+					}
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		}
+	    
+		
+		return resultDots;
 	}
 	
 	public void StringOutPut (String str, HttpServletResponse response){

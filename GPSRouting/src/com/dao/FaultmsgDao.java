@@ -93,7 +93,7 @@ public class FaultmsgDao {
         pre.setString(1, generid);
         rs=pre.executeQuery();
         Faultmsg f = null;
-        if(rs.next()){
+        while(rs.next()){
         	f = new Faultmsg();
         	f.setId(rs.getString("id"));
         	f.setFaultTitle(rs.getString("title"));

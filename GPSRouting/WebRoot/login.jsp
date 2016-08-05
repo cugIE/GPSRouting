@@ -48,7 +48,7 @@
 						<hr style="height:1px;border:none;border-top:1px solid #555555;" />
 						
 						<div id="ft" style="padding:5px;" text-align="center">
-							GPSRouting
+							智能燃气巡检系统
 						</div>
 					</form>
 				</div>

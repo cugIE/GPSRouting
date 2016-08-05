@@ -98,7 +98,7 @@ public class AlarmMsgDao {
 		pre = conn.prepareStatement(sql);
 	    pre.setString(1, generid);
 	    rs=pre.executeQuery();
-	    if (rs.next()) {
+	    while (rs.next()) {
 			a = new AlarmMsg();
 			a.setId(rs.getString("id"));
 			a.setAlarmAddress(rs.getString("address"));

@@ -30,13 +30,17 @@
 	
 	<a href="#" class="easyui-linkbutton" iconCls="icon-search">确定</a>
 	</div> -->
-	<div class="easyui-panel" title="月巡检表" style="width:max;height:480px;padding:10px;"
+	<div id="panelCal" class="easyui-panel" title="月巡检表" style="width:max;height:475px;padding:10px;"
 		data-options="iconCls:'icon-save',tools:'#tt'">
 					
 			<div id='calendar'></div>
 	</div>
 	<div id="tt">
-		
+		<%-- <select id="sheet-list" class="easyui-combobox" name="dept"
+			style=" width:150px;height:17px; margin-right: 5px" method="get"
+			url="GetAllSheetServlet?index=branch&branch_id=<%=request.getParameter("branch_id")%>"
+			valueField="id" textField="name">
+		</select> --%>
 	<input class="easyui-combobox" id="sheet-list" style=" width:150px;height:17px; margin-right: 5px"
 		method="get"
 		url="GetAllSheetServlet?index=branch&branch_id=<%=request.getParameter("branch_id")%>"

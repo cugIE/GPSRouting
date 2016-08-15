@@ -478,6 +478,7 @@ public class Region {
 					+ "region_intro = '" + rg.getIntro() + "', "
 					+ "region_gps = '" + rg.getGps() + "', "
 					+ "region_qrcode = '" + rg.getQrcode() + "', " 
+					+ "sheet_id = '" + rg.getSheet_id() + "', "
 					+ "region_type = '" + rg.getType() + "', "
 					+ "region_range = '" + rg.getRange() + "' "
 					+ "where region_id = " + rg.getId();

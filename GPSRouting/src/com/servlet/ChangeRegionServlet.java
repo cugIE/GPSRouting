@@ -75,11 +75,12 @@ public class ChangeRegionServlet extends HttpServlet {
 		String intro = request.getParameter("intro");
 		String gps = request.getParameter("gps");
 		String type = request.getParameter("type");
+		String sheet_id = request.getParameter("sheet_id");
 		String qrcode = request.getParameter("qrcode");
 		String range = request.getParameter("range");
 		
 		System.out.println(id+";"+name+";"+intro+";"+gps+";"+type+range);
-
+		System.out.println("表id："+sheet_id);
 		try {
 			Region rg = Region.getOneRegion(id);
 			if(gps!=null){
@@ -100,6 +101,9 @@ public class ChangeRegionServlet extends HttpServlet {
 				}
 
 				rg.setType(type);
+			}
+			if (sheet_id!=null) {
+				rg.setSheet_id(Integer.parseInt(sheet_id));
 			}
 			if(range!=null){
 				rg.setRange(Integer.parseInt(range));

@@ -163,6 +163,11 @@
     <servlet-name>MonthDataServlet</servlet-name>
     <servlet-class>com.servlet.MonthDataServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>DeleteRecordServlet</servlet-name>
+    <servlet-class>com.servlet.DeleteRecordServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -345,6 +350,10 @@
   <servlet-mapping>
     <servlet-name>MonthDataServlet</servlet-name>
     <url-pattern>/MonthDataServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeleteRecordServlet</servlet-name>
+    <url-pattern>/DeleteRecordServlet</url-pattern>
   </servlet-mapping>
 
 

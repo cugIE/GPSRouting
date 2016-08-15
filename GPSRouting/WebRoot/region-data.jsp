@@ -27,6 +27,7 @@
 		        	<th field="name" width="40">区域名称</th>
 					<th field="intro" width="80">区域介绍</th>
 		            <th field="branch" width="40">所属部门</th>
+		            <th field="sheet_name" width="40">所属巡检表</th>
 		            <th field="type" width="15">区域类型</th>
 		        </tr>
 		    </thead>
@@ -48,7 +49,7 @@
 	</div>
 
 	</div>
-		<div id="add-region-dlg" class="easyui-dialog" style="width:300px;height:240px;padding:10px 20px"
+		<div id="add-region-dlg" class="easyui-dialog" style="width:300px;height:280px;padding:10px 20px"
 			 closed="true" buttons="#sheet-dlg-buttons">
 			<div class="ftitle">添加表</div>
 			<form id="add-region-form" method="post">
@@ -65,6 +66,14 @@
 					<select id="cc" class="easyui-combobox" name="type" style="width:160px;">
 						<option value="site">巡站点</option>
 						<option value="route">巡线点</option>
+					</select>
+                </div>
+                <div class="fitem">
+                	<label>所属巡检表</label>
+                	<select id="sheet-list" class="easyui-combobox" name="sheet_id"
+						style="width:160px;" method="get"
+						url="GetAllSheetServlet?index=branch&branch_id=<%=request.getParameter("branch_id")%>"
+						valueField="id" textField="name">
 					</select>
                 </div>
 				<%--<div class="fitem">--%>

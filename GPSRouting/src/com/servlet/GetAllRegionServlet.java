@@ -16,6 +16,7 @@ import net.sf.json.JSONObject;
 import com.bean.PtrConnection;
 import com.bean.Region;
 import com.util.OutputHelper;
+import com.util.TeamidtoName;
 
 public class GetAllRegionServlet extends HttpServlet {
 
@@ -190,6 +191,8 @@ public class GetAllRegionServlet extends HttpServlet {
 		else if(index.equals("rest")){
 			String branchID = request.getParameter("branch_id");
 			String periodID = request.getParameter("period_id");
+			String sheetID = request.getParameter("sheet_id");
+			System.out.println("部门id："+branchID+",时间点id："+periodID+",表id："+sheetID);
 			JSONArray JA = new JSONArray();
 			if (branchID == null) {
 				this.StringOutPut("error_branch", response);
@@ -197,7 +200,8 @@ public class GetAllRegionServlet extends HttpServlet {
 			else{
 				
 				try {
-					List<Region> AllRegion = Region.getAllRegionWithoutTemp(branchID);
+//					List<Region> AllRegion = Region.getAllRegionWithoutTemp(branchID);
+					List<Region> AllRegion = Region.getAllRegionFromSheet(branchID, sheetID);
 					List<PtrConnection> SelectedRegion = PtrConnection.getAllRegion(periodID);
 					if(AllRegion.size()==SelectedRegion.size()){
 						OutputHelper.StringOutPut(JA.toString(),response);
@@ -310,6 +314,7 @@ public class GetAllRegionServlet extends HttpServlet {
 
 		String index = request.getParameter("index");
 		String regionType = request.getParameter("regionType");
+		TeamidtoName id2Name = new TeamidtoName();
 		//System.out.print(index+"1");
 		if (index.equals("branch") && regionType.equals("all")){
 			String branchID = request.getParameter("branch_id");
@@ -328,6 +333,7 @@ public class GetAllRegionServlet extends HttpServlet {
 						js.put("id", rg.getId());
 						js.put("name", rg.getName());
 						js.put("branch", rg.getBranch());
+						js.put("sheet_name", id2Name.sheid2name(""+rg.getSheet_id()));
 						js.put("intro", rg.getIntro());
 						js.put("gps", rg.getGps());
 						js.put("qrcode", rg.getQrcode());
@@ -372,6 +378,7 @@ public class GetAllRegionServlet extends HttpServlet {
 							js.put("id", rg.getId());
 							js.put("name", rg.getName());
 							js.put("branch", rg.getBranch());
+							js.put("sheet_name", id2Name.sheid2name(""+rg.getSheet_id()));
 							js.put("intro", rg.getIntro());
 							js.put("gps", rg.getGps());
 							js.put("qrcode", rg.getQrcode());
@@ -417,6 +424,7 @@ public class GetAllRegionServlet extends HttpServlet {
 							js.put("id", rg.getId());
 							js.put("name", rg.getName());
 							js.put("branch", rg.getBranch());
+							js.put("sheet_name", id2Name.sheid2name(""+rg.getSheet_id()));
 							js.put("intro", rg.getIntro());
 							js.put("gps", rg.getGps());
 							js.put("qrcode", rg.getQrcode());
@@ -462,6 +470,7 @@ public class GetAllRegionServlet extends HttpServlet {
 							js.put("id", rg.getId());
 							js.put("name", rg.getName());
 							js.put("branch", rg.getBranch());
+							js.put("sheet_name", id2Name.sheid2name(""+rg.getSheet_id()));
 							js.put("intro", rg.getIntro());
 							js.put("gps", rg.getGps());
 							js.put("qrcode", rg.getQrcode());

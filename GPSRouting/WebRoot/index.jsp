@@ -103,7 +103,7 @@ String basePath = request.getScheme() + "://"
 								<span>巡检报表</span>
 								<ul>
 									
-									<li><a href="#" onclick="addTab('<%=branch.getBranchName()%>-巡检日志','result-data.jsp?branch_id=<%=branch.getId()%>')">巡检日志</a></li>
+									<li><a href="#" onclick="addTab('<%=branch.getBranchName()%>-巡检日志','result-data.jsp?branch_id=<%=branch.getId()%>&userTeamid=<%=session.getAttribute("SesTeamId") %>&userName=<%=session.getAttribute("SesName") %>')">巡检日志</a></li>
 									<li>
 										<span><a href="#" onclick="addTab('<%=branch.getBranchName()%>-故障信息','fault-msg.jsp?branch_id=<%=branch.getId() %>&userTeamid=<%=session.getAttribute("SesTeamId") %>')">故障信息</a></span>
 									</li>
@@ -155,7 +155,7 @@ String basePath = request.getScheme() + "://"
 								<span>巡检报表</span>
 								<ul>
 									
-									<li><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-巡检日志','result-data.jsp?branch_id=<%=tempbranch.getId()%>')">巡检日志</a></li>
+									<li><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-巡检日志','result-data.jsp?branch_id=<%=tempbranch.getId()%>&userTeamid=<%=session.getAttribute("SesTeamId") %>&userName=<%=session.getAttribute("SesName") %>')">巡检日志</a></li>
 									<li>
 										<span><a href="#" onclick="addTab('<%=tempbranch.getBranchName() %>-故障信息','fault-msg.jsp?branch_id=<%=tempbranch.getId() %>&userTeamid=<%=session.getAttribute("SesTeamId") %>')">故障信息</a></span>
 									</li>

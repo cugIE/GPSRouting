@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import com.bean.Branch;
 import com.bean.People;
+import com.bean.Sheet;
 import com.service.BranchService;
 import com.service.PeopleService;
 
@@ -56,6 +57,11 @@ public class TeamidtoName {
 		return bname;
 	}
 	
+	/**
+	 * 根据人员id取人员名字
+	 * @param id
+	 * @return
+	 */
 	public String peoid2name(String id) {
 		String pname = "";
 		PeopleService ps = new PeopleService();
@@ -69,5 +75,22 @@ public class TeamidtoName {
 		return pname;
 	}
 	
+	/**
+	 * 根据表id取表名
+	 * @param id
+	 * @return
+	 */
+	public String sheid2name(String id) {
+		String sname = "";
+//		Sheet sh = new Sheet();
+		try {
+			Sheet sh1 = Sheet.getOneSheet(id);
+			sname = sh1.getName();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return sname;
+	}
 	
 }

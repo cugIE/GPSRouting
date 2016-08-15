@@ -166,7 +166,7 @@ public class MonthDataServlet extends HttpServlet {
 		// Put your code here
 	}
 	
-	public JSONObject recordTimes(String date,String sheetId)throws Exception {
+	/*public JSONObject recordTimes(String date,String sheetId)throws Exception {
 		JSONObject resultJSON = new JSONObject();
 		int periods = 0;
 		int rcds = 0;
@@ -212,8 +212,7 @@ public class MonthDataServlet extends HttpServlet {
 						jsonObject.put("all",all);
 						JA.add(jsonObject);
 						totalRgns = ptrConnectionList.size();
-						missRgns = missRgns + (totalRgns-recordList.size());
-						
+						missRgns = missRgns + (totalRgns-recordList.size());						
 					}
 				}
 				JSONObject jo = new JSONObject();
@@ -228,6 +227,44 @@ public class MonthDataServlet extends HttpServlet {
 			resultJSON.put("prds", periods);
 			resultJSON.put("records", rcds);
 			resultJSON.put("missRegions", missRgns+totalRgns*(periods-rcds));
+			return resultJSON;
+		}
+	}*/
+	
+	public JSONObject recordTimes(String date,String sheetId)throws Exception {
+		JSONObject resultJSON = new JSONObject();
+		int periods = 0;
+		int rcds = 0;
+		int missRgns = 0;
+		int totalRgns = 0;
+		if (sheetId == null||date== null){
+			return null;
+		}else {
+			/*JSONArray JA = new JSONArray();*/
+			try {
+				String start = date + " 00:00";
+				String end = date + " 23:59";
+				List<Period> prds = Period.getAllPeriod(sheetId);
+				periods = prds.size();
+				System.out.println("表id为"+sheetId+"的在时间为"+date+"时间点有"+prds.size()+"个");
+				for (int i = 0; i < prds.size(); i++) {
+					Period prd = prds.get(i);
+					List<Record> recordList = Record.getAllRecordFromPeriod(prd.getId(), start, end);//当前循环时间点已巡检区域列表
+//					System.out.println("表id为"+sheetId+"的巡检记录在"+date+"共有"+recordList.size()+"条");
+					List<PtrConnection> ptrConnectionList = PtrConnection.getAllRegion(prd.getId());//当前循环时间点所有区域
+				
+					totalRgns = ptrConnectionList.size();
+					missRgns = missRgns + (totalRgns-recordList.size());	
+					if (recordList.size() != 0) {
+						rcds++;
+					}
+				}				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}		
+			resultJSON.put("prds", periods);
+			resultJSON.put("records", rcds);
+			resultJSON.put("missRegions", missRgns);
 			return resultJSON;
 		}
 	}
@@ -245,18 +282,20 @@ public class MonthDataServlet extends HttpServlet {
 		    	for (int i = 0; i < prds.size(); i++) {
 		    		Period prd = prds.get(i);
 					List<Record> recordList = Record.getAllRecordFromPeriod(prd.getId(), start, end);
-					for (int j = 0; j < recordList.size(); j++) {
-						Record rcd = recordList.get(i);
-						JSONArray jalist = JSONArray.fromObject(rcd.getAsws());
-						for (int k = 0; k < jalist.size(); k++) {
+					
+						for (int j = 0; j < recordList.size(); j++) {
+							Record rcd = recordList.get(i);
+							JSONArray jalist = JSONArray.fromObject(rcd.getAsws());
+							for (int k = 0; k < jalist.size(); k++) {
+								
+								JSONObject jsrcd = jalist.getJSONObject(k);
+								if (jsrcd.getString("error").equals("1")) {
+									resultDots++;
+								}
 							
-							JSONObject jsrcd = jalist.getJSONObject(k);
-							if (jsrcd.getString("error").equals("1")) {
-								resultDots++;
 							}
-						
 						}
-					}
+									
 				}
 			} catch (Exception e) {
 				// TODO: handle exception

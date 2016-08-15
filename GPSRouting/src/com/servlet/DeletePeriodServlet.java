@@ -77,6 +77,7 @@ public class DeletePeriodServlet extends HttpServlet {
 		if (index.equals("shift")){
 			String shift = request.getParameter("shift");
 			String shid = request.getParameter("sheet_id");
+			System.out.println("sheet_id:"+shid);
 			int result = 0;
 			try {
 				result = Period.deleteOneShift(shid, shift);

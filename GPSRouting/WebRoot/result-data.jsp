@@ -19,11 +19,15 @@
 		        rownumbers="true" fitColumns="true" singleSelect="true">
 		    <thead>
 		        <tr>
-					<th field="id" width="5"></th>
-		        	<th field="shift" width="10">班次</th>
-					<th field="time" width="10">时间点</th>
-					<th field="all" width="40">全部区域</th>
-		            <th field="done" width="40">已检查区域</th>
+					<th field="id" width="0"></th>
+					<th field="date" width="10">日期</th>
+		        	<th field="shift" width="8">班次</th>
+					<th field="time" width="8">时间点</th>
+					<th field="geners" width="14">巡检人</th>
+					<th field="startTime" width="18">创建时间</th>
+		            <th field="submitTime" width="18">提交时间</th>
+					<th field="all" width="12">全部区域</th>
+		            <th field="done" width="12">已检查区域</th>
 		        </tr>
 		    </thead>
 
@@ -31,7 +35,7 @@
 		<div id="toolbar-1" style="padding:5px;height:auto">
 			
 			<div>
-				选择时间: <input class="easyui-datebox" id="pick-date" style="width:80px">
+				选择时间: <input class="easyui-datebox" id="pick-date" style="width:100px">
 				巡检表：
 				<input class="easyui-combobox" id="sheet-list" style=" width:100px; margin-right: 5px"
 					   method="get"
@@ -39,6 +43,7 @@
 					   valueField="id" textField="name">
 				<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="showResults()">确定</a>
 				<div style="float: right">
+					<a href="#" class="easyui-linkbutton" iconCls="icon-no" plain="true" onclick="deleteRecord()">删除记录</a>
 					<a href="#" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="showDetail()">查看报表</a>
 				</div>
 			</div>

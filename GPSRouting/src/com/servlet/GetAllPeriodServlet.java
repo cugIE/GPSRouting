@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bean.Record;
 import com.bean.Region;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -153,17 +155,47 @@ public class GetAllPeriodServlet extends HttpServlet {
 							jsonObject.put("date",date);
 							String done = "";
 							String all = "";
+							String Geners = "";
+							Record rcd0 = recordList.get(0);
+							Timestamp startTime = rcd0.getStart();
+							Timestamp endTime = null;
+							Timestamp submitTime = rcd0.getSubmit();
+							
+							for (int j = 0; j < recordList.size(); j++) {
+								Record rcd = recordList.get(j);
+								Geners = Geners+rcd.getGener()+",";	
+							}
+							jsonObject.put("geners", Geners);
+							
+							for (int j = 0; j < recordList.size(); j++) {
+								Record rcd = recordList.get(j);
+//								startTime = rcd.getStart();
+								if (rcd.getStart().compareTo(startTime) < 0) {
+									startTime = rcd.getStart();
+								}
+							}
+							jsonObject.put("startTime", startTime.toString());
+							
+							for (int j = 0; j < recordList.size(); j++) {
+								Record rcd = recordList.get(j);
+//								submitTime = rcd.getSubmit();
+//								System.out.print("提交时间："+submitTime);
+								if (rcd.getSubmit().compareTo(submitTime) > 0 ) {
+									submitTime = rcd.getSubmit();
+								}
+							}
+							jsonObject.put("submitTime", submitTime.toString());
 							for(int j=0; j< recordList.size(); j++){
 								Record rcd = recordList.get(j);
 								done = done+rcd.getRegion()+",";
 							}
-							jsonObject.put("done",done);
+							jsonObject.put("done",recordList.size()+"个");
 							
 							for(int j=0; j< ptrConnectionList.size(); j++){
 								Region rg = ptrConnectionList.get(j).getRegion_content();
 								all = all+rg.getName()+",";
 							}
-							jsonObject.put("all",all);
+							jsonObject.put("all",ptrConnectionList.size()+"个");
 							JA.add(jsonObject);
 
 						}

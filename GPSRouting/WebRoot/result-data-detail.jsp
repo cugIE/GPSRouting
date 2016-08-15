@@ -64,15 +64,18 @@
                     
                     <i class="bk-padding-right-15" ><b>
                     <%
-                    		
+                    		int k = 0;
                     		for(int i = 0; i < recordList2.size(); i++){
                     			Record rcd = recordList2.get(i);
                     			if(rcd.getStatus().equals("0")){
-                    				out.print("未完成");
+                    				k++;
                     			}
-                    			break;
                     		}
-                    		out.print("已完成");
+                    		if(k > 0){
+                    			out.print("未完成");
+                    		}else{
+                    			out.print("已完成");
+                    		}
                     %></b></i>
                 </div>
 	<table class="imagetable"  cellspacing="0" style="margin-top:30px">

@@ -89,7 +89,7 @@
             pid=row.id;
             $('#edit-time-dlg').dialog('open').dialog('setTitle','操作巡检区域');
             var urlall = "GetAllRegionServlet?index=period&period_id="+ pid;
-            var urlrest = "GetAllRegionServlet?index=rest&period_id="+pid+"&branch_id="+getQueryString('branch_id');
+            var urlrest = "GetAllRegionServlet?index=rest&period_id="+pid+"&branch_id="+getQueryString('branch_id')+"&sheet_id="+getQueryString("sheet_id");
 
 
             $.get(urlall,function(data,status){

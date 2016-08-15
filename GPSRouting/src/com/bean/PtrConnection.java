@@ -172,6 +172,8 @@ public class PtrConnection {
 		dbh.DBClose(rs);
 		return ptrs;
 	}
+	
+	
 	public static int getMaxSort(String prid) throws SQLException {
 		if(prid==null){
 			return -1;

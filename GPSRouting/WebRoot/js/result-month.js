@@ -1,3 +1,10 @@
+window.onload = function () { 
+	var data = $('#sheet-list').combobox('getData');
+    if (data.length > 0) {
+        $('#sheet-list').combobox('select', data[0].id);
+    } 
+};
+
 /*$(document).ready(function() { */
 	/*var sheet_id = $('#sheet-list').combobox('getValue');*/
 	

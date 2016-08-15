@@ -75,18 +75,21 @@ public class AddRegionServlet extends HttpServlet {
 		String branch_id = request.getParameter("branch_id");
 		String gps = request.getParameter("gps");
 		String type = request.getParameter("type");
+		String sheet_id = request.getParameter("sheet_id");
 		String range = request.getParameter("range");
 		String gener_id = request.getParameter("gener_id");
+		System.out.println("区域类型："+type+",所属表id："+sheet_id);
 		if(gener_id==null){
 			gener_id=(String)request.getSession().getAttribute("SesId");
 		}
 		Region rg = new Region();
-		if(name==null || type==null|| intro == null||branch_id==null||gener_id==null){
+		if(name==null || type==null|| sheet_id==null || intro == null||branch_id==null||gener_id==null){
 			OutputHelper.StringOutPut("error", response);
 			return;
 		}
 		rg.setName(name);
 		rg.setType(type);
+		rg.setSheet_id(Integer.parseInt(sheet_id));
 		rg.setIntro(intro);
 		if(gps!=null){
 			rg.setGps(gps);

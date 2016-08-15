@@ -1,4 +1,4 @@
-	var userTeamid = getQueryString('userTeamid');
+var userTeamid = getQueryString('userTeamid');
 
 
 window.onload=function()

@@ -23,6 +23,7 @@ public class Region {
 	private String name;
 	private String branch;
 	private int branch_id;
+	private int sheet_id;
 	private String intro;
 	private String gps;
 	private String qrcode;
@@ -43,7 +44,7 @@ public class Region {
 	 * @param type
 	 * @param range
 	 */
-	public Region(String id, String name, String branch, int branch_id, String intro,
+	public Region(String id, String name, String branch, int branch_id,int sheet_id, String intro,
 			String gps, String qrcode, String gener, int gener_id, String type,
 			int range) {
 		super();
@@ -51,6 +52,7 @@ public class Region {
 		this.name = name;
 		this.branch = branch;
 		this.branch_id = branch_id;
+		this.sheet_id = sheet_id;
 		this.intro = intro;
 		this.gps = gps;
 		this.qrcode = qrcode;
@@ -74,6 +76,7 @@ public class Region {
 		this.type = null;
 		this.range = 0;
 		this.branch_id = 1;
+		this.sheet_id = 1;
 		this.gener_id = 1;
 	}
 	
@@ -102,6 +105,14 @@ public class Region {
 
 	public void setBranch_id(int branch_id) {
 		this.branch_id = branch_id;
+	}
+
+	public int getSheet_id() {
+		return sheet_id;
+	}
+
+	public void setSheet_id(int sheet_id) {
+		this.sheet_id = sheet_id;
 	}
 
 	public int getGener_id() {
@@ -239,7 +250,7 @@ public class Region {
 	 */
 	public static List<Region> getAllRegion(String brID) throws SQLException{
 		List<Region> rgs = new ArrayList<Region>();
-		String sql = "SELECT region_id, region_name, region.branch_id, branch_name, region_intro, region_gps, region_qrcode, region.gener_id, people_name, region_type, region_range "
+		String sql = "SELECT region_id, region_name, region.branch_id, branch_name, region_intro, region_gps, region_qrcode, region.gener_id, people_name, region_type, region_range,sheet_id "
 				+ "from "
 				+ "("
 				+ "region "
@@ -263,11 +274,52 @@ public class Region {
 			rg.setGener(rs.getString(9));
 			rg.setType(rs.getString(10));
 			rg.setRange(rs.getInt(11));
+			rg.setSheet_id(rs.getInt(12));
 			rgs.add(rg);
 		}
 		dbh.DBClose(rs);
 		return rgs;
 	}
+	
+	/**
+	 * 查找对应巡检表的巡检区域
+	 * @param brID
+	 * @param sheetID
+	 * @return
+	 * @throws SQLException
+	 */
+	public static List<Region> getAllRegionFromSheet(String brID,String sheetID)throws SQLException {
+		List<Region> rgs = new ArrayList<Region>();
+		String sql = "SELECT region_id, region_name, region.branch_id, branch_name, region_intro, region_gps, region_qrcode, region.gener_id, people_name, region_type, region_range "
+				+ "from "
+				+ "("
+				+ "region "
+				+ "inner join branch "
+				+ "on region.branch_id = branch.branch_id"
+				+ ") "
+				+ "inner join people "
+				+ "on region.gener_id = people.people_id where region.branch_id =" + brID + " and region.sheet_id =" + sheetID + " and region.region_type<>'temp'";
+		DBHelper dbh = new DBHelper();
+		ResultSet rs = dbh.getResultSet(sql);
+		while(rs.next()){
+			Region rg = new Region();
+			rg.setId(rs.getString(1));
+			rg.setName(rs.getString(2));
+			rg.setBranch_id(rs.getInt(3));
+			rg.setBranch(rs.getString(4));
+			rg.setIntro(rs.getString(5));
+			rg.setGps(rs.getString(6));
+			rg.setQrcode(rs.getString(7));
+			rg.setGener_id(rs.getInt(8));
+			rg.setGener(rs.getString(9));
+			rg.setType(rs.getString(10));
+			rg.setRange(rs.getInt(11));
+			rgs.add(rg);
+		}
+		dbh.DBClose(rs);
+		return rgs;
+	}
+	
 	public static List<Region> getAllRegionWithoutTemp(String brID) throws SQLException{
 		List<Region> rgs = new ArrayList<Region>();
 		String sql = "SELECT region_id, region_name, region.branch_id, branch_name, region_intro, region_gps, region_qrcode, region.gener_id, people_name, region_type, region_range "
@@ -383,10 +435,11 @@ public class Region {
 		}
 		else{
 			String sql = "insert into region"
-					+ "(region_name, branch_id, region_intro, region_gps, region_qrcode, gener_id, region_type, region_range)"
+					+ "(region_name, branch_id,sheet_id, region_intro, region_gps, region_qrcode, gener_id, region_type, region_range)"
 					+ "values('"
 					+ rg.getName() + "','"
 					+ rg.getBranch_id() + "','"
+					+ rg.getSheet_id() + "','"
 					+ rg.getIntro()  + "','" 
 					+ rg.getGps()  + "','" 
 					+ rg.getQrcode()  + "','" 

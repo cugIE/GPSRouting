@@ -7,6 +7,7 @@ import java.security.interfaces.DSAKey;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -43,8 +44,15 @@ public class MonthDataServlet extends HttpServlet {
 	private void start(HttpServletRequest request,HttpServletResponse response)throws Exception {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=utf-8");
+
 		String sheet_id = request.getParameter("sheet_id");
-		System.out.println("表id："+sheet_id);
+//		String nowDate =  request.getParameter("nowDate");
+		
+		/*Date date = new Date(nowDate);
+		SimpleDateFormat dateformat1=new SimpleDateFormat("yyyy-MM-dd");
+        nowDate=dateformat1.format(date);*/
+//		System.out.println("表id："+sheet_id+"nowdate:"+nowDate);
+		
 		int timesPlan = 0;//计划巡检次数
 		int timesActual = 0;//实际巡检次数
 		int dotsMiss = 0;//当天漏检个数
@@ -63,19 +71,21 @@ public class MonthDataServlet extends HttpServlet {
 		js.put("start", "2016-07-04");
 		this.StringOutPut(js.toString(), response);*/
 		
-		 Calendar start = Calendar.getInstance();  
-		 start.set(2016, 3, 8);  
-		 Long startTIme = start.getTimeInMillis();  
+		Calendar start = Calendar.getInstance();
+		start.set(2016, 6, 8);
+		Long startTIme = start.getTimeInMillis();
+
+		Calendar end = Calendar.getInstance();
+//		end.set(2016, 7, 11);
+		Long endTime = end.getTimeInMillis();
+		System.out.println("当前系统时间："+endTime);
+
+		Long oneDay = 1000 * 60 * 60 * 24l;
 		  
-		 Calendar end = Calendar.getInstance();  
-		 end.set(2016, 7, 11);  
-		 Long endTime = end.getTimeInMillis();  
-		  
-		 Long oneDay = 1000 * 60 * 60 * 24l;  
-		  
-		Long time = startTIme;  
+		Long time = startTIme; 
+		Long Etime = endTime;
 		JSONArray JA = new JSONArray();
-		    while (time <= endTime) {  
+		    while (time <= Etime) {  
 		    	JSONObject js = new JSONObject();	
 		    	JSONObject js2 = new JSONObject();//巡检记录用一个JSON存储
 		        Date d = new Date(time);  
@@ -246,7 +256,7 @@ public class MonthDataServlet extends HttpServlet {
 				String end = date + " 23:59";
 				List<Period> prds = Period.getAllPeriod(sheetId);
 				periods = prds.size();
-				System.out.println("表id为"+sheetId+"的在时间为"+date+"时间点有"+prds.size()+"个");
+//				System.out.println("表id为"+sheetId+"的在时间为"+date+"时间点有"+prds.size()+"个");
 				for (int i = 0; i < prds.size(); i++) {
 					Period prd = prds.get(i);
 					List<Record> recordList = Record.getAllRecordFromPeriod(prd.getId(), start, end);//当前循环时间点已巡检区域列表

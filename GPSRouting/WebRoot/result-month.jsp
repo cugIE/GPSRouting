@@ -19,9 +19,10 @@
 	<script type="text/javascript" src="js/easyui-lang-zh_CN.js"></script>
 	<!-- fullCalendar包 -->
 	<link rel="stylesheet" type="text/css" href="assets/css/fullcalendar.css"> 
+	<script src="assets/js/fullcalendar.min.js"></script> 
 	<script src="assets/js/jquery.min.js"></script> 
 	<script src="assets/js/jquery-ui-1.10.2.custom.min.js"></script> 
-	<script src="assets/js/fullcalendar.min.js"></script> 
+	
 	
 </head>
 <body>

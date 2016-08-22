@@ -9,6 +9,7 @@ var userName = getQueryString('userName');
 window.onload = function () { 
 	$('#pick-date').datebox('setValue', formatterDate(new Date()));//设置日历框显示默认当前系统时间
 	var data = $('#sheet-list').combobox('getData');
+//	alert("sheetlistdata:"+data);
     if (data.length > 0) {
         $('#sheet-list').combobox('select', data[0].id);
     } 

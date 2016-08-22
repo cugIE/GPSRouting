@@ -5,7 +5,11 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -126,6 +130,7 @@ public class GetAllPeriodServlet extends HttpServlet {
 		else if(index.equals("result")) {
 			String sheet_id = request.getParameter("sheet_id");
 			String date = request.getParameter("date");
+			SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			System.out.println("选择的时间为："+date);
 			if (sheet_id == null||date== null){
 				this.StringOutPut("error_sheet", response);
@@ -165,7 +170,7 @@ public class GetAllPeriodServlet extends HttpServlet {
 								Record rcd = recordList.get(j);
 								Geners = Geners+rcd.getGener()+",";	
 							}
-							jsonObject.put("geners", Geners);
+							jsonObject.put("geners", removeSameString(Geners));
 							
 							for (int j = 0; j < recordList.size(); j++) {
 								Record rcd = recordList.get(j);
@@ -174,6 +179,7 @@ public class GetAllPeriodServlet extends HttpServlet {
 									startTime = rcd.getStart();
 								}
 							}
+							
 							jsonObject.put("startTime", startTime.toString());
 							
 							for (int j = 0; j < recordList.size(); j++) {
@@ -339,5 +345,21 @@ public class GetAllPeriodServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+	
+	private static String removeSameString(String str){  
+        Set<String> mLinkedSet = new LinkedHashSet<String>();  
+        String[] strArray = str.split(",");  
+        StringBuffer sb = new StringBuffer();  
+        for (int i = 0; i < strArray.length; i++)  
+        {  
+            if (!mLinkedSet.contains(strArray[i]))  
+            {  
+                mLinkedSet.add(strArray[i]);  
+                sb.append(strArray[i] + " ");  
+            }  
+        }  
+        System.out.println(mLinkedSet);  
+        return sb.toString().substring(0, sb.toString().length() - 1);  
+    } 
 
 }

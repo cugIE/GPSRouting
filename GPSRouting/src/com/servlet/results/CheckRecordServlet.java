@@ -42,11 +42,12 @@ public class CheckRecordServlet extends HttpServlet {
 		String index = request.getParameter("index");
 		String record_id = request.getParameter("record_id");
 		String checker = (String) request.getSession().getAttribute("SesName");
+		int checkerTeam = (int) request.getSession().getAttribute("SesTeamId");
 		String comment = request.getParameter("comment");
 
 		if(index!=null){
 			try {
-				if (record_id == null || checker == null) {
+				if (record_id == null || checker == null || checkerTeam > 3) {
 					OutputHelper.StringOutPut("error", response);
 					return;
 				}

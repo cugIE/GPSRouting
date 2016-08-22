@@ -1,5 +1,7 @@
 window.onload = function () { 
 	var data = $('#sheet-list').combobox('getData');
+//	alert("sheetlistdata:"+data);
+//	alert(JSON.stringify(data));
     if (data.length > 0) {
         $('#sheet-list').combobox('select', data[0].id);
     } 
@@ -51,7 +53,7 @@ window.onload = function () {
 	}
 });*/
 	function showResults(){
-	$('#panelCal').panel('refresh');
+//	$('#panelCal').panel('refresh');
 	var sheet_id = $('#sheet-list').combobox('getValue');
     //页面加载完初始化日历 
     $('#calendar').fullCalendar({ 
@@ -61,16 +63,26 @@ window.onload = function () {
              center: 'title',
              right: 'month,agendaWeek,agendaDay'
          },
+         prev:function(){
+        	 alert("上一月！");
+         },
         
          timeFormat: 'H:mm',
          axisFormat: 'H:mm',
          height:'470px',
          weekMode:'variable',
+//        
+         
          events: {
-        	 url:'MonthDataServlet?sheet_id='+sheet_id,
+        	 url:'MonthDataServlet',
+//        	 url:'MonthDataServlet?sheet_id='+sheet_id,
         	 type:'POST',
+        	 data:{
+//        		 	nowDate:$('#calendar').fullCalendar('getDate'),
+        		 	sheet_id:sheet_id
+        	 },
         	 error: function() {  
-                 alert('there was an error while fetching events!'+title);  
+                 alert('there was an error while fetching events!');  
              },  
              color:'white',// 背景色  
              textColor:'black'// 文字颜色

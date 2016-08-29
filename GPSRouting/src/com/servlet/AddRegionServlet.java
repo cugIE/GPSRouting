@@ -83,13 +83,15 @@ public class AddRegionServlet extends HttpServlet {
 			gener_id=(String)request.getSession().getAttribute("SesId");
 		}
 		Region rg = new Region();
-		if(name==null || type==null|| sheet_id==null || intro == null||branch_id==null||gener_id==null){
+		if(name==null || type==null|| intro == null||branch_id==null||gener_id==null){
 			OutputHelper.StringOutPut("error", response);
 			return;
 		}
 		rg.setName(name);
 		rg.setType(type);
-		rg.setSheet_id(Integer.parseInt(sheet_id));
+		if (sheet_id!=""&&sheet_id!=null) {
+			rg.setSheet_id(Integer.parseInt(sheet_id));
+		}	
 		rg.setIntro(intro);
 		if(gps!=null){
 			rg.setGps(gps);

@@ -54,11 +54,11 @@
 				</div>
 
 				<div class="fitem">
-					<label>答案</label>
+					<label>可选答案</label>
 					<input name="possasws" class="easyui-validatebox" style=" width:160px" >
 				</div>
 				<div class="ftips">
-					每一种答案请用英文";"号隔开,如果没有固定答案请输入无;
+					每一种答案请用英文";"号隔开,如果没有固定答案请输入"#";
 				</div>
 				<div class="fitem">
 					<label>正确答案</label>

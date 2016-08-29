@@ -452,7 +452,7 @@ public class GetAllRegionServlet extends HttpServlet {
 				jsonObject.put("rows", JA);
 				OutputHelper.StringOutPut(jsonObject.toString(), response);
 			}
-		}else if (index.equals("branch") && regionType.equals("巡站点")) {
+		}else if (index.equals("branch") && regionType.equals("temp")) {
 			String branchID = request.getParameter("branch_id");
 			JSONArray JA = new JSONArray();
 			if (branchID == null) {

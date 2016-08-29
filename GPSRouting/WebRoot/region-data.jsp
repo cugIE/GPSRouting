@@ -44,7 +44,7 @@
 				<option value="all">全部</option>			
 				<option value="site">巡站点</option>
 				<option value="route">巡线点</option>
-				<option value="巡站点">临时</option>			
+				<option value="temp">临时</option>			
 			</select>
 	</div>
 

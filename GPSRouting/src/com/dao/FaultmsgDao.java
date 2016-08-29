@@ -70,6 +70,7 @@ public class FaultmsgDao {
         	f.setFaultTime(rs.getString("time"));
         	f.setFaultState(rs.getString("state"));
         	f.setFaultUrL(rs.getString("url"));
+        	f.setVideoUrl(rs.getString("video"));
         	f.setDutyPeople(rs.getString("duty_man"));
         	f.setGenerId(rs.getString("gener_id"));
         }
@@ -153,10 +154,11 @@ public class FaultmsgDao {
 	 * @throws SQLException
 	 */
 	public int add(Faultmsg faultmsg)throws SQLException{
-		String sql = "insert into faultmsg(title,word,time,url,gener_id) values ('" + faultmsg.getFaultTitle() +"','"
+		String sql = "insert into faultmsg(title,word,time,url,video,gener_id) values ('" + faultmsg.getFaultTitle() +"','"
 				+ faultmsg.getFaultWord() +"','"
 				+ faultmsg.getFaultTime()+"','"
 				+ faultmsg.getFaultUrL() +"','"
+				+ faultmsg.getVideoUrl() +"','"
 				+ faultmsg.getGenerId()+ "')";
 		conn= DB.getConn();
 		stmt = conn.createStatement();

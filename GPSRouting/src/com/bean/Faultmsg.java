@@ -5,6 +5,7 @@ public class Faultmsg {
 	private String faultTitle;
 	private String faultWord;
 	private String faultUrL;
+	private String videoUrl;
 	private String faultTime;
 	private String faultState;
 	private String dutyPeople;
@@ -32,6 +33,12 @@ public class Faultmsg {
 	}
 	public void setFaultUrL(String faultUrL) {
 		this.faultUrL = faultUrL;
+	}
+	public String getVideoUrl() {
+		return videoUrl;
+	}
+	public void setVideoUrl(String videoUrl) {
+		this.videoUrl = videoUrl;
 	}
 	public String getFaultTime() {
 		return faultTime;

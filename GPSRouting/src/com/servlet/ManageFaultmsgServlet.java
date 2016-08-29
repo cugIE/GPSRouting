@@ -159,11 +159,13 @@ public class ManageFaultmsgServlet extends HttpServlet {
 			String fault_time = request.getParameter("time");
 			String picture_url =  request.getParameter("pic_url");
 			String gener_id = request.getParameter("worker_id");
+			String videoUrl = request.getParameter("video");
 			Faultmsg faultmsg = new Faultmsg();
 			faultmsg.setFaultTitle(fault_title);
 			faultmsg.setFaultWord(fault_word);
 			faultmsg.setFaultTime(fault_time);
 			faultmsg.setFaultUrL(picture_url);
+			faultmsg.setVideoUrl(videoUrl);
 			faultmsg.setGenerId(gener_id);
 			PrintWriter out = response.getWriter();
 			try {

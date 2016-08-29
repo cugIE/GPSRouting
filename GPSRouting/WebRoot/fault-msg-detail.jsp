@@ -84,6 +84,22 @@ String basePath = request.getScheme() + "://"
 
 </div>
 <br>
+<div class="easyui-panel" title="视频记录" style="padding: 10px">
+	<% if(faultmsg.getVideoUrl()!=null){
+    %>
+    <div>
+
+        <video  controls="controls">
+            <source src="<%=faultmsg.getVideoUrl() %>" type="video/mp4" >视频</source>
+            您的浏览器不支持video标签
+        </video>
+
+    </div>
+    <%
+        }
+    %>
+</div>
+<br>
 
 <div class="easyui-panel" title="故障信息处理" style="padding: 10px">
 

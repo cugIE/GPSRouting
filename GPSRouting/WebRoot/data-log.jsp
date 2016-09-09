@@ -22,7 +22,10 @@ String basePath = request.getScheme() + "://"
 </head>				
 <body>
 	<table id="log-data" title="系统日志" class="easyui-datagrid" style="max-height:600px;"
-	rownumbers="true" fitColumns="true" singleSelect="true">
+	url="ManageSystemServlet?action=loglist"
+	rownumbers="true" fitColumns="true" singleSelect="true"
+	pagination="true">
+	
 	<jsp:useBean id="service7" class="com.service.SystemService"
 		scope="session">
 	</jsp:useBean>
@@ -38,7 +41,7 @@ String basePath = request.getScheme() + "://"
 			<th field="user" width="25">操作人</th>
 		</tr>
 	</thead>
-	<tbody>
+	<%-- <tbody>
 		<%
 		while (iterproject7.hasNext()) {
 			LogInfo logInfo2 = iterproject7.next();
@@ -53,7 +56,7 @@ String basePath = request.getScheme() + "://"
 			}
 		%>
 
-	</tbody>
+	</tbody> --%>
 		</table>
 		
 	

@@ -25,7 +25,8 @@ String basePath = request.getScheme() + "://"
 	<table id="people-data" title="人员管理" class="easyui-datagrid" style="max-height:600px;"
 	url="ManagePeopleServlet?action=list&userbranch=<%=session.getAttribute("SesBranchId") %>"
 	toolbar="#toolbar"
-	rownumbers="true" fitColumns="true" singleSelect="true">
+	rownumbers="true" fitColumns="true" singleSelect="true"
+	pagination="true">
 	<%-- <jsp:useBean id="service1" class="com.service.PeopleService"
 								scope="session">
 	</jsp:useBean>

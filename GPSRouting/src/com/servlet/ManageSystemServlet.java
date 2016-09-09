@@ -2,15 +2,24 @@ package com.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
+import com.bean.Branch;
 import com.bean.LogInfo;
 import com.bean.Site;
 import com.service.SystemService;
+import com.util.OutputHelper;
 
 public class ManageSystemServlet extends HttpServlet {
 
@@ -53,6 +62,49 @@ public class ManageSystemServlet extends HttpServlet {
 				out.print("修改成功");
 			} catch (Exception e) {
 				// TODO: handle exception
+				e.printStackTrace();
+			}
+		}else if (action.equals("loglist")) {
+			String page = request.getParameter("page");
+			String rows = request.getParameter("rows");
+			// System.out.print("当前页码："+page+"当前行数："+rows);
+			int logpage = Integer.parseInt(page);
+			int logrows = Integer.parseInt(rows);
+			System.out.print("当前页码：" + logpage + "当前行数：" + logrows);
+			JSONArray JA = new JSONArray();
+			JSONObject resultJson = new JSONObject();
+			try {
+
+				List<LogInfo> loginfoList = service.fill(logpage, logrows);
+				
+				if (loginfoList.size() != 0) {
+					for (int i = 0; i < loginfoList.size(); i++) {
+						JSONObject js = new JSONObject();
+						LogInfo l = loginfoList.get(i);
+						js.put("id", l.getId());
+						js.put("msg", l.getMsg());
+						js.put("time", l.getCreattime());
+						js.put("user", l.getUsername());
+						JA.add(js);
+					}
+				} else {
+					OutputHelper.StringOutPut("no result", response);
+					return;
+				}
+				Map<String, Object> jsonMap = new HashMap<String, Object>();// 定义map
+				jsonMap.put("total", service.fill().size());// total键
+															// 存放总记录数，必须的
+				jsonMap.put("rows", JA);// rows键 存放每页记录 list
+				resultJson = JSONObject.fromObject(jsonMap);
+				this.StringOutPut(resultJson.toString(), response);
+				// this.StringOutPut(JA.toString(), response);
+				/*
+				 * request.setAttribute("BranchList", branchList);
+				 * request.getRequestDispatcher("data-newbranch.jsp").forward(
+				 * request, response);
+				 */
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}	
@@ -110,6 +162,20 @@ public class ManageSystemServlet extends HttpServlet {
 	 */
 	public String getServletInfo() {
 		return "This is my default servlet created by Eclipse";
+	}
+	
+	public void StringOutPut (String str, HttpServletResponse response){
+		System.out.println(str);
+		response.setContentType("charset=utf-8");
+		try {
+			response.getOutputStream().write(str.getBytes("utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

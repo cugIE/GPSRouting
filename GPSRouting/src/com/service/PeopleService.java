@@ -25,6 +25,10 @@ public class PeopleService {
         PeopleDao dao=new PeopleDao();    
         return dao.fill();
     }
+	public List<People> fill(int page, int rows)throws SQLException {
+		PeopleDao dao = new PeopleDao();
+		return dao.fill(page, rows);
+	}
     public  People  fill(String  Id) throws SQLException{
         PeopleDao dao=new PeopleDao();    
         return dao.fill(Id);

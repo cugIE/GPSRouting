@@ -52,6 +52,39 @@ public class PeopleDao {
 	}
 	
 	/**
+	 * 分页查询人员信息
+	 * @param page
+	 * @param rows
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<People> fill(int page,int rows) throws SQLException {
+		List<People> list = new ArrayList<People>();
+//		String sql = "select * from people";
+		String sql = "select * from people where people_id limit " +((page-1)*rows)+","+rows;
+		conn = DB.getConn();
+		stmt = conn.createStatement();
+		rs = stmt.executeQuery(sql);
+		People p = null;
+		while (rs.next()) {
+			p = new People();
+			p.setId(rs.getString("people_id"));
+			p.setUsername(rs.getString("people_username"));
+			p.setName(rs.getString("people_name"));
+			p.setPassword(rs.getString("people_password"));
+			p.setCode(rs.getString("people_code"));
+			p.setBranchId(rs.getString("branch_id"));
+			p.setPeopRemark(rs.getString("people_remark"));
+			p.setTeamId(rs.getString("team_id"));
+			list.add(p);
+		}
+		rs.close();
+		stmt.close();
+		conn.close();
+		return list;
+	}
+	
+	/**
 	 * 根据部门查询人员
 	 * @param branchid
 	 * @return

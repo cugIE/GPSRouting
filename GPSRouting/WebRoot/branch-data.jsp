@@ -24,7 +24,8 @@ String basePath = request.getScheme() + "://"
 		<table id="branch-data" title="部门管理" class="easyui-datagrid" style="max-height:600px;"
 		        url="ManageBranchServlet?action=list"
 		        toolbar="#toolbar"
-		        rownumbers="true" fitColumns="true" singleSelect="true">
+		        rownumbers="true" fitColumns="true" singleSelect="true"
+		        pagination="true">
 
 		     <jsp:useBean id="bservice" class="com.service.BranchService"
 		        scope="session">

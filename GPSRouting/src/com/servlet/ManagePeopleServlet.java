@@ -4,12 +4,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 
 
 
 
+
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -102,6 +105,12 @@ public class ManagePeopleServlet extends HttpServlet {
 		 */
 		else if (action.equals("list")) {
 			String userBranch = request.getParameter("userbranch");
+			String page = request.getParameter("page");
+			String rows = request.getParameter("rows");
+//			System.out.print("当前页码："+page+"当前行数："+rows);
+			int peopage = Integer.parseInt(page);
+			int peorows = Integer.parseInt(rows);
+			System.out.print("当前页码："+peopage+"当前行数："+peorows);
 			System.out.println("当前登录用户部门id："+userBranch);
 			BranchService bs = new BranchService();
 			Branch uBranch = bs.fill(userBranch);
@@ -143,8 +152,10 @@ public class ManagePeopleServlet extends HttpServlet {
 
 			if (uBranchType.equals("管理")) {
 				JSONArray JA = new JSONArray();
+				JSONObject resultJson = new JSONObject();
 				try {
-					List<People> peopleList = service.fill();
+//					List<People> peopleList = service.fill();
+					/*List<People> peopleList = service.fill(peopage, peorows);
 					System.out.println("记录条数："+peopleList.size());
 					if (peopleList.size()!=0) {
 						for (int i = 0; i < peopleList.size(); i++) {
@@ -164,8 +175,36 @@ public class ManagePeopleServlet extends HttpServlet {
 					}else {
 						OutputHelper.StringOutPut("no result",response);
 						return;
+					}*/
+					List<People> peopleList = service.fill(peopage, peorows);
+					if (peopleList.size() != 0) {
+						for (int i = 0; i < peopleList.size(); i++) {
+							JSONObject js = new JSONObject();
+							People p = peopleList.get(i);
+							js.put("id", p.getId());
+							js.put("username", p.getUsername());
+							js.put("name", p.getName());
+							js.put("teamid", p.getTeamId());
+							js.put("teamname",
+									teamidtoName.idtoname(p.getTeamId()));
+							js.put("branchid", p.getBranchId());
+							js.put("braname",
+									teamidtoName.braid2name(p.getBranchId()));
+							js.put("peoplecode", p.getCode());
+							js.put("peopRemark", p.getPeopRemark());
+							JA.add(js);
+						}
+					} else {
+						OutputHelper.StringOutPut("no result", response);
+						return;
 					}
-					this.StringOutPut(JA.toString(), response);
+					Map<String, Object> jsonMap = new HashMap<String, Object>();// 定义map
+					jsonMap.put("total", service.fill().size());// total键
+																// 存放总记录数，必须的
+					jsonMap.put("rows", JA);// rows键 存放每页记录 list
+					resultJson = JSONObject.fromObject(jsonMap);
+					this.StringOutPut(resultJson.toString(), response);
+//					this.StringOutPut(JA.toString(), response);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

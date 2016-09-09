@@ -50,6 +50,38 @@ public class BranchDao {
     }
 	
 	/**
+	 * 分页查询部门信息
+	 * @param page
+	 * @param rows
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Branch> fill(int page,int rows) throws SQLException {
+        List<Branch> list = new ArrayList<Branch>();
+//        String sql = "select * from branch";
+        String sql = "select * from branch where branch_id limit " +((page-1)*rows)+","+rows;
+        conn = DB.getConn();
+        stmt = conn.createStatement();
+        rs = stmt.executeQuery(sql);
+        Branch b = null;
+        while (rs.next()) {
+            b = new Branch();              
+            b.setId(rs.getString("branch_id"));
+            b.setBranchCode(rs.getString("branch_code"));
+            b.setBranchName(rs.getString("branch_name"));
+            b.setBranchType(rs.getString("branch_type"));
+            b.setComId(rs.getString("com_id"));
+            b.setComName(rs.getString("com_name"));
+            b.setGenerId(rs.getInt("gener_id"));
+            list.add(b);
+        }
+        rs.close();
+        stmt.close();
+        conn.close();
+        return list;
+    }
+	
+	/**
 	 * 根据Id查找部门信息
 	 * @param Id
 	 * @return

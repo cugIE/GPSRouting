@@ -21,10 +21,15 @@
     <link rel="stylesheet" type="text/css" href="assets/easyui/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="assets/easyui/themes/color.css">
     <link rel="stylesheet" type="text/css" href="css/table.css">
+    <link rel="stylesheet" type="text/css" href="css/dialog.css">
 
     <script type="text/javascript" src="assets/easyui/jquery.min.js"></script>
     <script type="text/javascript" src="assets/easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="js/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=M7TQ1t1WsazHr9whomCjQ8rP"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/library/CurveLine/1.5/src/CurveLine.min.js"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
+	<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
 </head>
 <body>
 <%
@@ -38,7 +43,7 @@
     String start = date + " 00:00";
     List<Record> recordList2 = Record.getAllRecordFromPeriod(period_id, start, end);
 %>
-<div class="easyui-panel" title="报表" style="padding: 20px; height: 800px;" data-options="iconCls:'icon-save',closable:true,tools:'#tt'">
+<div class="easyui-panel" title="报表" style="padding: 20px; height: 800px;" data-options="iconCls:'icon-save',tools:'#tt'">
 		<div style="float: left; width: 15%;">
 			<i class="fa fa-asterisk bk-padding-right-10"></i>站场： 
 			<i class="bk-padding-right-15" id="eva-record-id"><b><%=braName %></b></i>
@@ -161,7 +166,10 @@
 
 </div>
 <div id="tt">
-    <a href="javascript:void(0)" class="icon-edit" onclick="newCheck()"></a>
+	<a href="javascript:void(0)" class="icon-map" onclick="mapShow()"></a> 
+    <a href="javascript:void(0)" class="icon-edit" onclick="newCheck()"></a>  
+    <a href="javascript:void(0)" class="icon-print" onclick="tabPrint()"></a>
+       
 </div>
 <div id="add-check-dlg" class="easyui-dialog" style="width:300px;height:300px;padding:10px 20px"
      closed="true" buttons="#sheet-dlg-buttons">
@@ -182,6 +190,11 @@
 <div id="sheet-dlg-buttons">
     <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="checkAllRecord('<%=rcdid%>')">保存</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#add-check-dlg').dialog('close')">取消</a>
+</div>
+
+<div id="region-map" class="easyui-panel" style="width:600px;height:400px;padding:10px 20px"
+     closed="true">
+     <div id="allmap"></div>
 </div>
 
 <script type="text/javascript" src="js/result-data-detail.js"></script>

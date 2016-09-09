@@ -20,6 +20,10 @@ public class SystemService {
 	        LoginfoDao dao=new LoginfoDao();    
 	        return dao.fill();
 	    }
+	public List<LogInfo> fill(int page,int rows)throws SQLException {
+		LoginfoDao dao =new LoginfoDao();
+		return dao.fill(page, rows);
+	}
 	/**
 	 * 查询网站参数信息
 	 * @param Id

@@ -71,22 +71,50 @@ window.onload = function () {
          axisFormat: 'H:mm',
          height:'470px',
          weekMode:'variable',
-//        
-         
-         events: {
+
+        /* events: {
         	 url:'MonthDataServlet',
-//        	 url:'MonthDataServlet?sheet_id='+sheet_id,
         	 type:'POST',
         	 data:{
-//        		 	nowDate:$('#calendar').fullCalendar('getDate'),
+        		 	startDate:$('#calendar').fullCalendar('getView').start,
         		 	sheet_id:sheet_id
         	 },
         	 error: function() {  
                  alert('there was an error while fetching events!');  
-             },  
+             },               
              color:'white',// 背景色  
              textColor:'black'// 文字颜色
-            
+         }*/
+         
+         events: function(start,end,callback) {
+//        	 color:'white';// 背景色  
+//             textColor:'black';// 文字颜色
+        	 $.ajax({
+        		 url:'MonthDataServlet',
+//        		 type:'POST',
+        		 dataType: 'json',
+                 data: {
+                     // ourhypothetical feed requires UNIX timestamps
+                	 sheet_id:sheet_id,
+//                     start:Math.round(start.getTime() / 1000),
+                	 start:start.getTime(),
+                     end: end.getTime()
+                 },
+                                              
+                 success:function(doc) {
+                    var events =[];
+                    $(doc).each(function() {
+                        events.push({
+                             title:$(this).attr('title'),
+                             start:$(this).attr('start'), // will be parsed
+                             color:'white',
+                             textColor:'black'
+                         });
+                     });
+                    callback(events);
+                 }
+             });
+        	 
          }
          
         /* events: [{

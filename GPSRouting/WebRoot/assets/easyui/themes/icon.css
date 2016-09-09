@@ -61,6 +61,9 @@
 .icon-man{
 	background:url('icons/man.png') no-repeat center center;
 }
+.icon-map{
+	background:url('icons/map.png') no-repeat center center;
+}
 .icon-lock{
 	background:url('icons/lock.png') no-repeat center center;
 }

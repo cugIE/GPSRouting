@@ -47,7 +47,18 @@ public class MonthDataServlet extends HttpServlet {
 
 		String sheet_id = request.getParameter("sheet_id");
 //		String nowDate =  request.getParameter("nowDate");
+		String start_date = request.getParameter("start");
+		String end_date = request.getParameter("end");
+		Long start_Time = Long.parseLong(start_date);
+		Long end_Time = Long.parseLong(end_date);
+		Date date = new Date(start_Time);
+		Date date2 = new Date(end_Time);
+		DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd"); 
 		
+		
+		System.out.println("表id："+sheet_id);
+		System.out.println("开始日期："+start_date);
+		System.out.println("结束日期："+end_date);
 		/*Date date = new Date(nowDate);
 		SimpleDateFormat dateformat1=new SimpleDateFormat("yyyy-MM-dd");
         nowDate=dateformat1.format(date);*/
@@ -82,8 +93,8 @@ public class MonthDataServlet extends HttpServlet {
 
 		Long oneDay = 1000 * 60 * 60 * 24l;
 		  
-		Long time = startTIme; 
-		Long Etime = endTime;
+		Long time = start_Time; 
+		Long Etime = end_Time;
 		JSONArray JA = new JSONArray();
 		    while (time <= Etime) {  
 		    	JSONObject js = new JSONObject();	
@@ -94,8 +105,14 @@ public class MonthDataServlet extends HttpServlet {
 		        js2 = recordTimes(df.format(d), sheet_id);
 		        timesPlan = js2.getInt("prds");
 		        timesActual = js2.getInt("records");
-		        dotsMiss = js2.getInt("missRegions");
-		        dotsUnusual = unusualDots(df.format(d),sheet_id);
+//		        dotsMiss = js2.getInt("missRegions");
+		        if(timesActual == 0){
+		        	dotsUnusual = 0;
+		        	dotsMiss = 0;
+		        }else {
+		        	dotsMiss = MissRegions(df.format(d), sheet_id);
+		        	dotsUnusual = unusualDots(df.format(d),sheet_id);
+				}
 		        System.out.println(df.format(d));  
 		        js.put("title","计划巡检："+timesPlan+"\n"+"实际巡检："+timesActual+"\n"+"当天漏检："+dotsMiss+"\n"+"发现异常："+dotsUnusual);
 		        js.put("start", df.format(d));
@@ -175,6 +192,66 @@ public class MonthDataServlet extends HttpServlet {
 	public void init() throws ServletException {
 		// Put your code here
 	}
+	public int MissRegions(String date,String sheetId)throws Exception {
+		int missRgns = 0;
+		int totalRgns = 0;
+		if (sheetId == null||date == null) {
+			return 0;
+		} else {
+			try {
+				String start = date + " 00:00";
+				String end = date + " 23:59";
+				List<Period> prds = Period.getAllPeriod(sheetId);
+				
+//				System.out.println("表id为"+sheetId+"的在时间为"+date+"时间点有"+prds.size()+"个");
+				for (int i = 0; i < prds.size(); i++) {
+					Period prd = prds.get(i);
+					List<Record> recordList = Record.getAllRecordFromPeriod(prd.getId(), start, end);//当前循环时间点已巡检区域列表
+//					System.out.println("表id为"+sheetId+"的巡检记录在"+date+"共有"+recordList.size()+"条");
+					List<PtrConnection> ptrConnectionList = PtrConnection.getAllRegion(prd.getId());//当前循环时间点所有区域
+				
+					totalRgns = ptrConnectionList.size();
+					missRgns = missRgns + (totalRgns-recordList.size());	
+					
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		}
+		return missRgns;
+	}
+	
+	public JSONObject recordTimes(String date,String sheetId)throws Exception {
+		JSONObject resultJSON = new JSONObject();
+		int periods = 0;
+		int rcds = 0;
+
+		if (sheetId == null||date== null){
+			return null;
+		}else {
+			try {
+				String start = date + " 00:00";
+				String end = date + " 23:59";
+				List<Period> prds = Period.getAllPeriod(sheetId);
+				periods = prds.size();
+
+				for (int i = 0; i < prds.size(); i++) {
+					Period prd = prds.get(i);
+					List<Record> recordList = Record.getAllRecordFromPeriod(prd.getId(), start, end);//当前循环时间点已巡检区域列表	
+					if (recordList.size() != 0) {
+						rcds++;
+					}
+				}				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}		
+			resultJSON.put("prds", periods);
+			resultJSON.put("records", rcds);
+
+			return resultJSON;
+		}
+	}
 	
 	/*public JSONObject recordTimes(String date,String sheetId)throws Exception {
 		JSONObject resultJSON = new JSONObject();
@@ -186,71 +263,6 @@ public class MonthDataServlet extends HttpServlet {
 			return null;
 		}else {
 			JSONArray JA = new JSONArray();
-			try {
-				String start = date + " 00:00";
-				String end = date + " 23:59";
-				List<Period> prds = Period.getAllPeriod(sheetId);
-				periods = prds.size();
-				System.out.println("表id为"+sheetId+"的在时间为"+date+"时间点有"+prds.size()+"个");
-				for (int i = 0; i < prds.size(); i++) {
-					JSONObject jsonObject = new JSONObject();
-					
-					Period prd = prds.get(i);
-
-					List<Record> recordList = Record.getAllRecordFromPeriod(prd.getId(), start, end);
-					System.out.println("表id为"+sheetId+"的巡检记录在"+date+"共有"+recordList.size()+"条");
-					List<PtrConnection> ptrConnectionList = PtrConnection.getAllRegion(prd.getId());
-					if (recordList.size() == 0 || ptrConnectionList.size() == 0) {
-
-						continue;
-					} else {
-						jsonObject.put("id",prd.getId());
-						jsonObject.put("shift",prd.getShift());
-						jsonObject.put("time",prd.getTime());
-						jsonObject.put("date",date);
-						String done = "";
-						String all = "";
-						for(int j=0; j< recordList.size(); j++){
-							Record rcd = recordList.get(j);
-							done = done+rcd.getRegion()+",";
-						}
-						jsonObject.put("done",done);
-						for(int j=0; j< ptrConnectionList.size(); j++){
-							Region rg = ptrConnectionList.get(j).getRegion_content();
-							all = all+rg.getName()+",";
-						}
-						jsonObject.put("all",all);
-						JA.add(jsonObject);
-						totalRgns = ptrConnectionList.size();
-						missRgns = missRgns + (totalRgns-recordList.size());						
-					}
-				}
-				JSONObject jo = new JSONObject();
-				jo.put("total", 20);
-				jo.put("rows", JA);
-				System.out.println("记录数："+JA.size());
-				rcds = JA.size();
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}		
-			resultJSON.put("prds", periods);
-			resultJSON.put("records", rcds);
-			resultJSON.put("missRegions", missRgns+totalRgns*(periods-rcds));
-			return resultJSON;
-		}
-	}*/
-	
-	public JSONObject recordTimes(String date,String sheetId)throws Exception {
-		JSONObject resultJSON = new JSONObject();
-		int periods = 0;
-		int rcds = 0;
-		int missRgns = 0;
-		int totalRgns = 0;
-		if (sheetId == null||date== null){
-			return null;
-		}else {
-			/*JSONArray JA = new JSONArray();*/
 			try {
 				String start = date + " 00:00";
 				String end = date + " 23:59";
@@ -277,7 +289,7 @@ public class MonthDataServlet extends HttpServlet {
 			resultJSON.put("missRegions", missRgns);
 			return resultJSON;
 		}
-	}
+	}*/
 
 	private int unusualDots(String date,String sheetId)throws Exception {
 		int resultDots = 0;

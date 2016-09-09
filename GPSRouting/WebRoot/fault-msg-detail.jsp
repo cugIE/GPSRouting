@@ -72,15 +72,22 @@ String basePath = request.getScheme() + "://"
 
 <br>
 <div class="easyui-panel" title="图片记录" style="padding: 10px">
-    
+    <%
+    	String[] pics = faultmsg.getFaultUrL().split(",");
+    	for(int i = 0;i<pics.length;i++){
+    %>
 
     <div style="float: left;padding: 5px;">
+    
 
-        <a href="<%=faultmsg.getFaultUrL() %>" class="thumbnail">
-            <img style="height: 150px;width: 250px;  border: 3px solid #6495ED;" src="<%=faultmsg.getFaultUrL() %>" alt="点击查看原图">
+        <a href="<%=pics[i] %>" class="thumbnail">
+            <img style="height: 150px;width: 250px;  border: 3px solid #6495ED;" src="<%=pics[i] %>" alt="点击查看原图">
         </a>
 
     </div>
+    <%
+    	}
+    %>
 
 </div>
 <br>

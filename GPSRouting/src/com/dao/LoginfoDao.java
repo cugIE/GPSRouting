@@ -41,4 +41,32 @@ public class LoginfoDao {
         conn.close();
         return list;
     }
+	
+	/**
+	 * 分页查询日志信息
+	 * @param page
+	 * @param rows
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<LogInfo> fill(int page,int rows) throws SQLException {
+        List<LogInfo> list = new ArrayList<LogInfo>();
+        String sql = "select * from syslog where LogId limit " +((page-1)*rows)+","+rows;
+        conn = DB.getConn();
+        stmt = conn.createStatement();
+        rs = stmt.executeQuery(sql);
+        LogInfo l = null;
+        while (rs.next()) {
+            l = new LogInfo();              
+            l.setId(rs.getString("LogId"));
+            l.setUsername(rs.getString("UserName"));
+            l.setCreattime(rs.getString("CreateTime"));
+            l.setMsg(rs.getString("MSG"));
+            list.add(l);
+        }
+        rs.close();
+        stmt.close();
+        conn.close();
+        return list;
+    }
 }

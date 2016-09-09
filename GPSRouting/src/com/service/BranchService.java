@@ -28,6 +28,10 @@ public class BranchService {
         BranchDao dao=new BranchDao();    
         return dao.fill();
     }
+    public List<Branch> fill(int page,int rows)throws SQLException {
+		BranchDao dao = new BranchDao();
+		return dao.fill(page, rows);
+	}
     public  Branch  fill(String  Id) throws SQLException{
         BranchDao dao=new BranchDao();    
         return dao.fill(Id);

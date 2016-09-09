@@ -1,6 +1,8 @@
 package com.servlet;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -17,6 +19,7 @@ import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 
 import com.bean.Branch;
+import com.bean.People;
 import com.service.BranchService;
 import com.util.OutputHelper;
 
@@ -123,9 +126,16 @@ public class ManageBranchServlet extends javax.servlet.http.HttpServlet implemen
          * 查詢
          */
         else if (action.equals("list")) {
+        	String page = request.getParameter("page");
+			String rows = request.getParameter("rows");
+//			System.out.print("当前页码："+page+"当前行数："+rows);
+			int brapage = Integer.parseInt(page);
+			int brarows = Integer.parseInt(rows);
+			System.out.print("当前页码："+brapage+"当前行数："+brarows);
         	JSONArray JA = new JSONArray();
+        	JSONObject resultJson = new JSONObject();
                     try {
-                            List<Branch> branchList = service.fill();
+                          /*  List<Branch> branchList = service.fill();
                             if (branchList.size()!=0) {
 								for (int i = 0; i < branchList.size(); i++) {
 									JSONObject js =  new JSONObject();
@@ -141,8 +151,31 @@ public class ManageBranchServlet extends javax.servlet.http.HttpServlet implemen
 							} else {
 								OutputHelper.StringOutPut("no result",response);
 								return;
+							}*/
+                    	List<Branch> branchList = service.fill(brapage, brarows);
+                    	if (branchList.size() != 0) {
+                    		for (int i = 0; i < branchList.size(); i++) {
+								JSONObject js =  new JSONObject();
+								Branch b = branchList.get(i);
+								js.put("id", b.getId());
+								js.put("branchName", b.getBranchName());
+								js.put("branchType", b.getBranchType());
+								js.put("branchCode", b.getBranchCode());
+								js.put("comName", b.getComName());
+								js.put("comId", b.getComId());
+								JA.add(js);
 							}
-                            this.StringOutPut(JA.toString(), response);
+    					} else {
+    						OutputHelper.StringOutPut("no result", response);
+    						return;
+    					}
+    					Map<String, Object> jsonMap = new HashMap<String, Object>();// 定义map
+    					jsonMap.put("total", service.fill().size());// total键
+    																// 存放总记录数，必须的
+    					jsonMap.put("rows", JA);// rows键 存放每页记录 list
+    					resultJson = JSONObject.fromObject(jsonMap);
+    					this.StringOutPut(resultJson.toString(), response);
+//                            this.StringOutPut(JA.toString(), response);
                             /*request.setAttribute("BranchList", branchList);
                             request.getRequestDispatcher("data-newbranch.jsp").forward(
                                     request, response);*/

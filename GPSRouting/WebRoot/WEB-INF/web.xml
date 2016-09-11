@@ -167,6 +167,11 @@
     <servlet-name>DeleteRecordServlet</servlet-name>
     <servlet-class>com.servlet.DeleteRecordServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>RecordPoiServlet</servlet-name>
+    <servlet-class>com.servlet.results.RecordPoiServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -354,6 +359,10 @@
   <servlet-mapping>
     <servlet-name>DeleteRecordServlet</servlet-name>
     <url-pattern>/DeleteRecordServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>RecordPoiServlet</servlet-name>
+    <url-pattern>/RecordPoiServlet</url-pattern>
   </servlet-mapping>
 
 

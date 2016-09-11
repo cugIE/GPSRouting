@@ -166,7 +166,7 @@
 
 </div>
 <div id="tt">
-	<a href="javascript:void(0)" class="icon-map" onclick="mapShow()"></a> 
+	<a href="javascript:void(0)" class="icon-map" onclick="mapShow('<%=rcdid%>')"></a> 
     <a href="javascript:void(0)" class="icon-edit" onclick="newCheck()"></a>  
     <a href="javascript:void(0)" class="icon-print" onclick="tabPrint()"></a>
        

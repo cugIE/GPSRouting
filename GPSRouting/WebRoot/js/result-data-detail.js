@@ -11,8 +11,11 @@ function newCheck() {
     $('#add-check-dlg').dialog('open').dialog('setTitle','审核');
 }
 
-function mapShow(){
-	$('#region-map').panel('open').panel('setTitle',"巡检轨迹");
+function mapShow(record_id){
+//	$('#region-map').panel('open').panel('setTitle',"巡检轨迹");
+	if(record_id){
+		parent.addTab("巡检轨迹",'RecordPoiServlet?recordId='+record_id);
+	}
 }
 
 function checkAllRecord(record_id){

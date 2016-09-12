@@ -43,7 +43,7 @@
     String start = date + " 00:00";
     List<Record> recordList2 = Record.getAllRecordFromPeriod(period_id, start, end);
 %>
-<div class="easyui-panel" title="报表" style="padding: 20px; height: 800px;" data-options="iconCls:'icon-save',tools:'#tt'">
+<div id="record" class="easyui-panel" title="报表" style="padding: 20px; height: 800px;" data-options="iconCls:'icon-save',tools:'#tt'">
 		<div style="float: left; width: 15%;">
 			<i class="fa fa-asterisk bk-padding-right-10"></i>站场： 
 			<i class="bk-padding-right-15" id="eva-record-id"><b><%=braName %></b></i>
@@ -64,7 +64,7 @@
                    巡检人：
                     <i class="bk-padding-right-15" ><b><%Record rcdRecord = recordList2.get(0);out.print(rcdRecord.getGener()); %></b></i>
                 </div>
-          <div style="float: left; width: 20%;">
+          <div style="float: left; width: 15%;">
                     <i class="fa fa-database bk-padding-right-10"></i>审核状态：
                     
                     <i class="bk-padding-right-15" ><b>
@@ -83,7 +83,17 @@
                     		}
                     %></b></i>
                 </div>
-	<table class="imagetable"  cellspacing="0" style="margin-top:30px">
+                <div id="export" style="float: left; width: 5%;">
+                	<a data-type="xls" href="javascript:;">导出</a>
+                </div>
+    <!-- <div id="export">
+		<a data-type="json" href="javascript:;">导出json</a>
+		<a data-type="txt" href="javascript:;">导出txt</a>
+		<a data-type="csv" href="javascript:;">导出csv</a>
+		<a data-type="xls" href="javascript:;">导出excel</a>
+		<a data-type="doc" href="javascript:;">导出word</a>
+	</div>   -->          
+	<table id="table2" class="imagetable"  cellspacing="0" style="margin-top:30px">
     <thead>
     <tr>
         <th>巡检区域</th>
@@ -167,10 +177,12 @@
 </div>
 <div id="tt">
 	<a href="javascript:void(0)" class="icon-map" onclick="mapShow('<%=rcdid%>')"></a> 
-    <a href="javascript:void(0)" class="icon-edit" onclick="newCheck()"></a>  
-    <a href="javascript:void(0)" class="icon-print" onclick="tabPrint()"></a>
-       
+    <a href="javascript:void(0)" class="icon-edit" onclick="newCheck()"></a>
+    <!-- <div id="export"> 
+    	<a data-type="xls" href="javascript:;" class="icon-print" ></a> 
+    </div>  -->     
 </div>
+
 <div id="add-check-dlg" class="easyui-dialog" style="width:300px;height:300px;padding:10px 20px"
      closed="true" buttons="#sheet-dlg-buttons">
     <div class="ftitle">审核</div>
@@ -198,5 +210,10 @@
 </div>
 
 <script type="text/javascript" src="js/result-data-detail.js"></script>
+<script type="text/javascript" src="js/Blob.js"></script>
+<script type="text/javascript" src="js/FileSaver.js"></script>
+<script type="text/javascript" src="js/tableExport.js"></script>
+
+
 </body>
 </html>

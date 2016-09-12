@@ -35,3 +35,12 @@ function checkAllRecord(record_id){
         });
     }
 }
+
+var $exportLink = document.getElementById('export');
+$exportLink.addEventListener('click', function(e){
+	e.preventDefault();
+	if(e.target.nodeName === "A"){
+		tableExport('table2', '巡检表', e.target.getAttribute('data-type'));
+	}
+	
+}, false);

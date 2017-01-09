@@ -33,10 +33,10 @@ function saveQuestion() {
             return $(this).form('validate');
         },
         success: function(result){
-            if (result-="error"){
+            if (result =="error"){
                 $.messager.show({
                     title: 'Error',
-                    msg: "添加错误"
+                    msg: "添加错误，检查输入是否符合规范！"
                 });
             } else {
                 $('#add-question-dlg').dialog('close');		// close the dialog

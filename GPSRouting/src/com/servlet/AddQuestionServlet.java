@@ -83,6 +83,12 @@ public class AddQuestionServlet extends HttpServlet {
 		if (gener_id == null){
 			gener_id = (String) request.getSession().getAttribute("SesId");
 		}
+		//判断输入问题是否符合规范
+		int exi = possasws.indexOf(";");
+		if (exi == -1&&possasws.equals("#") == false) {
+			OutputHelper.StringOutPut("error", response);
+			return;
+		}
 		Question qst = new Question();
 		qst.setTitle(title);
 		qst.setPossibleAsw(possasws);

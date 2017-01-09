@@ -25,13 +25,21 @@ function checkAllRecord(record_id){
             record_id : record_id,
             comment : comment
         },function(data, status){
-            if(data!="error"){
+           /* if(data!="error"){
                 alert("成功");
                 window.location.reload();
             }
             else{
                 alert("失败")
-            }
+            }*/
+        	if(data == "lowpower"){
+        		alert("您不具备审核权限，请联系管理员！");
+        	}else if(data =="error"){
+        		alert("审核失败，请检查信息是否填写完整！");
+        	}else{
+        		alert("成功");
+                window.location.reload();
+        	}
         });
     }
 }

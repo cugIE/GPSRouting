@@ -102,9 +102,6 @@
         <th>可选结果</th>
         <th>已测结果</th>
         <th>正常结果</th>
-
-
-
     </tr>
     </thead>
     <tbody>
@@ -210,9 +207,9 @@
 </div>
 
 <script type="text/javascript" src="js/result-data-detail.js"></script>
-<script type="text/javascript" src="js/Blob.js"></script>
-<script type="text/javascript" src="js/FileSaver.js"></script>
-<script type="text/javascript" src="js/tableExport.js"></script>
+<script type="text/javascript" src="assets/js/Blob.js"></script>
+<script type="text/javascript" src="assets/js/FileSaver.js"></script>
+<script type="text/javascript" src="assets/js/tableExport.js"></script>
 
 
 </body>

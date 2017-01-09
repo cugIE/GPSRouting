@@ -44,10 +44,14 @@ public class CheckRecordServlet extends HttpServlet {
 		String checker = (String) request.getSession().getAttribute("SesName");
 		int checkerTeam = (int) request.getSession().getAttribute("SesTeamId");
 		String comment = request.getParameter("comment");
-
+		System.out.println("cherkerTeam:"+checkerTeam);
 		if(index!=null){
 			try {
-				if (record_id == null || checker == null || checkerTeam > 3) {
+				if(checkerTeam > 3){
+					OutputHelper.StringOutPut("lowpower", response);
+					return;
+				}
+				if (record_id == null || checker == null) {
 					OutputHelper.StringOutPut("error", response);
 					return;
 				}

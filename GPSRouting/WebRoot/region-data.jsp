@@ -23,12 +23,12 @@
 		        rownumbers="true" fitColumns="true" singleSelect="true">
 		    <thead>
 		        <tr>
-					<th field="id" width="30"></th>
+					<th field="id" width="20">区域编号</th>
 		        	<th field="name" width="40">区域名称</th>
 					<th field="intro" width="80">区域介绍</th>
 		            <th field="branch" width="40">所属部门</th>
 		            <th field="sheet_name" width="40">所属巡检表</th>
-		            <th field="type" width="15">区域类型</th>
+		            <th field="type" width="25">区域类型</th>
 		        </tr>
 		    </thead>
 

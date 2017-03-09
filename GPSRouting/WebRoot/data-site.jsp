@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		Site site = siteService.fillsite("1");
 	%>
 	<div class="easyui-panel" title="修改网站参数" style="max-height:500px;padding:30px 250px">
-		<form action="ManageSystemServlet?action=updatesite2" method="post">
+		<form action="ManageSystemServlet?action=updatesite2&userteamid=<%=session.getAttribute("SesTeamId") %>" method="post">
 			<div style="margin-bottom:20px">
 				<div class="font-bold">网站窗口标题：</div>
 				<input type="text" id="site_title" name="site_title" class="easyui-textbox" style="width:100%;height:32px" required="true"

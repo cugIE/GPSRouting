@@ -1,14 +1,9 @@
 window.onload = function () { 
 	var data = $('#sheet-list').combobox('getData');
-//	alert("sheetlistdata:"+data);
-//	alert(JSON.stringify(data));
     if (data.length > 0) {
         $('#sheet-list').combobox('select', data[0].id);
     } 
 };
-
-/*$(document).ready(function() { */
-	/*var sheet_id = $('#sheet-list').combobox('getValue');*/
 	
 /*$('#sheet-list').combobox({
 	onSelect: function(record){
@@ -52,8 +47,8 @@ window.onload = function () {
 		    });
 	}
 });*/
-	function showResults(){
-//	$('#panelCal').panel('refresh');
+function showResults(){
+	$('#calendar').fullCalendar('destroy');
 	var sheet_id = $('#sheet-list').combobox('getValue');
     //页面加载完初始化日历 
     $('#calendar').fullCalendar({ 
@@ -87,8 +82,7 @@ window.onload = function () {
          }*/
          
          events: function(start,end,callback) {
-//        	 color:'white';// 背景色  
-//             textColor:'black';// 文字颜色
+
         	 $.ajax({
         		 url:'MonthDataServlet',
 //        		 type:'POST',
@@ -117,25 +111,12 @@ window.onload = function () {
         	 
          }
          
-        /* events: [{
-        	 id : 1,
-             title: '生日聚会',
-             start: '2016-07-05 1:00',
-             end: '2016-07-05 8:00',
-             allDay: false
-         },
-         {
-        	 id:2,
-        	 title :'全天编程',
-        	 start:'2016-07-05 2:00',
-        	 allDay:false    	 
-         }]*/
+        
     });
-	}
-    function getUrlParam(name)
-    {
-        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-        var r = window.location.search.substr(1).match(reg);  //匹配目标参数
-        if (r!=null) return unescape(r[2]); return null; //返回参数值
-    }
-/*}); */
+}
+
+function getUrlParam(name){
+	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+    if (r!=null) return unescape(r[2]); return null; //返回参数值
+}

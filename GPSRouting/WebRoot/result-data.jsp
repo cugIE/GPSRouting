@@ -19,7 +19,7 @@
 		        rownumbers="true" fitColumns="true" singleSelect="true">
 		    <thead>
 		        <tr>
-					<th field="id" width="0"></th>
+					<th field="id" width="0" hidden="hidden"></th>
 					<th field="date" width="10">日期</th>
 		        	<th field="shift" width="8">班次</th>
 					<th field="time" width="8">时间点</th>

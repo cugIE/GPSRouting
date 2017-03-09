@@ -44,6 +44,12 @@ public class ManageSystemServlet extends HttpServlet {
 			request.getRequestDispatcher("data-site.jsp").forward(
 					request, response);
 		} else if (action.equals("updatesite2")) {
+			String userTeam = request.getParameter("userteamid");
+			System.out.println("用户类型："+ userTeam);
+			if (!userTeam.equals("1")) {
+				PrintWriter out = response.getWriter();
+				out.print("修改失败，非管理人员不得修改此参数！");
+			} else {
 			String siteid = "0001";
 			String sitetitle = request.getParameter("site_title");
 			String sitead = request.getParameter("site_ad");
@@ -63,6 +69,7 @@ public class ManageSystemServlet extends HttpServlet {
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
+			}
 			}
 		}else if (action.equals("loglist")) {
 			String page = request.getParameter("page");

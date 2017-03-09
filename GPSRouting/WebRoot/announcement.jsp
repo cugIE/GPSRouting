@@ -32,7 +32,7 @@ String basePath = request.getScheme() + "://"
 		  
 		    <thead>
 		        <tr>
-		        	<th field="id" width="20" >#</th>
+		        	<th field="id" width="20" hidden="hidden">#</th>
 		            <th field="title" width="20" >标题</th>
 		            <th field="content" width="20" >内容</th>
 		            <th field="time" width="20" >发布时间</th>

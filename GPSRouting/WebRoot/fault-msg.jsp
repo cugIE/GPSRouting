@@ -27,7 +27,7 @@ String basePath = request.getScheme() + "://"
 		        rownumbers="true" fitColumns="true" singleSelect="true">
 		    <thead>
 		        <tr>
-		        	<th field="id" width="25">#</th>
+		        	<th field="id" width="25" hidden="hidden">#</th>
 		        	<th field="title" width="25">故障标题</th>
 		        	<th field="time" width="25">故障时间</th>
 		        	<th field="generName" width="25">上报人</th>
